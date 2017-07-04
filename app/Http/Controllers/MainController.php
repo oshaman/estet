@@ -3,11 +3,13 @@
 namespace Fresh\Estet\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
 
 class MainController extends Controller
 {
     public function index()
     {
-        dd('test');
+        $sql = DB::select('SELECT * FROM `news`');
+        dump($sql);
     }
 }
