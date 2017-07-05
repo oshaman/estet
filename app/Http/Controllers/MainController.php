@@ -9,7 +9,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $sql = DB::select('SELECT * FROM `news`');
+        $sql = DB::select('SELECT * FROM `users`');
         dump($sql);
     }
 }

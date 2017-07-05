@@ -7,9 +7,9 @@ use Fresh\Estet\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
-use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
-use Fresh\Estet\SendVerificationEmail;
+use Illuminate\Auth\Events\Registered;
+use Fresh\Estet\Jobs\SendVerificationEmail;
 
 class RegisterController extends Controller
 {
@@ -52,7 +52,6 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
@@ -67,14 +66,11 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            ‘name’ => $data[‘name’],
-            ‘email’ => $data[‘email’],
-            ‘password’ => bcrypt($data[‘password’]),
-            ‘email_token’ => base64_encode($data[‘email’])
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+            'email_token' => str_random(64)
         ]);
     }
-
-
     /**
      * Handle a registration request for the application.
      *
@@ -86,7 +82,7 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
         event(new Registered($user = $this->create($request->all())));
         dispatch(new SendVerificationEmail($user));
-        return view(‘verification’);
+        return view('auth.verification');
     }
     /**
      * Handle a registration request for the application.
@@ -94,14 +90,21 @@ class RegisterController extends Controller
      * @param $token
      * @return \Illuminate\Http\Response
      */
-    public function verify($token)
+    public function verify($token, Request $request)
     {
-        $user = User::where(‘email_token’,$token)->first();
+        $user = User::where('email_token',$token)->first();
+        if (!$user) {
+            $request->session()->flash('status', 'wrong_token');
+            return view('auth.emailconfirm_resend');
+        }
+        if (1 == $user->verified) {
+            $request->session()->flash('status', 'You are already confirmed');
+            return view('auth.emailconfirm');
+        }
         $user->verified = 1;
         if($user->save()){
-            return view(‘emailconfirm’,[‘user’=>$user]);
+            $request->session()->flash('status', 'Confirmed');
+            return view('auth.emailconfirm', ['status'=>'confirm']);
         }
     }
-
-
 }

@@ -29,8 +29,8 @@ class EmailVerification extends Mailable
      */
     public function build()
     {
-        return $this->view(config('settings.theme') . ‘.email.email_verification’)->with([
-            ‘email_token’ => $this->user->email_token,
+        return $this->view(config('settings.theme') . '.email.email_verification')->with([
+            'email_token' => $this->user->email_token,
         ]);
     }
 }

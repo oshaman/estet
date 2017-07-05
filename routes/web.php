@@ -17,6 +17,7 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::match(['get', 'post'],'/resend', ['uses'=>'Auth\ResendTokenController@index', 'as'=>'resend_activation']);
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');
 
 Route::get('/logout', 'Auth\LoginController@logout');

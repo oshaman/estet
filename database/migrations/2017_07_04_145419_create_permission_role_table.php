@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePermissionsRoleTable extends Migration
+class CreatePermissionRoleTable extends Migration
 {
     /**
      * Run the migrations.
@@ -27,6 +27,6 @@ class CreatePermissionsRoleTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExist('permission_role');
+        Schema::dropIfExists('permission_role');
     }
 }
