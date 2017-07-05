@@ -10,6 +10,7 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
 use Illuminate\Auth\Events\Registered;
 use Fresh\Estet\Jobs\SendVerificationEmail;
+use Fresh\Estet\Jobs\SendUserAddEmail;
 
 class RegisterController extends Controller
 {
@@ -103,6 +104,7 @@ class RegisterController extends Controller
         }
         $user->verified = 1;
         if($user->save()){
+            dispatch(new SendUserAddEmail($user->id));
             $request->session()->flash('status', 'Confirmed');
             return view('auth.emailconfirm', ['status'=>'confirm']);
         }
