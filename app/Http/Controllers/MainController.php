@@ -10,6 +10,6 @@ class MainController extends Controller
     public function index()
     {
         $sql = DB::select('SELECT * FROM `users`');
-        dump($sql);
+        return view('main')->with('users', $sql);
     }
 }

@@ -1,5 +1,6 @@
 @extends('layouts.app')
 @section('content')
+<div class="container">
     <div class=”container”>
         @if (count($errors) > 0)
             <div class="contact-form">
@@ -25,4 +26,5 @@
         </div>
     </div>
     </div>
+</div>
 @endsection
