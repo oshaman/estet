@@ -40,6 +40,9 @@ class Kernel extends HttpKernel
             'throttle:60,1',
             'bindings',
         ],
+        'admin' => [
+            \Fresh\Estet\Http\Middleware\AdminMiddleware::class,
+        ],
     ];
 
     /**

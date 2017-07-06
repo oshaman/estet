@@ -1,5 +1,4 @@
-@extends('layouts.app')
-
+@extends('/../layouts/app')
 @section('content')
     <div class="container">
         <div class="row">
@@ -17,18 +16,12 @@
                         <p class="success">{{ session('status') }}</p>
                     </div>
                 @endif
-                <div class="panel panel-default">
-                    @if( Auth::check() &&  Auth::user()->verified !== 1)
-                        <div class="panel-heading ">
-                            <span class="label label-warning">Confirm your email.</span>
-                            <button class="btn btn-error"><a href="{{route('resend_activation')}}">ResendActivation</button>
-                        </div>
-                    @endif
-                    <div class="panel-heading">Dashboard</div>
 
-                    <div class="panel-body">
-                        You are logged in!
-                    </div>
+                    <img src="{{ asset('estet') . '/img/404.png' }}" class=".img-thumbnail">
+
+                    <a class="btn btn-link" href="{{ route('main') }}">
+                        GO Main
+                    </a>
                 </div>
             </div>
         </div>

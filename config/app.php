@@ -179,6 +179,8 @@ return [
         Fresh\Estet\Providers\EventServiceProvider::class,
         Fresh\Estet\Providers\RouteServiceProvider::class,
 
+        'Lavary\Menu\ServiceProvider',
+
     ],
 
     /*
@@ -230,6 +232,7 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'Menu'       => 'Lavary\Menu\Facade',
 
     ],
 

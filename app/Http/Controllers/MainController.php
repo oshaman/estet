@@ -4,12 +4,16 @@ namespace Fresh\Estet\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
+use Auth;
+use Fresh\Estet\User;
 
 class MainController extends Controller
 {
     public function index()
     {
-        $sql = DB::select('SELECT * FROM `users`');
+        $sql = DB::select('SELECT * FROM `roles`');
+
+
         return view('main')->with('users', $sql);
     }
 }

@@ -26,4 +26,45 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     *  Get the role associated with the user.
+     */
+
+    public function roles()
+    {
+        return $this->belongsToMany('Fresh\Estet\Role','role_user');
+    }
+
+    /**
+     *
+     *  set $requre = true if all of permissions has to be checked
+     */
+
+    public function canDo($permission, $require = FALSE)
+    {
+        if(is_array($permission)) {
+            foreach($permission as $permName) {
+
+                $permName = $this->canDo($permName);
+                if($permName && !$require) {
+                    return TRUE;
+                }
+                else if(!$permName && $require) {
+                    return FALSE;
+                }
+            }
+            return  $require;
+        }
+        else {
+            foreach($this->roles as $role) {
+                foreach($role->perms as $perm) {
+                    if(str_is($permission,$perm->name)) {
+                        return TRUE;
+                    }
+                }
+            }
+        }
+    }
+
 }
