@@ -15,23 +15,42 @@
             <p class="success">{{ session('status') }}</p>
         </div>
     @endif
-    <h2>Resend confirmation</h2>
-    <div class="col-md-6">
-    {!! Form::open([
-        'route' => 'resend_activation',
-        'class' => 'contact-form',
-        'method' => 'POST',
-        'enctype' => 'multipart/form-data',
-        'novalidate'=>'',
-    ]) !!}
-    {{ csrf_field() }}
-    <h4>{!! Form::label('email', 'Email') !!}</h4>
-    {!! Form::text('email', null,['class' => 'form-control']) !!}
-    <!-- Submit -->
-    {!! Form::button('Send', ['class' => 'btn btn-primary','type'=>'submit']) !!}
-    {!! Form::close() !!}
-    <h3>Or</h3>
-    <a href="{{route('login')}}">Login</a>
-    </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="panel panel-default">
+                    <div class="panel-heading">Resend confirmation</div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" method="POST" action="{{ route('resend_activation') }}">
+                            {{ csrf_field() }}
+
+                            <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                <label for="email" class="col-md-4 control-label">E-Mail Address</label>
+
+                                <div class="col-md-6">
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+
+                                    @if ($errors->has('email'))
+                                        <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-6 col-md-offset-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        Send
+                                    </button>
+                                    <a href="{{ route('login')  }}" class="btn btn-link">
+                                        Login
+                                    </a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 @endsection

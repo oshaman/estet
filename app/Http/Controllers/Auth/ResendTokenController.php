@@ -18,6 +18,7 @@ class ResendTokenController extends Controller
             $request->session()->flash('status', 'You are already confirmed');
             return redirect('home');
         }
+
         if ($request->isMethod('post')) {
             $this->validator($request->only('email'))->validate();
             $user = User::where('email',$request->email)->first();
@@ -29,7 +30,7 @@ class ResendTokenController extends Controller
             if($user->save()){
                 $request->session()->flash('status', 'An email is resend.');
                 dispatch(new SendVerificationEmail($user));
-                return view('auth.verification');
+                return redirect()->route('login');
             }
         } else {
             return view('auth.emailconfirm_resend');

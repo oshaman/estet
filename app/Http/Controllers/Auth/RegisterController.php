@@ -96,7 +96,7 @@ class RegisterController extends Controller
         $user = User::where('email_token',$token)->first();
         if (!$user) {
             $request->session()->flash('status', 'wrong_token');
-            return view('auth.emailconfirm_resend');
+            return redirect()->route('resend_activation');
         }
         if (1 == $user->verified) {
             $request->session()->flash('status', 'You are already confirmed');

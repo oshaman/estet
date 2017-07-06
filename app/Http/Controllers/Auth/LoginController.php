@@ -27,7 +27,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '\home';
+    protected $redirectTo = 'home';
 
     /**
      * Create a new controller instance.
@@ -44,11 +44,4 @@ class LoginController extends Controller
 //        return $request->only($this->username(), 'password');
         return ['email' => $request->{$this->username()}, 'password' => $request->password, 'verified' => 1];
     }
-    /*public function authenticate()
-    {
-        dd($email);
-        if (Auth::attempt(['email' => $email, 'password' => $password, 'verified' => 1])) {
-            return redirect()->route('home');
-        }
-    }*/
 }

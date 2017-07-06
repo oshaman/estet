@@ -51,6 +51,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     Register
                                 </button>
+                                <a href="{{ route('resend_activation')  }}" class="btn btn-link">
+                                    Resend Activation
+                                </a>
                             </div>
                         </div>
                     </form>
