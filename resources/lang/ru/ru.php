@@ -27,4 +27,8 @@ return [
     'email' => 'Почта',
     'password' => 'Пароль',
     'cpassword' => 'Повтор пароля',
+    /**
+     *  Menu
+     */
+    'profile' => 'Профиль',
 ];

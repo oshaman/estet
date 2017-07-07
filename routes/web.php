@@ -13,6 +13,10 @@
 
 Route::get('/', ['uses'=>'MainController@index', 'as'=>'main']);
 Route::get('/home', 'HomeController@index')->name('home');
+/**
+ *  Profile
+ */
+Route::match(['get', 'post'], '/profile', 'ProfileController@index')->middleware('auth')->name('profile');
 
 /**
  *  Admin panel

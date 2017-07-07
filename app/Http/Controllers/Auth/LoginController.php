@@ -48,7 +48,8 @@ class LoginController extends Controller
         if($user->hasRole('admin') || $user->hasRole('moderator')) {
             return redirect('admin');
         }
-        return redirect(Session::get('backUrl') ? Session::get('backUrl') :   'home');
+
+        return redirect()->intended('home');
     }
 
     protected function credentials(Request $request)
