@@ -6,6 +6,8 @@ use Fresh\Estet\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\URL;
 
 class LoginController extends Controller
 {
@@ -27,7 +29,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = 'home';
+    protected $decayMinutes = 30;
 
     /**
      * Create a new controller instance.
@@ -37,6 +39,16 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+        Session::put('backUrl', URL::previous());
+    }
+
+    protected function authenticated($request=null, $user)
+    {
+
+        if($user->hasRole('admin') || $user->hasRole('moderator')) {
+            return redirect('admin');
+        }
+        return redirect(Session::get('backUrl') ? Session::get('backUrl') :   'home');
     }
 
     protected function credentials(Request $request)

@@ -38,13 +38,13 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        $id = (isset($this->route()->parameter('user_id')->id)) ? $this->route()->parameter('user_id')->id . ',id' : '';
+        /*$id = (isset($this->route()->parameter('user_id')->id)) ? $this->route()->parameter('user_id')->id . ',id' : '';
         if ($this->isMethod('post')) {
             return [
                 'role_id' => 'required|array',
                 'email' => 'required|email|max:255|unique:users,email,'.$id
             ];
-        }
+        }*/
         return [];
     }
 }

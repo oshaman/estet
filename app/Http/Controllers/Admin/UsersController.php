@@ -48,14 +48,13 @@ class UsersController extends AdminController
         if (Gate::denies('ADMIN_USERS')) {
             abort(404);
         }
-
-        $this->title =  trans('admin.user_edit') .' - '. $user->name;
+        $this->title =  trans('admin.user_edit') .' - '. $user->email;
 
         $roles = $this->getRoles()->reduce(function ($returnRoles, $role) {
             $returnRoles[$role->id] = $role->name;
             return $returnRoles;
         }, []);
-        $this->content = view('admin.users.edit_content')->with(['roles'=>$roles,'user'=>$user])->render();
+        $this->content = view('admin.users.edit')->with(['roles'=>$roles,'user'=>$user])->render();
 
         return $this->renderOutput();
     }
@@ -67,6 +66,9 @@ class UsersController extends AdminController
      */
     public function destroy(User $user)
     {
+        if (Gate::denies('ADMIN_USERS')) {
+            abort(404);
+        }
         $result = $this->us_rep->deleteUser($user);
         if(is_array($result) && !empty($result['error'])) {
             return back()->with($result);

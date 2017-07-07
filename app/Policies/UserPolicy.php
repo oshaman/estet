@@ -33,7 +33,7 @@ class UserPolicy
 
     public function edit(User $user)
     {
-        return $user->can('EDIT_USERS');
+        return $user->can('ADMIN_USERS');
     }
     /**
      * Determine whether the user can delete the user.

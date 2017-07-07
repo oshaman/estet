@@ -104,8 +104,9 @@ class RegisterController extends Controller
         }
         $user->verified = 1;
         if($user->save()){
-            dispatch(new SendUserAddEmail($user->id));
+//            dispatch(new SendUserAddEmail($user->id));
             $request->session()->flash('status', 'Confirmed');
+            $this->guard()->login($user);
             return view('auth.emailconfirm', ['status'=>'confirm']);
         }
     }

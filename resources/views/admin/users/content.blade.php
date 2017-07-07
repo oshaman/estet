@@ -1,5 +1,5 @@
 <!-- START CONTENT -->
-<div id="container" class="group">
+<div class="container">
     @if (count($errors) > 0)
         <div class="alert alert-danger">
             <p class="error">
@@ -14,12 +14,12 @@
             {{ session('status') }}
         </div>
     @endif
-    <div class="page type-page status-publish hentry group">
         <table class="table">
             <thead>
             <th>ID</th>
             <th>{{ trans('ru.email') }}</th>
             <th>{{ trans('admin.roles') }}</th>
+            <th>{{ trans('admin.edit_btn') }}</th>
             <th>{{ trans('admin.delete') }}</th>
             </thead>
             <tbody>
@@ -30,8 +30,12 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->roles->implode('name', ', ') }}</td>
                         <td>
+                            {!! Form::open(['url' => route('user_update',['users'=> $user->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                            {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
+                            {!! Form::close() !!}
+                        <td>
                             {!! Form::open(['url' => route('delete_user',['users'=> $user->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
-                            {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-french-5','type'=>'submit']) !!}
+                            {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
                             {!! Form::close() !!}
                         </td>
                     </tr>
@@ -40,30 +44,28 @@
             @endif
             </tbody>
         </table>
-
-    </div>
     <!--PAGINATION-->
 
     <div class="general-pagination group">
 
         @if($users->lastPage() > 1)
-
+            <ul class="pagination">
             @if($users->currentPage() !== 1)
-                <a href="{{ $users->url(($users->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a>
+                <li><a href="{{ $users->url(($users->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>
             @endif
 
             @for($i = 1; $i <= $users->lastPage(); $i++)
                 @if($users->currentPage() == $i)
-                    <a class="selected disabled">{{ $i }}</a>
+                    <li><a class="selected disabled">{{ $i }}</a></li>
                 @else
-                    <a href="{{ $users->url($i) }}">{{ $i }}</a>
+                    <li><a href="{{ $users->url($i) }}">{{ $i }}</a></li>
                 @endif
             @endfor
 
             @if($users->currentPage() !== $users->lastPage())
-                <a href="{{ $users->url(($users->currentPage() + 1)) }}">{{ Lang::get('pagination.next') }}</a>
+                <li><a href="{{ $users->url(($users->currentPage() + 1)) }}">{{ Lang::get('pagination.next') }}</a></li>
             @endif
-
+            </ul>
 
         @endif
 

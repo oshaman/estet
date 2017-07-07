@@ -13,7 +13,9 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
+    'failed' => 'Ошибка ввода либо учетная запись не активирована.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'resend_activation' => 'Повторить активацию',
+    'confirm_activation' => 'Подтвердите активацию',
 
 ];

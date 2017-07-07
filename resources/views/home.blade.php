@@ -20,8 +20,12 @@
                 <div class="panel panel-default">
                     @if( Auth::check() &&  Auth::user()->verified !== 1)
                         <div class="panel-heading ">
-                            <span class="label label-warning">Confirm your email.</span>
-                            <button class="btn btn-error"><a href="{{route('resend_activation')}}">ResendActivation</button>
+                            <div class="alert alert-warning">
+                                {{ trans('auth.confirm_activation') }}
+                            </div>
+                            <a href="{{ route('resend_activation')  }}" class="btn btn-link">
+                                {{ trans('auth.resend_activation') }}
+                            </a>
                         </div>
                     @endif
                     <div class="panel-heading">Dashboard</div>

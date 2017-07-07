@@ -11,7 +11,7 @@ class MainController extends Controller
 {
     public function index()
     {
-        $sql = DB::select('SELECT * FROM `roles`');
+        $sql = DB::select('SELECT * FROM `users`');
 
 
         return view('main')->with('users', $sql);

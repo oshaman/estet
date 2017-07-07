@@ -52,7 +52,7 @@
                                     Register
                                 </button>
                                 <a href="{{ route('resend_activation')  }}" class="btn btn-link">
-                                    Resend Activation
+                                    {{ trans('auth.resend_activation') }}
                                 </a>
                             </div>
                         </div>

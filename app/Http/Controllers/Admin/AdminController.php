@@ -43,8 +43,12 @@ class AdminController extends Controller
 
             $menu->add(trans('ru.home'),  array('route'  => 'main'));
 
-            if(Gate::allows('ADMIN_USERS')){
+            if(Gate::allows('EDIT_PERMS')){
                 $menu->add(trans('ru.permissions'),  array('route'  => 'permissions'));
+            }
+
+            if(Gate::allows('ADMIN_USERS')){
+                $menu->add(trans('ru.users'),  array('route'  => 'users'));
             }
             /*  if(Gate::allows('UPDATE_ARTICLES')) {
                  $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));

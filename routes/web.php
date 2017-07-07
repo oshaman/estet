@@ -17,6 +17,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  *  Admin panel
  */
+
+
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', ['uses' => 'Admin\IndexController@index', 'as' => 'admin']);
     /**
@@ -25,8 +27,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', ['uses' => 'Admin\UsersController@index', 'as' => 'users']);
-        Route::match(['get', 'post'], 'edit/{user_id}', ['uses' => 'Admin\UsersController@edit', 'as' =>'user_update'])->where('user_id', '[0-9]+');
-        Route::get('del/{user_id}', ['uses'=>'Admin\UsersController@destroy', 'as'=>'delete_user'])->where('user_id', '[0-9]+');
+        Route::match(['get', 'post'], 'edit/{user}', ['uses' => 'Admin\UsersController@edit', 'as' =>'user_update'])->where('user', '[0-9]+');
+        Route::get('del/{user}', ['uses'=>'Admin\UsersController@destroy', 'as'=>'delete_user'])->where('user', '[0-9]+');
     });
     /**
      *   Admin PERMISSIONS

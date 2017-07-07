@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'email_token',
+        'email', 'password', 'email_token',
     ];
 
     /**
@@ -65,6 +65,28 @@ class User extends Authenticatable
                 }
             }
         }
+    }
+    // string  ['role1', 'role2']
+    public function hasRole($name, $require = false)
+    {
+        if (is_array($name)) {
+            foreach ($name as $roleName) {
+                $hasRole = $this->hasRole($roleName);
+                if ($hasRole && !$require) {
+                    return true;
+                } elseif (!$hasRole && $require) {
+                    return false;
+                }
+            }
+            return $require;
+        } else {
+            foreach ($this->roles as $role) {
+                if ($role->name == $name) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
 }

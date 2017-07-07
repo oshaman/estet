@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                @if (count($errors) > 0)
+                @if (isset($errors) && count($errors) > 0)
                     <div class="contact-form">
                         <p class="error">
 

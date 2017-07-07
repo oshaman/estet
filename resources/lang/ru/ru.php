@@ -8,6 +8,8 @@ return [
      * Permissions
      */
     'permissions' => 'Привелегии',
+    'users' => 'Пользователи',
+    'roles' => 'Роли',
 
     'EDIT_PERMS' => 'Редактирование прав',
     'ADMIN_USERS' => 'Администрирование пользователей',
@@ -21,4 +23,8 @@ return [
     'author' => 'Автор',
     'moderator' => 'Модератор',
     'guest' => 'Гость',
+
+    'email' => 'Почта',
+    'password' => 'Пароль',
+    'cpassword' => 'Повтор пароля',
 ];
