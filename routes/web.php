@@ -16,7 +16,11 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  *  Profile
  */
-Route::match(['get', 'post'], '/profile', 'ProfileController@index')->middleware('auth')->name('profile');
+Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
+    Route::get('/', 'ProfileController@index')->name('profile');
+    Route::match(['get', 'post'], '/edit', 'ProfileController@update')->name('edit_profile');
+
+});
 
 /**
  *  Admin panel
