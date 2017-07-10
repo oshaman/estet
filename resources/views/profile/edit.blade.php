@@ -1,6 +1,23 @@
 @extends('/../layouts.app')
 @section('content')
 <div class="container">
+    <!-- Status -->
+    @if (count($errors) > 0)
+        <div class="alert alert-danger">
+            <p class="error">
+                @foreach ($errors->toArray() as $key=>$error)
+                {!! str_replace($key, '<strong>' . trans('admin.' . $key) . '</strong>', $error[0]) !!}</br>
+                @endforeach
+            </p>
+        </div>
+    @endif
+    @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+    @endif
+<!-- End status-->
+
     <h1>Edit profile</h1>
     {!! Form::open(['url' => route('edit_profile'), 'class'=>'form-horizontal', 'method'=>'POST']) !!}
     {{ csrf_field() }}
@@ -70,9 +87,9 @@
             </div>
         </li>
         <li class="list-group-item">
-            {{ Form::label('site', 'Услуги') }}
+            {{ Form::label('site', 'Сайт') }}
             <div>
-                {!! Form::text('site', old('site') ? : ($profile->site ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'id'=>'site', 'class'=>'form-control']) !!}
+                {!! Form::text('site', old('site') ? : ($profile->site ?? '' ), ['id'=>'site', 'class'=>'form-control']) !!}
             </div>
         </li>
         <li class="list-group-item">

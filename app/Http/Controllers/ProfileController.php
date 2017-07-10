@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use Auth;
 use Fresh\Estet\User;
-
+use Fresh\Estet\Http\Requests\TmpPersonRequest;
 use Fresh\Estet\TmpPerson;
 
 class ProfileController extends Controller
@@ -22,7 +22,7 @@ class ProfileController extends Controller
         return view('profile.index')->with('profile', $sql);
     }
 
-    public function update (Request $request)
+    public function update (TmpPersonRequest $request)
     {
 
         if ($request->isMethod('post')) {
