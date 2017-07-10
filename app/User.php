@@ -28,6 +28,15 @@ class User extends Authenticatable
     ];
 
     /**
+     *  Get the tmp_person associated with the user.
+     */
+
+    public function tmpPerson()
+    {
+        return $this->hasOne('Fresh\Estet\TmpPerson');
+    }
+
+    /**
      *  Get the role associated with the user.
      */
 

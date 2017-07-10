@@ -11,7 +11,7 @@ class SpecialtiesTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('roles')->insert(
+        DB::table('specialties')->insert(
             [
                 ['name'=>'Дерматовенеролог'],
                 ['name'=>'Гинеколог'],
