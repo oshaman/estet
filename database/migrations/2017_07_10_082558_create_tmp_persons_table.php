@@ -30,6 +30,7 @@ class CreateTmpPersonsTable extends Migration
             $table->boolean('approved')->default(false);
             $table->string('services');
             $table->string('specialty');
+            $table->string('alias')->unique();
             $table->timestamps();
 
             $table->index('approved');
