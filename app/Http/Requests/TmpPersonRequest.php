@@ -41,9 +41,10 @@ class TmpPersonRequest extends FormRequest
                 'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'expirience' => ['max:255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u', 'nullable'],
-                'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;]+$#u', 'nullable'],
-                'services' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'services' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'site' => 'string|max:255|nullable',
+                'content' => 'string|nullable',
                 'img' => 'mimes:jpg,bmp,png,jpeg,gif,svg|max:5120|nullable',
 
             ];

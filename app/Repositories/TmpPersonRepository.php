@@ -6,6 +6,9 @@ use Fresh\Estet\Repositories\Repository;
 use Fresh\Estet\TmpPerson;
 
 use Auth;
+use Config;
+use Image;
+use File;
 
 class TmpPersonRepository extends Repository {
 
@@ -16,7 +19,6 @@ class TmpPersonRepository extends Repository {
 
     public function update ($tmp_request)
     {
-//        dd($tmp_request);
         $request = $tmp_request->except('_token', 'img');
 
         if (empty($request)) {
@@ -70,7 +72,7 @@ class TmpPersonRepository extends Repository {
             $data->services = $request['services'];
         }
 
-        if ($data->alias == null) {
+        if (empty($data->alias)) {
             $data->alias = $this->transliterate($request['lastname']) . '-' . $this->transliterate($request['name']) ;
         }
 
@@ -90,38 +92,30 @@ class TmpPersonRepository extends Repository {
 
             if($image->isValid()) {
 
-                $str = substr($data['alias'], 0, 32) . '-' . time();
+                $str = substr($data->alias, 0, 32) . '-' . time();
 
                 $path = $str.'.jpg';
 
                 $img = Image::make($image);
 
-                $img->save(public_path().'/'.config('settings.theme').'/images/events/'.$path, 100);
+                $img->widen(Config::get('settings.profile_img')['width'])->save(public_path().'/'.config('settings.theme').'/img/tmp_profile/'.$path, 100);
 
-                $img->widen(Config::get('settings.events_img')['max']['width'])->save(public_path().'/'.config('settings.theme').'/images/events/'.$obj->max, 100);
+                if (!empty($data->photo)) {
+                    $old_img = $data->photo;
+                    if (File::exists(config('settings.theme').'/img/tmp_profile/'.$old_img)) {
+                        File::delete(config('settings.theme').'/img/tmp_profile/'.$old_img);
+                    }
+                }
 
-                $img->fit(Config::get('settings.events_img')['mini']['width'],
-                    Config::get('settings.events_img')['mini']['height'])->save(public_path().'/'.config('settings.theme').'/images/events/'.$obj->mini, 100);
-
-                $img->fit(Config::get('settings.events_img')['micro']['width'],
-                    Config::get('settings.events_img')['micro']['height'])->save(public_path().'/'.config('settings.theme').'/images/events/'.$obj->micro, 100);
-
-
-                $data['img'] = json_encode($obj);
+                $data->photo = $path;
             }
         }
 
-//        $this->model->fill($data);
-
-
-//        $id = $request->user()->events()->save($this->model)->id;
-//        if($id) {
-//            return ['status' => trans('admin.material_added'), 'id' => $id];
-//        }
-
-
-
-        dd($data);
+        if ($data->save()) {
+            return 'Данные отправлены на модерацию';
+        } else {
+            return 'Ошибка отправки данных';
+        }
 
     }
 }

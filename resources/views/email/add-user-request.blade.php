@@ -1,3 +1,3 @@
-<h1>Added new customer</h1>
+<h1>Добавлена анкета пользователя</h1>
 
 User ID: {{ $id }}

@@ -20,17 +20,17 @@ class CreateTmpPersonsTable extends Migration
             $table->string('lastname');
             $table->string('phone');
             $table->string('specialty');
-            $table->string('category');
-            $table->string('job');
-            $table->string('address');
-            $table->smallInteger('expirience')->unsigned();
-            $table->string('shedule');
-            $table->string('services');
+            $table->string('category')->nullable();
+            $table->string('job')->nullable();
+            $table->string('address')->nullable();
+            $table->smallInteger('expirience')->unsigned()->nullable();
+            $table->string('shedule')->nullable();
+            $table->text('services')->nullable();
             $table->string('site');
-            $table->string('content');
-            $table->string('photo');
+            $table->text('content')->nullable();
+            $table->string('photo')->nullable();
             $table->boolean('approved')->default(false);
-            $table->string('alias')->unique();
+            $table->string('alias');
             $table->timestamps();
 
             $table->index('approved');

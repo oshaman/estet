@@ -100,7 +100,7 @@
         </li>
         <li class="list-group-item">
             {{ Form::label('img', 'Фото') }}
-            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/prolile/tmp' . ($profile->img ?? '/../../no_photo.jpg') }}">
+            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
             <div>
                 {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img']) !!}
             </div>

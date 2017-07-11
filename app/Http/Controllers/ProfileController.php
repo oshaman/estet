@@ -5,6 +5,7 @@ namespace Fresh\Estet\Http\Controllers;
 use Auth;
 use Fresh\Estet\Http\Requests\TmpPersonRequest;
 use Fresh\Estet\Repositories\TmpPersonRepository;
+use Fresh\Estet\Jobs\SendUserAddEmail;
 
 class ProfileController extends Controller
 {
@@ -37,20 +38,20 @@ class ProfileController extends Controller
      */
     public function update (TmpPersonRequest $request)
     {
-
+        $id = Auth::user()->id;
         if ($request->isMethod('post')) {
 
-//            dd($request->except('_token'));
             $result = $this->tmp_rep->update($request);
 
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }
-
+            dispatch(new SendUserAddEmail($id));
+            $request->session()->flash('status', $result);
             return redirect('profile');
         }
 
-        $id = Auth::user()->id;
+
         $sql = $this->tmp_rep->findByUserId($id);
 
         return view('profile.edit')->with('profile', $sql);

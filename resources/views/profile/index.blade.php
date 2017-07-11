@@ -17,9 +17,12 @@
         </div>
     @endif
     <!-- End status-->
+    @if (!$profile->approved)
+        <span class="label label-warning">Ваши данные не проверены модератором</span>
+    @endif
     <div class="row">
         <div class="col-xs-6">
-            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/prolile/tmp' . ($profile->img ?? '/../../no_photo.jpg') }}">
+            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
         </div>
         <div class="col-xs-6">
             <div class="row">
@@ -56,7 +59,7 @@
             </div>
             <div class="row">
                 <h3>Категория:</h3>
-                {{ $profile->categoty ?? ''}}
+                {{ $profile->category ?? ''}}
                 <hr>
             </div>
             <div class="row">
