@@ -16,20 +16,20 @@ class CreateTmpPersonsTable extends Migration
         Schema::create('tmp_persons', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('user_id')->unique();
-            $table->string('address');
             $table->string('name');
             $table->string('lastname');
-            $table->string('content');
             $table->string('phone');
-            $table->string('photo');
-            $table->string('category');
-            $table->string('site');
-            $table->string('job');
-            $table->string('shedule');
-            $table->smallInteger('expirience')->unsigned();
-            $table->boolean('approved')->default(false);
-            $table->string('services');
             $table->string('specialty');
+            $table->string('category');
+            $table->string('job');
+            $table->string('address');
+            $table->smallInteger('expirience')->unsigned();
+            $table->string('shedule');
+            $table->string('services');
+            $table->string('site');
+            $table->string('content');
+            $table->string('photo');
+            $table->boolean('approved')->default(false);
             $table->string('alias')->unique();
             $table->timestamps();
 

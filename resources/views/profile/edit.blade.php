@@ -19,7 +19,7 @@
 <!-- End status-->
 
     <h1>Edit profile</h1>
-    {!! Form::open(['url' => route('edit_profile'), 'class'=>'form-horizontal', 'method'=>'POST']) !!}
+    {!! Form::open(['url' => route('edit_profile'), 'class'=>'form-horizontal', 'method'=>'POST', 'files'=>true]) !!}
     {{ csrf_field() }}
     <ul class="list-group">
         <li class="list-group-item">
@@ -89,7 +89,7 @@
         <li class="list-group-item">
             {{ Form::label('site', 'Сайт') }}
             <div>
-                {!! Form::text('site', old('site') ? : ($profile->site ?? '' ), ['id'=>'site', 'class'=>'form-control']) !!}
+                {!! Form::text('site', old('site') ? : ($profile->site ?? '' ), ['placeholder'=>'Оставьте поле пустым, чтобы использовался профиль данного сайта', 'id'=>'site', 'class'=>'form-control']) !!}
             </div>
         </li>
         <li class="list-group-item">
@@ -102,7 +102,7 @@
             {{ Form::label('img', 'Фото') }}
             <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/prolile/tmp' . ($profile->img ?? '/../../no_photo.jpg') }}">
             <div>
-                {!! Form::file('img', ['accept'=>'image/*', 'id'=>'a_img']) !!}
+                {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img']) !!}
             </div>
         </li>
     </ul>

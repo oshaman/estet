@@ -57,6 +57,12 @@ return [
     'phone' => 'Телефон',
     'specialty' => 'Специальность',
     'category'=>'Категория',
+    'job'=>'Место основной работы',
+    'address'=>'Адрес основной работы',
+    'expirience'=>'Опыт',
+    'shedule'=>'Часы приема',
+    'services'=>'Услуги',
+    'site'=>'Сайт',
     //  Permissions
     'roles' => 'Роли',
     'role' => 'Роль',

@@ -73,6 +73,13 @@ abstract class Repository {
         return $result;
     }
 
+    public function findByUserId($id, $attr = array())
+    {
+        $result = $this->model->where('user_id', $id)->first();
+
+        return $result;
+    }
+
     public function transliterate($string)
     {
         $str = mb_strtolower($string, 'UTF-8');
@@ -83,11 +90,11 @@ abstract class Repository {
             'v' => 'в',
             'g' => 'г,ґ',
             'd' => 'д',
-            'e' => 'е,є',
+            'e' => 'е,э',
+            'jo' => 'ё',
             'zh' => 'ж',
             'z' => 'з',
-            'i' => 'і',
-            'ji' => 'ї',
+            'i' => 'и',
             'j' => 'й',
             'k' => 'к',
             'l' => 'л',
@@ -105,7 +112,8 @@ abstract class Repository {
             'ch' => 'ч',
             'sh' => 'ш',
             'shch' => 'щ',
-            'y' => 'и',
+            '' => 'ъ',
+            'y' => 'ы',
             '' => 'ь',
             'yu' => 'ю',
             'ya' => 'я',

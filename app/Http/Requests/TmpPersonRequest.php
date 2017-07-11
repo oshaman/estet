@@ -3,6 +3,7 @@
 namespace Fresh\Estet\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Input;
 
 class TmpPersonRequest extends FormRequest
 {
@@ -16,42 +17,12 @@ class TmpPersonRequest extends FormRequest
         return \Auth::user()->id;
     }
 
-    protected function getValidatorInstance()
+    /*protected function getValidatorInstance()
     {
         $validator = parent::getValidatorInstance();
 
-        /*$validator->sometimes('alias','unique:articles|max:246|alpha_dash', function ($input) {
-
-            if ($this->route()->hasParameter('id')) {
-                $model = $this->route()->parameter('id');
-                if (null === $model) return true;
-                return ($model->alias !== $input->alias)  && !empty($input->alias);
-            }
-
-            return !empty($input->alias);
-
-        });*/
-
-        /*$validator->sometimes('outputtime','date', function($input) {
-
-            return !empty($input->outputtime);
-
-        });
-
-        $validator->sometimes('phone',array('required', 'between:4,255', 'regex:#^[0-9()\,\-\s]+$#'), function() {
-
-            return true;
-
-        });
-        */
-        $validator->sometimes('category',array('string', 'max:255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9_\,\-\s\;]+$#u'), function($input) {
-
-            return !empty($input->category);
-
-        });
-
         return $validator;
-    }
+    }*/
 
     /**
      * Get the validation rules that apply to the request.
@@ -62,11 +33,19 @@ class TmpPersonRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'name' => 'required|string|alpha_dash|between:4,255',
-                'lastname' => 'required|string|alpha_dash|between:4,255',
-                'phone' => 'required|between:4,255|string',
-                'specialty' => 'required|max:60|string|alpha_dash|between:4,255',
-                'img' => 'image|max:5120|nullable',
+                'name' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
+                'lastname' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
+                'phone' => ['required', 'between:4,255', 'regex:#^[0-9()\,\-\s\+]+$#'],
+                'specialty' => ['required', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u'],
+                'category' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;\.]+$#u', 'nullable'],
+                'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'expirience' => ['max:255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u', 'nullable'],
+                'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;]+$#u', 'nullable'],
+                'services' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'site' => 'string|max:255|nullable',
+                'img' => 'mimes:jpg,bmp,png,jpeg,gif,svg|max:5120|nullable',
+
             ];
         }
         return [
