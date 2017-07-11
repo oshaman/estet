@@ -23,6 +23,17 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
 });
 
 /**
+ *  Catalog
+ */
+Route::group(['prefix'=>'catalog'], function () {
+    Route::get('/', 'CatalogController@index')->name('catalog');
+    Route::get('/vrachi/{doc?}', 'CatalogController@docs')->name('docs')->where('doc', '[a-zA-Z0-9-_]+');
+    Route::get('/kliniki/{clinic?}', 'CatalogController@clinics')->name('clinics')->where('clinic', '[a-zA-Z0-9-_]+');
+    Route::get('/salony/{salon?}', 'CatalogController@salons')->name('salons')->where('salon', '[a-zA-Z0-9-_]+');
+    Route::get('/brendy/{brand?}', 'CatalogController@brands')->name('brands')->where('brand', '[a-zA-Z0-9-_]+');
+});
+
+/**
  *  Admin panel
  */
 

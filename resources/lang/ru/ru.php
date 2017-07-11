@@ -31,4 +31,8 @@ return [
      *  Menu
      */
     'profile' => 'Профиль',
+    /**
+     * Catalog
+     */
+    'doce' => 'враче'
 ];

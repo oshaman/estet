@@ -38,7 +38,7 @@ class TmpPersonRequest extends FormRequest
                 'phone' => ['required', 'between:4,255', 'regex:#^[0-9()\,\-\s\+]+$#'],
                 'specialty' => ['required', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u'],
                 'category' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;\.]+$#u', 'nullable'],
-                'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.\"]+$#u', 'nullable'],
                 'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'expirience' => ['max:255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u', 'nullable'],
                 'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],

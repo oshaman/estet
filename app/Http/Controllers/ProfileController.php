@@ -42,7 +42,6 @@ class ProfileController extends Controller
         if ($request->isMethod('post')) {
 
             $result = $this->tmp_rep->update($request);
-
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }

@@ -36,7 +36,15 @@
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        &nbsp;
+                        &nbsp;<li class="dropdown">
+                            <a href="{{ route('catalog') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Каталог<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('docs') }}">Врачи</a></li>
+                                <li><a href="{{ route('clinics') }}">Клиники</a></li>
+                                <li><a href="{{ route('salons') }}">Салоны</a></li>
+                                <li><a href="{{ route('brands') }}">Бренды</a></li>
+                            </ul>
+                        </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
