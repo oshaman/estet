@@ -33,6 +33,7 @@
                             {!! Form::open(['url' => route('user_update',['users'=> $user->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                             {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                             {!! Form::close() !!}
+                        </td>
                         <td>
                             {!! Form::open(['url' => route('delete_user',['users'=> $user->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                             {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}

@@ -50,6 +50,10 @@ class AdminController extends Controller
             if(Gate::allows('ADMIN_USERS')){
                 $menu->add(trans('ru.users'),  array('route'  => 'users'));
             }
+
+            if(Gate::allows('EDIT_USERS')){
+                $menu->add(trans('ru.profiles'),  array('route'  => 'admin_profile'));
+            }
             /*  if(Gate::allows('UPDATE_ARTICLES')) {
                  $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));
              }
@@ -57,13 +61,6 @@ class AdminController extends Controller
             if(Gate::allows('UPDATE_EVENTS')) {
                  $menu->add(trans('ua.history'), array('route' => 'admin_events'))->prepend('<i class="icon-calendar"></i>');
              }
-
-
-
-             if(Gate::allows('EDIT_USERS')){
-                 $menu->add(trans('ua.users'),  array('route'  => 'users'))->prepend('<i class="icon-user"></i>');
-             }
-
 
              if(Gate::allows('CONFIRMATION_DATA')){
                  $menu->add(trans('ua.selection'),  array('route'  => 'selection'))->prepend('<i class="icon-file"></i>');

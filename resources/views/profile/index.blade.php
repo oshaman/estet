@@ -17,7 +17,7 @@
         </div>
     @endif
     <!-- End status-->
-    @if (!$profile->approved)
+    @if (empty($profile->approved))
         <span class="label label-warning">Ваши данные не проверены модератором</span>
     @endif
     <div class="row">

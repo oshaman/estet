@@ -16,6 +16,10 @@ class CatalogController extends Controller
         return view('catalog.index')->with('title', $this->title);
     }
 
+    /**
+     * @param alias $doc
+     * @return view
+     */
     public function docs ($doc = false)
     {
         if ($doc) {
@@ -32,16 +36,31 @@ class CatalogController extends Controller
         $profiles = $docs->get(['name', 'lastname', 'specialty', 'address', 'photo', 'job','alias'], false, true);
         return view('catalog.index')->with(['title' => $this->title, 'profiles' => $profiles]);
     }
+
+    /**
+     * @param alias $clinic
+     * @return view
+     */
     public function clinics ($clinic = false)
     {
         $this->title = 'Клиники';
         return view('catalog.index')->with('title', $this->title);
     }
+
+    /**
+     * @param alias $salon
+     * @return view
+     */
     public function salons ($salon = false)
     {
         $this->title = 'Салоны';
         return view('catalog.index')->with('title', $this->title);
     }
+
+    /**
+     * @param alias $brand
+     * @return $this
+     */
     public function brands ($brand = false)
     {
         $this->title = 'Бренды';

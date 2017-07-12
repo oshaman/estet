@@ -42,7 +42,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', ['uses' => 'Admin\IndexController@index', 'as' => 'admin']);
     /**
      *   Admin USERS
-     *
      */
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', ['uses' => 'Admin\UsersController@index', 'as' => 'users']);
@@ -51,9 +50,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     });
     /**
      *   Admin PERMISSIONS
-     *
      */
     Route::match(['get', 'post'], '/permissions', ['uses' => 'Admin\PermissionsController@index', 'as' => 'permissions']);
+    /**
+     * Admin PROFILE
+     */
+    Route::group(['prefix'=>'profile'], function () {
+        //  view profile
+        Route::match(['get', 'post'], '/', 'Admin\ProfileController@index')->name('admin_profile');
+        //  edit profile
+        Route::match(['get', 'post'], 'edit/{alias_profile?}', 'Admin\ProfileController@edit')->name('edit_profiles');
+    });
     /**
      *   Admin ARTICLES
      *

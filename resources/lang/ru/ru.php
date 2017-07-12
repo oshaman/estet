@@ -31,6 +31,7 @@ return [
      *  Menu
      */
     'profile' => 'Профиль',
+    'profiles' => 'Редактирование профилей',
     /**
      * Catalog
      */

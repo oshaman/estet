@@ -31,6 +31,8 @@ class CreatePersonsTable extends Migration
 
             $table->timestamps();
 
+            $table->index('name');
+            $table->index('lastname');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

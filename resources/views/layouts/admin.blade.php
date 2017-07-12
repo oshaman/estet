@@ -71,6 +71,20 @@
             </div>
         </nav>
         <div class="container">
+            @if (count($errors) > 0)
+                <div class="alert alert-danger">
+                    <p class="error">
+                        @foreach ($errors->toArray() as $key=>$error)
+                        {!! str_replace($key, '<strong>' . trans('admin.' . $key) . '</strong>', $error[0]) !!}</br>
+                        @endforeach
+                    </p>
+                </div>
+            @endif
+            @if (session('status'))
+                <div class="alert alert-success">
+                    {{ session('status') }}
+                </div>
+            @endif
             @yield('content')
         </div>
 

@@ -9,16 +9,19 @@ abstract class Repository {
     protected $model = false;
 
 
-    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false)
+    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false, $with = false)
     {
-
         $builder = $this->model->select($select);
 
-        if($take) {
+        if ($with) {
+            $builder->with($with);
+        }
+
+        if ($take) {
             $builder->take($take);
         }
 
-        if($where) {
+        if ($where) {
             if (is_array($where[0])) {
                 $builder->where([$where[0], $where[1]]);
             } else {
@@ -26,10 +29,9 @@ abstract class Repository {
             }
         }
 
-        if($order) {
+        if ($order) {
             $builder->orderBy($order[0], $order[1]);
         }
-
 
         if($pagination) {
             return $this->check($builder->paginate(Config::get('settings.paginate')));
