@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSpecialtyUserTable extends Migration
+class CreateSpecialtyPersonTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateSpecialtyUserTable extends Migration
      */
     public function up()
     {
-        Schema::create('specialty_user', function (Blueprint $table) {
+        Schema::create('specialty_person', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('spetialty_id')->unsigned()->default(1);
-            $table->integer('user_id')->unsigned();
+            $table->unsignedInteger('specialty_id');
+            $table->unsignedInteger('person_id');
         });
     }
 
@@ -27,6 +27,6 @@ class CreateSpecialtyUserTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('specialty_user');
+        Schema::dropIfExists('specialty_person');
     }
 }

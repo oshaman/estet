@@ -1,22 +1,5 @@
 @extends('/../layouts.app')
 @section('content')
-<div class="container">
-    <!-- Status -->
-    @if (count($errors) > 0)
-        <div class="alert alert-danger">
-            <p class="error">
-                @foreach ($errors->toArray() as $key=>$error)
-                {!! str_replace($key, '<strong>' . trans('admin.' . $key) . '</strong>', $error[0]) !!}</br>
-                @endforeach
-            </p>
-        </div>
-    @endif
-    @if (session('status'))
-        <div class="alert alert-success">
-            {{ session('status') }}
-        </div>
-    @endif
-    <!-- End status-->
     @if (empty($profile->approved))
         <span class="label label-warning">Ваши данные не проверены модератором</span>
     @endif
@@ -74,5 +57,4 @@
         {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-success','type'=>'submit']) !!}
         {!! Form::close() !!}
     </div>
-</div>
 @endsection

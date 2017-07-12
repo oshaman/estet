@@ -35,6 +35,14 @@ class User extends Authenticatable
     {
         return $this->hasOne('Fresh\Estet\TmpPerson');
     }
+     /**
+     *  Get the person associated with the user.
+     */
+
+    public function person()
+    {
+        return $this->hasOne('Fresh\Estet\Person');
+    }
 
     /**
      *  Get the role associated with the user.

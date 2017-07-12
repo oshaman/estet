@@ -9,13 +9,9 @@ abstract class Repository {
     protected $model = false;
 
 
-    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false, $with = false)
+    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false)
     {
         $builder = $this->model->select($select);
-
-        if ($with) {
-            $builder->with($with);
-        }
 
         if ($take) {
             $builder->take($take);

@@ -15,6 +15,8 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'Fresh\Estet\Permission' => 'Fresh\Estet\Policies\PermissionPolicy',
         'Fresh\Estet\User' => 'Fresh\Estet\Policies\UserPolicy',
+//        'Fresh\Estet\Person' => 'Fresh\Estet\Policies\PersonPolicy',
+//        'Fresh\Estet\Specialty' => 'Fresh\Estet\Policies\SpecialtyPolicy',
     ];
 
     /**
