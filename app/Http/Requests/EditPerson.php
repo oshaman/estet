@@ -3,9 +3,8 @@
 namespace Fresh\Estet\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Input;
 
-class TmpPersonRequest extends FormRequest
+class EditPerson extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -14,15 +13,8 @@ class TmpPersonRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::user()->id;
+        return \Auth::user()->canDo('EDIT_USERS');
     }
-
-    /*protected function getValidatorInstance()
-    {
-        $validator = parent::getValidatorInstance();
-
-        return $validator;
-    }*/
 
     /**
      * Get the validation rules that apply to the request.
@@ -36,17 +28,19 @@ class TmpPersonRequest extends FormRequest
                 'name' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
                 'lastname' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
                 'phone' => ['required', 'between:4,255', 'regex:#^[0-9()\,\-\s\+]+$#'],
-                'specialty' => ['required', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u'],
                 'category' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;\.]+$#u', 'nullable'],
                 'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.\"]+$#u', 'nullable'],
                 'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
-                'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
-                'services' => ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
-                'site' => 'string|max:255|nullable',
-                'content' => 'string|nullable',
+                'site' => 'url|max:255|nullable',
                 'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable',
                 'month'=>'regex:#^[0-9]{1,2}$#',
                 'year'=>'regex:#^[0-9]{4}$#',
+                'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'approved' => 'nullable|boolean',
+                'content' => 'string|nullable',
+
+                'specialty' => ['required', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u'],
+                'services' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
 
             ];
         }

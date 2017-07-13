@@ -20,13 +20,22 @@ class PersonsRepository extends Repository {
         }
 
         $data = $request->except('_token');
-//dd($data);
-        array_forget($data,'specialty');
-        array_forget($data,'services');
-        $this->model->updateOrCreate($data);
-//        $this->person->roles()->sync($data['specialty_id']);
 
-        return ['status' => trans('Профиль обновлен')];
+        $model = $this->model->where('user_id', $data['user_id'])->first();
+
+        array_forget($data,'specialty');
+        array_forget($data,'month');
+        array_forget($data,'year');
+        dd($data);
+        if ($model) {
+            $model->fill($data)->update();
+            return ['status' => 'Профиль обновлен'];
+        } else {
+            $this->model->updateOrCreate($data);
+            return ['status' => 'Профиль создан'];
+        }
+//        $this->person->specialies()->sync($data['specialty_id']);
+
 
     }
 }

@@ -33,7 +33,7 @@
                 </li>
 
                 <li>
-                    <h4>{!! Form::label('cpass', trans('ru.roles')) !!}</h4>
+                    <h4>{!! Form::label('roles', trans('ru.roles')) !!}</h4>
                     <table class="table">
                         @foreach($roles as $id=>$role)
                             @if($user->hasRole($role))

@@ -52,9 +52,25 @@
             </div>
         </li>
         <li class="list-group-item">
-            {{ Form::label('expirience', 'Опыт') }}
+            {{ Form::label('expirience', 'Дата начала практики') }}
             <div>
-                {!! Form::text('expirience', old('expirience') ? : ($profile->expirience ?? '' ), ['placeholder'=>'Кол-во полных лет практики', 'id'=>'expirience', 'class'=>'form-control']) !!}
+                {!! Form::select('month',
+                    [
+                        1=>'Январь',
+                        2=>'Февраль',
+                        3=>'Март',
+                        4=>'Апрель',
+                        5=>'Май',
+                        6=>'Июнь',
+                        7=>'Июль',
+                        8=>'Август',
+                        9=>'Сентябрь',
+                        10=>'Октябрь',
+                        11=>'Ноябрь',
+                        12=>'Декабрь',
+                    ], old('month') ? : ($profile->month ?? '' ), [ 'class'=>'form-control', 'placeholder'=>'Месяц'])
+                !!}
+                {!! Form::selectRange('year', 1970, 2020, old('year') ? : ($profile->year ?? '' ), ['placeholder' => 'Год', 'class'=>'form-control']) !!}
             </div>
         </li>
         <li class="list-group-item">
@@ -85,7 +101,7 @@
             {{ Form::label('img', 'Фото') }}
             <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
             <div>
-                {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img']) !!}
+                {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
             </div>
         </li>
     </ul>

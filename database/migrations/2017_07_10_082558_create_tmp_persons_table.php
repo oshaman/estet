@@ -23,7 +23,7 @@ class CreateTmpPersonsTable extends Migration
             $table->string('category')->nullable();
             $table->string('job')->nullable();
             $table->string('address')->nullable();
-            $table->smallInteger('expirience')->unsigned()->nullable();
+            $table->timestamp('expirience')->nullable();
             $table->string('shedule')->nullable();
             $table->text('services')->nullable();
             $table->string('site');

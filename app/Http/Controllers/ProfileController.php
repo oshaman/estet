@@ -25,9 +25,13 @@ class ProfileController extends Controller
         $user = Auth::user();
         $id = $user->id;
         $sql = $this->tmp_rep->findByUserId($id);
+
+        $sql->expirience = date_create()->diff(date_create($sql->expirience))->y;
+
         if ($sql) {
             $sql->email = $user->email;
         }
+
         return view('profile.index')->with('profile', $sql);
     }
 
@@ -41,6 +45,17 @@ class ProfileController extends Controller
         $id = Auth::user()->id;
         if ($request->isMethod('post')) {
 
+            if ($request->request->has('month') && $request->request->has('year')) {
+                $month = $request->request->get('month');
+                $year = $request->request->get('year');
+                if (($month < 1 || $month > 12) || (($year < 1970 || $month > 2020))) {
+                    return back()->withErrors(['Ошибка в поле Дата'])->withInput();
+                }
+                $exp = date("Y-m-d H:i:s", strtotime($year . '-' . str_pad((int)$month, 2, 0, STR_PAD_LEFT) . '-01'));
+
+                $request->request->add(['expirience'=>$exp]);
+            }
+
             $result = $this->tmp_rep->update($request);
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
@@ -52,6 +67,10 @@ class ProfileController extends Controller
 
 
         $sql = $this->tmp_rep->findByUserId($id);
+        if ($sql->expirience) {
+            $sql->month = (int)date('m', strtotime($sql->expirience));
+            $sql->year = (int)date('Y', strtotime($sql->expirience));
+        }
 
         return view('profile.edit')->with('profile', $sql);
 

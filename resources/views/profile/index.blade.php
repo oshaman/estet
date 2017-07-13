@@ -14,12 +14,30 @@
                 <hr>
             </div>
             <div class="row">
-                <h4><span>Врач: </span>{{ $profile->specialty ?? ''}}</h4>
-                <h4>Опыт: {{ $profile->expirience ?? ''}}</h4>
-                <h4>Адрес: {{ $profile->address ?? ''}}</h4>
-                <h4>Телефон: {{ $profile->phone ?? ''}}</h4>
-                <h4>E-mail: {{ $profile->email ?? ''}}</h4>
-                <h4>Сайт: {{ $profile->site ?? ''}}</h4>
+                <div class="row">
+                    <div class="col-lg-2"><h5>Врач: </h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->specialty ?? ''}}</h5></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2"><h5>Опыт: </h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->expirience ?? ''}}</h5></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2"><h5>Адрес: </h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->address ?? ''}}</h5></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2"><h5>Телефон: </h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->phone ?? ''}}</h5></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2"><h5>E-mail: </h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->email ?? ''}}</h5></div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2"><h5>Сайт: </h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->site ?? ''}}</h5></div>
+                </div>
                 <hr>
             </div>
         </div>

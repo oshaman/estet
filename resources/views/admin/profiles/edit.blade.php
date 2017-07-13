@@ -29,6 +29,27 @@
             {!! Form::text('specialty', old('specialty') ? : ($profile->specialty ?? '' ), ['placeholder'=>'Дерматолог, хирург...', 'id'=>'specialty',
                         'required' => '', 'class'=>'form-control']) !!}
         </div>
+        <div>
+
+            <h4>{!! Form::label('spetialty', 'Специализации' !!}</h4>
+            <table class="table">
+                @foreach($specialties as $id=>$specialty)
+                    @if($person->hasRole($specialty))
+                        <td>
+                            <input checked name="role_id[]"  type="checkbox" value="{{ $id }}">{{ $specialty }}
+                        </td>
+                    @else
+                        <td>
+                            <input name="role_id[]"  type="checkbox" value="{{ $id }}">{{ $specialty }}
+                        </td>
+                    @endif
+                @endforeach
+            </table>
+
+
+
+
+        </div>
     </li>
     <li class="list-group-item">
         {{ Form::label('category', 'Категория') }}
@@ -50,9 +71,25 @@
     </li>
     <li class="list-group-item">
         {{ Form::label('expirience', 'Опыт') }}
-        <div>
-            {!! Form::text('expirience', old('expirience') ? : ($profile->expirience ?? '' ), ['placeholder'=>'Кол-во полных лет практики', 'id'=>'expirience', 'class'=>'form-control']) !!}
-        </div>
+            <div>
+            {!! Form::select('month',
+                [
+                    1=>'Январь',
+                    2=>'Февраль',
+                    3=>'Март',
+                    4=>'Апрель',
+                    5=>'Май',
+                    6=>'Июнь',
+                    7=>'Июль',
+                    8=>'Август',
+                    9=>'Сентябрь',
+                    10=>'Октябрь',
+                    11=>'Ноябрь',
+                    12=>'Декабрь',
+                ], old('month') ? : ($profile->month ?? '' ), [ 'class'=>'form-control', 'placeholder'=>'Месяц'])
+            !!}
+            {!! Form::selectRange('year', 1970, 2020, old('year') ? : ($profile->year ?? '' ), ['placeholder' => 'Год', 'class'=>'form-control']) !!}
+            </div>
     </li>
     <li class="list-group-item">
         {{ Form::label('shedule', 'Часы приема') }}
@@ -64,6 +101,12 @@
         {{ Form::label('services', 'Услуги') }}
         <div>
             {!! Form::text('services', old('services') ? : ($profile->services ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'id'=>'services', 'class'=>'form-control']) !!}
+        </div>
+    </li>
+    <li class="list-group-item">
+        {{ Form::label('alias', 'Псевдоним профиля') }}
+        <div>
+            {!! Form::text('alias', old('alias') ? : ($profile->alias ?? '' ), ['placeholder'=>'Уникальный идентификатор профиля', 'id'=>'alias', 'class'=>'form-control']) !!}
         </div>
     </li>
     <li class="list-group-item">
@@ -82,8 +125,11 @@
         {{ Form::label('img', 'Фото') }}
         <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
         <div>
-            {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img']) !!}
+            {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
         </div>
+    </li>
+    <li class="list-group-item">
+        <label><input type="checkbox" value="" name="approved"> Назначить автором</label>
     </li>
 </ul>
 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}

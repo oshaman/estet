@@ -10,6 +10,7 @@ use Fresh\Estet\Repositories\TmpPersonRepository;
 use Fresh\Estet\Repositories\PersonsRepository;
 use Gate;
 use Config;
+use Fresh\Estet\Specialty;
 
 class ProfileController extends AdminController
 {
@@ -39,6 +40,11 @@ class ProfileController extends AdminController
         return $this->renderOutput();
     }
 
+    /**
+     * @param Request $request
+     * @param null $id
+     * @return result
+     */
     public function edit (Request $request, $id = null)
     {
         if (Gate::denies('EDIT_USERS')) {
@@ -47,7 +53,21 @@ class ProfileController extends AdminController
 
         if ($request->isMethod('post')) {
             $person_rep = new PersonsRepository(new Person);
+
             $request->request->set('user_id', session('user_id'));
+            $request->request->set('photo', session('photo'));
+
+            if ($request->request->has('month') && $request->request->has('year')) {
+                $month = $request->request->get('month');
+                $year = $request->request->get('year');
+                if (($month < 1 || $month > 12) || (($year < 1970 || $month > 2020))) {
+                    return back()->withErrors(['Ошибка в поле Дата'])->withInput();
+                }
+                $exp = date("Y-m-d H:i:s", strtotime($year . '-' . str_pad((int)$month, 2, 0, STR_PAD_LEFT) . '-01'));
+
+                $request->request->add(['expirience'=>$exp]);
+            }
+
             $result = $person_rep->updatePerson($request);
             dd($result);
         }
@@ -83,14 +103,25 @@ class ProfileController extends AdminController
 
 
         $this->title = 'Редактирование профиля';
+        $spec = Specialty::all();
+        $person = Person::all();
 
         $profile = $this->tmp_rep->findByUserId($id);
+
+
         if (!$profile) {
             abort(404);
         }
+        if ($profile->expirience) {
+            $profile->month = (int)date('m', strtotime($profile->expirience));
+            $profile->year = (int)date('Y', strtotime($profile->expirience));
+        }
+
+        $request->session()->put('user_id', $profile->user_id);
+        $request->session()->put('photo', $profile->photo);
 //        dd($profile);
-        $request->session()->flash('user_id', $profile->user_id);
-        $this->content = view('admin.profiles.edit')->with(['title'=>$this->title, 'profile'=>$profile])->render();
+
+        $this->content = view('admin.profiles.edit')->with(['title'=>$this->title, 'profile'=>$profile, 'spetialties'=>$spec, ])->render();
         return $this->renderOutput();
     }
 }

@@ -22,11 +22,12 @@ class CreatePersonsTable extends Migration
             $table->text('content')->nullable();
             $table->string('phone');
             $table->string('photo')->nullable();
+            $table->text('services')->nullable();
             $table->string('category')->nullable();
             $table->string('site');
             $table->string('job')->nullable();
             $table->string('shedule')->nullable();
-            $table->smallInteger('expirience')->unsigned()->nullable();
+            $table->timestamp('expirience')->nullable();
             $table->string('alias')->unique();
 
             $table->timestamps();
