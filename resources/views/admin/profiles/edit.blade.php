@@ -26,12 +26,9 @@
     <li class="list-group-item">
         {{ Form::label('specialty', '* Специальность') }}
         <div>
-            {!! Form::text('specialty', old('specialty') ? : ($profile->specialty ?? '' ), ['placeholder'=>'Дерматолог, хирург...', 'id'=>'specialty',
-                        'required' => '', 'class'=>'form-control']) !!}
+            <h3>{{ old('specialty') ? : ($profile->specialty ?? '') }}</h3>
         </div>
         <div>
-
-            <h4>{!! Form::label('spetialty', 'Специализации') !!}</h4>
             <table class="table">
             @foreach($specialties as $id=>$specialty)
                 @if($person != null && $person->hasSpecialty($specialty))

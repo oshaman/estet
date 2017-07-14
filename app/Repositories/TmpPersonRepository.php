@@ -60,7 +60,7 @@ class TmpPersonRepository extends Repository {
             $data->address = $request['address'];
         }
 
-        if ($request['expirience'] != null && $request['expirience'] != $data->expirience) {
+        if (!empty($request['expirience']) && $request['expirience'] != $data->expirience) {
             $data->expirience = $request['expirience'];
         }
 
@@ -117,5 +117,12 @@ class TmpPersonRepository extends Repository {
             return 'Ошибка отправки данных';
         }
 
+    }
+
+    public function deleteTmp($id)
+    {
+        if($this->model->where('user_id', $id)->delete()) {
+            return ['error' => 'Ошибка удаления tmp'];
+        }
     }
 }

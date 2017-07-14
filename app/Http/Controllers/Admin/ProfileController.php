@@ -12,6 +12,7 @@ use Gate;
 use Config;
 use Fresh\Estet\Specialty;
 use Illuminate\View\View;
+use Fresh\Estet\Http\Requests\EditPerson;
 
 class ProfileController extends AdminController
 {
@@ -28,13 +29,19 @@ class ProfileController extends AdminController
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(EditPerson $request)
     {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
         }
-
+        dd($request);
         if ($request->isMethod('post')) {
+
+            $profiles = $this->pers_rep->get(['name', 'lastname', 'phone', 'user_id'], false, true);
+
+            $this->content = view('admin.profiles.index')->with('profiles', $profiles)->render();
+            return $this->renderOutput();
+
             dd($request);
         }
 
@@ -79,9 +86,12 @@ class ProfileController extends AdminController
             }
 
             $person = $this->pers_rep->findByUserId(session('user_id'));
+
             if ($person) {
                 $result = $this->pers_rep->updatePerson($request, $person);
-                return redirect(route('admin_profile'))->with($result);
+                $res = $this->tmp_rep->deleteTmp(session('user_id'));
+
+                return redirect(route('admin_profile'))->with($result, $res);
 
             } else {
                 $result = $this->pers_rep->createPerson($request);

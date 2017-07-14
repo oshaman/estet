@@ -54,6 +54,6 @@ class PersonPolicy
      */
     public function delete(User $user, Person $person)
     {
-        //
+        return $user->canDo('EDIT_USERS');
     }
 }
