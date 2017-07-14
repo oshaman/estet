@@ -6,14 +6,17 @@ use Auth;
 use Fresh\Estet\Http\Requests\TmpPersonRequest;
 use Fresh\Estet\Repositories\TmpPersonRepository;
 use Fresh\Estet\Jobs\SendUserAddEmail;
+use Fresh\Estet\Repositories\PersonsRepository;
 
 class ProfileController extends Controller
 {
     protected $tmp_rep;
+    protected $person_rep;
 
-    public function __construct(TmpPersonRepository $tmp_rep)
+    public function __construct(TmpPersonRepository $tmp_rep, PersonsRepository $pers)
     {
         $this->tmp_rep = $tmp_rep;
+        $this->person_rep = $pers;
     }
 
     /**
@@ -24,15 +27,22 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $id = $user->id;
-        $sql = $this->tmp_rep->findByUserId($id);
+        $tmp = $this->tmp_rep->findByUserId($id);
+        $person = $this->person_rep->findByUserId($id);
 
-        $sql->expirience = date_create()->diff(date_create($sql->expirience))->y;
-
-        if ($sql) {
-            $sql->email = $user->email;
+        if ($tmp && !empty($tmp->expirience)) {
+            $tmp->expirience = date_create()->diff(date_create($tmp->expirience))->y;
+        } elseif ($person && !empty($person->expirience)) {
+            $person->expirience = date_create()->diff(date_create($person->expirience))->y;
         }
 
-        return view('profile.index')->with('profile', $sql);
+        if ($tmp) {
+            $tmp->email = $user->email;
+        } elseif ($person) {
+            $person->email = $user->email;
+        }
+
+        return view('profile.index')->with(['profile' => $tmp, 'person' => $person]);
     }
 
     /**
@@ -67,7 +77,7 @@ class ProfileController extends Controller
 
 
         $sql = $this->tmp_rep->findByUserId($id);
-        if ($sql->expirience) {
+        if ($sql && $sql->expirience) {
             $sql->month = (int)date('m', strtotime($sql->expirience));
             $sql->year = (int)date('Y', strtotime($sql->expirience));
         }

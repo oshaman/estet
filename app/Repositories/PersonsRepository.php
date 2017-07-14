@@ -13,30 +13,34 @@ class PersonsRepository extends Repository {
         $this->model = $person;
     }
 
-    public function updatePerson($request)
+    public function updatePerson($request, $person)
     {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
         }
-
         $data = $request->except('_token');
 
-        $model = $this->model->where('user_id', $data['user_id'])->first();
+        $person->fill($data)->update();
+        $person->specialties()->sync($data['specialty']);
+        return ['status' => 'Профиль обновлен'];
 
-        array_forget($data,'specialty');
-        array_forget($data,'month');
-        array_forget($data,'year');
-        dd($data);
-        if ($model) {
-            $model->fill($data)->update();
-            return ['status' => 'Профиль обновлен'];
-        } else {
-            $this->model->updateOrCreate($data);
-            return ['status' => 'Профиль создан'];
+
+    }
+
+    public function createPerson($request)
+    {
+        if (Gate::denies('EDIT_USERS')) {
+            abort(404);
         }
-//        $this->person->specialies()->sync($data['specialty_id']);
+//        dd("CREATE");
+        $data = $request->except('_token');
 
+        $person = $this->model->create($data);
 
+        if($person->id) {
+            $person->specialties()->attach($data['specialty']);
+        }
+        return ['status' => 'Профиль создан'];
     }
 }
 

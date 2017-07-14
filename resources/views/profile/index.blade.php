@@ -9,14 +9,14 @@
         </div>
         <div class="col-xs-6">
             <div class="row">
-                <h3>{{ $profile->name ?? ''}}</h3>
-                <h3>{{ $profile->lastname ?? ''}}</h3>
+                <h3>{{ $profile->name ?? ($person->name ?? '')}}</h3>
+                <h3>{{ $profile->lastname ?? ($person->lastname ?? '')}}</h3>
                 <hr>
             </div>
             <div class="row">
                 <div class="row">
                     <div class="col-lg-2"><h5>Врач: </h5></div>
-                    <div class="col-lg-10"><h5>{{ $profile->specialty ?? ''}}</h5></div>
+                    <div class="col-lg-10"><h5>{{ $profile->specialty ?? ($person->email ?? '')}}</h5></div>
                 </div>
                 <div class="row">
                     <div class="col-lg-2"><h5>Опыт: </h5></div>

@@ -11,10 +11,16 @@
                     <hr>
                 </div>
                 <div class="row">
-                    <h4>{{ $profile->specialty ?? ''}}</h4>
+                    <h4>{{ $profile->specialties->implode('name', ', ') ?? ''}}</h4>
                     <hr>
-                    <h4>{{ $profile->address ?? ''}}</h4>
+                @if(!empty($profile->address))
+                    <h4>{{ $profile->address}}</h4>
+                @endif
+                @if(!empty($profile->job))
                     <h4>{{ $profile->job ?? ''}}</h4>
+                @endif
+                    <h4>{{ $profile->phone ?? ''}}</h4>
+                    <h4>{{ $profile->site ?? ''}}</h4>
                     <hr>
                 </div>
             </div>

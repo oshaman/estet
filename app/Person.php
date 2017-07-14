@@ -22,14 +22,14 @@ class Person extends Model
         return $this->belongsToMany('Fresh\Estet\Specialty', 'specialty_person');
     }
 
-    public function hasSpetialty($name, $require = false)
+    public function hasSpecialty($name, $require = false)
     {
         if (is_array($name)) {
             foreach ($name as $specName) {
-                $hasSpetialty = $this->hasRole($specName);
-                if ($hasSpetialty && !$require) {
+                $hasSpecialty = $this->hasRole($specName);
+                if ($hasSpecialty && !$require) {
                     return true;
-                } elseif (!$hasSpetialty && $require) {
+                } elseif (!$hasSpecialty && $require) {
                     return false;
                 }
             }

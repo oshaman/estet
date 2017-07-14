@@ -83,7 +83,7 @@
         </nav>
         <div class="container">
             <!-- Status -->
-            @if (count($errors) > 0)
+            @if (!empty($errors) && (count($errors) > 0))
                 <div class="alert alert-danger">
                     <p class="error">
                         @foreach ($errors->toArray() as $key=>$error)

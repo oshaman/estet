@@ -31,24 +31,20 @@
         </div>
         <div>
 
-            <h4>{!! Form::label('spetialty', 'Специализации' !!}</h4>
+            <h4>{!! Form::label('spetialty', 'Специализации') !!}</h4>
             <table class="table">
-                @foreach($specialties as $id=>$specialty)
-                    @if($person->hasRole($specialty))
+            @foreach($specialties as $id=>$specialty)
+                @if($person != null && $person->hasSpecialty($specialty))
                         <td>
-                            <input checked name="role_id[]"  type="checkbox" value="{{ $id }}">{{ $specialty }}
+                            <input checked name="specialty[]"  type="checkbox" value="{{ $id }}"> {{ $specialty }}
                         </td>
                     @else
                         <td>
-                            <input name="role_id[]"  type="checkbox" value="{{ $id }}">{{ $specialty }}
+                            <input name="specialty[]"  type="checkbox" value="{{ $id }}"> {{ $specialty }}
                         </td>
                     @endif
                 @endforeach
             </table>
-
-
-
-
         </div>
     </li>
     <li class="list-group-item">

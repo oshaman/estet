@@ -13,28 +13,28 @@
         </div>
         <div class="row">
             <div class="row">
-                <div class="col-lg-2"><h5>Врач: </h5></div>
-                    <div class="col-lg-10"><h5>{{ $profile->specialty ?? ''}}</h5></div>
+                <div class="col-lg-3"><h5>Специализация: </h5></div>
+                    <div class="col-lg-9"><h5>{{ $profile->specialties->implode('name', ', ') ?? ''}}</h5></div>
             </div>
             <div class="row">
-                <div class="col-lg-2"><h5>Опыт: </h5></div>
-                <div class="col-lg-10"><h5>{{ $profile->expirience ?? ''}}</h5></div>
+                <div class="col-lg-3"><h5>Опыт: </h5></div>
+                <div class="col-lg-9"><h5>{{ $profile->expirience ?? ''}}</h5></div>
             </div>
             <div class="row">
-                <div class="col-lg-2"><h5>Адрес: </h5></div>
-                <div class="col-lg-10"><h5>{{ $profile->address ?? ''}}</h5></div>
+                <div class="col-lg-3"><h5>Адрес: </h5></div>
+                <div class="col-lg-9"><h5>{{ $profile->address ?? ''}}</h5></div>
             </div>
             <div class="row">
-                <div class="col-lg-2"><h5>Телефон: </h5></div>
-                <div class="col-lg-10"><h5>{{ $profile->phone ?? ''}}</h5></div>
+                <div class="col-lg-3"><h5>Телефон: </h5></div>
+                <div class="col-lg-9"><h5>{{ $profile->phone ?? ''}}</h5></div>
             </div>
             <div class="row">
-                <div class="col-lg-2"><h5>E-mail: </h5></div>
-                <div class="col-lg-10"><h5>{{ $profile->email ?? ''}}</h5></div>
+                <div class="col-lg-3"><h5>E-mail: </h5></div>
+                <div class="col-lg-9"><h5>{{ $profile->email ?? ''}}</h5></div>
             </div>
             <div class="row">
-                <div class="col-lg-2"><h5>Сайт: </h5></div>
-                <div class="col-lg-10"><h5>{{ $profile->site ?? ''}}</h5></div>
+                <div class="col-lg-3"><h5>Сайт: </h5></div>
+                <div class="col-lg-9"><h5>{{ $profile->site ?? ''}}</h5></div>
             </div>
             <hr>
         </div>

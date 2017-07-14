@@ -3,8 +3,8 @@
 namespace Fresh\Estet\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Fresh\Estet\Repositories\TmpPersonRepository;
-use Fresh\Estet\TmpPerson;
+use Fresh\Estet\Repositories\PersonsRepository;
+use Fresh\Estet\Person;
 
 class CatalogController extends Controller
 {
@@ -17,23 +17,29 @@ class CatalogController extends Controller
     }
 
     /**
+     * View Doctor's Profile
      * @param alias $doc
      * @return view
      */
     public function docs ($doc = false)
     {
         if ($doc) {
-            $docs = new TmpPersonRepository(new TmpPerson);
+            $docs = new PersonsRepository(new Person);
             $profile = $docs->one($doc);
+//            dd($profile);
             if (!$profile) {
                 abort(404);
             }
+            if (!empty($profile->expirience)) {
+                $profile->expirience = date_create()->diff(date_create($profile->expirience))->y;
+            }
+
             $this->title = $profile->name . ' ' . $profile->lastname;
             return view('catalog.doc_profile')->with('profile', $profile);
         }
         $this->title = 'Врачи';
-        $docs = new TmpPersonRepository(new TmpPerson);
-        $profiles = $docs->get(['name', 'lastname', 'specialty', 'address', 'photo', 'job','alias'], false, true);
+        $profiles = Person::with('specialties')->get();
+
         return view('catalog.index')->with(['title' => $this->title, 'profiles' => $profiles]);
     }
 
