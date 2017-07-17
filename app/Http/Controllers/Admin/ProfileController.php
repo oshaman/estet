@@ -81,7 +81,9 @@ class ProfileController extends AdminController
         if ($request->isMethod('post')) {
 
             $request->request->set('user_id', session('user_id'));
-            $request->request->set('photo', session('photo'));
+            if (!empty(session('photo'))) {
+                $request->request->set('photo', session('photo'));
+            }
 //            формирование поля expirience
             if ($request->request->has('month') && $request->request->has('year')) {
                 $month = $request->request->get('month');
@@ -99,16 +101,20 @@ class ProfileController extends AdminController
             }
 
             $person = $this->pers_rep->findByUserId(session('user_id'));
-dd($user);
+
             if ($person) {
                 $result = $this->pers_rep->updatePerson($request, $person, $user);
                 $res = $this->tmp_rep->deleteTmp(session('user_id'));
-
+                $request->session()->forget('photo');
+                $request->session()->forget('user_id');
                 return redirect(route('admin_profile'))->with($result, $res);
 
             } else {
                 $result = $this->pers_rep->createPerson($request, $user);
-                return redirect(route('admin_profile'))->with($result);
+                $res = $this->tmp_rep->deleteTmp(session('user_id'));
+                $request->session()->forget('photo');
+                $request->session()->forget('user_id');
+                return redirect(route('admin_profile'))->with($result, $res);
             }
         }
 
@@ -131,9 +137,11 @@ dd($user);
         if ($this->profile_rep->isAuthor($user)) {
             $profile->confirmed = true;
         }
-
+        // если юзер добавил новую
         if (!empty($profile->photo)) {
-            $request->session()->put('photo', $profile->photo);
+            if (empty($person) || ($profile->photo != $person->photo)) {
+                $request->session()->put('photo', $profile->photo);
+            }
         }
 
         $this->content = view('admin.profiles.edit')->with(['title'=>$this->title, 'profile'=>$profile, 'specialties'=>$spec, 'person'=>$person])->render();

@@ -120,10 +120,17 @@
     </li>
     <li class="list-group-item">
         {{ Form::label('img', 'Фото') }}
-        <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
-        <div>
-            {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
+        @if(!empty(session('photo')))
+            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            <div>
+            <label><input type="checkbox" {{ (old('photo_status') || empty(session('photo'))) ? 'checked' : '' }} value="aply" name="photo_status"> Подтвердить фото</label>
         </div>
+        @else
+            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+        @endif
+        {{--<div>
+            {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
+        </div>--}}
     </li>
     <li class="list-group-item">
         <label><input type="checkbox" {{ (old('confirmed') || !empty($profile->confirmed)) ? 'checked' : ''  }} value="doc" name="confirmed"> Назначить автором</label>
@@ -131,5 +138,3 @@
 </ul>
 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}
 {!! Form::close() !!}
-
-{{dump($profile)}}

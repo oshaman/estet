@@ -81,7 +81,7 @@
         </li>
         <li class="list-group-item">
             {{ Form::label('services', 'Услуги') }}
-            @if($profile->services && is_array($profile->services))
+            @if(!empty($profile->services) && is_array($profile->services))
                 @foreach($profile->services as $key=>$service)
                     {!! Form::text('services[]', old('services[$key]') ? : ($service ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
                 @endforeach
@@ -103,7 +103,11 @@
         </li>
         <li class="list-group-item">
             {{ Form::label('img', 'Фото') }}
-            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            @if (empty($profile->approved))
+                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            @else
+                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            @endif
             <div>
                 {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
             </div>

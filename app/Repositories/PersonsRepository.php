@@ -4,6 +4,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Person;
 use Gate;
+use File;
 
 class PersonsRepository extends Repository {
 
@@ -13,7 +14,7 @@ class PersonsRepository extends Repository {
         $this->model = $person;
     }
 
-    public function updatePerson($request, $person, $user)
+    public function updatePerson($request, $person)
     {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
@@ -24,11 +25,15 @@ class PersonsRepository extends Repository {
             $data['services'] = json_encode($data['services']);
         }
 
+        if (!empty($data['photo_status'])) {
+            $data = $this->uploadImg($data);
+        }
+//        dd($res);
         $person->fill($data)->update();
         $person->specialties()->sync($data['specialty']);
-dd($user);
-        if (!empty($data->confirmed)) {
-            $user->roles()->sync([2]);
+
+        if (!empty($data['confirmed'])) {
+            $person->user->roles()->sync([2]);
         }
         return ['status' => 'Профиль обновлен'];
     }
@@ -49,8 +54,31 @@ dd($user);
 
         if($person->id) {
             $person->specialties()->attach($data['specialty']);
+            if (!empty($data['confirmed'])) {
+                $person->user->roles()->sync([2]);
+            }
         }
         return ['status' => 'Профиль создан'];
+    }
+
+    public function uploadImg($data)
+    {
+        if ('aply' == $data['photo_status']) {
+
+            $str = substr($data['alias'], 0, 32) . '-' . time();
+
+            $path = $str.'.jpg';
+            
+            if (File::exists(config('settings.theme').'/img/tmp_profile/'.$data['photo'])) {
+                File::move(config('settings.theme').'/img/tmp_profile/'.$data['photo'], config('settings.theme').'/img/profile/'.$path);
+                $data['photo'] = $path;
+                return $data;
+            } else {
+                return 'Ошибка добавления фото';
+            }
+
+        }
+        return $data;
     }
 }
 

@@ -5,7 +5,11 @@
     @endif
     <div class="row">
         <div class="col-xs-6">
-            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            @if (empty($profile->approved))
+                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            @else
+                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            @endif
         </div>
         <div class="col-xs-6">
             <div class="row">
@@ -65,7 +69,7 @@
             </div>
             <div class="row">
                 <h3>Услуги:</h3>
-                @if($profile->services && is_array($profile->services))
+                @if(!empty($profile->services) && is_array($profile->services))
                     <ul>
                     @foreach($profile->services as $service)
                         <li>{{ $service }}</li>

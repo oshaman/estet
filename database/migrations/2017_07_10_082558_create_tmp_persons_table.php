@@ -29,7 +29,6 @@ class CreateTmpPersonsTable extends Migration
             $table->string('site');
             $table->text('content')->nullable();
             $table->string('photo')->nullable();
-            $table->boolean('approved')->default(false);
             $table->string('alias');
             $table->timestamps();
 

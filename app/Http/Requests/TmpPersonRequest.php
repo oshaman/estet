@@ -33,14 +33,14 @@ class TmpPersonRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             $rules =  [
-                'name' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
-                'lastname' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
+                'name' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ\-\s]+$#u'],
+                'lastname' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ\-\s]+$#u'],
                 'phone' => ['required', 'between:4,255', 'regex:#^[0-9()\,\-\s\+]+$#'],
-                'specialty' => ['required', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;]+$#u'],
-                'category' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;\.]+$#u', 'nullable'],
-                'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.\"]+$#u', 'nullable'],
-                'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
-                'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'specialty' => ['required', 'between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ0-9\,\-\s\;]+$#u'],
+                'category' => ['between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ0-9\,\-\s\;\.]+$#u', 'nullable'],
+                'job' => ['between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.\"]+$#u', 'nullable'],
+                'address' => ['between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
+                'shedule' => ['between:4,255', 'regex:#^[a-zA-Zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
 //                'services' => ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'site' => 'string|max:255|nullable',
                 'content' => 'string|nullable',
