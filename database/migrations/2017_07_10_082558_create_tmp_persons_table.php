@@ -32,7 +32,6 @@ class CreateTmpPersonsTable extends Migration
             $table->string('alias');
             $table->timestamps();
 
-            $table->index('approved');
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

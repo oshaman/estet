@@ -72,7 +72,7 @@ class ProfileController extends AdminController
      * @param null $id
      * @return result
      */
-    public function edit (Request $request, User $user = null)
+    public function edit (EditPerson $request, User $user = null)
     {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);

@@ -21,6 +21,7 @@ class PersonsRepository extends Repository {
         }
         $data = $request->except('_token');
 
+        dd($data);
         if (!empty($data['services'])) {
             $data['services'] = json_encode($data['services']);
         }
@@ -28,7 +29,6 @@ class PersonsRepository extends Repository {
         if (!empty($data['photo_status'])) {
             $data = $this->uploadImg($data);
         }
-//        dd($res);
         $person->fill($data)->update();
         $person->specialties()->sync($data['specialty']);
 
@@ -43,7 +43,6 @@ class PersonsRepository extends Repository {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
         }
-//        dd("CREATE");
         $data = $request->except('_token');
 
         if (!empty($data['services'])) {
@@ -51,7 +50,7 @@ class PersonsRepository extends Repository {
         }
 
         $person = $this->model->create($data);
-
+//        dd($data);
         if($person->id) {
             $person->specialties()->attach($data['specialty']);
             if (!empty($data['confirmed'])) {
