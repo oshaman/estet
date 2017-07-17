@@ -63,6 +63,7 @@ return [
     'shedule'=>'Часы приема',
     'services'=>'Услуги',
     'site'=>'Сайт',
+    'value' => 'Параметр',
     //  Permissions
     'roles' => 'Роли',
     'role' => 'Роль',

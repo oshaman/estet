@@ -65,7 +65,13 @@
             </div>
             <div class="row">
                 <h3>Услуги:</h3>
-                {{ $profile->services ?? ''}}
+                @if($profile->services && is_array($profile->services))
+                    <ul>
+                    @foreach($profile->services as $service)
+                        <li>{{ $service }}</li>
+                    @endforeach
+                    </ul>
+                @endif
                 <hr>
             </div>
         </div>

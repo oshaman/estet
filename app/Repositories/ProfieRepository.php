@@ -5,6 +5,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Repositories\TmpPersonRepository;
 use Fresh\Estet\Repositories\PersonsRepository;
+use Fresh\Estet\Specialty;
 
 class ProfieRepository
 {
@@ -38,6 +39,11 @@ class ProfieRepository
             $profile->name = $tmp->name;
         } elseif (!empty($person->name)) {
             $profile->name = $person->name;
+        }
+        if (!empty($tmp->user_id)) {
+            $profile->user_id = $tmp->user_id;
+        } elseif (!empty($person->user_id)) {
+            $profile->user_id = $person->user_id;
         }
         if (!empty($tmp->lastname)) {
             $profile->lastname = $tmp->lastname;
@@ -85,9 +91,9 @@ class ProfieRepository
             $profile->photo = $person->photo;
         }
         if (!empty($tmp->services)) {
-            $profile->services = $tmp->services;
+            $profile->services = json_decode($tmp->services);
         } elseif (!empty($person->services)) {
-            $profile->services = $person->services;
+            $profile->services = json_decode($person->services);
         }
 
         if (!empty($tmp->expirience)) {
@@ -110,6 +116,11 @@ class ProfieRepository
         } elseif (!empty($person)) {
             $profile->specialty = $person->specialties->implode('name', ', ');
         }
+        if (!empty($tmp->alias)) {
+                $profile->alias = $tmp->alias;
+            } elseif (!empty($person)) {
+                $profile->alias = $person->alias;
+            }
 
         if ($tmp) {
             $profile->email = $user->email;
@@ -136,5 +147,22 @@ class ProfieRepository
 
         $result = $this->tmp_rep->update($request);
         return $result;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSpecialties()
+    {
+        $spec = Specialty::all()->reduce(function ($returnSpec, $spec) {
+            $returnSpec[$spec->id] = $spec->name;
+            return $returnSpec;
+        }, []);
+        return $spec;
+    }
+
+    public function isAuthor($user)
+    {
+        return $user->hasRole('author');
     }
 }

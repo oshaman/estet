@@ -81,9 +81,13 @@
         </li>
         <li class="list-group-item">
             {{ Form::label('services', 'Услуги') }}
-            <div>
-                {!! Form::text('services', old('services') ? : ($profile->services ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'id'=>'services', 'class'=>'form-control']) !!}
-            </div>
+            @if($profile->services && is_array($profile->services))
+                @foreach($profile->services as $key=>$service)
+                    {!! Form::text('services[]', old('services[$key]') ? : ($service ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                @endforeach
+            @else
+                {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+            @endif
         </li>
         <li class="list-group-item">
             {{ Form::label('site', 'Сайт') }}

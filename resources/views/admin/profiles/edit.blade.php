@@ -92,9 +92,13 @@
     </li>
     <li class="list-group-item">
         {{ Form::label('services', 'Услуги') }}
-        <div>
-            {!! Form::text('services', old('services') ? : ($profile->services ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'id'=>'services', 'class'=>'form-control']) !!}
-        </div>
+        @if(!empty($profile->services) && is_array($profile->services))
+            @foreach($profile->services as $key=>$service)
+                {!! Form::text('services[]', old('services[$key]') ? : ($service ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+            @endforeach
+        @else
+            {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+        @endif
     </li>
     <li class="list-group-item">
         {{ Form::label('alias', 'Псевдоним профиля') }}
@@ -122,8 +126,10 @@
         </div>
     </li>
     <li class="list-group-item">
-        <label><input type="checkbox" value="" name="approved"> Назначить автором</label>
+        <label><input type="checkbox" {{ (old('confirmed') || !empty($profile->confirmed)) ? 'checked' : ''  }} value="doc" name="confirmed"> Назначить автором</label>
     </li>
 </ul>
 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}
 {!! Form::close() !!}
+
+{{dump($profile)}}

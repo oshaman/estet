@@ -4,25 +4,25 @@ namespace Fresh\Estet\Http\Controllers\Admin;
 
 use Fresh\Estet\Http\Controllers\Admin\AdminController;
 use Illuminate\Http\Request;
-use Fresh\Estet\TmpPerson;
-use Fresh\Estet\Person;
 use Fresh\Estet\Repositories\TmpPersonRepository;
 use Fresh\Estet\Repositories\PersonsRepository;
 use Gate;
 use Config;
-use Fresh\Estet\Specialty;
+use Fresh\Estet\User;
 use Illuminate\View\View;
 use Fresh\Estet\Http\Requests\EditPerson;
+use Fresh\Estet\Repositories\ProfieRepository;
 
 class ProfileController extends AdminController
 {
     protected $tmp_rep;
     protected $pers_rep;
 
-    public function __construct(TmpPersonRepository $rep, PersonsRepository $pers)
+    public function __construct(TmpPersonRepository $rep, PersonsRepository $pers, ProfieRepository $profile)
     {
         $this->tmp_rep = $rep;
         $this->pers_rep = $pers;
+        $this->profile_rep = $profile;
     }
 
     /**
@@ -34,15 +34,28 @@ class ProfileController extends AdminController
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
         }
-        dd($request);
         if ($request->isMethod('post')) {
+            $data = $request->except('_token');
+//            dd($data);
+            if (1 == $data['param']) {
 
-            $profiles = $this->pers_rep->get(['name', 'lastname', 'phone', 'user_id'], false, true);
+                if ($profile = $this->pers_rep->findByUserId($data['value'])) {
+                    $profiles[0] = $profile;
+                } else {
+                    $profiles = null;
+                }
+            } elseif (2 == $data['param']) {
 
+                if ($profile = $this->pers_rep->one($data['value'])) {
+                    $profiles[0] = $profile;
+                } else {
+                    $profiles = null;
+                }
+            } else {
+                $profiles = $this->pers_rep->get(['name', 'lastname', 'phone', 'user_id'], false, true);
+            }
             $this->content = view('admin.profiles.index')->with('profiles', $profiles)->render();
             return $this->renderOutput();
-
-            dd($request);
         }
 
 
@@ -59,7 +72,7 @@ class ProfileController extends AdminController
      * @param null $id
      * @return result
      */
-    public function edit (Request $request, $id = null)
+    public function edit (Request $request, User $user = null)
     {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
@@ -86,50 +99,44 @@ class ProfileController extends AdminController
             }
 
             $person = $this->pers_rep->findByUserId(session('user_id'));
-
+dd($user);
             if ($person) {
-                $result = $this->pers_rep->updatePerson($request, $person);
+                $result = $this->pers_rep->updatePerson($request, $person, $user);
                 $res = $this->tmp_rep->deleteTmp(session('user_id'));
 
                 return redirect(route('admin_profile'))->with($result, $res);
 
             } else {
-                $result = $this->pers_rep->createPerson($request);
+                $result = $this->pers_rep->createPerson($request, $user);
                 return redirect(route('admin_profile'))->with($result);
             }
         }
 
 //        View Form
 
-        $this->title = 'Редактирование профиля';
-
-        $person = $this->pers_rep->findByUserId($id);
-
-        $spec = $this->getSpecialties()->reduce(function ($returnSpec, $spec) {
-            $returnSpec[$spec->id] = $spec->name;
-            return $returnSpec;
-        }, []);
-
-        $profile = $this->tmp_rep->findByUserId($id);
-
-        if (!$profile && !$person) {
+        if (empty($user->id)) {
             abort(404);
         }
-        if ($profile->expirience) {
-            $profile->month = (int)date('m', strtotime($profile->expirience));
-            $profile->year = (int)date('Y', strtotime($profile->expirience));
-        }
+
+        $this->title = 'Редактирование профиля';
+
+        $person = $this->pers_rep->findByUserId($user->id);
+
+        $profile = $this->profile_rep->getProfile($user, true);
+
+        $spec = $this->profile_rep->getSpecialties();
 
         $request->session()->put('user_id', $profile->user_id);
-        $request->session()->put('photo', $profile->photo);
-//        dd($profile);
+
+        if ($this->profile_rep->isAuthor($user)) {
+            $profile->confirmed = true;
+        }
+
+        if (!empty($profile->photo)) {
+            $request->session()->put('photo', $profile->photo);
+        }
 
         $this->content = view('admin.profiles.edit')->with(['title'=>$this->title, 'profile'=>$profile, 'specialties'=>$spec, 'person'=>$person])->render();
         return $this->renderOutput();
-    }
-
-    public function getSpecialties()
-    {
-        return Specialty::all();
     }
 }

@@ -20,13 +20,13 @@ class UsersRepository extends Repository {
         }
 
         $data = $request->except('_token');
-
+//dd($data);
         if(!empty($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         } else { array_forget($data, 'password');}
 
         $user->fill($data)->update();
-        $user->roles()->sync($data['role_id']);
+        $user->roles()->sync($data['role_id'] ?? []);
 
         return ['status' => trans('admin.user_updated')];
 

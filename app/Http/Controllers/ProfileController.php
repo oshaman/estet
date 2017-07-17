@@ -41,6 +41,8 @@ class ProfileController extends Controller
         $user = Auth::user();
         if ($request->isMethod('post')) {
 
+//            dd($request->all());
+
             $result = $this->profile_rep->updateProfile($request);
 
             if(is_array($result) && !empty($result['error'])) {

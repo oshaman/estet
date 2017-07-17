@@ -32,7 +32,7 @@ class TmpPersonRequest extends FormRequest
     public function rules()
     {
         if ($this->isMethod('post')) {
-            return [
+            $rules =  [
                 'name' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
                 'lastname' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
                 'phone' => ['required', 'between:4,255', 'regex:#^[0-9()\,\-\s\+]+$#'],
@@ -41,7 +41,7 @@ class TmpPersonRequest extends FormRequest
                 'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.\"]+$#u', 'nullable'],
                 'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
-                'services' => ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
+//                'services' => ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
                 'site' => 'string|max:255|nullable',
                 'content' => 'string|nullable',
                 'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable',
@@ -49,6 +49,11 @@ class TmpPersonRequest extends FormRequest
                 'year'=>'regex:#^[0-9]{4}$#',
 
             ];
+            foreach($this->request->get('services') as $key => $val)
+            {
+                $rules['services.'.$key] = ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'];
+            }
+            return $rules;
         }
         return [
             //
