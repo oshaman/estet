@@ -14,9 +14,9 @@ class KeysSpecialtyPersonTable extends Migration
     public function up()
     {
         Schema::table('specialty_person', function (Blueprint $table) {
-            $table->foreign('specialty_id')->references('id')->on('specialties');
-            $table->foreign('person_id')->references('id')->on('persons');
-            $table->unique(['specialty_id', 'person_id'], 'specialtyperson');
+            $table->foreign('specialty_id')->references('id')->on('specialties')->onDelete('cascade');
+            $table->foreign('person_id')->references('id')->on('persons')->onDelete('cascade');
+            $table->unique(['specialty_id', 'person_id'], 'specialtyperson')->onDelete('cascade');
         });
     }
 

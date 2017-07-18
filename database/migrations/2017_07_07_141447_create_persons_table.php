@@ -34,7 +34,7 @@ class CreatePersonsTable extends Migration
 
             $table->index('name');
             $table->index('lastname');
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

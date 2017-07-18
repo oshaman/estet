@@ -144,7 +144,6 @@ class ProfileController extends AdminController
             }
         }
 
-
         $this->content = view('admin.profiles.edit')->with(['title'=>$this->title, 'profile'=>$profile, 'specialties'=>$spec, 'person'=>$person])->render();
         return $this->renderOutput();
     }
