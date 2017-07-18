@@ -65,6 +65,10 @@ return [
     'site'=>'Сайт',
     'value' => 'Параметр',
     'specialty.*' => 'Специальность',
+    //  Specialties
+    'add_spec' => 'Добавить',
+    'spec' => 'Название специальности',
+    'edit_spec' => 'Изменить',
     //  Permissions
     'roles' => 'Роли',
     'role' => 'Роль',

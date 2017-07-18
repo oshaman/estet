@@ -53,6 +53,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::match(['get', 'post'], '/permissions', ['uses' => 'Admin\PermissionsController@index', 'as' => 'permissions']);
     /**
+     *   Admin SPECIALTIES
+     */
+    Route::group(['prefix'=>'specialties'], function () {
+        Route::match(['get', 'post'], '/', ['uses' => 'Admin\SpecialtiesController@index', 'as' => 'specialties']);
+        Route::match(['get', 'post'], 'edit/{spec}', ['uses' => 'Admin\SpecialtiesController@edit', 'as' => 'edit_specialties'])->where('spec', '[0-9]+');
+    });
+    /**
      * Admin PROFILE
      */
     Route::group(['prefix'=>'profile'], function () {

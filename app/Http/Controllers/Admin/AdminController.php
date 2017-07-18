@@ -54,6 +54,12 @@ class AdminController extends Controller
             if(Gate::allows('EDIT_USERS')){
                 $menu->add(trans('ru.profiles'),  array('route'  => 'admin_profile'));
             }
+
+            if(Gate::allows('EDIT_USERS')){
+                $menu->add(trans('ru.specialties'),  array('route'  => 'specialties'));
+            }
+
+
             /*  if(Gate::allows('UPDATE_ARTICLES')) {
                  $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));
              }

@@ -35,5 +35,32 @@
         </div>
     </div>
 @endforeach
+
+<!--PAGINATION-->
+
+<div class="general-pagination group">
+
+    @if($profiles->lastPage() > 1)
+        <ul class="pagination">
+            @if($profiles->currentPage() !== 1)
+                <li><a href="{{ $profiles->url(($profiles->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>
+            @endif
+
+            @for($i = 1; $i <= $profiles->lastPage(); $i++)
+                @if($profiles->currentPage() == $i)
+                    <li><a class="selected disabled">{{ $i }}</a></li>
+                @else
+                    <li><a href="{{ $profiles->url($i) }}">{{ $i }}</a></li>
+                @endif
+            @endfor
+
+            @if($profiles->currentPage() !== $profiles->lastPage())
+                <li><a href="{{ $profiles->url(($profiles->currentPage() + 1)) }}">{{ Lang::get('pagination.next') }}</a></li>
+            @endif
+        </ul>
+
+    @endif
+
+</div>
 @endif
 @endsection

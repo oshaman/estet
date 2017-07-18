@@ -84,7 +84,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => ':attribute уже занят.',
+    'unique'               => 'Значение в поле :attribute уже используется.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'В поле :attribute должен быть реальный адрес сайта.',
 
