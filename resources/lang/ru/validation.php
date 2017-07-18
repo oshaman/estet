@@ -35,7 +35,7 @@ return [
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'Поле :attribute должно содержать :digits цифр.',
-    'digits_between'       => 'The :attribute must be between :min and :max digits.',
+    'digits_between'       => 'В поле :attribute должны быть от :min до :max цифр.',
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
@@ -84,7 +84,7 @@ return [
     ],
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
-    'unique'               => 'The :attribute has already been taken.',
+    'unique'               => ':attribute уже занят.',
     'uploaded'             => 'The :attribute failed to upload.',
     'url'                  => 'В поле :attribute должен быть реальный адрес сайта.',
 

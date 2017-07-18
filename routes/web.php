@@ -59,7 +59,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         //  view profile
         Route::match(['get', 'post'], '/', 'Admin\ProfileController@index')->name('admin_profile');
         //  edit profile
-        Route::match(['get', 'post'], 'edit/{user?}', 'Admin\ProfileController@edit')->name('edit_profiles');
+        Route::match(['get', 'post'], 'edit/{user}', 'Admin\ProfileController@edit')->name('edit_profiles');
     });
     /**
      *   Admin ARTICLES

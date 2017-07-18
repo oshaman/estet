@@ -1,5 +1,5 @@
 <h1>Edit profile</h1>
-{!! Form::open(['url' => route('edit_profiles'), 'class'=>'form-horizontal', 'method'=>'POST', 'files'=>true]) !!}
+{!! Form::open(['url' => route('edit_profiles', $profile->user_id), 'class'=>'form-horizontal', 'method'=>'POST', 'files'=>true]) !!}
 {{ csrf_field() }}
 <ul class="list-group">
     <li class="list-group-item">
@@ -26,7 +26,7 @@
     <li class="list-group-item">
         {{ Form::label('specialty', '* Специальность') }}
         <div>
-            <h3>{{ old('specialty') ? : ($profile->specialty ?? '') }}</h3>
+            <h3>{{ $profile->specialty ?? '' }}</h3>
         </div>
         <div>
             <table class="table">

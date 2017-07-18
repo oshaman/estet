@@ -21,9 +21,13 @@ class PersonsRepository extends Repository {
         }
         $data = $request->except('_token');
 
-        dd($data);
+//        dd($data);
         if (!empty($data['services'])) {
             $data['services'] = json_encode($data['services']);
+        }
+
+        if (empty($data['site'])) {
+            $data['site'] = url('/catalog/vrachi/') . '/' . $data['alias'];
         }
 
         if (!empty($data['photo_status'])) {
@@ -47,6 +51,10 @@ class PersonsRepository extends Repository {
 
         if (!empty($data['services'])) {
             $data['services'] = json_encode($data['services']);
+        }
+
+        if (empty($data['site'])) {
+            $data['site'] = url('/catalog/vrachi/') . '/' . $data['alias'];
         }
 
         $person = $this->model->create($data);

@@ -16,6 +16,26 @@ class EditPerson extends FormRequest
         return \Auth::user()->canDo('EDIT_USERS');
     }
 
+    protected function getValidatorInstance()
+    {
+        $validator = parent::getValidatorInstance();
+
+        $validator->sometimes('alias','unique:persons|max:246|alpha_dash', function ($input) {
+
+            if ($this->route()->hasParameter('user')) {
+                $model = $this->route()->parameter('user')->person;
+                if (null === $model) return true;
+                return (($model->alias !== $input->alias)  && !empty($input->alias));
+            }
+
+            return !empty($input->alias);
+
+        });
+
+        return $validator;
+    }
+
+
     /**
      * Get the validation rules that apply to the request.
      *
@@ -29,8 +49,8 @@ class EditPerson extends FormRequest
                     'name' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
                     'lastname' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
                     'phone' => ['required', 'between:4,255', 'regex:#^[0-9()\,\-\s\+]+$#'],
-                    'specialty'=> 'required',
-                    /*
+                    'specialty' => 'required|array',
+                    'services' => 'required|array',
                     'category' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\,\-\s\;\.]+$#u', 'nullable'],
                     'job' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9()№\,\-\s\;\\\/\.\"]+$#u', 'nullable'],
                     'address' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№_\,\-\s\;\\\/\.]+$#u', 'nullable'],
@@ -40,13 +60,20 @@ class EditPerson extends FormRequest
                     'year'=>'regex:#^[0-9]{4}$#',
                     'shedule' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9:\,\-\s\;\\\/\.]+$#u', 'nullable'],
                     'content' => 'string|nullable',
-                    'services' => ['between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'],*/
                 ];
 
-//                foreach($this->request->get('specialty') as $key => $val)
-//                {
-//                    $rules['specialty.'.$key] = ['digits:2', 'nullable'];
-//                }
+                if ($this->request->has('specialty')) {
+                    foreach ($this->request->get('specialty') as $key => $val) {
+                        $rules['specialty.' . $key] = ['digits_between:1,3', 'nullable'];
+                    }
+                }
+                if ($this->request->has('services')) {
+                    foreach($this->request->get('services') as $key => $val)
+                    {
+                        $rules['services.'.$key] = ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'];
+                    }
+
+                }
 
                 return $rules;
 
@@ -61,6 +88,14 @@ class EditPerson extends FormRequest
 
         return [
             //
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'specialty.*.*' => 'В поле Специальность должны быть от :min до :max цифр.',
+            'services.*.*' => 'Недопустимые символы в поле Услуги',
         ];
     }
 }

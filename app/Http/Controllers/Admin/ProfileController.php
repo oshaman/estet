@@ -72,7 +72,7 @@ class ProfileController extends AdminController
      * @param null $id
      * @return result
      */
-    public function edit (EditPerson $request, User $user = null)
+    public function edit (EditPerson $request, User $user)
     {
         if (Gate::denies('EDIT_USERS')) {
             abort(404);
@@ -143,6 +143,7 @@ class ProfileController extends AdminController
                 $request->session()->put('photo', $profile->photo);
             }
         }
+
 
         $this->content = view('admin.profiles.edit')->with(['title'=>$this->title, 'profile'=>$profile, 'specialties'=>$spec, 'person'=>$person])->render();
         return $this->renderOutput();

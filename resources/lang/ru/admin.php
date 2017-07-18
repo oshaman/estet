@@ -49,7 +49,7 @@ return [
     'add_source_placeholder' => 'www.example.com',
     'unapproved' => 'Не схвалені',
     'id' => 'ID статті',
-    'alias' => 'Псевдонім статті',
+    'alias' => 'Псевдоним профиля',
     'author' => 'Автор статті',
     //  profile
     'name' => 'Имя',
@@ -64,6 +64,7 @@ return [
     'services'=>'Услуги',
     'site'=>'Сайт',
     'value' => 'Параметр',
+    'specialty.*' => 'Специальность',
     //  Permissions
     'roles' => 'Роли',
     'role' => 'Роль',
