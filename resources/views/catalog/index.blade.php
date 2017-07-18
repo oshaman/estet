@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="col-xs-3">
-                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
             </div>
         </div>
         <div class="row">

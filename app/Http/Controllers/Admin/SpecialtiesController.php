@@ -58,6 +58,12 @@ class SpecialtiesController extends AdminController
         return $this->renderOutput();
     }
 
+    /**
+     * Specialty update
+     * @param Request $request
+     * @param $spec spec_id
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request, $spec)
     {
         if (Gate::denies('EDIT_USERS')) {

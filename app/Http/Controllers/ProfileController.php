@@ -27,6 +27,7 @@ class ProfileController extends Controller
 
         $profile = $this->profile_rep->getProfile($user);
 
+//        dd($profile);
 
         return view('profile.index')->with(['profile' => $profile]);
     }

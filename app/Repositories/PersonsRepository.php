@@ -42,6 +42,11 @@ class PersonsRepository extends Repository {
         return ['status' => 'Профиль обновлен'];
     }
 
+    /**
+     * create new instance of Person
+     * @param $request
+     * @return array
+     */
     public function createPerson($request)
     {
         if (Gate::denies('EDIT_USERS')) {
@@ -55,6 +60,10 @@ class PersonsRepository extends Repository {
 
         if (empty($data['site'])) {
             $data['site'] = url('/catalog/vrachi/') . '/' . $data['alias'];
+        }
+
+        if (!empty($data['photo_status'])) {
+            $data = $this->uploadImg($data);
         }
 
         $person = $this->model->create($data);

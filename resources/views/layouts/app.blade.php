@@ -53,9 +53,11 @@
                             <li><a href="{{ route('login') }}">Login</a></li>
                             <li><a href="{{ route('register') }}">Register</a></li>
                         @else
-                            <a class="navbar-brand" href="{{ route('profile') }}">
-                                {{ trans('ru.profile') }}
-                            </a>
+                            @if(!(Auth::user()->hasRole('moderator') ||  (Auth::user()->hasRole('admin'))))
+                                <a class="navbar-brand" href="{{ route('profile') }}">
+                                    {{ trans('ru.profile') }}
+                                </a>
+                            @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->email }} <span class="caret"></span>

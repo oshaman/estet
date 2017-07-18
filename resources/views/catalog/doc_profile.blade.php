@@ -3,7 +3,7 @@
 @if (!empty($profile))
 <div class="row">
     <div class="col-xs-6">
-        <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+        <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
     </div>
     <div class="col-xs-6">
         <div class="row">

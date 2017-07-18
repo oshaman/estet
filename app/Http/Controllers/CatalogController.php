@@ -21,7 +21,7 @@ class CatalogController extends Controller
      * @param alias $doc
      * @return view
      */
-    public function docs ($doc = false)
+    public function docs (PersonsRepository $rep, $doc = false)
     {
         if ($doc) {
             $docs = new PersonsRepository(new Person);
@@ -38,7 +38,11 @@ class CatalogController extends Controller
             return view('catalog.doc_profile')->with('profile', $profile);
         }
         $this->title = 'Врачи';
-        $profiles = Person::with('specialties')->get();
+
+        $profiles = $rep->get(['name', 'address', 'phone', 'site', 'alias', 'photo'], false, true, false, false, 'specialties');
+//        dd($profiles);
+//        $profiles->load('specialties');
+//        $profiles = Person::with('specialties')->paginate(5)->get();
 
         return view('catalog.index')->with(['title' => $this->title, 'profiles' => $profiles]);
     }
