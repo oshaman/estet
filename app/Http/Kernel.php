@@ -43,6 +43,9 @@ class Kernel extends HttpKernel
         'admin' => [
             \Fresh\Estet\Http\Middleware\AdminMiddleware::class,
         ],
+        'admin_blog' => [
+            \Fresh\Estet\Http\Middleware\AdminBlog::class,
+        ],
     ];
 
     /**

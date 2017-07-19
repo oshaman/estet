@@ -26,7 +26,10 @@ class CatalogController extends Controller
         if ($doc) {
             $docs = new PersonsRepository(new Person);
             $profile = $docs->one($doc);
-//            dd($profile);
+
+            if (!empty($profile->services)) {
+                $profile->services = json_decode($profile->services);
+            }
             if (!$profile) {
                 abort(404);
             }
@@ -40,9 +43,6 @@ class CatalogController extends Controller
         $this->title = 'Врачи';
 
         $profiles = $rep->get(['name', 'address', 'phone', 'site', 'alias', 'photo'], false, true, false, false, 'specialties');
-//        dd($profiles);
-//        $profiles->load('specialties');
-//        $profiles = Person::with('specialties')->paginate(5)->get();
 
         return view('catalog.index')->with(['title' => $this->title, 'profiles' => $profiles]);
     }
