@@ -16,6 +16,10 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <!-- TinyMCE -->
+        @yield('tiny')
+    <!-- TinyMCE -->
+
 </head>
 <body>
     <div id="app">

@@ -16,6 +16,7 @@ class CreateSeosTable extends Migration
         Schema::create('seos', function (Blueprint $table) {
             $table->increments('id');
 
+            $table->string('uri')->unique();
             $table->string('seo_title')->nullable();
             $table->string('seo_keywords')->nullable();
             $table->string('seo_description')->nullable();

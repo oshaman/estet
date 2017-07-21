@@ -40,6 +40,7 @@ Route::group(['prefix'=>'catalog'], function () {
 Route::group(['prefix'=>'admin-blog', 'middleware'=>'admin_blog'], function () {
     Route::get('/', 'AdminBlog\BlogController@index')->name('admin_blog');
     Route::match(['get', 'post'], 'create', 'AdminBlog\BlogController@create')->name('create_blog');
+    Route::match(['get', 'post'], 'edit/{blog}', 'AdminBlog\BlogController@edit')->name('edit_blog');
 });
 
 
