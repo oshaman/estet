@@ -28,29 +28,12 @@ return [
     'add_outputtime' => 'Дата публикации:',
     'deleted' => 'Материал удален',
     'param' => 'Параметр',
+    //  blogs
+    'cats' => 'Категория',
     //  articles
     'articles' => 'Добавленые статьи',
     'add_title' => 'Заголовок:*',
     'add_title_placeholder' => 'Введите название статьи',
-    'selection' => 'Параметр набору:',
-    'add_alias' => 'Псевдонім:',
-    'alias_in_use' => 'Даний псевдонім вже використовується.',
-    'add_alias_placeholder' => 'Введіть псевдонім статті',
-    'add_keywords' => 'Ключові слова:',
-    'add_keywords_placeholder' => 'Введіть ключові слова',
-    'add_meta' => 'Мета теги:',
-    'add_meta_placeholder' => 'Введіть мета теги',
-    'add_text' => 'Зміст:*',
-    'add_desc' => 'Короткий опис:',
-    'add_img' => 'Додати зображення',
-    'add_cat' => 'Категорія:*',
-    'add_cat_placeholder' => 'Обрати категорію',
-    'add_source' => 'Джерело:',
-    'add_source_placeholder' => 'www.example.com',
-    'unapproved' => 'Не схвалені',
-    'id' => 'ID статті',
-    'alias' => 'Псевдоним профиля',
-    'author' => 'Автор статті',
     //  profile
     'name' => 'Имя',
     'lastname' => 'Фамилия',
@@ -69,6 +52,9 @@ return [
     'add_spec' => 'Добавить',
     'spec' => 'Название специальности',
     'edit_spec' => 'Изменить',
+    //  Tags
+    'tag' => 'тег',
+    'tags' => 'Теги',
     //  Permissions
     'roles' => 'Роли',
     'role' => 'Роль',
@@ -81,5 +67,5 @@ return [
     'email' => 'Почта',
     'password' => 'Пароль',
     'cpassword' => 'Повтор пароля',
-
+    'confirmed' => 'В тираж',
 ];

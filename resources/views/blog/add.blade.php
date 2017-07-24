@@ -1,8 +1,6 @@
 <h2>{{$content}}</h2>
-@if (empty($blogs->approved))
-    <span class="label label-warning">Ваши данные не проверены модератором</span>
-@endif
-{!! Form::open(['url'=>route('create_blog'), 'method'=>'post']) !!}
+{!! Form::open(['url'=>route('create_blog'), 'method'=>'POST', 'class'=>'form-horizontal', 'files'=>true]) !!}
+{{ csrf_field() }}
 <div class="row">
     {{ Form::label('title', 'Заголовок страницы') }}
     <div>
@@ -10,9 +8,9 @@
     </div>
 </div>
 <div class="row">
-    {{ Form::label('main_img', 'Основное изображение') }}
+        {{ Form::label('img', 'Основное изображение') }}
     <div>
-        {!! Form::file('main_img', ['accept'=>'image/*', 'id'=>'main_img', 'class'=>'form-control']) !!}
+        {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
     </div>
 </div>
 <div class="row">
@@ -22,7 +20,7 @@
     </div>
 </div>
 <div class="row">
-    {{ Form::label('cats', 'Категории') }}
+    {{ Form::label('cats', 'Категория') }}
     <div>
         {!! Form::select('cats', $cats ?? [],
             old('cats') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
@@ -36,7 +34,15 @@
         <table class="table">
             @foreach($tags as $id=>$tag)
                 <td>
-                    <input name="tags[]"  type="checkbox" value="{{ $id }}"> {{ $tag }}
+                    <input name="tags[]"  type="checkbox"
+                    @if(!empty(old('tags')))
+                        @foreach(old('tags') as $val)
+                            @if($val == $id)
+                                 checked
+                            @endif
+                        @endforeach
+                    @endif
+                    value="{{ $id }}"> {{ $tag }}
                 </td>
             @endforeach
         </table>
@@ -97,7 +103,7 @@
 </div>
 <!-- SEO -->
 <div class="row">
-    <label><input type="checkbox" {{ old('approved') ? 'checked' : ''}} value="approved" name="confirmed"> В тираж</label>
+    <label><input type="checkbox" {{ old('confirmed') ? 'checked' : ''}} value="1" name="confirmed"> В тираж</label>
 </div>
 <div class="row">
     <textarea name="content" class="form-control editor">{!! old('content') ? : '' !!}</textarea>

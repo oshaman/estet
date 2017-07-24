@@ -11,6 +11,9 @@
     </div>
     {!! Form::close() !!}
 </div>
+<div class="row">
+    {!! Html::link(route('create_blog'),'Создать новый блог',['class' => 'btn btn-success']) !!}
+</div>
 <div class="container">
     <table class="table">
         <thead>

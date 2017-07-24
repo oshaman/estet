@@ -67,6 +67,10 @@ class AdminController extends Controller
                 $menu->add('Категории блога', array('route' => 'blogcats'));
             }
 
+            if(Gate::allows('UPDATE_TAGS')) {
+                $menu->add('Тэги', array('route' => 'tags'));
+            }
+
             /*  if(Gate::allows('UPDATE_ARTICLES')) {
                  $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));
              }

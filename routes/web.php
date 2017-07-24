@@ -65,6 +65,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::match(['get', 'post'], '/permissions', ['uses' => 'Admin\PermissionsController@index', 'as' => 'permissions']);
     /**
+     *   Admin TAGS
+     */
+    Route::group(['prefix'=>'tags'], function () {
+        Route::match(['get', 'post'], '/', ['uses' => 'Admin\TagsController@index', 'as' => 'tags']);
+        Route::match(['get', 'post'], 'edit/{tag}', ['uses' => 'Admin\TagsController@edit', 'as' => 'edit_tags'])->where('tag', '[0-9]+');
+    });
+    /**
      *   Admin CATEGORIES
      */
     Route::group(['prefix'=>'cats'], function () {
