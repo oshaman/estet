@@ -4,9 +4,7 @@ namespace Fresh\Estet;
 
 use Illuminate\Database\Eloquent\Model;
 
-class BlogCategory extends Model
+class BlogTag extends Model
 {
-    protected $fillable = ['name'];
-
-
+    //
 }

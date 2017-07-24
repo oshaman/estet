@@ -59,6 +59,13 @@ class AdminController extends Controller
                 $menu->add(trans('ru.specialties'),  array('route'  => 'specialties'));
             }
 
+            if(Gate::allows('UPDATE_CATS')) {
+                $menu->add('Категории', array('route' => 'cats'));
+            }
+
+            if(Gate::allows('UPDATE_CATS')) {
+                $menu->add('Категории блога', array('route' => 'blogcats'));
+            }
 
             /*  if(Gate::allows('UPDATE_ARTICLES')) {
                  $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));

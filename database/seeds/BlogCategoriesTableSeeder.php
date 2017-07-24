@@ -11,6 +11,21 @@ class BlogCategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        DB::table('blog_categories')->insert(
+            [
+                ['name' => 'Практика'],
+                ['name' => 'Эксперты'],
+                ['name' => 'Последние'],
+                ['name' => 'Дерматология'],
+                ['name' => 'Косметология'],
+                ['name' => 'Пластичная хирургия'],
+                ['name' => 'Трихология'],
+                ['name' => 'Стоматология'],
+                ['name' => 'Венерология'],
+                ['name' => 'Гинекология'],
+                ['name' => 'Урология'],
+                ['name' => 'Эндокринология'],
+            ]
+        );
     }
 }

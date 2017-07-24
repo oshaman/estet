@@ -18,6 +18,7 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'EDIT_USERS'],
                 ['name'=>'CONFIRMATION_DATA'],
                 ['name'=>'EDIT_PERMS'],
+                ['name'=>'UPDATE_CATS'],
                 //  articles
                 ['name'=>'ADD_ARTICLES'],
                 ['name'=>'UPDATE_ARTICLES'],

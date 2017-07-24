@@ -65,6 +65,20 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::match(['get', 'post'], '/permissions', ['uses' => 'Admin\PermissionsController@index', 'as' => 'permissions']);
     /**
+     *   Admin CATEGORIES
+     */
+    Route::group(['prefix'=>'cats'], function () {
+        Route::match(['get', 'post'], '/', ['uses' => 'Admin\CatsController@index', 'as' => 'cats']);
+        Route::match(['get', 'post'], 'edit/{cat}', ['uses' => 'Admin\CatsController@edit', 'as' => 'edit_cats'])->where('cat', '[0-9]+');
+    });
+    /**
+     *   Admin BLOG CATEGORIES
+     */
+    Route::group(['prefix'=>'blogcats'], function () {
+        Route::match(['get', 'post'], '/', ['uses' => 'Admin\BlogCatsController@index', 'as' => 'blogcats']);
+        Route::match(['get', 'post'], 'edit/{blogcat}', ['uses' => 'Admin\BlogCatsController@edit', 'as' => 'edit_blogcats'])->where('blogcat', '[0-9]+');
+    });
+    /**
      *   Admin SPECIALTIES
      */
     Route::group(['prefix'=>'specialties'], function () {

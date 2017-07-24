@@ -2,7 +2,7 @@
 @if (empty($blogs->approved))
     <span class="label label-warning">Ваши данные не проверены модератором</span>
 @endif
-{!! Form::open(['url'=>route('admin_blog'), 'method'=>'post']) !!}
+{!! Form::open(['url'=>route('create_blog'), 'method'=>'post']) !!}
 <div class="row">
     {{ Form::label('title', 'Заголовок страницы') }}
     <div>
@@ -22,10 +22,10 @@
     </div>
 </div>
 <div class="row">
-    {{ Form::label('section', 'Раздел') }}
+    {{ Form::label('cats', 'Категории') }}
     <div>
-        {!! Form::select('section', $blog->section ?? [],
-            old('section') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Раздел'])
+        {!! Form::select('cats', $cats ?? [],
+            old('cats') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
         !!}
     </div>
 </div>
