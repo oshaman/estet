@@ -26,11 +26,11 @@ class BlogRequest extends FormRequest
         if ($this->isMethod('post')) {
             $rules = [
                 'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:]+$#u'],
-                'cats' => ['digits_between:1,4', 'nullable'],
+                'cats' => ['digits_between:1,4', 'nullable', 'required'],
                 'tags' => 'array',
-                'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable',
+                'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable|required',
                 'content' => 'string|nullable',
-                'alias' => 'unique:blogs,alias|max:255|alpha_dash',
+                'alias' => 'required|unique:blogs,alias|max:255|alpha_dash',
                 'seo_title' => 'string|nullable',
                 'seo_keywords' => 'string|nullable',
                 'seo_description' => 'string|nullable',
@@ -39,6 +39,7 @@ class BlogRequest extends FormRequest
                 'og_title' => 'string|nullable',
                 'og_description' => 'string|nullable',
                 'confirmed' => 'boolean|nullable',
+                'outputtime' => 'date|nullable',
             ];
 
             if ($this->request->has('tags')) {

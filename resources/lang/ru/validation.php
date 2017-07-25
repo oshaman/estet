@@ -31,7 +31,7 @@ return [
     ],
     'boolean'              => 'Не корректные данные в поле :attribute.',
     'confirmed'            => 'The :attribute confirmation does not match.',
-    'date'                 => 'The :attribute is not a valid date.',
+    'date'                 => 'В поле :attribute не дата.',
     'date_format'          => 'The :attribute does not match the format :format.',
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'Поле :attribute должно содержать :digits цифр.',

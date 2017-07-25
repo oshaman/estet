@@ -52,6 +52,14 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('Fresh\Estet\Role','role_user');
     }
+/**
+     *  Get the blog associated with the user.
+     */
+
+    public function blogs()
+    {
+        return $this->hasMany('Fresh\Estet\Blog');
+    }
 
     /**
      *

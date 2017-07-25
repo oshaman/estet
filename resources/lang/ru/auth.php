@@ -14,7 +14,7 @@ return [
     */
 
     'failed' => 'Ошибка ввода либо учетная запись не активирована.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'throttle' => 'Слишком много неудачных попыток. Попробуйте через :seconds секунд.',
     'resend_activation' => 'Повторить активацию',
     'confirm_activation' => 'Подтвердите активацию',
 

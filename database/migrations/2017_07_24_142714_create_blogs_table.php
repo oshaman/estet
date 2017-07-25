@@ -19,10 +19,7 @@ class CreateBlogsTable extends Migration
             $table->string('title')->index();
             $table->string('alias')->unique();
             $table->boolean('approved')->default(false);
-            $table->text('content');
-
-            $table->integer('img_id')->unsigned()->default(1);
-            $table->foreign('img_id')->references('id')->on('blog_imgs');
+            $table->text('content')->nullable()->default(null);
 
             $table->integer('user_id')->unsigned()->default(1);
             $table->foreign('user_id')->references('id')->on('users');
@@ -30,10 +27,9 @@ class CreateBlogsTable extends Migration
             $table->integer('category_id')->unsigned()->default(1);
             $table->foreign('category_id')->references('id')->on('blog_categories');
 
-            $table->integer('seo_id')->unsigned()->default(1);
-            $table->foreign('seo_id')->references('id')->on('seos');
+            $table->text('seo')->nullable()->default(null);
 
-            $table->timestamp('cessation')->default(null);
+            $table->timestamp('cessation')->nullable()->default(null);
             $table->timestamps();
         });
     }

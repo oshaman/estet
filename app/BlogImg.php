@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class BlogImg extends Model
 {
-    protected $fillable = ['blog_id', 'path'];
+    protected $fillable = ['title', 'path', 'alt', 'blog_id'];
     public $timestamps = false;
 }

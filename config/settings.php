@@ -6,5 +6,10 @@ return [
     'paginate' => 5,
     'profile_img' => [
         'width' => 300,
-    ]
+    ],
+    'blogs_img' => [
+        'main' => ['width'=>535,'height'=>369],
+        'middle' => ['width'=>335,'height'=>231],
+        'small' => ['width'=>335,'height'=>215]
+    ],
 ];

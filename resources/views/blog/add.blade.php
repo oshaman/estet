@@ -102,8 +102,18 @@
     </div>
 </div>
 <!-- SEO -->
+<div class="row>">
+    <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')); !!}</h4>
+    <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>
+        <input type="text" name="outputtime" id="outputtime" value="{{ old('outputtime') ? : date('Y-m-d H:i:s') }}">
+    </div>
+</div>
 <div class="row">
-    <label><input type="checkbox" {{ old('confirmed') ? 'checked' : ''}} value="1" name="confirmed"> В тираж</label>
+    <!-- Approved -->
+    @if(Auth::user()->canDo('CONFIRMATION_DATA'))
+        <label><input type="checkbox" {{ old('confirmed') ? 'checked' : ''}} value="1" name="confirmed"> В тираж</label>
+    @endif
+
 </div>
 <div class="row">
     <textarea name="content" class="form-control editor">{!! old('content') ? : '' !!}</textarea>

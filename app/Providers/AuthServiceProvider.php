@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'Fresh\Estet\Permission' => 'Fresh\Estet\Policies\PermissionPolicy',
         'Fresh\Estet\User' => 'Fresh\Estet\Policies\UserPolicy',
+        'Fresh\Estet\Blog' => 'Fresh\Estet\Policies\BlogPolicy',
 //        'Fresh\Estet\Person' => 'Fresh\Estet\Policies\PersonPolicy',
 //        'Fresh\Estet\Specialty' => 'Fresh\Estet\Policies\SpecialtyPolicy',
     ];
@@ -55,6 +56,11 @@ class AuthServiceProvider extends ServiceProvider
         Gate::define('UPDATE_TAGS', function ($user) {
             return $user->canDo('UPDATE_TAGS', false);
         });
+
+        Gate::define('ADD_BLOG', function ($user) {
+            return $user->canDo('ADD_BLOG', FALSE);
+        });
+
 
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);

@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateBlogImgsTable extends Migration
+class CreateBlogTagTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,10 @@ class CreateBlogImgsTable extends Migration
      */
     public function up()
     {
-        Schema::create('blog_imgs', function (Blueprint $table) {
+        Schema::create('blog_tag', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('path')->unique();
-            $table->string('alt');
-            $table->string('title');
+            $table->unsignedInteger('blog_id');
+            $table->unsignedInteger('tag_id');
         });
     }
 
@@ -28,7 +27,6 @@ class CreateBlogImgsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('blog_imgs');
+        Schema::dropIfExists('blog_tag');
     }
-
 }

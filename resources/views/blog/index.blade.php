@@ -27,10 +27,15 @@
                 <tr>
                     <td>{{ $blog->alias }}</td>
                     <td>{{ $blog->title }}</td>
-                    <td>{{ $blog->date }}</td>
+                    <td>{{ $blog->created_at }}</td>
                     <td>
                         {!! Form::open(['url' => route('edit_blog',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                         {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
+                        {!! Form::close() !!}
+                    </td>
+                    <td>
+                        {!! Form::open(['url' => route('destroy_blog',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                        {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
