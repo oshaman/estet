@@ -12,6 +12,7 @@ use Fresh\Estet\Http\Controllers\Controller;
 use Fresh\Estet\BlogImage;
 use Fresh\Estet\Blog;
 use Fresh\Estet\Repositories\BlogsRepository;
+use Auth;
 
 use Gate;
 
@@ -25,13 +26,17 @@ class BlogController extends Controller
     }
 
 
-    public function index()
+    public function index(BlogRequest $request)
     {
         if (Gate::denies('UPDATE_BLOG')) {
             abort(404);
         }
+        if ($request->isMethod('post')) {
 
-        $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true);
+            dd($request);
+        }
+
+        $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['user_id', Auth::user()->id]);
         $content = view('blog.index')->with('blogs', $blogs)->render();
 
         return view('blog.admin')->with('content', $content);
@@ -70,9 +75,11 @@ class BlogController extends Controller
 
     }
 
-    public function edit(Request $request)
+    public function edit(Request $request, $blog)
     {
-        dd('EDIT');
+        if (Gate::denies('delete')) {
+            abort(404);
+        }
     }
 
     public function destroy(Blog $blog)
@@ -87,7 +94,5 @@ class BlogController extends Controller
             return back()->with($result);
         }
         return redirect()->route('admin_blog')->with($result);
-
-        dd($blog);
     }
 }

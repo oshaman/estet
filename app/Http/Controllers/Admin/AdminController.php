@@ -71,6 +71,10 @@ class AdminController extends Controller
                 $menu->add('Тэги', array('route' => 'tags'));
             }
 
+            if(Gate::allows('DELETE_BLOG')) {
+                $menu->add(trans('ru.blog'), array('route' => 'view_blogs'));
+            }
+
             /*  if(Gate::allows('UPDATE_ARTICLES')) {
                  $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));
              }

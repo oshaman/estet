@@ -65,7 +65,7 @@ class BlogsRepository extends Repository {
             if (Gate::denies('CONFIRMATION_DATA')) {
                 array_forget($data, 'confirmed');
             } else {
-                $blog['confirmed'] = true;
+                $blog['approved'] = true;
             }
         }
         // SEO handle
@@ -153,7 +153,6 @@ class BlogsRepository extends Repository {
                 $old_pic[] = $pic->path;
             }
         }
-dd($old_pic);
         // $blog->comments()->delete();
         $blog->tags()->detach();
         if (!empty($blog->blog_img->path)) {
@@ -172,16 +171,22 @@ dd($old_pic);
                 if (File::exists(public_path('/images/blog/small/'). $old_img)) {
                     File::delete(public_path('/images/blog/small/'). $old_img);
                 }
+                if (File::exists(public_path('/images/blog/mini/'). $old_img)) {
+                    File::delete(public_path('/images/blog/mini/'). $old_img);
+                }
             }
 
             if (!empty($old_pic)) {
                 foreach ($old_pic as $pic) {
+
                     if (File::exists(public_path('/images/blog/photos/main/') . $pic)) {
                         File::delete(public_path('/images/blog/photos/main/') . $pic);
                     }
+
                     if (File::exists(public_path('/images/blog/photos/middle/'). $pic)) {
                         File::delete(public_path('/images/blog/photos/middle/') . $pic);
                     }
+
                     if (File::exists(public_path('/images/blog/photos/small/'). $pic)) {
                         File::delete(public_path('/images/blog/photos/small/'). $pic);
                     }
@@ -367,6 +372,9 @@ dd($old_pic);
             $img->fit(Config::get('settings.blogs_img')['small']['width'], Config::get('settings.blogs_img')['small']['height'],
                 function ($constraint) { $constraint->upsize();},
                 $position)->save(public_path() . '/images/blog/small/'.$path, 100);
+            $img->fit(Config::get('settings.blogs_img')['mini']['width'], Config::get('settings.blogs_img')['mini']['height'],
+                function ($constraint) { $constraint->upsize();},
+                $position)->save(public_path() . '/images/blog/mini/'.$path, 100);
             return $path;
 
         } else {

@@ -1,5 +1,5 @@
 <h2>{{$content}}</h2>
-{!! Form::open(['url'=>route('create_blog'), 'method'=>'POST', 'class'=>'form-horizontal', 'files'=>true]) !!}
+{!! Form::open(['url'=>route('moderate_blog'), 'method'=>'POST', 'class'=>'form-horizontal', 'files'=>true]) !!}
 {{ csrf_field() }}
 <div class="row">
     {{ Form::label('title', 'Заголовок страницы') }}

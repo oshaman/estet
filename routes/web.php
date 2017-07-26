@@ -38,9 +38,8 @@ Route::group(['prefix'=>'catalog'], function () {
  */
 
 Route::group(['prefix'=>'admin-blog', 'middleware'=>'admin_blog'], function () {
-    Route::get('/', 'AdminBlog\BlogController@index')->name('admin_blog');
+    Route::match(['get', 'post'], '/', 'AdminBlog\BlogController@index')->name('admin_blog');
     Route::match(['get', 'post'], 'create', 'AdminBlog\BlogController@create')->name('create_blog');
-    Route::get( 'destroy/{blog}', 'AdminBlog\BlogController@destroy')->name('destroy_blog')->where('blog', '[0-9]+');
     Route::match(['get', 'post'], 'edit/{blog}', 'AdminBlog\BlogController@edit')->name('edit_blog')->where('blog', '[0-9]+');
 });
 
@@ -78,6 +77,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix'=>'cats'], function () {
         Route::match(['get', 'post'], '/', ['uses' => 'Admin\CatsController@index', 'as' => 'cats']);
         Route::match(['get', 'post'], 'edit/{cat}', ['uses' => 'Admin\CatsController@edit', 'as' => 'edit_cats'])->where('cat', '[0-9]+');
+    });
+    /**
+     *   Admin BLOG
+     */
+    Route::group(['prefix'=>'blogs'], function () {
+        Route::match(['get', 'post'], '/', ['uses' => 'Admin\BlogsController@index', 'as' => 'view_blogs']);
+        Route::get( 'destroy/{blog}', 'Admin\BlogController@destroy')->name('destroy_blog')->where('blog', '[0-9]+');
+        Route::match(['get', 'post'], 'edit/{blog}', 'Admin\BlogController@edit')->name('moderate_blog')->where('blog', '[0-9]+');
     });
     /**
      *   Admin BLOG CATEGORIES

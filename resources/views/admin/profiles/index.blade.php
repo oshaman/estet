@@ -8,9 +8,10 @@
         {{ Form::label('param', 'Критерий поиска') }}
         {!! Form::select('param',
                 [
-                    1=>'ID',
-                    2=>'Link',
-                    3=>'Все',
+                    1=>'Фамилия',
+                    2=>'Псевдоним профиля',
+                    3=>'ID',
+                    4=>'Все',
                 ], old('val') ? : 1, ['class'=>'custom-select'])
 !!}
     </div>
@@ -45,7 +46,7 @@
 
             <div class="general-pagination group">
 
-                @if($profiles->lastPage() > 1)
+                @if(is_object($profiles) && !empty($profiles->lastPage()) && $profiles->lastPage() > 1)
                     <ul class="pagination">
                         @if($profiles->currentPage() !== 1)
                             <li><a href="{{ $profiles->url(($profiles->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>

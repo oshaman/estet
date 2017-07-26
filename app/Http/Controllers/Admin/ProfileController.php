@@ -38,15 +38,18 @@ class ProfileController extends AdminController
             $data = $request->except('_token');
 //            dd($data);
             if (1 == $data['param']) {
-
-                if ($profile = $this->pers_rep->findByUserId($data['value'])) {
-                    $profiles[0] = $profile;
-                } else {
+                if (!$profiles = $this->pers_rep->get(['name', 'lastname', 'phone', 'user_id'], false, true, ['lastname', $data['value']])) {
                     $profiles = null;
                 }
             } elseif (2 == $data['param']) {
 
                 if ($profile = $this->pers_rep->one($data['value'])) {
+                    $profiles[0] = $profile;
+                } else {
+                    $profiles = null;
+                }
+            } elseif (3 == $data['param']) {
+                if ($profile = $this->pers_rep->findByUserId($data['value'])) {
                     $profiles[0] = $profile;
                 } else {
                     $profiles = null;

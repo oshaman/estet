@@ -24,30 +24,38 @@ class BlogRequest extends FormRequest
     public function rules()
     {
         if ($this->isMethod('post')) {
-            $rules = [
-                'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:]+$#u'],
-                'cats' => ['digits_between:1,4', 'nullable', 'required'],
-                'tags' => 'array',
-                'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable|required',
-                'content' => 'string|nullable',
-                'alias' => 'required|unique:blogs,alias|max:255|alpha_dash',
-                'seo_title' => 'string|nullable',
-                'seo_keywords' => 'string|nullable',
-                'seo_description' => 'string|nullable',
-                'seo_text' => 'string|nullable',
-                'og_image' => 'string|nullable',
-                'og_title' => 'string|nullable',
-                'og_description' => 'string|nullable',
-                'confirmed' => 'boolean|nullable',
-                'outputtime' => 'date|nullable',
-            ];
+            if (!$this->has('param')) {
+                $rules = [
+                    'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:]+$#u'],
+                    'cats' => ['digits_between:1,4', 'nullable', 'required'],
+                    'tags' => 'array',
+                    'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable|required',
+                    'content' => 'string|nullable',
+                    'alias' => 'required|unique:blogs,alias|max:255|alpha_dash',
+                    'seo_title' => 'string|nullable',
+                    'seo_keywords' => 'string|nullable',
+                    'seo_description' => 'string|nullable',
+                    'seo_text' => 'string|nullable',
+                    'og_image' => 'string|nullable',
+                    'og_title' => 'string|nullable',
+                    'og_description' => 'string|nullable',
+                    'confirmed' => 'boolean|nullable',
+                    'outputtime' => 'date|nullable',
+                ];
 
-            if ($this->request->has('tags')) {
-                foreach ($this->request->get('tags') as $key => $val) {
-                    $rules['tags.' . $key] = ['digits_between:1,10', 'nullable'];
+                if ($this->request->has('tags')) {
+                    foreach ($this->request->get('tags') as $key => $val) {
+                        $rules['tags.' . $key] = ['digits_between:1,10', 'nullable'];
+                    }
                 }
+                return $rules;
+            } else {
+                $rules = [
+                    'value' => 'string|nullable|alpha_dash',
+                    'param' => 'nullable|digits:1',
+                ];
+                return $rules;
             }
-            return $rules;
         }
 
         return [
