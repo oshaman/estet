@@ -1,4 +1,4 @@
-@extends('/../layouts/app')
+@extends('/../layouts/admin')
 
 @section('tiny')
     <script src="{{ asset('/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
@@ -49,6 +49,14 @@
 
         tinymce.init(editor_config);
     </script>
+@endsection
+
+@section('navbar')
+    @if ($nav)
+        <div class="navbar-header">
+            {!! Menu::get('adminMenu')->asUl(array('class' => 'nav nav-pills')) !!}
+        </div>
+    @endif
 @endsection
 
 @section('content')

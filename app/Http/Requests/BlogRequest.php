@@ -13,7 +13,29 @@ class BlogRequest extends FormRequest
      */
     public function authorize()
     {
-        return \Auth::user()->canDo('UPDATE_BLOG');
+        return \Auth::user()->canDo('DELETE_BLOG');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    public function getValidatorInstance()
+    {
+        $validator = parent::getValidatorInstance();
+
+        $validator->sometimes('alias', 'required|unique:blogs,alias|max:255|alpha_dash', function ($input) {
+//  bind blog_id in RouteServiceProvider
+            if ($this->route()->hasParameter('blog')) {
+                $model = $this->route()->parameter('blog');
+//                dd($model);
+                if (null === $model) return true;
+                return ($model->alias !== $input->alias)  && !empty($input->alias);
+            }
+
+            return !empty($input->alias);
+        });
+
+        return $validator;
     }
 
     /**
@@ -29,9 +51,8 @@ class BlogRequest extends FormRequest
                     'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:]+$#u'],
                     'cats' => ['digits_between:1,4', 'nullable', 'required'],
                     'tags' => 'array',
-                    'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable|required',
+                    'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable',
                     'content' => 'string|nullable',
-                    'alias' => 'required|unique:blogs,alias|max:255|alpha_dash',
                     'seo_title' => 'string|nullable',
                     'seo_keywords' => 'string|nullable',
                     'seo_description' => 'string|nullable',
@@ -51,7 +72,7 @@ class BlogRequest extends FormRequest
                 return $rules;
             } else {
                 $rules = [
-                    'value' => 'string|nullable|alpha_dash',
+                    'value' => ['nullable', 'string', 'between:1,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:]+$#u'],
                     'param' => 'nullable|digits:1',
                 ];
                 return $rules;

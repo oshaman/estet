@@ -45,6 +45,16 @@ class Blog extends Model
     {
         return $this->belongsToMany('Fresh\Estet\Tag', 'blog_tag');
     }
+
+    public function hasTag($id)
+    {
+        foreach ($this->tags as $tag) {
+            if ($tag->id == $id) {
+                return true;
+            }
+        }
+        return false;
+    }
     /* public function comments()
     {
         return $this->hasMany('Fresh\Estet\Comment');

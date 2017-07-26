@@ -100,7 +100,6 @@ class BlogsRepository extends Repository {
 
         $error = '';
         if (!empty($new)) {
-
             // Main Image handle
             if ($request->hasFile('img')) {
                 $path = $this->mainImg($request->file('img'), $blog['alias']);
@@ -115,8 +114,6 @@ class BlogsRepository extends Repository {
                     $error[] = ['img' => 'Ошибка записи картинки'];
                 }
             }
-
-
             // Tags
             if (!empty($data['tags'])) {
 
@@ -136,7 +133,6 @@ class BlogsRepository extends Repository {
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
-
 
             return ['status' => trans('admin.material_added')];
         }
@@ -461,5 +457,16 @@ class BlogsRepository extends Repository {
                 return $str;
             }
         } else return 'Ошибка добавления файла';
+    }
+
+    public function findById($id, $attr = array())
+    {
+        $result = $this->model->where('id', $id)->first();
+        if (!empty($result->seo)) {
+            if (is_string($result->seo) && is_object(json_decode($result->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
+                $result->seo = json_decode($result->seo);
+            }
+        }
+        return $result;
     }
 }

@@ -83,8 +83,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::group(['prefix'=>'blogs'], function () {
         Route::match(['get', 'post'], '/', ['uses' => 'Admin\BlogsController@index', 'as' => 'view_blogs']);
-        Route::get( 'destroy/{blog}', 'Admin\BlogController@destroy')->name('destroy_blog')->where('blog', '[0-9]+');
-        Route::match(['get', 'post'], 'edit/{blog}', 'Admin\BlogController@edit')->name('moderate_blog')->where('blog', '[0-9]+');
+        Route::get( 'destroy/{blog}', 'Admin\BlogsController@destroy')->name('destroy_blog')->where('blog', '[0-9]+');
+        Route::match(['get', 'post'], 'edit/{blog}', 'Admin\BlogsController@edit')->name('moderate_blog')->where('blog', '[0-9]+');
     });
     /**
      *   Admin BLOG CATEGORIES

@@ -24,8 +24,12 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         //
-
         parent::boot();
+
+        Route::bind('blog', function ($value) {
+            return \Fresh\Estet\Blog::where('id', $value)->first();
+        });
+
     }
 
     /**

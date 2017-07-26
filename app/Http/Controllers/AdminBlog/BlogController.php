@@ -4,8 +4,6 @@ namespace Fresh\Estet\Http\Controllers\AdminBlog;
 
 use Fresh\Estet\Repositories\BlogCategoriesRepository;
 use Fresh\Estet\BlogCategory;
-use Fresh\Estet\Repositories\TagsRepository;
-use Fresh\Estet\Tag;
 use Illuminate\Http\Request;
 use Fresh\Estet\Http\Requests\BlogRequest;
 use Fresh\Estet\Http\Controllers\Controller;
@@ -80,19 +78,5 @@ class BlogController extends Controller
         if (Gate::denies('delete')) {
             abort(404);
         }
-    }
-
-    public function destroy(Blog $blog)
-    {
-        if (Gate::denies('delete', $blog)) {
-            abort(404);
-        }
-
-        $result = $this->blog_rep->deleteBlog($blog);
-
-        if(is_array($result) && !empty($result['error'])) {
-            return back()->with($result);
-        }
-        return redirect()->route('admin_blog')->with($result);
     }
 }

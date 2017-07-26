@@ -27,7 +27,7 @@
             <th>Ссылка</th><th>Заголовок</th><th>Дата публикации</th>
         </tr>
         </thead>
-        @if (!empty($blogs))
+        @if (!empty($blogs[0]))
             <tbody>
             @foreach ($blogs as $blog)
                 <tr>
@@ -51,7 +51,7 @@
 
             <div class="general-pagination group">
 
-                @if($blogs->lastPage() > 1)
+                @if(is_object($blogs) && !empty($blogs->lastPage()) && $blogs->lastPage() > 1)
                     <ul class="pagination">
                         @if($blogs->currentPage() !== 1)
                             <li><a href="{{ $blogs->url(($blogs->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>
