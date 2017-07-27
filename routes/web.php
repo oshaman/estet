@@ -40,7 +40,8 @@ Route::group(['prefix'=>'catalog'], function () {
 Route::group(['prefix'=>'admin-blog', 'middleware'=>'admin_blog'], function () {
     Route::match(['get', 'post'], '/', 'AdminBlog\BlogController@index')->name('admin_blog');
     Route::match(['get', 'post'], 'create', 'AdminBlog\BlogController@create')->name('create_blog');
-    Route::match(['get', 'post'], 'edit/{blog}', 'AdminBlog\BlogController@edit')->name('edit_blog')->where('blog', '[0-9]+');
+    Route::match(['get', 'post'], 'edit/{tmp}/{blogid?}', 'AdminBlog\BlogController@edit')->name('edit_blog')->where(['tmp'=>'[0-9]+', 'blogid'=>'[0-9]+']);
+    Route::get('destroy/{tmpblog}', 'AdminBlog\BlogController@destroy')->name('destroy_tmp')->where('tmpblog', '[0-9]+');
 });
 
 

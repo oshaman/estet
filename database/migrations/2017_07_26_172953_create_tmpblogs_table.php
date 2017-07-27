@@ -19,7 +19,10 @@ class CreateTmpblogsTable extends Migration
             $table->unsignedInteger('category')->nullable()->default(null);
             $table->text('content')->nullable()->default(null);
             $table->boolean('moderate')->default(false);
-            $table->
+            $table->string('image')->nullable()->default(null);
+            $table->integer('user_id')->unsigned()->default(1);
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedInteger('blog_id')->nullable()->default(null);
 
             $table->timestamps();
         });
