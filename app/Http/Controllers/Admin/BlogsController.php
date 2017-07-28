@@ -93,6 +93,11 @@ class BlogsController extends AdminController
             $rep = new TmpblogsRepository(new Tmpblog);
             $rep->deleteBlog(Tmpblog::find($request->session()->get('tmp_id')));
         }
+            $request->session()->forget('tmp_id');
+            $request->session()->forget('user_id');
+            $request->session()->forget('image');
+
+
             return redirect()->route('view_blogs')->with($result);
         }
 
@@ -151,7 +156,6 @@ class BlogsController extends AdminController
         }
 
         $img = $blog->blog_img->path;
-//        dd($content);
 
         $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img])->render();
 

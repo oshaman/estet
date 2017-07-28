@@ -48,11 +48,13 @@
                         {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                         {!! Form::close() !!}
                     </td>
+                    @if(!key_exists('blog_id',$blog->toArray()))
                     <td>
                         {!! Form::open(['url' => route('destroy_blog',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                         {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
                         {!! Form::close() !!}
                     </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

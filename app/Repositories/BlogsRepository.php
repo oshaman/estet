@@ -90,8 +90,9 @@ class BlogsRepository extends Repository {
             }
         }
 //        END Content
-
-        $blog['user_id'] = $request->session()->get('user_id');
+        if ($request->session()->has('user_id')) {
+            $blog['user_id'] = $request->session()->get('user_id');
+        }
 
         $new = $this->model->firstOrCreate($blog);
 
@@ -159,7 +160,7 @@ class BlogsRepository extends Repository {
             }
         }
         // $blog->comments()->delete();
-        $blog->tags()->detach();
+//        $blog->tags()->detach();
         if (!empty($blog->blog_img->path)) {
             $old_img = $blog->blog_img->path;
         }
@@ -178,6 +179,9 @@ class BlogsRepository extends Repository {
                 }
                 if (File::exists(public_path('/images/blog/mini/'). $old_img)) {
                     File::delete(public_path('/images/blog/mini/'). $old_img);
+                }
+                if (File::exists(public_path('/images/blog/tmp/'). $old_img)) {
+                    File::delete(public_path('/images/blog/tmp/'). $old_img);
                 }
             }
 
