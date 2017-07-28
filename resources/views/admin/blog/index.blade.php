@@ -10,8 +10,9 @@
                     [
                         1=>'Псевдоним статьи',
                         2=>'Заголовок',
-                        3=>'Все',
-                        4=>'ID автора',
+                        3 =>'На паузе',
+                        4=>'Все',
+                        5=>'ID автора',
                     ], old('val') ? : 1, ['class'=>'custom-select'])
             !!}
     </div>
@@ -35,7 +36,15 @@
                     <td>{{ $blog->title }}</td>
                     <td>{{ $blog->created_at }}</td>
                     <td>
-                        {!! Form::open(['url' => route('moderate_blog',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                        @if(key_exists('blog_id',$blog->toArray()))
+                            @if($blog->blog_id)
+                                {!! Form::open(['url' => route('moderate_blog',['blog'=> $blog->blog_id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                            @else
+                                {!! Form::open(['url' => route('add_blog'),'class'=>'form-horizontal','method'=>'GET']) !!}
+                            @endif
+                        @else
+                            {!! Form::open(['url' => route('moderate_blog',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                        @endif
                         {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                         {!! Form::close() !!}
                     </td>

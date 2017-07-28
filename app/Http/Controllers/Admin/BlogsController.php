@@ -9,7 +9,8 @@ use Fresh\Estet\BlogCategory;
 use Fresh\Estet\Repositories\BlogCategoriesRepository;
 use Fresh\Estet\Blog;
 use Fresh\Estet\Repositories\BlogsRepository;
-
+use Fresh\Estet\Tmpblog;
+use Fresh\Estet\Repositories\TmpblogsRepository;
 
 
 use Gate;
@@ -48,9 +49,12 @@ class BlogsController extends AdminController
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['title', $data['value']]);
                     break;
                 case 3:
-                    $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true);
+                    $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
                     break;
                 case 4:
+                    $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true);
+                    break;
+                case 5:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['user_id', $data['value']]);
                     break;
                 default:
@@ -61,8 +65,44 @@ class BlogsController extends AdminController
             return $this->renderOutput();
         }
 
-        $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
+        $rep = new TmpblogsRepository(new Tmpblog);
+
+        $blogs = $rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, ['moderate', 1]);
         $this->content = view('admin.blog.index')->with('blogs', $blogs)->render();
+
+        return $this->renderOutput();
+    }
+
+    public function create(BlogRequest $request)
+    {
+        if (Gate::denies('DELETE_BLOG')) {
+            abort(404);
+        }
+
+        if ($request->isMethod('post')) {
+            dd($request);
+        }
+
+//        View FORMS
+        $title = 'Добавление статьи блога';
+        $this->template = 'admin.blog.admin';
+        //  get categories
+        $cats = new BlogCategoriesRepository(new BlogCategory);
+        $lists = $cats->catSelect();
+        //  get tags
+        $tags = new TagsRepository(new Tag);
+        $tag = $tags->tagSelect();
+
+
+
+        if (null == $blog) {
+            abort(404);
+        }
+
+        $img = $blog->blog_img->path;
+//        dd($content);
+
+        $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img])->render();
 
         return $this->renderOutput();
     }
