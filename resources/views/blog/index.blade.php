@@ -8,9 +8,10 @@
         {{ Form::label('param', 'Критерий поиска') }}
         {!! Form::select('param',
             [
-                1=>'Псевдоним статьи',
-                2=>'Заголовок',
-                3=>'Все',
+                1=>'Отправленные на модерацию',
+                2=>'Псевдоним статьи',
+                3=>'Заголовок',
+                4=>'Все опубликованные',
             ], old('val') ? : 1, ['class'=>'custom-select'])
         !!}
     </div>
@@ -36,15 +37,18 @@
                     <td>{{ $blog->title }}</td>
                     <td>{{ $blog->created_at }}</td>
                     <td>
-                        <form method="GET" action="{{ route('edit_blog',['blog'=> $blog->id]) }}@if(!empty($blog->blog_id))/{{ $blog->blog_id }}@endif" accept-charset="UTF-8" class="form-horizontal">
+                        <form method="GET" action="{{ route('edit_blog', (key_exists('blog_id',$blog->toArray()) ? $blog->id : ('0/' . $blog->id) ))}}"
+                                    accept-charset="UTF-8" class="form-horizontal">
                             <button type="submit" class="btn btn-warning">{{ trans('admin.edit_btn') }}</button>
                         </form>
                     </td>
-                    <td>
-                        {!! Form::open(['url' => route('destroy_tmp',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
-                        {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
-                        {!! Form::close() !!}
-                    </td>
+                    @if(key_exists('blog_id',$blog->toArray()))
+                        <td>
+                            {!! Form::open(['url' => route('destroy_tmp',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                            {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
+                            {!! Form::close() !!}
+                        </td>
+                    @endif
                 </tr>
             @endforeach
             </tbody>

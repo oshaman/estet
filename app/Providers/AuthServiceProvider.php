@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
         'Fresh\Estet\Permission' => 'Fresh\Estet\Policies\PermissionPolicy',
         'Fresh\Estet\User' => 'Fresh\Estet\Policies\UserPolicy',
         'Fresh\Estet\Blog' => 'Fresh\Estet\Policies\BlogPolicy',
+        'Fresh\Estet\Tmpblog' => 'Fresh\Estet\Policies\TmpblogPolicy',
 //        'Fresh\Estet\Person' => 'Fresh\Estet\Policies\PersonPolicy',
 //        'Fresh\Estet\Specialty' => 'Fresh\Estet\Policies\SpecialtyPolicy',
     ];

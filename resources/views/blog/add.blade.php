@@ -23,7 +23,7 @@
 </div>
 <div class="row">
     <!-- Moderated -->
-    <label><input type="checkbox" {{ old('confirmed') ? 'checked' : ''}} value="1" name="moder"> Отправить модератору</label>
+    <label><input type="checkbox" {{ old('moder') ? 'checked' : ''}} value="1" name="moder"> Отправить модератору</label>
 </div>
 <div class="row">
     <textarea name="content" class="form-control editor">{!! old('content') ? : '' !!}</textarea>

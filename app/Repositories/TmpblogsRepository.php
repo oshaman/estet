@@ -2,6 +2,7 @@
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Tmpblog;
+use Fresh\Estet\Blog;
 use Gate;
 use File;
 use Image;
@@ -17,16 +18,49 @@ class TmpblogsRepository extends Repository {
 
     public function getBlog($tmpid, $blogid)
     {
-        dd($blogid);
+        if ('0' !== $tmpid) {
+            $tmp = $this->findById($tmpid);
 
-        if (0 == $tmpid) {
-            $blog = 
+            if (null == $tmp) {
+                return false;
+            }
+            if (Gate::denies('update', $tmp)) {
+                return false;
+            }
+            return $tmp;
         } else {
+            $blog = Blog::where('id', $blogid)->first();
 
+            if (null == $blog) {
+                return false;
+            }
+
+            if (Gate::denies('view', $blog)) {
+                return false;
+            }
+
+            $tmp = $this->model->where('blog_id', $blog->id)->first();
+            if (null !== $tmp) {
+                return $tmp;
+            }
+            $blog->load('blog_img');
+            if (!empty($blog->blog_img->path)) {
+                $blog->image = $blog->blog_img->path;
+            }
+
+            $blog->blog_session = $blog->id;
+            $blog->category = $blog->category_id;
+
+            return $blog;
         }
     }
 
-    public function addBlog($request) {
+    /**
+     * @param $request
+     * @return array
+     */
+    public function addBlog($request)
+    {
         if (Gate::denies('ADD_BLOG')) {
             abort(404);
         }
@@ -35,7 +69,7 @@ class TmpblogsRepository extends Repository {
         if (empty($data)) {
             return array('error' => trans('admin.no_data'));
         }
-//dd($request);
+
         $blog['title'] = $data['title'];
 
         $blog['alias'] = $this->transliterate($data['title']);
@@ -61,8 +95,13 @@ class TmpblogsRepository extends Repository {
             } else {
                 $blog['image'] = $path;
             }
+        } elseif (!empty($request->session()->has('image'))) {
+            $blog['image'] = $request->session()->get('image');
         }
-//        dd($blog);
+
+        if (!empty($request->session()->has('blog_id'))) {
+            $blog['blog_id'] = $request->session()->get('blog_id');
+        }
         $this->model->fill($blog);
 
         $new = $request->user()->blogs()->save($this->model);
@@ -73,156 +112,86 @@ class TmpblogsRepository extends Repository {
         return ['error' => 'Ошибка добавления материала'];
     }
 
-    /*
+    /**
+     *
+     * @param $request
+     * @param $tmp_id
+     * @return $this|array
+     */
+    public function updateBlog($request, $tmp_id)
+    {
+        $tmpblog = $this->findById($tmp_id);
 
-
-    public function updateArticle($request, $article) {
-        if (Gate::denies('update', $article)) {
+        if (null == $tmpblog) {
             abort(404);
         }
 
-        $data = $request->except('_token','img','_method');
+        if (Gate::denies('update', $tmpblog)) {
+            abort(404);
+        }
 
+        $data = $request->except('_token','img');
         if (empty($data)) {
             return array('error' => trans('admin.no_data'));
         }
 
-        if (empty($data['alias'])) {
-            $data['alias'] = $this->transliterate($data['title']) . '-' .date('Ymd');
-        } elseif ($data['alias'] != $article->alias) {
-            $data['alias'] = $this->transliterate($data['alias']) . '-' .date('Ymd');
+        $blog['title'] = $data['title'];
+
+        if (!empty($data['cats'])) {
+            $blog['category'] = $data['cats'];
         }
 
-        $result = $this->one($data['alias'],FALSE);
-
-        if(isset($result->id) && ($result->id != $article->id)) {
-            $request->merge(array('alias' => $data['alias']));
-            $request->flash();
-
-            return ['error' => trans('admin.alias_in_use')];
+        if (!empty($data['moder'])) {
+            $blog['moderate'] = true;
         }
-
-        if (!empty($data['outputtime'])) {
-            $data['created_at'] = $data['outputtime'];
+//        Content
+        if (!empty($data['content'])) {
+            $blog['content'] = $data['content'];
         }
+//        END Content
 
-        if (empty($data['source'])) {
-            $data['source'] = 'www.' . config('app.name');
-        }
-
-        if (empty($data['description'])) {
-            $data['description'] = str_limit($data['text'], 320);
-        }
-
-        if (empty($data['keywords'])) {
-            $data['keywords'] = preg_replace("#[^a-zA-zа-яА-Яїі0-9\()]+#u", ', ', $data['title']);
-        }
-
-        if (empty($data['meta_desc'])) {
-            $data['meta_desc'] = preg_replace("#[^a-zA-zа-яА-Яїі0-9\()]+#u", ', ', $data['title']);
-        }
-
-        if (!empty($data['approved'])) {
-            if (Gate::denies('CONFIRMATION_DATA')) {
-                array_forget($data, 'approved');
-            } else {
-                $data['approved'] = true;
-            }
-        } else {
-            $data['approved'] = false;
-        }
-
+        // Main Image handle
         if ($request->hasFile('img')) {
+            $path = $this->mainImg($request->file('img'), $this->transliterate($data['title']));
 
-            $image = $request->file('img');
-            if($image->isValid()) {
-
-                $str = substr($data['alias'], 0, 32) . '-' . time();
-                $obj = new \stdClass;
-
-                $obj->micro = $str.'_micro.jpg';
-                $obj->mini = $str.'_mini.jpg';
-                $obj->max = $str.'_max.jpg';
-                $obj->path = $str.'.jpg';
-
-                $img = Image::make($image);
-
-                $img->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->path, 100);
-
-                $img->widen(Config::get('settings.articles_img')['max']['width'])->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->max, 100);
-
-                $img->fit(Config::get('settings.articles_img')['mini']['width'],
-                    Config::get('settings.articles_img')['mini']['height'])->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->mini, 100);
-
-                $img->fit(Config::get('settings.articles_img')['micro']['width'],
-                    Config::get('settings.articles_img')['micro']['height'])->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->micro, 100);
-
-                if (is_string($article->img) && is_object(json_decode($article->img)) && (json_last_error() ==    JSON_ERROR_NONE)) {
-                    $old_img = json_decode($article->img);
-                    // dd($old_img);
-                    foreach ($old_img as $pic) {
-                        if (File::exists(config('settings.theme').'/images/articles/'.$pic)) {
-                            File::delete(config('settings.theme').'/images/articles/'.$pic);
-                        }
-                    }
-                }
-
-                $data['img'] = json_encode($obj);
+            if (false === $path) {
+                return redirect()->back()->withErrors('Ошибка загрузки картинки');
+            } else {
+                $blog['image'] = $path;
             }
         }
 
-        $article->fill($data);
-
-        if($article->update()) {
+        $res = $tmpblog->fill($blog)->save();
+        if (!empty($res)) {
             return ['status' => trans('admin.material_updated')];
         }
+        return ['error' => 'Ошибка изменения материала'];
+
     }
-
-    
-
-    public function selectArticles($request)
+    /**
+     * @param Instance of Tmp Blog $blog
+     * @return Status array
+     */
+    public function deleteBlog($blog)
     {
-        $data = $request->only('selection', 'param');
-
-        switch ($data['selection']) {
-            case 'unapproved':
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['approved', false],
-                    ['created_at', 'desc']);
-                return $res;
-            case 'id':
-                $data['param'] = (int)$data['param'];
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['id', $data['param']],
-                    ['created_at', 'desc']);
-                return $res;
-            case 'author':
-                if (empty($data['param'])) return false;
-                $data['param'] = \Oshaman\Publication\User::select('id')->where('name', $data['param'])->firstOrFail()->id;
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['user_id', $data['param']],
-                    ['created_at', 'desc']);
-                return $res;
-            case 'alias':
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['alias', $data['param']],
-                    ['created_at', 'desc']);
-                return $res;
-            default:
-                return false;
+        if (Gate::denies('delete', $blog)) {
+            abort(404);
         }
 
-        return false;
-    }*/
-    public function mainImg($image, $alias, $position = 'center')
+        if($blog->delete()) {
+            return ['status' => trans('admin.deleted')];
+        }
+        return ['error'=>'Ошибка удаления'];
+
+    }
+
+    /**
+     * Main Image Handler
+     * @param $image
+     * @param $alias
+     * @return bool|string
+     */
+    public function mainImg($image, $alias)
     {
         if($image->isValid()) {
 
@@ -230,18 +199,7 @@ class TmpblogsRepository extends Repository {
 
             $img = Image::make($image);
 
-            $img->fit(Config::get('settings.blogs_img')['main']['width'], Config::get('settings.blogs_img')['main']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/blog/main/'.$path, 100);
-            $img->fit(Config::get('settings.blogs_img')['middle']['width'], Config::get('settings.blogs_img')['middle']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/blog/middle/'.$path, 100);
-            $img->fit(Config::get('settings.blogs_img')['small']['width'], Config::get('settings.blogs_img')['small']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/blog/small/'.$path, 100);
-            $img->fit(Config::get('settings.blogs_img')['mini']['width'], Config::get('settings.blogs_img')['mini']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/blog/mini/'.$path, 100);
+            $img->save(public_path() . '/images/blog/tmp/'.$path, 100);
             return $path;
 
         } else {

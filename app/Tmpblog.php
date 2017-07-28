@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tmpblog extends Model
 {
-    protected $fillable = ['title', 'category', 'content', 'image', 'moderate'];
+    protected $fillable = ['title', 'category', 'content', 'image', 'moderate', 'blog_id'];
 
     public function user()
     {

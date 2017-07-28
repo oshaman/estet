@@ -67,6 +67,12 @@
                                     {{ trans('ru.profile') }}
                                 </a>
                             @endif
+                            @if(Auth::user()->hasRole('author'))
+                                <a class="navbar-brand" href="{{ route('admin_blog') }}">
+                                    {{ trans('ru.blog') }}
+                                </a>
+                            @endif
+
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->email }} <span class="caret"></span>

@@ -4,7 +4,6 @@ namespace Fresh\Estet\Policies;
 
 use Fresh\Estet\User;
 use Fresh\Estet\Blog;
-use Fresh\Estet\Tmpblog;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class BlogPolicy
@@ -12,14 +11,15 @@ class BlogPolicy
     use HandlesAuthorization;
 
     /**
-     * Determine whether the user can create people.
+     * Determine whether the user can view the specialty.
      *
      * @param  \Fresh\Estet\User  $user
+     * @param  \Fresh\Estet\Blog $blog
      * @return mixed
      */
-    public function edit(User $user, Tmpblog $tmpblog)
+    public function view(User $user, Blog $blog)
     {
-        return ($user->canDo('UPDATE_BLOG') && $user->id == $tmpblog->user_id);
+        return ($user->id == $blog->user_id);
     }
     /**
      * Determine whether the user can update the blog.
@@ -28,7 +28,7 @@ class BlogPolicy
      * @param  \Fresh\Estet\Blog  $blog
      * @return mixed
      */
-    public function update(User $user)
+    public function update(User $user, Blog $blog)
     {
         return ($user->canDo('CONFIRMATION_DATA'));
     }
