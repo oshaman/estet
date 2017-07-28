@@ -4,11 +4,16 @@
 <div class="row">
     {{ Form::label('title', 'Заголовок страницы') }}
     <div>
-        {!! Form::text('title', old('title') ? : '' , ['placeholder'=>'Title', 'id'=>'title', 'class'=>'form-control']) !!}
+        {!! Form::text('title', old('title') ? : ($content->title ?? '') , ['placeholder'=>'Title', 'id'=>'title', 'class'=>'form-control']) !!}
     </div>
 </div>
 <div class="row">
         {{ Form::label('img', 'Основное изображение') }}
+        @if(!empty($content->image))
+            <div>
+                {{ Html::image(asset('/images/blog/tmp').'/' . $content->image, 'a picture', array('class' => 'thumb')) }}
+            </div>
+        @endif
     <div>
         {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
     </div>
@@ -23,7 +28,7 @@
     {{ Form::label('cats', 'Категория') }}
     <div>
         {!! Form::select('cats', $cats ?? [],
-            old('cats') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
+            old('cats') ? : ($content->category ?? '') , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
         !!}
     </div>
 </div>
@@ -105,7 +110,7 @@
 <div class="row>">
     <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
     <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>
-        <input type="text" name="outputtime" id="outputtime" value="{{ old('outputtime') ? : '' }}">
+        <input type="text" name="outputtime" id="outputtime" value="{{ old('outputtime') ? : date('Y-m-d H:i') }}">
     </div>
 </div>
 <div class="row">
@@ -113,7 +118,7 @@
     <label><input type="checkbox" {{ old('confirmed') ? 'checked' : ''}} value="1" name="confirmed"> В тираж</label>
 </div>
 <div class="row">
-    <textarea name="content" class="form-control editor">{!! old('content') ? : '' !!}</textarea>
+    <textarea name="content" class="form-control editor">{!! old('content') ? : $content->content !!}</textarea>
     {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
 </div>
 {!! Form::close() !!}

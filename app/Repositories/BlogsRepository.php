@@ -21,7 +21,8 @@ class BlogsRepository extends Repository {
      * @param array $attr
      * @return mixed
      */
-    public function one($alias, $attr = array()) {
+    public function one($alias, $attr = array())
+    {
         $blog = parent::one($alias, $attr);
 
         if($blog && !empty($attr)) {
@@ -34,8 +35,9 @@ class BlogsRepository extends Repository {
         return $blog;
     }
 
-    public function addBlog($request) {
-        if (Gate::denies('create', $this->model)) {
+    public function addBlog($request)
+    {
+        if (Gate::denies('DELETE_BLOG')) {
             abort(404);
         }
 
@@ -43,7 +45,6 @@ class BlogsRepository extends Repository {
         if (empty($data)) {
             return array('error' => trans('admin.no_data'));
         }
-//dd($data);
         $blog['title'] = $data['title'];
 
         if ($this->one($data['alias'],FALSE)) {
@@ -57,15 +58,11 @@ class BlogsRepository extends Repository {
         $blog['category_id'] = $data['cats'];
 
         if (!empty($data['outputtime'])) {
-            $blog['created_at'] = $data['outputtime'];
+            $blog['created_at'] = date('Y-m-d H:i:s', strtotime($data['outputtime']));
         }
-
-
         if (!empty($data['confirmed'])) {
-            if (Gate::denies('CONFIRMATION_DATA')) {
-                array_forget($data, 'confirmed');
-            } else {
-                $blog['approved'] = true;
+            if (Gate::allows('CONFIRMATION_DATA')) {
+                $blog['approved'] = 1;
             }
         }
         // SEO handle
@@ -94,9 +91,9 @@ class BlogsRepository extends Repository {
         }
 //        END Content
 
-        $this->model->fill($blog);
+        $blog['user_id'] = $request->session()->get('user_id');
 
-        $new = $request->user()->blogs()->save($this->model);
+        $new = $this->model->firstOrCreate($blog);
 
         $error = '';
         if (!empty($new)) {
@@ -111,6 +108,18 @@ class BlogsRepository extends Repository {
                 }
 
                 if (null == $img) {
+                    $error[] = ['img' => 'Ошибка записи картинки'];
+                }
+            } elseif (!empty($request->session()->has('image'))) {
+                $path = $this->tmpImg($request->session()->get('image'));
+
+                if (false === $path) {
+                    $error[] =  ['img' => 'Ошибка загрузки картинки'];
+                } else {
+                    $img = $new->blog_img()->create(['path'=>$path]);
+                }
+
+                if (empty($img)) {
                     $error[] = ['img' => 'Ошибка записи картинки'];
                 }
             }
@@ -188,8 +197,6 @@ class BlogsRepository extends Repository {
                     }
                 }
             }
-
-
             return ['status' => trans('admin.deleted')];
         }
 
@@ -372,16 +379,45 @@ class BlogsRepository extends Repository {
                 function ($constraint) { $constraint->upsize();},
                 $position)->save(public_path() . '/images/blog/mini/'.$path, 100);
             return $path;
-
         } else {
             return false;
         }
     }
 
+    public function tmpImg($image_path, $position = 'center')
+    {
+        if (File::exists(public_path('images/blog/tmp/') . $image_path)) {
+            $path = $image_path;
+
+            $img = Image::make(public_path('images/blog/tmp/') . $image_path);
+
+            $img->fit(Config::get('settings.blogs_img')['main']['width'], Config::get('settings.blogs_img')['main']['height'],
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/blog/main/' . $path, 100);
+            $img->fit(Config::get('settings.blogs_img')['middle']['width'], Config::get('settings.blogs_img')['middle']['height'],
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/blog/middle/' . $path, 100);
+            $img->fit(Config::get('settings.blogs_img')['small']['width'], Config::get('settings.blogs_img')['small']['height'],
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/blog/small/' . $path, 100);
+            $img->fit(Config::get('settings.blogs_img')['mini']['width'], Config::get('settings.blogs_img')['mini']['height'],
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/blog/mini/' . $path, 100);
+            return $path;
+        }
+        return false;
+    }
+
     public function contentHandle($content, $alias)
     {
-//        return $content;
-
         $reg = '#(?<=<img src="\/photos\/)\d+\/[a-zA-z0-9-_]+\.(jpg|jpeg|png|bmp)(?=.*?>)#i';
 
         preg_match_all($reg, $content, $imgs);

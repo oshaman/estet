@@ -54,6 +54,6 @@ class TmpblogPolicy
      */
     public function delete(User $user, Tmpblog $tmpblog)
     {
-        return ($user->canDo('UPDATE_BLOG') && $user->id == $tmpblog->user_id);
+        return (($user->canDo('UPDATE_BLOG') && $user->id == $tmpblog->user_id) || $user->hasRole('moderator'));
     }
 }

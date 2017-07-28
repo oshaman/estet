@@ -61,7 +61,7 @@ class BlogRequest extends FormRequest
                     'og_title' => 'string|nullable',
                     'og_description' => 'string|nullable',
                     'confirmed' => 'boolean|nullable',
-                    'outputtime' => 'date|nullable',
+                    'outputtime' => 'date_format:"Y-m-d H:i"|nullable',
                 ];
 
                 if ($this->request->has('tags')) {

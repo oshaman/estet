@@ -40,7 +40,7 @@
                             @if($blog->blog_id)
                                 {!! Form::open(['url' => route('moderate_blog',['blog'=> $blog->blog_id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                             @else
-                                {!! Form::open(['url' => route('add_blog'),'class'=>'form-horizontal','method'=>'GET']) !!}
+                                {!! Form::open(['url' => route('add_blog', $blog->id),'class'=>'form-horizontal','method'=>'GET']) !!}
                             @endif
                         @else
                             {!! Form::open(['url' => route('moderate_blog',['blog'=> $blog->id]),'class'=>'form-horizontal','method'=>'GET']) !!}

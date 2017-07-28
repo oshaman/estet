@@ -73,14 +73,27 @@ class BlogsController extends AdminController
         return $this->renderOutput();
     }
 
-    public function create(BlogRequest $request)
+    public function create(BlogRequest $request, $tmpblog=null)
     {
         if (Gate::denies('DELETE_BLOG')) {
             abort(404);
         }
-
+//      Create Blog
         if ($request->isMethod('post')) {
-            dd($request);
+            $this->validate($request, [
+                'alias' => 'required|unique:blogs,alias|max:255',
+            ]);
+            $result = $this->blog_rep->addBlog($request);
+
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+
+        if (key_exists('status', $result)) {
+            $rep = new TmpblogsRepository(new Tmpblog);
+            $rep->deleteBlog(Tmpblog::find($request->session()->get('tmp_id')));
+        }
+            return redirect()->route('view_blogs')->with($result);
         }
 
 //        View FORMS
@@ -93,16 +106,17 @@ class BlogsController extends AdminController
         $tags = new TagsRepository(new Tag);
         $tag = $tags->tagSelect();
 
-
-
-        if (null == $blog) {
+        if (null == $tmpblog) {
             abort(404);
         }
 
-        $img = $blog->blog_img->path;
-//        dd($content);
+        $request->session()->flash('user_id', $tmpblog->user_id);
+        $request->session()->flash('tmp_id', $tmpblog->id);
+        if (!empty($tmpblog->image)) {
+            $request->session()->flash('image', $tmpblog->image);
+        }
 
-        $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img])->render();
+        $this->content = view('admin.blog.add')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$tmpblog])->render();
 
         return $this->renderOutput();
     }
@@ -114,7 +128,13 @@ class BlogsController extends AdminController
         }
 
         if ($request->isMethod('post')) {
-            dd($request);
+            $result = $this->blog_rep->addBlog($request);
+
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->with($result);
+            }
+
+            return redirect()->route('view_blogs')->with($result);
         }
 
         $title = 'Редактирование статей блога';

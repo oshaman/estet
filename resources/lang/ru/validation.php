@@ -32,7 +32,7 @@ return [
     'boolean'              => 'Не корректные данные в поле :attribute.',
     'confirmed'            => 'The :attribute confirmation does not match.',
     'date'                 => 'В поле :attribute не дата.',
-    'date_format'          => 'The :attribute does not match the format :format.',
+    'date_format'          => 'Данные в поле :attribute не соответствует формату :format.',
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'Поле :attribute должно содержать :digits цифр.',
     'digits_between'       => 'В поле :attribute должно быть от :min до :max цифр.',
