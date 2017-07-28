@@ -67,7 +67,7 @@ class PersonsRepository extends Repository {
         }
 
         $person = $this->model->create($data);
-//        dd($data);
+
         if($person->id) {
             $person->specialties()->attach($data['specialty']);
             if (!empty($data['confirmed'])) {

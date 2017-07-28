@@ -3,8 +3,8 @@
 namespace Fresh\Estet\Http\Controllers\AdminBlog;
 
 use Fresh\Estet\BlogCategory;
-use Fresh\Estet\Http\Requests\TmpblogRequest;
 use Fresh\Estet\Repositories\BlogCategoriesRepository;
+use Fresh\Estet\Http\Requests\TmpblogRequest;
 use Fresh\Estet\Tmpblog;
 use Fresh\Estet\Blog;
 use Fresh\Estet\Repositories\BlogsRepository;
@@ -54,19 +54,23 @@ class BlogController extends Controller
                     $model = new BlogsRepository(new Blog);
                     $blogs = $model->get(['title', 'id', 'created_at'], false, true, ['user_id', Auth::id()]);
             }
-//            dd($blogs);
+
             $content = view('blog.index')->with('blogs', $blogs)->render();
 
             return view('blog.admin')->with('content', $content);
         }
 
         $blogs = $this->blog_rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, [['user_id', Auth::id()], ['moderate', false]]);
-//        dd($blogs);
+
         $content = view('blog.index')->with('blogs', $blogs)->render();
 
         return view('blog.admin')->with('content', $content);
     }
 
+    /**
+     * @param TmpblogRequest $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function create(TmpblogRequest $request)
     {
         if (Gate::denies('ADD_BLOG')) {
@@ -97,6 +101,12 @@ class BlogController extends Controller
 
     }
 
+    /**
+     * @param TmpblogRequest $request
+     * @param TMP blog ID $tmp
+     * @param Blog ID (if exist) $blogid
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function edit(TmpblogRequest $request, $tmp, $blogid=null)
     {
         if (Gate::denies('ADD_BLOG')) {
@@ -120,7 +130,7 @@ class BlogController extends Controller
         $lists = $cats->catSelect();
 
         $blog = $this->blog_rep->getBlog($tmp, $blogid);
-//        dd($blog);
+
         if (false == $blog) {
             abort(404);
         }
@@ -135,6 +145,10 @@ class BlogController extends Controller
 
     }
 
+    /**
+     * @param Tmpblog $tmpblog
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function destroy(Tmpblog $tmpblog)
     {
         $result = $this->blog_rep->deleteBlog($tmpblog);

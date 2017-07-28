@@ -4,6 +4,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\User;
 use Gate;
+use File;
 
 class UsersRepository extends Repository {
 
@@ -20,7 +21,7 @@ class UsersRepository extends Repository {
         }
 
         $data = $request->except('_token');
-//dd($data);
+
         if(!empty($data['password'])) {
             $data['password'] = bcrypt($data['password']);
         } else { array_forget($data, 'password');}
@@ -36,6 +37,11 @@ class UsersRepository extends Repository {
     {
         if (Gate::denies('edit', $this->model)) {
             abort(404);
+        }
+
+
+        if (File::exists(public_path('photos/'.$user->id))) {
+            File::deleteDirectory(public_path('photos/'.$user->id));
         }
 
         $user->roles()->detach();

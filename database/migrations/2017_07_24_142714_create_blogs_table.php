@@ -21,8 +21,8 @@ class CreateBlogsTable extends Migration
             $table->boolean('approved')->default(false);
             $table->text('content')->nullable()->default(null);
 
-            $table->integer('user_id')->unsigned()->default(1);
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->integer('user_id')->nullable()->unsigned()->default(1);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
 
             $table->integer('category_id')->unsigned()->default(1);
             $table->foreign('category_id')->references('id')->on('blog_categories');

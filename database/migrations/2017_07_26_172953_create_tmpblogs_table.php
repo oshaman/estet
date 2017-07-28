@@ -21,9 +21,9 @@ class CreateTmpblogsTable extends Migration
             $table->boolean('moderate')->default(false);
             $table->string('image')->nullable()->default(null);
             $table->integer('user_id')->unsigned()->default(1);
-            $table->foreign('user_id')->references('id')->on('users');
             $table->unsignedInteger('blog_id')->nullable()->default(null);
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

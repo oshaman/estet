@@ -5,7 +5,7 @@
     @endif
     <div class="row">
         <div class="col-xs-6">
-            @if (empty($profile->approved))
+            @if (!empty($profile->photo) && File::exists(public_path(config('settings.theme')). '/img/tmp_profile/' . $profile->photo ))
                 <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
             @else
                 <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
