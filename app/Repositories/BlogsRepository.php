@@ -164,7 +164,6 @@ class BlogsRepository extends Repository {
             }
         }
         // $blog->comments()->delete();
-//        $blog->tags()->detach();
         if (!empty($blog->blog_img->path)) {
             $old_img = $blog->blog_img->path;
         }
@@ -172,21 +171,7 @@ class BlogsRepository extends Repository {
         if($blog->delete()) {
 
             if (!empty($old_img)) {
-                if (File::exists(public_path('/images/blog/main/') . $old_img)) {
-                    File::delete(public_path('/images/blog/main/') . $old_img);
-                }
-                if (File::exists(public_path('/images/blog/middle/'). $old_img)) {
-                    File::delete(public_path('/images/blog/middle/') . $old_img);
-                }
-                if (File::exists(public_path('/images/blog/small/'). $old_img)) {
-                    File::delete(public_path('/images/blog/small/'). $old_img);
-                }
-                if (File::exists(public_path('/images/blog/mini/'). $old_img)) {
-                    File::delete(public_path('/images/blog/mini/'). $old_img);
-                }
-                if (File::exists(public_path('/images/blog/tmp/'). $old_img)) {
-                    File::delete(public_path('/images/blog/tmp/'). $old_img);
-                }
+                $this->deleteOldImage($old_img);
             }
 
             if (!empty($old_pic)) {
@@ -212,9 +197,6 @@ class BlogsRepository extends Repository {
 
     public function updateBlog($request, $blog)
     {
-//        dd($request);
-//        dd($request->except('_token', 'img'));
-//        dd($blog);
         $data = $request->except('_token', 'img');
 
         if ($data['title'] !== $blog->title) {
@@ -223,6 +205,8 @@ class BlogsRepository extends Repository {
 
         if ($data['alias'] !== $blog->alias) {
             $new['alias'] = $this->transliterate($data['alias']);
+        } else {
+            $new['alias'] = $blog->alias;
         }
 
         if ($data['cats'] !== $blog->category_id) {
@@ -239,6 +223,7 @@ class BlogsRepository extends Repository {
         } else {
             $new['approved'] = 0;
         }
+
         // SEO handle
         if (!empty($data['seo_title'] || !empty($data['seo_keywords']) || !empty($data['seo_description']) || !empty($data['seo_text'])
             || !empty($data['og_image']) || !empty($data['og_title']) || !empty($data['og_description']))) {
@@ -253,32 +238,105 @@ class BlogsRepository extends Repository {
             $new['seo'] = json_encode($obj);
         }
 
-        if ($request->hasFile('img')) {
-            dd('image+');
-        } elseif ($request->session()->has('image') && ($request->session()->get('image') !== $blog->blog_img->path)) {
-            dd('session = img');
-        }
+        $old_imgs = $blog->blogphoto()->get();
 
+        //        Content
+        if (!empty($data['content']) && ($data['content'] != $blog['content'])) {
 
+            $content = $this->contentHandle($data['content'], $new['alias']);
 
-        dd($blog->blog_img->path);
-
-
-
-        // Tags
-        if (!empty($data['tags'])) {
-            try {
-                $new->tags()->sync($data['tags']);
-            } catch (Exception $e) {
-                \Log::info('Ошибка записи тегов: ', $e->getMessage());
-                $error[] = ['tag' => 'Ошибка записи тегов'];
+            if (false == $content['content']) {
+                $new['content'] = $data['content'];
+            } else {
+                $new['content'] = $content['content'];
             }
         }
 
 
+//        END Content
+        $updated = $blog->fill($new)->save();
 
+        $error = '';
+        if (!empty($updated)) {
+            $old_img = $blog->blog_img->path;
+            // Main Image handle
+            if ($request->hasFile('img')) {
+                if ($request->hasFile('img')) {
+                    $path = $this->mainImg($request->file('img'), $new['alias']);
 
+                    if (false === $path) {
+                        $error[] = ['img' => 'Ошибка загрузки картинки'];
+                    } else {
+                        $img = $blog->blog_img()->update(['path' => $path]);
+                    }
 
+                    if (null == $img) {
+                        $error[] = ['img' => 'Ошибка записи картинки'];
+                    }
+                    //DELETE OLD IMAGE
+                    $this->deleteOldImage($old_img);
+                }
+            } elseif ($request->session()->has('image') && ($request->session()->get('image') !== $blog->blog_img->path)) {
+                $path = $this->tmpImg($request->session()->get('image'));
+
+                if (false === $path) {
+                    $error[] =  ['img' => 'Ошибка загрузки картинки'];
+                } else {
+                    $img = $blog->blog_img()->update(['path'=>$path]);
+                }
+
+                if (empty($img)) {
+                    $error[] = ['img' => 'Ошибка записи картинки'];
+                }
+                //DELETE OLD IMAGE
+                $this->deleteOldImage($old_img);
+            }
+
+            // Tags
+            if (!empty($data['tags'])) {
+                try {
+                    $blog->tags()->sync($data['tags']);
+                } catch (Exception $e) {
+                    \Log::info('Ошибка записи тегов: ', $e->getMessage());
+                    $error[] = ['tag' => 'Ошибка записи тегов'];
+                }
+            }
+    //            delete old imgs
+            if (!$old_imgs->isEmpty()) {
+                foreach ($old_imgs as $img) {
+                    if (preg_match('#'.$img->path.'#', $data['content'])) {
+                        continue;
+                    }
+                    if (File::exists(public_path('images/blog/photos/small/') . $img->path)) {
+                        File::delete(public_path('images/blog/photos/small/') . $img->path);
+                    }
+                    if (File::exists(public_path('images/blog/photos/middle/') . $img->path)) {
+                        File::delete(public_path('images/blog/photos/small/'). $img->path);
+                    }
+                    if (File::exists(public_path('images/blog/photos/main/') . $img->path)) {
+                        File::delete(public_path('images/blog/photos/small/') . $img->path);
+                    }
+                    try {
+                        $blog->blogphoto()->delete($img->id);
+                    } catch (Exception $e) {
+                        Log::alert($e->getMessage());
+                    }
+                }
+            }
+
+            // content imgs
+            if (!empty($content['path'])) {
+                try {
+                    $blog->blogphoto()->createMany($content['path']);
+                } catch (Exception $e) {
+                    \Log::info('Ошибка записи фотографий: ', $e->getMessage());
+                    $error[] = ['tag' => 'Ошибка записи фотографий'];
+                }
+            }
+
+            return ['status' => trans('admin.material_added')];
+        }
+        return ['error' => $error];
     }
 
 
@@ -345,9 +403,14 @@ class BlogsRepository extends Repository {
 
     public function contentHandle($content, $alias)
     {
+        if (preg_replace('/<picture>&nbsp;<\/picture>/', '', $content)) {
+            $content = preg_replace('/<picture>&nbsp;<\/picture>/', '', $content);
+        }
+
         $reg = '#(?<=<img src="\/photos\/)\d+\/[a-zA-z0-9-_]+\.(jpg|jpeg|png|bmp)(?=.*?>)#i';
 
         preg_match_all($reg, $content, $imgs);
+
 
         if (!empty($imgs[0])) {
             //          resize imgs
@@ -431,5 +494,30 @@ class BlogsRepository extends Repository {
             }
         }
         return $result;
+    }
+
+    /**
+     * delete old main image
+     * @param $path
+     * @return true
+     */
+    public function deleteOldImage($path)
+    {
+        if (File::exists(public_path('/images/blog/main/') . $path)) {
+            File::delete(public_path('/images/blog/main/') . $path);
+        }
+        if (File::exists(public_path('/images/blog/middle/'). $path)) {
+            File::delete(public_path('/images/blog/middle/') . $path);
+        }
+        if (File::exists(public_path('/images/blog/small/'). $path)) {
+            File::delete(public_path('/images/blog/small/'). $path);
+        }
+        if (File::exists(public_path('/images/blog/mini/'). $path)) {
+            File::delete(public_path('/images/blog/mini/'). $path);
+        }
+        if (File::exists(public_path('/images/blog/tmp/'). $path)) {
+            File::delete(public_path('/images/blog/tmp/'). $path);
+        }
+        return true;
     }
 }

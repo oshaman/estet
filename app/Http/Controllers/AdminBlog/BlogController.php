@@ -87,7 +87,8 @@ class BlogController extends Controller
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }
-
+            $request->session()->forget('blog_id');
+            $request->session()->forget('image');
             return redirect('/admin-blog')->with($result);
         }
         $title = 'Добавление блога';

@@ -179,8 +179,11 @@ class TmpblogsRepository extends Repository {
         if (Gate::denies('delete', $blog)) {
             abort(404);
         }
-
+        $old = $blog->image;
         if($blog->delete()) {
+            if (File::exists(public_path('images/blog/tmp/') . $old)) {
+                File::delete(public_path('images/blog/tmp/'). $old);
+            }
             return ['status' => trans('admin.deleted')];
         }
         return ['error'=>'Ошибка удаления'];

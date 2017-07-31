@@ -43,7 +43,6 @@ class BlogCategoriesRepository extends Repository {
     {
         $cats = $this->model->select(['name', 'id'])->get();
         $lists = array();
-
         foreach($cats as $category) {
             $lists[$category->id] = $category->name;
         }

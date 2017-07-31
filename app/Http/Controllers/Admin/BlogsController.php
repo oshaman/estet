@@ -60,10 +60,13 @@ class BlogsController extends AdminController
                 default:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
             }
+//            dd($blogs);
             $this->content = view('admin.blog.index')->with('blogs', $blogs)->render();
 
             return $this->renderOutput();
         }
+
+
 
         $rep = new TmpblogsRepository(new Tmpblog);
 
@@ -126,7 +129,6 @@ class BlogsController extends AdminController
         if (!empty($tmpblog->image)) {
             $request->session()->flash('image', $tmpblog->image);
         }
-
         $this->content = view('admin.blog.add')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$tmpblog])->render();
 
         return $this->renderOutput();
@@ -144,10 +146,21 @@ class BlogsController extends AdminController
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }
+            if (key_exists('status', $result)) {
+                $rep = new TmpblogsRepository(new Tmpblog);
+                $id = Tmpblog::find($request->session()->get('tmp_id'));
+                if ($id) {
+                    $rep->deleteBlog($id);
+                }
+            }
+            $request->session()->forget('tmp_id');
+            $request->session()->forget('image');
+
 
             return redirect()->route('view_blogs')->with($result);
         }
 
+        // View edit forms
         $title = 'Редактирование статей блога';
         $this->template = 'admin.blog.admin';
         //  get categories
@@ -163,16 +176,20 @@ class BlogsController extends AdminController
 
         $tmp = Tmpblog::where('blog_id', $blog->id)->get();
 
+//        dd($tmp->isNotEmpty());
         if ($tmp->isNotEmpty()) {
             $request->session()->put('image', $tmp[0]->image);
+            $request->session()->put('tmp_id', $tmp[0]->id);
+            $tmp = $tmp[0];
+        } else {
+            $tmp = null;
         }
         $img = $blog->blog_img->path;
 
         if (is_string($blog->seo) && is_object(json_decode($blog->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
             $blog->seo = json_decode($blog->seo);
         }
-
-        $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img, 'tmp'=>$tmp[0]])->render();
+        $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img, 'tmp'=>$tmp])->render();
 
         return $this->renderOutput();
     }

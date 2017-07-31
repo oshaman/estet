@@ -25,9 +25,9 @@ class BlogRequest extends FormRequest
 
         $validator->sometimes('alias', 'required|unique:blogs,alias|max:255|alpha_dash', function ($input) {
 //  bind blog_id in RouteServiceProvider
-            if ($this->route()->hasParameter('blog')) {
+            if ($this->route()->hasParameter('blog') && $this->isMethod('post')) {
                 $model = $this->route()->parameter('blog');
-//                dd($model);
+
                 if (null === $model) return true;
                 return ($model->alias !== $input->alias)  && !empty($input->alias);
             }
