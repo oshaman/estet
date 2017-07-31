@@ -68,11 +68,17 @@ class BlogsController extends AdminController
         $rep = new TmpblogsRepository(new Tmpblog);
 
         $blogs = $rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, ['moderate', 1]);
+
         $this->content = view('admin.blog.index')->with('blogs', $blogs)->render();
 
         return $this->renderOutput();
     }
 
+    /**
+     * @param BlogRequest $request
+     * @param null $tmpblog
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function create(BlogRequest $request, $tmpblog=null)
     {
         if (Gate::denies('DELETE_BLOG')) {
@@ -133,7 +139,7 @@ class BlogsController extends AdminController
         }
 
         if ($request->isMethod('post')) {
-            $result = $this->blog_rep->addBlog($request);
+            $result = $this->blog_rep->updateBlog($request, $blog);
 
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
@@ -155,9 +161,18 @@ class BlogsController extends AdminController
             abort(404);
         }
 
+        $tmp = Tmpblog::where('blog_id', $blog->id)->get();
+
+        if ($tmp->isNotEmpty()) {
+            $request->session()->put('image', $tmp[0]->image);
+        }
         $img = $blog->blog_img->path;
 
-        $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img])->render();
+        if (is_string($blog->seo) && is_object(json_decode($blog->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
+            $blog->seo = json_decode($blog->seo);
+        }
+
+        $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img, 'tmp'=>$tmp[0]])->render();
 
         return $this->renderOutput();
     }

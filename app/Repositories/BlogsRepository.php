@@ -74,7 +74,7 @@ class BlogsRepository extends Repository {
             $obj->seo_description = $data['seo_description'] ?? '';
             $obj->seo_text = $data['seo_text'] ?? '';
             $obj->og_image = $data['og_image'] ?? '';
-            $obj->og_og_title = $data['og_title'] ?? '';
+            $obj->og_title = $data['og_title'] ?? '';
             $obj->og_description = $data['og_description'] ?? '';
             $blog['seo'] = json_encode($obj);
         }
@@ -149,6 +149,10 @@ class BlogsRepository extends Repository {
         return ['error' => $error];
     }
 
+    /**
+     * @param $blog
+     * @return array
+     */
     public function deleteBlog($blog)
     {
         $pics = $blog->blogphoto()->get();
@@ -206,162 +210,81 @@ class BlogsRepository extends Repository {
 
     }
 
+    public function updateBlog($request, $blog)
+    {
+//        dd($request);
+//        dd($request->except('_token', 'img'));
+//        dd($blog);
+        $data = $request->except('_token', 'img');
 
-
-
-
-
-
-
-    /*
-
-
-    public function updateArticle($request, $article) {
-        if (Gate::denies('update', $article)) {
-            abort(404);
+        if ($data['title'] !== $blog->title) {
+            $new['title'] = $data['title'];
         }
 
-        $data = $request->except('_token','img','_method');
-
-        if (empty($data)) {
-            return array('error' => trans('admin.no_data'));
+        if ($data['alias'] !== $blog->alias) {
+            $new['alias'] = $this->transliterate($data['alias']);
         }
 
-        if (empty($data['alias'])) {
-            $data['alias'] = $this->transliterate($data['title']) . '-' .date('Ymd');
-        } elseif ($data['alias'] != $article->alias) {
-            $data['alias'] = $this->transliterate($data['alias']) . '-' .date('Ymd');
-        }
-
-        $result = $this->one($data['alias'],FALSE);
-
-        if(isset($result->id) && ($result->id != $article->id)) {
-            $request->merge(array('alias' => $data['alias']));
-            $request->flash();
-
-            return ['error' => trans('admin.alias_in_use')];
+        if ($data['cats'] !== $blog->category_id) {
+            $new['category_id'] = $data['cats'];
         }
 
         if (!empty($data['outputtime'])) {
-            $data['created_at'] = $data['outputtime'];
+            $new['created_at'] = date('Y-m-d H:i:s', strtotime($data['outputtime']));
         }
-
-        if (empty($data['source'])) {
-            $data['source'] = 'www.' . config('app.name');
-        }
-
-        if (empty($data['description'])) {
-            $data['description'] = str_limit($data['text'], 320);
-        }
-
-        if (empty($data['keywords'])) {
-            $data['keywords'] = preg_replace("#[^a-zA-zа-яА-Яїі0-9\()]+#u", ', ', $data['title']);
-        }
-
-        if (empty($data['meta_desc'])) {
-            $data['meta_desc'] = preg_replace("#[^a-zA-zа-яА-Яїі0-9\()]+#u", ', ', $data['title']);
-        }
-
-        if (!empty($data['approved'])) {
-            if (Gate::denies('CONFIRMATION_DATA')) {
-                array_forget($data, 'approved');
-            } else {
-                $data['approved'] = true;
+        if (!empty($data['confirmed'])) {
+            if (Gate::allows('CONFIRMATION_DATA')) {
+                $new['approved'] = 1;
             }
         } else {
-            $data['approved'] = false;
+            $new['approved'] = 0;
+        }
+        // SEO handle
+        if (!empty($data['seo_title'] || !empty($data['seo_keywords']) || !empty($data['seo_description']) || !empty($data['seo_text'])
+            || !empty($data['og_image']) || !empty($data['og_title']) || !empty($data['og_description']))) {
+            $obj = new \stdClass;
+            $obj->seo_title = $data['seo_title'] ?? '';
+            $obj->seo_keywords = $data['seo_keywords'] ?? '';
+            $obj->seo_description = $data['seo_description'] ?? '';
+            $obj->seo_text = $data['seo_text'] ?? '';
+            $obj->og_image = $data['og_image'] ?? '';
+            $obj->og_title = $data['og_title'] ?? '';
+            $obj->og_description = $data['og_description'] ?? '';
+            $new['seo'] = json_encode($obj);
         }
 
         if ($request->hasFile('img')) {
+            dd('image+');
+        } elseif ($request->session()->has('image') && ($request->session()->get('image') !== $blog->blog_img->path)) {
+            dd('session = img');
+        }
 
-            $image = $request->file('img');
-            if($image->isValid()) {
 
-                $str = substr($data['alias'], 0, 32) . '-' . time();
-                $obj = new \stdClass;
 
-                $obj->micro = $str.'_micro.jpg';
-                $obj->mini = $str.'_mini.jpg';
-                $obj->max = $str.'_max.jpg';
-                $obj->path = $str.'.jpg';
+        dd($blog->blog_img->path);
 
-                $img = Image::make($image);
 
-                $img->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->path, 100);
 
-                $img->widen(Config::get('settings.articles_img')['max']['width'])->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->max, 100);
-
-                $img->fit(Config::get('settings.articles_img')['mini']['width'],
-                    Config::get('settings.articles_img')['mini']['height'])->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->mini, 100);
-
-                $img->fit(Config::get('settings.articles_img')['micro']['width'],
-                    Config::get('settings.articles_img')['micro']['height'])->save(public_path().'/'.config('settings.theme').'/images/articles/'.$obj->micro, 100);
-
-                if (is_string($article->img) && is_object(json_decode($article->img)) && (json_last_error() ==    JSON_ERROR_NONE)) {
-                    $old_img = json_decode($article->img);
-                    // dd($old_img);
-                    foreach ($old_img as $pic) {
-                        if (File::exists(config('settings.theme').'/images/articles/'.$pic)) {
-                            File::delete(config('settings.theme').'/images/articles/'.$pic);
-                        }
-                    }
-                }
-
-                $data['img'] = json_encode($obj);
+        // Tags
+        if (!empty($data['tags'])) {
+            try {
+                $new->tags()->sync($data['tags']);
+            } catch (Exception $e) {
+                \Log::info('Ошибка записи тегов: ', $e->getMessage());
+                $error[] = ['tag' => 'Ошибка записи тегов'];
             }
         }
 
-        $article->fill($data);
 
-        if($article->update()) {
-            return ['status' => trans('admin.material_updated')];
-        }
+
+
+
     }
 
-    
 
-    public function selectArticles($request)
-    {
-        $data = $request->only('selection', 'param');
 
-        switch ($data['selection']) {
-            case 'unapproved':
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['approved', false],
-                    ['created_at', 'desc']);
-                return $res;
-            case 'id':
-                $data['param'] = (int)$data['param'];
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['id', $data['param']],
-                    ['created_at', 'desc']);
-                return $res;
-            case 'author':
-                if (empty($data['param'])) return false;
-                $data['param'] = \Oshaman\Publication\User::select('id')->where('name', $data['param'])->firstOrFail()->id;
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['user_id', $data['param']],
-                    ['created_at', 'desc']);
-                return $res;
-            case 'alias':
-                $res = $this->get(['id', 'title', 'description', 'alias', 'img', 'category_id', 'approved'],
-                    false,
-                    true,
-                    ['alias', $data['param']],
-                    ['created_at', 'desc']);
-                return $res;
-            default:
-                return false;
-        }
 
-        return false;
-    }*/
+
     public function mainImg($image, $alias, $position = 'center')
     {
         if($image->isValid()) {

@@ -143,6 +143,8 @@ class TmpblogsRepository extends Repository {
 
         if (!empty($data['moder'])) {
             $blog['moderate'] = true;
+        } else {
+            $blog['moderate'] = false;
         }
 //        Content
         if (!empty($data['content'])) {

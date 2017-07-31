@@ -120,7 +120,8 @@ class BlogController extends Controller
             if(is_array($result) && !empty($result['error'])) {
                 return back()->with($result);
             }
-
+            $request->session()->forget('blog_id');
+            $request->session()->forget('image');
             return redirect('/admin-blog')->with($result);
         }
 
@@ -135,8 +136,8 @@ class BlogController extends Controller
             abort(404);
         }
         if (!empty($blog->blog_session)) {
-            $request->session()->flash('blog_id', $blog->blog_session);
-            $request->session()->flash('image', $blog->image);
+            $request->session()->put('blog_id', $blog->blog_session);
+            $request->session()->put('image', $blog->image);
         }
 
         $content = view('blog.edit')->with(['content' => $title, 'cats' => $lists, 'blog'=>$blog])->render();

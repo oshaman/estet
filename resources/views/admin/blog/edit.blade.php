@@ -1,22 +1,21 @@
-
-
-
-
-
 <h2>{{$title}}</h2>
 {!! Form::open(['url'=>route('moderate_blog', $content->id), 'method'=>'POST', 'class'=>'form-horizontal', 'files'=>true]) !!}
 {{ csrf_field() }}
 <div class="row">
     {{ Form::label('title', 'Заголовок страницы') }}
     <div>
-        {!! Form::text('title', old('title') ? : ($content->title ?? '') , ['placeholder'=>'Title', 'id'=>'title', 'class'=>'form-control']) !!}
+        {!! Form::text('title', old('title') ? : ($tmp->title ?? ($content->title ?? '')) , ['placeholder'=>'Title', 'id'=>'title', 'class'=>'form-control']) !!}
     </div>
 </div>
 <div class="row">
         {{ Form::label('img', 'Основное изображение') }}
     @if(!empty($img))
     <div>
+        @if(!empty($tmp->image) && $tmp->image != $img)
+        {{ Html::image(asset('/images/blog/tmp').'/'.$tmp->image, 'a picture', array('class' => 'thumb')) }}
+        @else
         {{ Html::image(asset('/images/blog/main').'/'.$img, 'a picture', array('class' => 'thumb')) }}
+        @endif
     </div>
     @endif
     <div>
@@ -33,7 +32,7 @@
     {{ Form::label('cats', 'Категория') }}
     <div>
         {!! Form::select('cats', $cats ?? [],
-            old('cats') ? : ($content->category_id ?? '') , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
+            old('cats') ? : ($tmp->category ?? ($content->category_id ?? '')) , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
         !!}
     </div>
 </div>
@@ -117,7 +116,7 @@
 <div class="row>">
     <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
     <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>
-        <input type="text" name="outputtime" id="outputtime" value="{{ old('outputtime') ? : ($content->created_at ?? date('Y-m-d H:i:s')) }}">
+        <input type="text" name="outputtime" id="outputtime" value="{{ old('outputtime') ? : (date('Y-m-d H:i', strtotime($content->created_at)) ?? date('Y-m-d H:i')) }}">
     </div>
 </div>
 <div class="row">
@@ -128,7 +127,7 @@
 
 </div>
 <div class="row">
-    <textarea name="content" class="form-control editor">{!! old('content') ? : ($content->content ?? '') !!}</textarea>
+    <textarea name="content" class="form-control editor">{!! old('content') ? : ($tmp->content ?? ($content->content ?? '')) !!}</textarea>
     {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
 </div>
 {!! Form::close() !!}
