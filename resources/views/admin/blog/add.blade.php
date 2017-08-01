@@ -14,6 +14,15 @@
                 {{ Html::image(asset('/images/blog/tmp').'/' . $content->image, 'a picture', array('class' => 'thumb')) }}
             </div>
         @endif
+    {{ Form::label('img', 'Параметры картинки') }}
+    <div class="row">
+        <div class="col-lg-6">
+            {!! Form::text('imgalt', old('imgalt') ? : '' , ['placeholder'=>'Alt', 'id'=>'imgalt', 'class'=>'form-control']) !!}
+        </div>
+        <div class="col-lg-6">
+            {!! Form::text('imgtitle', old('imgtitle') ? : '' , ['placeholder'=>'Title', 'id'=>'imgtitle', 'class'=>'form-control']) !!}
+        </div>
+    </div>
     <div>
         {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
     </div>

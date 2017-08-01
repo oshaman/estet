@@ -52,6 +52,8 @@ class BlogRequest extends FormRequest
                     'cats' => ['digits_between:1,4', 'nullable', 'required'],
                     'tags' => 'array',
                     'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable',
+                    'imgalt' => ['string', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\?\!]+$#u', 'nullable'],
+                    'imgtitle' => ['string', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\?\!]+$#u', 'nullable'],
                     'content' => 'string|nullable',
                     'seo_title' => 'string|nullable',
                     'seo_keywords' => 'string|nullable',

@@ -57,6 +57,18 @@ class BlogsRepository extends Repository {
 
         $blog['category_id'] = $data['cats'];
 
+        if (!empty($data['imgalt'])) {
+            $img_prop['imgalt'] = $data['imgalt'];
+        } else {
+            $img_prop['imgalt'] = null;
+        }
+
+        if (!empty($data['imgtitle'])) {
+            $img_prop['imgtitle'] = $data['imgtitle'];
+        } else {
+            $img_prop['imgtitle'] = null;
+        }
+
         if (!empty($data['outputtime'])) {
             $blog['created_at'] = date('Y-m-d H:i:s', strtotime($data['outputtime']));
         }
@@ -105,7 +117,7 @@ class BlogsRepository extends Repository {
                 if (false === $path) {
                     $error[] =  ['img' => 'Ошибка загрузки картинки'];
                 } else {
-                    $img = $new->blog_img()->create(['path'=>$path]);
+                    $img = $new->blog_img()->create(['path'=>$path, 'alt' => $img_prop['imgalt'], 'title' => $img_prop['imgtitle']]);
                 }
 
                 if (null == $img) {
@@ -117,7 +129,7 @@ class BlogsRepository extends Repository {
                 if (false === $path) {
                     $error[] =  ['img' => 'Ошибка загрузки картинки'];
                 } else {
-                    $img = $new->blog_img()->create(['path'=>$path]);
+                    $img = $new->blog_img()->create(['path'=>$path, 'alt' => $img_prop['imgalt'], 'title' => $img_prop['imgtitle']]);
                 }
 
                 if (empty($img)) {
@@ -203,11 +215,10 @@ class BlogsRepository extends Repository {
     public function updateBlog($request, $blog)
     {
         $data = $request->except('_token', 'img');
-
+        $blog->load('blog_img');
         if ($data['title'] !== $blog->title) {
             $new['title'] = $data['title'];
         }
-
         if ($data['alias'] !== $blog->alias) {
             $new['alias'] = $this->transliterate($data['alias']);
         } else {
@@ -218,9 +229,22 @@ class BlogsRepository extends Repository {
             $new['category_id'] = $data['cats'];
         }
 
+        if ($data['imgalt'] !== $blog->blog_img->alt) {
+            $new['imgalt'] = $data['imgalt'];
+        } else {
+            $new['imgalt'] = $blog->blog_img->alt;
+        }
+
+        if ($data['imgtitle'] !== $blog->blog_img->title) {
+            $new['imgtitle'] = $data['imgtitle'];
+        } else {
+            $new['imgtitle'] = $blog->blog_img->title;
+        }
+
         if (!empty($data['outputtime'])) {
             $new['created_at'] = date('Y-m-d H:i:s', strtotime($data['outputtime']));
         }
+
         if (!empty($data['confirmed'])) {
             if (Gate::allows('CONFIRMATION_DATA')) {
                 $new['approved'] = 1;
@@ -269,7 +293,7 @@ class BlogsRepository extends Repository {
                 if (false === $path) {
                     $error[] = ['img' => 'Ошибка загрузки картинки'];
                 } else {
-                    $img = $blog->blog_img()->update(['path' => $path]);
+                    $img = $blog->blog_img()->update(['path' => $path, 'alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
                 }
 
                 if (null == $img) {
@@ -283,7 +307,7 @@ class BlogsRepository extends Repository {
                 if (false === $path) {
                     $error[] =  ['img' => 'Ошибка загрузки картинки'];
                 } else {
-                    $img = $blog->blog_img()->update(['path'=>$path]);
+                    $img = $blog->blog_img()->update(['path'=>$path, 'alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
                 }
 
                 if (empty($img)) {
@@ -291,6 +315,11 @@ class BlogsRepository extends Repository {
                 }
                 //DELETE OLD IMAGE
                 $this->deleteOldImage($old_img);
+            } else {
+                $img = $blog->blog_img()->update(['alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
+                if (empty($img)) {
+                    $error[] = ['img' => 'Ошибка записи картинки'];
+                }
             }
 
             // Tags

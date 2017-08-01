@@ -11,13 +11,22 @@
         {{ Form::label('img', 'Основное изображение') }}
     @if(!empty($img))
     <div>
-        @if(!empty($tmp->image) && $tmp->image != $img)
+        @if(!empty($tmp->image) && $tmp->image != $img->path)
         {{ Html::image(asset('/images/blog/tmp').'/'.$tmp->image, 'a picture', array('class' => 'thumb')) }}
         @else
-        {{ Html::image(asset('/images/blog/main').'/'.$img, 'a picture', array('class' => 'thumb')) }}
+        {{ Html::image(asset('/images/blog/main').'/'.$img->path, 'a picture', array('class' => 'thumb')) }}
         @endif
     </div>
     @endif
+    {{ Form::label('img', 'Параметры картинки') }}
+    <div class="row">
+        <div class="col-lg-6">
+            {!! Form::text('imgalt', old('imgalt') ? : ($img->alt ?? '') , ['placeholder'=>'Alt', 'id'=>'imgalt', 'class'=>'form-control']) !!}
+        </div>
+        <div class="col-lg-6">
+            {!! Form::text('imgtitle', old('imgtitle') ? : ($img->title ?? '') , ['placeholder'=>'Title', 'id'=>'imgtitle', 'class'=>'form-control']) !!}
+        </div>
+    </div>
     <div>
         {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
     </div>

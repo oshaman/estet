@@ -184,7 +184,7 @@ class BlogsController extends AdminController
         } else {
             $tmp = null;
         }
-        $img = $blog->blog_img->path;
+        $img = $blog->blog_img;
 
         if (is_string($blog->seo) && is_object(json_decode($blog->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
             $blog->seo = json_decode($blog->seo);
