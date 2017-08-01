@@ -32,7 +32,21 @@ Route::group(['prefix'=>'catalog'], function () {
     Route::get('/salony/{salon?}', 'CatalogController@salons')->name('salons')->where('salon', '[a-zA-Z0-9-_]+');
     Route::get('/brendy/{brand?}', 'CatalogController@brands')->name('brands')->where('brand', '[a-zA-Z0-9-_]+');
 });
-
+/**
+ * Switch
+ */
+Route::post('/switch', 'SwitchController@index')->name('switch');
+/**
+ * Doctor's
+ */
+Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
+    Route::get('/', 'DocsController@index')->name('docs');
+    //  Blog
+    Route::group(['prefix' => '/blog'], function () {
+        Route::get('/{blog?}', 'BlogsController@index')->name('blogs')->where('blog', '[a-zA-Z0-9-_]+');
+        Route::get('category/{blogs_cat?}', 'BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
+    });
+});
 /**
  * AdminBlog
  */
@@ -110,6 +124,15 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::match(['get', 'post'], '/', 'Admin\ProfileController@index')->name('admin_profile');
         //  edit profile
         Route::match(['get', 'post'], 'edit/{user}', 'Admin\ProfileController@edit')->name('edit_profiles');
+    });
+    /**
+     * Admin ESTABLISHMENTS
+     */
+    Route::group(['prefix'=>'establishments'], function () {
+        //  view profile
+        Route::match(['get', 'post'], '/', 'Admin\EstablishmentsController@index')->name('admin_establishment');
+        //  edit profile
+        Route::match(['get', 'post'], 'edit/{establishment}', 'Admin\ProfileController@edit')->name('edit_establishment');
     });
     /**
      *   Admin ARTICLES

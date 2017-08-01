@@ -1,6 +1,6 @@
 <!-- START CONTENT -->
 <div class="container">
-    {!! Form::open(['url' => route('admin_blog'), 'class'=>'form-horizontal','method'=>'POST' ]) !!}
+    {!! Form::open(['url' => route('admin_blog'), 'class'=>'form-horizontal','method'=>'GET' ]) !!}
     <h3>Поиск статьи блога:</h3>
     <div class="row">
         {{ Form::label('value', 'Параметр поиска') }}
@@ -62,7 +62,7 @@
 
                         @for($i = 1; $i <= $blogs->lastPage(); $i++)
                             @if($blogs->currentPage() == $i)
-                                <li><a class="selected disabled">{{ $i }}</a></li>
+                                <li><a class="active disabled">{{ $i }}</a></li>
                             @else
                                 <li><a href="{{ $blogs->url($i) }}">{{ $i }}</a></li>
                             @endif

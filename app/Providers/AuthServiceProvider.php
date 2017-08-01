@@ -70,6 +70,9 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('CONFIRMATION_DATA', FALSE);
         });
 
+        Gate::define('UPDATE_ESTABLISHMENT', function ($user) {
+            return $user->canDo('UPDATE_ESTABLISHMENT', FALSE);
+        });
 
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);

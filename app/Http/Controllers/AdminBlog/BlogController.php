@@ -30,13 +30,13 @@ class BlogController extends Controller
         if (Gate::denies('ADD_BLOG')) {
             abort(404);
         }
-        if ($request->isMethod('post')) {
-
-            $data = $request->except('_token');
+        $data = $request->except('_token');
+        if (!empty($data['param'])) {
 
             switch ($data['param']) {
                 case 1:
                     $blogs = $this->blog_rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, [['user_id', Auth::id()], ['moderate', true]]);
+                    $blogs->appends(['param' => $data['param']])->links();
                     break;
                 case 2:
                     $model = new BlogsRepository(new Blog);
@@ -49,18 +49,15 @@ class BlogController extends Controller
                 case 4:
                     $model = new BlogsRepository(new Blog);
                     $blogs = $model->get(['title', 'id', 'created_at'], false, true, ['user_id', Auth::id()]);
+                    $blogs->appends(['param' => $data['param']])->links();
                     break;
                 default:
                     $model = new BlogsRepository(new Blog);
                     $blogs = $model->get(['title', 'id', 'created_at'], false, true, ['user_id', Auth::id()]);
             }
-
-            $content = view('blog.index')->with('blogs', $blogs)->render();
-
-            return view('blog.admin')->with('content', $content);
+        } else {
+            $blogs = $this->blog_rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, [['user_id', Auth::id()], ['moderate', false]]);
         }
-
-        $blogs = $this->blog_rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, [['user_id', Auth::id()], ['moderate', false]]);
 
         $content = view('blog.index')->with('blogs', $blogs)->render();
 

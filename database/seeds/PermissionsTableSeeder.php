@@ -20,14 +20,16 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'EDIT_PERMS'],
                 ['name'=>'UPDATE_CATS'],
                 ['name'=>'UPDATE_TAGS'],
-                //  articles
+//                articles
                 ['name'=>'ADD_ARTICLES'],
                 ['name'=>'UPDATE_ARTICLES'],
                 ['name'=>'DELETE_ARTICLES'],
-            //  blog
+//                blog
                 ['name'=>'ADD_BLOG'],
                 ['name'=>'UPDATE_BLOG'],
                 ['name'=>'DELETE_BLOG'],
+//                establishment
+                ['name'=>'UPDATE_ESTABLISHMENT'],
             ]
         );
     }

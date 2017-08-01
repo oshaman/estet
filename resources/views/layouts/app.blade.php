@@ -54,9 +54,21 @@
                             </ul>
                         </li>
                     </ul>
+                    <a class="navbar-brand" href="{{ route('blogs') }}"> Блог</a>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
+                        @if(!session()->has('doc'))
+                            {!! Form::open(['url' => route('switch'), 'method'=>'POST']) !!}
+                            {!! Form::hidden('doc', true) !!}
+                            {!! Form::button(trans('ru.doc'), ['class' => 'btn btn-success','type'=>'submit']) !!}
+                            {!! Form::close() !!}
+                        @else
+                            {!! Form::open(['url' => route('switch'), 'method'=>'POST']) !!}
+                            {!! Form::hidden('patient', true) !!}
+                            {!! Form::button(trans('ru.patient'), ['class' => 'btn btn-info','type'=>'submit']) !!}
+                            {!! Form::close() !!}
+                        @endif
                         <!-- Authentication Links -->
                         @if (Auth::guest())
                             <li><a href="{{ route('login') }}">Login</a></li>

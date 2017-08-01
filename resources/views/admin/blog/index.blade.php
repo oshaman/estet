@@ -1,6 +1,6 @@
 <!-- START CONTENT -->
 <div class="container">
-    {!! Form::open(['url' => route('view_blogs'), 'class'=>'form-horizontal','method'=>'POST' ]) !!}
+    {!! Form::open(['url' => route('view_blogs'), 'class'=>'form-horizontal','method'=>'GET' ]) !!}
     <h3>Поиск статьи блога:</h3>
     <div class="row">
         {{ Form::label('value', 'Параметр поиска') }}

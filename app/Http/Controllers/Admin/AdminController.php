@@ -75,9 +75,11 @@ class AdminController extends Controller
                 $menu->add(trans('ru.blog'), array('route' => 'view_blogs'));
             }
 
-            /*  if(Gate::allows('UPDATE_ARTICLES')) {
-                 $menu->add(trans('ua.articles'), array('route' => 'admin_articles'));
-             }
+            if(Gate::allows('UPDATE_ESTABLISHMENT')) {
+                $menu->add(trans('ru.establishment'), array('route' => 'admin_establishment'));
+            }
+
+            /*
 
             if(Gate::allows('UPDATE_EVENTS')) {
                  $menu->add(trans('ua.history'), array('route' => 'admin_events'))->prepend('<i class="icon-calendar"></i>');

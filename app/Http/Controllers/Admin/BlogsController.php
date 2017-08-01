@@ -37,40 +37,38 @@ class BlogsController extends AdminController
         if (Gate::denies('DELETE_BLOG')) {
             abort(404);
         }
-        if ($request->isMethod('post')) {
+        $data = $request->except('_token');
 
-            $data = $request->except('_token');
-
+        if (!empty($data['param'])) {
+            $data['value'] = $data['value'] ?? null;
             switch ($data['param']) {
                 case 1:
-                   $blogs[] = $this->blog_rep->one($data['value']);
+                    $blogs[] = $this->blog_rep->one($data['value']);
                     break;
                 case 2:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['title', $data['value']]);
                     break;
                 case 3:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
+                    if ($blogs) $blogs->appends(['param' => $data['param']])->links();
                     break;
                 case 4:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true);
+                    if ($blogs) $blogs->appends(['param' => $data['param']])->links();
                     break;
                 case 5:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['user_id', $data['value']]);
+                    if ($blogs) $blogs->appends(['param' => $data['param']])->links();
                     break;
                 default:
                     $blogs = $this->blog_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
+                    if ($blogs) $blogs->appends(['param' => $data['param']])->links();
             }
-//            dd($blogs);
-            $this->content = view('admin.blog.index')->with('blogs', $blogs)->render();
+        } else {
+            $rep = new TmpblogsRepository(new Tmpblog);
 
-            return $this->renderOutput();
+            $blogs = $rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, ['moderate', 1]);
         }
-
-
-
-        $rep = new TmpblogsRepository(new Tmpblog);
-
-        $blogs = $rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, ['moderate', 1]);
 
         $this->content = view('admin.blog.index')->with('blogs', $blogs)->render();
 
