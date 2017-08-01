@@ -195,6 +195,11 @@ class BlogsRepository extends Repository {
 
     }
 
+    /**
+     * @param $request
+     * @param $blog
+     * @return array
+     */
     public function updateBlog($request, $blog)
     {
         $data = $request->except('_token', 'img');
@@ -251,8 +256,6 @@ class BlogsRepository extends Repository {
                 $new['content'] = $content['content'];
             }
         }
-
-
 //        END Content
         $updated = $blog->fill($new)->save();
 
@@ -261,21 +264,19 @@ class BlogsRepository extends Repository {
             $old_img = $blog->blog_img->path;
             // Main Image handle
             if ($request->hasFile('img')) {
-                if ($request->hasFile('img')) {
-                    $path = $this->mainImg($request->file('img'), $new['alias']);
+                $path = $this->mainImg($request->file('img'), $new['alias']);
 
-                    if (false === $path) {
-                        $error[] = ['img' => 'Ошибка загрузки картинки'];
-                    } else {
-                        $img = $blog->blog_img()->update(['path' => $path]);
-                    }
-
-                    if (null == $img) {
-                        $error[] = ['img' => 'Ошибка записи картинки'];
-                    }
-                    //DELETE OLD IMAGE
-                    $this->deleteOldImage($old_img);
+                if (false === $path) {
+                    $error[] = ['img' => 'Ошибка загрузки картинки'];
+                } else {
+                    $img = $blog->blog_img()->update(['path' => $path]);
                 }
+
+                if (null == $img) {
+                    $error[] = ['img' => 'Ошибка записи картинки'];
+                }
+                //DELETE OLD IMAGE
+                $this->deleteOldImage($old_img);
             } elseif ($request->session()->has('image') && ($request->session()->get('image') !== $blog->blog_img->path)) {
                 $path = $this->tmpImg($request->session()->get('image'));
 
@@ -311,13 +312,13 @@ class BlogsRepository extends Repository {
                         File::delete(public_path('images/blog/photos/small/') . $img->path);
                     }
                     if (File::exists(public_path('images/blog/photos/middle/') . $img->path)) {
-                        File::delete(public_path('images/blog/photos/small/'). $img->path);
+                        File::delete(public_path('images/blog/photos/middle/'). $img->path);
                     }
                     if (File::exists(public_path('images/blog/photos/main/') . $img->path)) {
-                        File::delete(public_path('images/blog/photos/small/') . $img->path);
+                        File::delete(public_path('images/blog/photos/main/') . $img->path);
                     }
                     try {
-                        $blog->blogphoto()->delete($img->id);
+                        $blog->blogphoto()->where('id', $img->id)->delete();
                     } catch (Exception $e) {
                         Log::alert($e->getMessage());
                     }
@@ -339,10 +340,12 @@ class BlogsRepository extends Repository {
         return ['error' => $error];
     }
 
-
-
-
-
+    /**
+     * @param File $image
+     * @param $alias
+     * @param string $position
+     * @return bool|string
+     */
     public function mainImg($image, $alias, $position = 'center')
     {
         if($image->isValid()) {
@@ -369,6 +372,11 @@ class BlogsRepository extends Repository {
         }
     }
 
+    /**
+     * @param string $image_path
+     * @param string $position
+     * @return bool
+     */
     public function tmpImg($image_path, $position = 'center')
     {
         if (File::exists(public_path('images/blog/tmp/') . $image_path)) {
@@ -401,6 +409,11 @@ class BlogsRepository extends Repository {
         return false;
     }
 
+    /**
+     * @param $content
+     * @param $alias
+     * @return bool
+     */
     public function contentHandle($content, $alias)
     {
         if (preg_replace('/<picture>&nbsp;<\/picture>/', '', $content)) {
