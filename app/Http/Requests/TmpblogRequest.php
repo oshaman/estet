@@ -41,10 +41,16 @@ class TmpblogRequest extends FormRequest
                 ];
                 return $rules;
             }
+        } else {
+            $rules = [
+                'value' => ['nullable', 'string', 'between:1,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:]+$#u'],
+                'param' => 'nullable|digits:1',
+            ];
+            return $rules;
         }
 
-        return [
+       /* return [
             //
-        ];
+        ];*/
     }
 }

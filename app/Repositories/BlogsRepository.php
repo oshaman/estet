@@ -562,4 +562,56 @@ class BlogsRepository extends Repository {
         }
         return true;
     }
+
+
+    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false, $with=false)
+    {
+        $builder = $this->model->select($select);
+
+        if ($with) {
+            if (is_array($with)){
+                $builder = $this->model->with($with[0], $with[1], $with[2]);
+            } else {
+//                dd('not array');
+                $builder = $this->model->with($with);
+            }
+        }
+
+
+
+        if ($take) {
+            $builder->take($take);
+        }
+
+        if ($where) {
+            if (is_array($where[0])) {
+                $builder->where([$where[0], $where[1]]);
+            } else {
+                $builder->where($where[0], $where[1], $where[2] = false);
+            }
+        }
+
+        if ($order) {
+            $builder->orderBy($order[0], $order[1]);
+        }
+//        dd($builder);
+        if($pagination) {
+            return $builder->paginate(Config::get('settings.paginate'));
+        }
+
+        return $builder->get();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

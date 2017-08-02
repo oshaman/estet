@@ -12,12 +12,13 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    /*public function boot()
+    public function boot()
     {
-        DB::listen(function($query) {
-            dump($query);
-        });
-    }*/
+       /* DB::listen(function($query) {
+//            dump($query);
+            echo '<h5>'.$query->sql.'</h5>';
+        });*/
+    }
 
     /**
      * Register any application services.

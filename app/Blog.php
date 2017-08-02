@@ -17,6 +17,10 @@ class Blog extends Model
         return $this->belongsTo('Fresh\Estet\User');
     }
 
+    public function getAttr()
+    {
+        return $this->blog_img()->union($this->category()->toBase());
+    }
     /**
      *  Get the category associated with the blog.
      */
@@ -59,4 +63,9 @@ class Blog extends Model
     {
         return $this->hasMany('Fresh\Estet\Comment');
     } */
+
+    public function person()
+    {
+        return $this->user()->with('person');
+    }
 }

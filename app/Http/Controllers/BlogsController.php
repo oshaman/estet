@@ -22,10 +22,9 @@ class BlogsController extends DocsController
     public function index($blog=false)
     {
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
-        $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'], false, true, $where, false, 'blog_img');
+        $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'], false, true, $where, false, ['blog_img', 'category', 'person']);
 
-
-        dd($blogs);
+//        dd($blogs);
 
         $this->content = view('doc.blogs')->with('blogs', $blogs)->render();
         return $this->renderOutput();
