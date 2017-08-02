@@ -12,7 +12,7 @@ class SwitchController extends Controller
         if ($request->isMethod('post')) {
             if ($request->has('doc')) {
                 $request->session()->put('doc', true);
-                return redirect(route('blogs'));
+                return redirect(route('doctors'));
             } else {
                 $request->session()->forget('doc');
                 return redirect(route('main'));

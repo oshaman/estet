@@ -28,6 +28,17 @@ class BlogsRepository extends Repository {
         if($blog && !empty($attr)) {
             $blog->load('category');
             $blog->load('tags');
+            $blog->load('person');
+            $blog->load('blog_img');
+
+            $midnight = strtotime('today midnight');
+            $created = strtotime($blog->created_at);
+
+            if ($created > $midnight) {
+                $blog->created = date('H:i:s', $created);
+            } else {
+                $blog->created = date('d-m-Y H:i:s', $created);
+            }
             // $blog->load('comments');
             // $blog->comments->load('user');
         }
@@ -105,7 +116,6 @@ class BlogsRepository extends Repository {
         if ($request->session()->has('user_id')) {
             $blog['user_id'] = $request->session()->get('user_id');
         }
-
         $new = $this->model->firstOrCreate($blog);
 
         $error = '';
@@ -461,7 +471,6 @@ class BlogsRepository extends Repository {
             foreach ($imgs[0] as $val) {
                 $new_path[] = $this->addPhotos($val, $alias);
             }
-
 //            convert img's tags
             $picture = array_map(function ($v) {
                 return
@@ -564,7 +573,7 @@ class BlogsRepository extends Repository {
     }
 
 
-    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false, $with=false)
+    public function get($select = '*', $take = false, $pagination = false, $where = false, $order = false, $with=false, $check=false)
     {
         $builder = $this->model->select($select);
 
@@ -577,14 +586,14 @@ class BlogsRepository extends Repository {
             }
         }
 
-
-
         if ($take) {
             $builder->take($take);
         }
 
         if ($where) {
-            if (is_array($where[0])) {
+            if (is_array($where[0]) && !empty(($where[2]))) {
+                $builder->where([$where[0], $where[1], $where[2]]);
+            } elseif(is_array($where[0])) {
                 $builder->where([$where[0], $where[1]]);
             } else {
                 $builder->where($where[0], $where[1], $where[2] = false);
@@ -594,24 +603,45 @@ class BlogsRepository extends Repository {
         if ($order) {
             $builder->orderBy($order[0], $order[1]);
         }
-//        dd($builder);
-        if($pagination) {
+       /* if($pagination) {
             return $builder->paginate(Config::get('settings.paginate'));
-        }
+        }*/
 
-        return $builder->get();
+        if ($check) {
+            if($pagination) {
+                return $this->check($builder->paginate(Config::get('settings.paginate')));
+            }
+            return $this->check($builder->get());
+        } else {
+            if($pagination) {
+                return $builder->paginate(Config::get('settings.paginate'));
+            }
+            return $builder->get();
+        }
     }
 
+    protected function check($result)
+    {
 
+        if($result->isEmpty()) {
+            return FALSE;
+        }
 
+        $result->transform(function($item) {
+            $midnight = strtotime('today midnight');
+            $created = strtotime($item->created_at);
 
+            if ($created > $midnight) {
+                $item->created = date('H:i:s', $created);
+            } else {
+                $item->created = date('d-m-Y H:i:s', $created);
+            }
 
+            return $item;
 
+        });
 
+        return $result;
 
-
-
-
-
-
+    }
 }

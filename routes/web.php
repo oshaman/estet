@@ -40,10 +40,10 @@ Route::post('/switch', 'SwitchController@index')->name('switch');
  * Doctor's
  */
 Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
-    Route::get('/', 'DocsController@index')->name('docs');
+    Route::get('/', 'DocsController@index')->name('doctors');
     //  Blog
     Route::group(['prefix' => '/blog'], function () {
-        Route::get('/{blog?}', 'BlogsController@index')->name('blogs')->where('blog', '[a-zA-Z0-9-_]+');
+        Route::get('/{blog_alias?}', 'BlogsController@index')->name('blogs')->where('blog_alias', '[a-zA-Z0-9-_]+');
         Route::get('category/{blogs_cat?}', 'BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
     });
 });

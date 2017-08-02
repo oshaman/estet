@@ -43,4 +43,9 @@ class Person extends Model
         }
         return false;
     }
+
+    public function blogs()
+    {
+        return $this->hasManyThrough('Fresh\Estet\Blog', 'Fresh\Estet\User');
+    }
 }

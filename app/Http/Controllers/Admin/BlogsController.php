@@ -107,6 +107,9 @@ class BlogsController extends AdminController
 
             return redirect()->route('view_blogs')->with($result);
         }
+        $request->session()->forget('tmp_id');
+        $request->session()->forget('user_id');
+        $request->session()->forget('image');
 
 //        View FORMS
         $title = 'Добавление статьи блога';
@@ -122,10 +125,10 @@ class BlogsController extends AdminController
             abort(404);
         }
 
-        $request->session()->flash('user_id', $tmpblog->user_id);
-        $request->session()->flash('tmp_id', $tmpblog->id);
+        $request->session()->put('user_id', $tmpblog->user_id);
+        $request->session()->put('tmp_id', $tmpblog->id);
         if (!empty($tmpblog->image)) {
-            $request->session()->flash('image', $tmpblog->image);
+            $request->session()->put('image', $tmpblog->image);
         }
         $this->content = view('admin.blog.add')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$tmpblog])->render();
 
