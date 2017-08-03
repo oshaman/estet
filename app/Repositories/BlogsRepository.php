@@ -591,7 +591,9 @@ class BlogsRepository extends Repository {
         }
 
         if ($where) {
-            if (is_array($where[0]) && !empty(($where[2]))) {
+            if (is_array($where[0]) && !empty(($where[3]))) {
+                $builder->where([$where[0], $where[1], $where[2], $where[3]]);
+            } elseif (is_array($where[0]) && !empty(($where[2]))) {
                 $builder->where([$where[0], $where[1], $where[2]]);
             } elseif(is_array($where[0])) {
                 $builder->where([$where[0], $where[1]]);

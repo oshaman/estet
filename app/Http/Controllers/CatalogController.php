@@ -43,15 +43,6 @@ class CatalogController extends Controller
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $profile->user_id]);
             $blogs = $blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
 
-            /*if ($blogs->count() < 3) {
-                $take = 3 - $blogs->count();
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $profile->category_id]);
-                $new = $blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
-                dd($new);
-                $blogs->merge($new);
-            }
-            dd($blogs);*/
-
             $this->title = $profile->name . ' ' . $profile->lastname;
             return view('catalog.doc_profile')->with(['profile' => $profile, 'blogs' => $blogs]);
         }

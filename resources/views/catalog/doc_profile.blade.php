@@ -76,26 +76,28 @@
         </div>
     </div>
 </div>
-<div class="row">
-    @foreach($blogs as $blog)
-        <div class="row">
-            <div class="col-md-6">
-                {{ Html::image(asset('/images/blog/main') . '/' . $blog->blog_img->path, $blog->blog_img->alt, ['title' => $blog->blog_img->title]) }}
-            </div>
-            <div class="col-md-6">
-                <div class="row">
-                    <span>{{ $blog->category->name }}</span> <span class="label label-default">{{ $blog->created }}</span>
+    @if($blogs)
+    <div class="row">
+        @foreach($blogs as $blog)
+            <div class="row">
+                <div class="col-md-6">
+                    {{ Html::image(asset('/images/blog/small') . '/' . $blog->blog_img->path, $blog->blog_img->alt, ['title' => $blog->blog_img->title]) }}
                 </div>
-                <h2>{{ $blog->title }}</h2>
-                <h5>{{ $blog->person->person->name . ' ' . $blog->person->person->lastname }}</h5>
-                <p>
-                    {!! Form::open(['url' => route('blogs',['blog'=> $blog->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
-                    {!! Form::button(trans('ru.more'), ['class' => 'btn btn-basic','type'=>'submit']) !!}
-                    {!! Form::close() !!}
-                </p>
+                <div class="col-md-6">
+                    <div class="row">
+                        <span>{{ $blog->category->name }}</span> <span class="label label-default">{{ $blog->created }}</span>
+                    </div>
+                    <h2>{{ $blog->title }}</h2>
+                    <h5>{{ $blog->person->person->name . ' ' . $blog->person->person->lastname }}</h5>
+                    <p>
+                        {!! Form::open(['url' => route('blogs',['blog'=> $blog->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                        {!! Form::button(trans('ru.more'), ['class' => 'btn btn-basic','type'=>'submit']) !!}
+                        {!! Form::close() !!}
+                    </p>
+                </div>
             </div>
-        </div>
-    @endforeach
-</div>
+        @endforeach
+    </div>
+    @endif
 @endif
 @endsection
