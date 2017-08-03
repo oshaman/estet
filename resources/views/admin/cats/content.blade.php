@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ $category->name }}</td>
                 <td>
-                    {!! Form::open(['url' => route('cats',['cat'=> $category->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                    {!! Form::open(['url' => route('edit_cats',['cat'=> $category->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                     {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                     {!! Form::close() !!}
                 </td>
