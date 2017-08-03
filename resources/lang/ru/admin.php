@@ -31,9 +31,10 @@ return [
     //  blogs
     'cats' => 'Категория',
     //  articles
-    'articles' => 'Добавленые статьи',
+    'articles' => 'Cтатьи',
     'add_title' => 'Заголовок:*',
     'add_title_placeholder' => 'Введите название статьи',
+    'own' => 'Принадлежность',
     //  profile
     'name' => 'Имя',
     'lastname' => 'Фамилия',

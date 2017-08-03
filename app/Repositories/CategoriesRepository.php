@@ -3,7 +3,6 @@
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Category;
-use Gate;
 
 class CategoriesRepository extends Repository {
 

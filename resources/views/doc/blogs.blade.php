@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                  <span>{{ $blog->category->name }}</span> <span class="label label-default">{{ $blog->created }}</span>
+                    <span>{{ $blog->category->name }}</span> <span class="label label-default">{{ $blog->created }}</span>
                 </div>
                 <h2>{{ $blog->title }}</h2>
                 <h5>{{ $blog->person->person->name . ' ' . $blog->person->person->lastname }}</h5>

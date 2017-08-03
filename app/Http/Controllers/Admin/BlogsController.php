@@ -2,7 +2,6 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin;
 
-use Fresh\Estet\Http\Controllers\Admin\AdminController;
 use Fresh\Estet\Tag;
 use Fresh\Estet\Repositories\TagsRepository;
 use Fresh\Estet\BlogCategory;

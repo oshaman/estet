@@ -14,6 +14,12 @@
 Route::get('/', ['uses'=>'MainController@index', 'as'=>'main']);
 Route::get('/home', 'HomeController@index')->name('home');
 /**
+ * Articles
+ */
+Route::group(['prefix' =>'articles'], function () {
+    Route::get('/{article_alias?}', 'Patient\ArticlesController@index')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
+});
+/**
  *  Profile
  */
 Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
@@ -138,17 +144,17 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      *   Admin ARTICLES
      *
      */
-   /* Route::group(['prefix' => 'articles'], function () {
+    Route::group(['prefix' => 'articles'], function () {
         //  show articles list
         Route::get('/', ['uses' => 'Admin\ArticlesController@index', 'as' => 'admin_articles']);
-        //  (editor uses)show articles list sort by CHECKED, DATE or AUTHOR
-        Route::match(['get', 'post'], 'selection', ['uses'=>'Admin\ArticlesController@sorted', 'as'=>'selection']);
+        //  (editor uses)show articles list sort by .....................
+//        Route::match(['get', 'post'], 'selection', ['uses'=>'Admin\ArticlesController@sorted', 'as'=>'selection']);
 
         Route::match(['get', 'post'], 'create', ['uses'=>'Admin\ArticlesController@create', 'as'=>'create_article']);
         Route::match(['get', 'post'], 'edit/{id}', ['uses'=>'Admin\ArticlesController@edit', 'as'=>'edit_article'])->where('id', '[0-9]+');
         Route::get('del/{id}', ['uses'=>'Admin\ArticlesController@del', 'as'=>'delete_article'])->where('id', '[0-9]+');
 
-    });*/
+    });
 
 });
 

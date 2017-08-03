@@ -55,6 +55,7 @@
                         </li>
                     </ul>
                     <a class="navbar-brand" href="{{ route('blogs') }}"> Блог</a>
+                    <a class="navbar-brand" href="{{ route('articles') }}"> Статьи</a>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
