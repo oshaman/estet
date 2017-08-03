@@ -493,8 +493,6 @@ class BlogsRepository extends Repository {
         } else {
             return false;
         }
-
-
     }
 
     /**

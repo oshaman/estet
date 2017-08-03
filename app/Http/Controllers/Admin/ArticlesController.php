@@ -3,6 +3,7 @@
 namespace Fresh\Estet\Http\Controllers\Admin;
 
 use Gate;
+use Fresh\Estet\Article;
 use Fresh\Estet\Repositories\ArticlesRepository;
 use Fresh\Estet\Category;
 use Fresh\Estet\Repositories\CategoriesRepository;
@@ -19,12 +20,55 @@ class ArticlesController extends AdminController
         $this->a_rep = $repository;
     }
 
-    public function index()
+    public function index(ArticleRequest $request)
     {
         if (Gate::denies('ADD_ARTICLES')) {
             abort(404);
         }
-        $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0]);
+
+
+        $data = $request->except('_token');
+
+        if (!empty($data['param'])) {
+            $data['value'] = $data['value'] ?? null;
+            switch ($data['param']) {
+                case 1:
+                    $articles[] = $this->a_rep->one($data['value']);
+                    break;
+                case 2:
+                    $v = '%'.$data['value'].'%';
+//                    dd($v);
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['title', 'LIKE', $v]);
+//                    $articles = Article::where('title', 'like', $v)->get();
+                    dd($articles);
+                    break;
+                case 3:
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
+                    if ($articles) $articles->appends(['param' => $data['param']])->links();
+                    break;
+                case 4:
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'doctor']);
+                    if ($articles) $articles->appends(['param' => $data['param']])->links();
+                    break;
+                case 5:
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'patient']);
+                    if ($articles) $articles->appends(['param' => $data['param']])->links();
+                    break;
+                default:
+                    $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0]);
+                    if ($articles) $articles->appends(['param' => $data['param']])->links();
+            }
+        } else {
+            $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0]);
+        }
+
+
+
+
+
+
+
+
 //        dd($articles);
         $this->content = view('admin.article.index')->with(['articles' => $articles])->render();
 
@@ -38,7 +82,15 @@ class ArticlesController extends AdminController
         }
 
         if ($request->isMethod('post')) {
-            dd($request->all());
+            $this->validate($request, [
+                'alias' => 'required|unique:articles,alias|max:255|alpha_dash',
+            ]);
+            $result = $this->a_rep->addArticle($request);
+
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->withErrors($result);
+            }
+            return redirect()->route('admin_articles')->with($result);
         }
 
         $this->title = 'Добавление статьи';
@@ -61,8 +113,17 @@ class ArticlesController extends AdminController
 
     }
 
-    public function del($id)
+    public function del(Article $article)
     {
-        dd('DEL');
+        if (Gate::denies('DELETE_ARTICLES')) {
+            abort(404);
+        }
+
+        $result = $this->a_rep->deleteArticle($article);
+
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect()->route('admin_articles')->with($result);
     }
 }

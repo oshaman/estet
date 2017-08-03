@@ -1,6 +1,6 @@
 <!-- START CONTENT -->
 <div class="container">
-    {!! Form::open(['url' => route('articles'), 'class'=>'form-horizontal','method'=>'GET' ]) !!}
+    {!! Form::open(['url' => route('admin_articles'), 'class'=>'form-horizontal','method'=>'GET' ]) !!}
     <h3>Поиск статьи блога:</h3>
     <div class="row">
         {{ Form::label('value', 'Параметр поиска') }}

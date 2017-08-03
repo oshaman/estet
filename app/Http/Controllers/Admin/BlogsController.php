@@ -92,7 +92,7 @@ class BlogsController extends AdminController
             $result = $this->blog_rep->addBlog($request);
 
             if(is_array($result) && !empty($result['error'])) {
-                return back()->with($result);
+                return back()->withErrors($result);
             }
 
         if (key_exists('status', $result)) {

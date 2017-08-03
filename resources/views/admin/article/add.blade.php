@@ -14,6 +14,22 @@
     </div>
 </div>
 <div class="row">
+    {{ Form::label('own', 'Принадлежность') }}
+    <div>
+        {!! Form::select('own', [0=>'Раздел пациентов', 1=>'Раздел докторов'],
+            old('own') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Доктор\Пациент'])
+        !!}
+    </div>
+</div>
+<div class="row">
+    {{ Form::label('cats', 'Категория') }}
+    <div>
+        {!! Form::select('cats', $cats ?? [],
+            old('cats') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
+        !!}
+    </div>
+</div>
+<div class="row">
     {{ Form::label('img', 'Параметры картинки') }}
     <div class="row">
         <div class="col-lg-6">
@@ -26,14 +42,6 @@
     {{ Form::label('img', 'Основное изображение') }}
     <div>
         {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
-    </div>
-</div>
-<div class="row">
-    {{ Form::label('cats', 'Категория') }}
-    <div>
-        {!! Form::select('cats', $cats ?? [],
-            old('cats') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
-        !!}
     </div>
 </div>
 <div class="row">
@@ -111,14 +119,6 @@
     </div>
 </div>
 <!-- SEO -->
-<div class="row">
-    {{ Form::label('own', 'Принадлежность') }}
-    <div>
-        {!! Form::select('own', [0=>'Раздел пациентов', 1=>'Раздел докторов'],
-            old('own') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Доктор\Пациент'])
-        !!}
-    </div>
-</div>
 <div class="row>">
     <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
     <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>

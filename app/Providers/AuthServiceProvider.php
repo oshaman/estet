@@ -78,6 +78,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('ADD_ARTICLES', FALSE);
         });
 
+        Gate::define('DELETE_ARTICLES', function ($user) {
+            return $user->canDo('DELETE_ARTICLES', FALSE);
+        });
+
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);
         });
