@@ -39,6 +39,7 @@ class RouteServiceProvider extends ServiceProvider
                 });
 
         Route::model('article', \Fresh\Estet\Article::class);
+//        Route::model('tag', \Fresh\Estet\Tag::class);
 
 
     }

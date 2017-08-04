@@ -15,6 +15,14 @@ class ArticlesRepository extends Repository
         $this->model = $rep;
     }
 
+    /**
+     * @param $select
+     * @param $where
+     * @param $with
+     * @param $take
+     * @param $order
+     * @return Instance of Article
+     */
     public function getMain($select, $where, $with, $take, $order)
     {
         return $this->check($this->model->where($where)
@@ -34,6 +42,15 @@ class ArticlesRepository extends Repository
             return $item;
 
         });
+    }
+
+    public function getLast($select, $where, $take, $order)
+    {
+        return $this->check($this->model->where($where)
+            ->take($take)
+            ->select($select)
+            ->orderBy($order[0], $order[1])
+            ->get());
     }
 
     /**

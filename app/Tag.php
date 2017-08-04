@@ -12,4 +12,9 @@ class Tag extends Model
     {
         return $this->belongsToMany('Fresh\Estet\Blog', 'blog_tag');
     }
+
+    public function articles()
+    {
+        return $this->belongsToMany('Fresh\Estet\Article', 'article_tag');
+    }
 }

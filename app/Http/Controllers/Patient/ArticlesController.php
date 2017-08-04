@@ -3,9 +3,12 @@
 namespace Fresh\Estet\Http\Controllers\Patient;
 
 use Fresh\Estet\Http\Controllers\Controller;
+use Fresh\Estet\Repositories\TagsRepository;
+use Fresh\Estet\Tag;
 use Menu;
 use DB;
 use Fresh\Estet\Repositories\ArticlesRepository;
+
 
 use Fresh\Estet\Article;
 
@@ -23,12 +26,8 @@ class ArticlesController extends Controller
         $this->a_rep = $repository;
     }
 
-    public function index($article=null)
+    public function index()
     {
-        if ($article) {
-            dd($article);
-        }
-
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
 
         $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
@@ -38,10 +37,40 @@ class ArticlesController extends Controller
         return $this->renderOutput();
     }
 
-    public function show()
+    public function show($article=null)
     {
+        if ($article) {
+
+            if (!empty($article->seo)) {
+                $article->seo = $this->a_rep->convertSeo($article->seo);
+            }
+            $article->created = $this->a_rep->convertDate($article->created_at);
+            $article->load('category');
+            $article->load('tags');
+
+//            dd($article);
+//            Last 2 publications
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article->id]);
+            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+
+            $this->content = view('patient.article')->with(['article'=>$article, 'lasts'=>$lasts])->render();
+            return $this->renderOutput();
+        }
+
+
         $this->content = 'ARTICLES';
         return $this->renderOutput();
+    }
+
+    public function tag($tag)
+    {
+
+        $articles = Article::whereHas('tags', function($q)
+        {
+            $q->whereId($tag);
+        })->get();
+        dd($articles);
+//        $articles = $this->a_rep->with('tags')->whereName();
     }
 
     public function renderOutput()

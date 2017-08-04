@@ -18,6 +18,7 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 Route::group(['prefix' =>'articles'], function () {
     Route::get('/{article_alias?}', 'Patient\ArticlesController@show')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
+    Route::get('/tag/{tag}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag', '[0-9]+');
 });
 /**
  *  Profile
