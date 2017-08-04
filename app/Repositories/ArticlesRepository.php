@@ -15,6 +15,10 @@ class ArticlesRepository extends Repository
         $this->model = $rep;
     }
 
+    /**
+     * @param $request
+     * @return Result array
+     */
     public function addArticle($request)
     {
         if (Gate::denies('ADD_ARTICLES')) {
@@ -131,6 +135,169 @@ class ArticlesRepository extends Repository
         return ['error' => $error];
     }
 
+    /**
+     * @param $request
+     * @param Article $article
+     * @return array - Result
+     */
+    public function updateArticle($request, $article)
+    {
+        $data = $request->except('_token', 'img');
+        $article->load('image');
+
+        if ($data['title'] !== $article->title) {
+            $new['title'] = $data['title'];
+        }
+
+        if ($data['alias'] !== $article->alias) {
+            $new['alias'] = $this->transliterate($data['alias']);
+        } else {
+            $new['alias'] = $article->alias;
+        }
+
+        if ($data['own']) {
+            $article['own'] = 'doctor';
+        } else {
+            $article['own'] = 'patient';
+        }
+
+        if ($data['cats'] !== $article->category_id) {
+            $new['category_id'] = $data['cats'];
+        }
+
+        if ($data['imgalt'] !== $article->image->alt) {
+            $new['imgalt'] = $data['imgalt'];
+        } else {
+            $new['imgalt'] = $article->image->alt;
+        }
+
+        if (empty($data['tags'])) {
+            $data['tags'] = null;
+        }
+
+        if ($data['imgtitle'] !== $article->image->title) {
+            $new['imgtitle'] = $data['imgtitle'];
+        } else {
+            $new['imgtitle'] = $article->image->title;
+        }
+
+        if (!empty($data['outputtime'])) {
+            $new['created_at'] = date('Y-m-d H:i:s', strtotime($data['outputtime']));
+        }
+
+        if (!empty($data['confirmed'])) {
+                $new['approved'] = 1;
+        } else {
+            $new['approved'] = 0;
+        }
+
+        // SEO handle
+        if (!empty($data['seo_title'] || !empty($data['seo_keywords']) || !empty($data['seo_description']) || !empty($data['seo_text'])
+            || !empty($data['og_image']) || !empty($data['og_title']) || !empty($data['og_description']))) {
+            $obj = new \stdClass;
+            $obj->seo_title = $data['seo_title'] ?? '';
+            $obj->seo_keywords = $data['seo_keywords'] ?? '';
+            $obj->seo_description = $data['seo_description'] ?? '';
+            $obj->seo_text = $data['seo_text'] ?? '';
+            $obj->og_image = $data['og_image'] ?? '';
+            $obj->og_title = $data['og_title'] ?? '';
+            $obj->og_description = $data['og_description'] ?? '';
+            $new['seo'] = json_encode($obj);
+        } else { $new['seo'] = null; }
+
+        //        Content
+        if (!empty($data['content']) && ($data['content'] != $article['content'])) {
+
+            $content = $this->contentHandle($data['content'], $new['alias']);
+
+            if (false == $content['content']) {
+                $new['content'] = $data['content'];
+            } else {
+                $new['content'] = $content['content'];
+            }
+        }
+//        END Content
+
+        $updated = $article->fill($new)->save();
+
+        $error = '';
+        if (!empty($updated)) {
+
+            $old_img = $article->image->path;
+            // Main Image handle
+            if ($request->hasFile('img')) {
+                $path = $this->mainImg($request->file('img'), $new['alias']);
+
+                if (false === $path) {
+                    $error[] = ['img' => 'Ошибка загрузки картинки'];
+                } else {
+                    $img = $article->image()->update(['path' => $path, 'alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
+                }
+
+                if (empty($img)) {
+                    $error[] = ['img' => 'Ошибка записи картинки'];
+                }
+                //DELETE OLD IMAGE
+                $this->deleteOldImage($old_img);
+            } else {
+                try {
+                    $article->image()->update(['alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
+                } catch (Exception $e) {
+                    \Log::info('Ошибка обновления главного изображения статьи: ', $e->getMessage());
+                    $error[] = ['img' => 'Ошибка обновления главного изображения статьи'];
+                }
+            }
+
+            try {
+                $article->tags()->sync($data['tags']);
+            } catch (Exception $e) {
+                \Log::info('Ошибка записи тегов: ', $e->getMessage());
+                $error[] = ['tag' => 'Ошибка записи тегов'];
+            }
+
+            $old_photos = $article->photo()->get();
+            //            delete old imgs
+            if (!$old_photos->isEmpty()) {
+                foreach ($old_photos as $img) {
+                    if (preg_match('#'.$img->path.'#', $data['content'])) {
+                        continue;
+                    }
+                    if (File::exists(public_path('images/article/photos/small/') . $img->path)) {
+                        File::delete(public_path('images/article/photos/small/') . $img->path);
+                    }
+                    if (File::exists(public_path('images/article/photos/middle/') . $img->path)) {
+                        File::delete(public_path('images/article/photos/middle/'). $img->path);
+                    }
+                    if (File::exists(public_path('images/article/photos/main/') . $img->path)) {
+                        File::delete(public_path('images/article/photos/main/') . $img->path);
+                    }
+                    try {
+                        $article->photo()->where('id', $img->id)->delete();
+                    } catch (Exception $e) {
+                        Log::alert($e->getMessage());
+                    }
+                }
+            }
+
+            // content imgs
+            if (!empty($content['path'])) {
+                try {
+                    $article->photo()->createMany($content['path']);
+                } catch (Exception $e) {
+                    \Log::info('Ошибка записи фотографий: ', $e->getMessage());
+                    $error[] = ['tag' => 'Ошибка записи фотографий'];
+                }
+            }
+
+            return ['status' => trans('admin.material_added'), $error];
+        }
+        return ['error' => $error];
+    }
+    /**
+     *
+     * @param $article
+     * @return Result array
+     */
     public function deleteArticle($article)
     {
         $pics = $article->photo()->get();

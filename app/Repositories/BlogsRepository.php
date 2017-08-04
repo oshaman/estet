@@ -306,7 +306,7 @@ class BlogsRepository extends Repository {
                     $img = $blog->blog_img()->update(['path' => $path, 'alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
                 }
 
-                if (null == $img) {
+                if (empty($img)) {
                     $error[] = ['img' => 'Ошибка записи картинки'];
                 }
                 //DELETE OLD IMAGE
@@ -618,30 +618,5 @@ class BlogsRepository extends Repository {
             }
             return $builder->get();
         }
-    }
-
-    protected function check($result)
-    {
-
-        if($result->isEmpty()) {
-            return FALSE;
-        }
-
-        $result->transform(function($item) {
-            $midnight = strtotime('today midnight');
-            $created = strtotime($item->created_at);
-
-            if ($created > $midnight) {
-                $item->created = date('H:i:s', $created);
-            } else {
-                $item->created = date('d-m-Y H:i:s', $created);
-            }
-
-            return $item;
-
-        });
-
-        return $result;
-
     }
 }

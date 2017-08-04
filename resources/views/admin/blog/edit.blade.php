@@ -131,7 +131,7 @@
 <div class="row">
     <!-- Approved -->
     @if(Auth::user()->canDo('CONFIRMATION_DATA'))
-        <label><input type="checkbox" {{ old('confirmed') ? 'checked' : ($content->approved ?? '')}} value="1" name="confirmed"> В тираж</label>
+        <label><input type="checkbox" {{ (old('confirmed') || !empty($content->approved)) ? 'checked' : '' }} value="1" name="confirmed"> В тираж</label>
     @endif
 
 </div>

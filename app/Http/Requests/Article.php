@@ -23,16 +23,24 @@ class Article extends FormRequest
     {
         $validator = parent::getValidatorInstance();
 
-        $validator->sometimes('alias', 'required|unique:blogs,alias|max:255|alpha_dash', function ($input) {
-//  bind blog_id in RouteServiceProvider
+        $validator->sometimes('alias', ['required', 'unique:articles,alias', 'max:255', 'regex:#^[\w-]#'], function ($input) {
+//  bind article in RouteServiceProvider
             if ($this->route()->hasParameter('article') && $this->isMethod('post')) {
                 $model = $this->route()->parameter('article');
-
                 if (null === $model) return true;
                 return ($model->alias !== $input->alias)  && !empty($input->alias);
             }
 
             return !empty($input->alias);
+        });
+
+        $validator->sometimes('img', 'mimes:jpg,bmp,png,jpeg|max:5120|required', function ($input) {
+//  bind article in RouteServiceProvider
+            if ($this->route()->named('create_article') && $this->isMethod('post')) {
+                return true;
+            }
+
+            return false;
         });
 
         return $validator;
@@ -47,10 +55,10 @@ class Article extends FormRequest
     {
         if ($this->isMethod('post')) {
             $rules = [
-                'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\!]+$#u'],
+                'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\!\.]+$#u'],
                 'cats' => ['digits_between:1,4', 'nullable', 'required'],
                 'tags' => 'array',
-                'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|required',
+                'img' => 'mimes:jpg,bmp,png,jpeg|max:5120',
                 'imgalt' => ['string', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\?\!]+$#u', 'nullable'],
                 'imgtitle' => ['string', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\?\!]+$#u', 'nullable'],
                 'content' => 'string|nullable',

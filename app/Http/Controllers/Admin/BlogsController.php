@@ -186,9 +186,7 @@ class BlogsController extends AdminController
         }
         $img = $blog->blog_img;
 
-        if (is_string($blog->seo) && is_object(json_decode($blog->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
-            $blog->seo = json_decode($blog->seo);
-        }
+        $blog->seo = $this->blog_rep->convertSeo($blog->seo);
         $this->content = view('admin.blog.edit')->with(['title' => $title, 'cats' => $lists, 'tags'=>$tag, 'content'=>$blog, 'img'=>$img, 'tmp'=>$tmp])->render();
 
         return $this->renderOutput();

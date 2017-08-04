@@ -133,7 +133,7 @@
         </div>--}}
     </li>
     <li class="list-group-item">
-        <label><input type="checkbox" {{ (old('confirmed') || !empty($profile->confirmed)) ? 'checked' : ''  }} value="doc" name="confirmed"> Назначить автором</label>
+        <label><input type="checkbox" {{ (old('confirmed') || !empty($profile->confirmed)) ? 'checked' : '' }} value="doc" name="confirmed"> Назначить автором</label>
     </li>
 </ul>
 {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}

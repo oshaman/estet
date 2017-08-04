@@ -26,9 +26,7 @@ class ArticlesController extends AdminController
             abort(404);
         }
 
-
         $data = $request->except('_token');
-
         if (!empty($data['param'])) {
             $data['value'] = $data['value'] ?? null;
             switch ($data['param']) {
@@ -36,10 +34,7 @@ class ArticlesController extends AdminController
                     $articles[] = $this->a_rep->one($data['value']);
                     break;
                 case 2:
-                    $v = '%'.$data['value'].'%';
-//                    dd($v);
-                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['title', 'LIKE', $v]);
-//                    $articles = Article::where('title', 'like', $v)->get();
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['title', $data['value']]);
                     dd($articles);
                     break;
                 case 3:
@@ -62,14 +57,6 @@ class ArticlesController extends AdminController
             $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0]);
         }
 
-
-
-
-
-
-
-
-//        dd($articles);
         $this->content = view('admin.article.index')->with(['articles' => $articles])->render();
 
         return $this->renderOutput();
@@ -107,9 +94,36 @@ class ArticlesController extends AdminController
         return $this->renderOutput();
     }
 
-    public function edit($id)
+    public function edit(ArticleRequest $request, $article)
     {
-        dd('EDIT');
+        if (Gate::denies('UPDATE_ARTICLES')) {
+            abort(404);
+        }
+
+        if ($request->isMethod('post')) {
+            $result = $this->a_rep->updateArticle($request, $article);
+
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->withErrors($result);
+            }
+            return redirect()->route('admin_articles')->with($result);
+        }
+
+        $this->title = 'Редактирование статьи';
+        $this->template = 'admin.article.admin';
+        //  get categories
+        $cats = new CategoriesRepository(new Category);
+        $lists = $cats->catSelect();
+        //  get tags
+        $tags = new TagsRepository(new Tag);
+        $tag = $tags->tagSelect();
+
+        $img = $article->image;
+        $article->seo = $this->a_rep->convertSeo($article->seo);
+
+        $this->content = view('admin.article.edit')->with(['article'=>$article, 'cats' => $lists, 'tags'=>$tag, 'img'=>$img])->render();
+
+        return $this->renderOutput();
 
     }
 

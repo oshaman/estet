@@ -151,7 +151,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
 //        Route::match(['get', 'post'], 'selection', ['uses'=>'Admin\ArticlesController@sorted', 'as'=>'selection']);
 
         Route::match(['get', 'post'], 'create', ['uses'=>'Admin\ArticlesController@create', 'as'=>'create_article']);
-        Route::match(['get', 'post'], 'edit/{id}', ['uses'=>'Admin\ArticlesController@edit', 'as'=>'edit_article'])->where('id', '[0-9]+');
+        Route::match(['get', 'post'], 'edit/{article}', ['uses'=>'Admin\ArticlesController@edit', 'as'=>'edit_article'])->where('article', '[0-9]+');
         Route::get('del/{article}', ['uses'=>'Admin\ArticlesController@del', 'as'=>'delete_article'])->where('article', '[0-9]+');
 
     });

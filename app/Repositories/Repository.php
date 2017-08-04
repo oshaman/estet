@@ -47,11 +47,19 @@ abstract class Repository {
             return FALSE;
         }
 
-        $result->transform(function($item,$key) {
+        $result->transform(function($item) {
+            $midnight = strtotime('today midnight');
+            $created = strtotime($item->created_at);
 
-            if (is_string($item->img) && is_object(json_decode($item->img)) && (json_last_error() == JSON_ERROR_NONE)) {
-                $item->img = json_decode($item->img);
+            if ($created > $midnight) {
+                $item->created = date('H:i:s', $created);
+            } else {
+                $item->created = date('d-m-Y H:i:s', $created);
             }
+
+            /*if (is_string($item->seo) && is_object(json_decode($item->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
+                $item->seo = json_decode($item->seo);
+            }*/
 
             return $item;
 
@@ -133,6 +141,14 @@ abstract class Repository {
         $str = trim($str,'-');
 
         return $str;
+    }
+
+    public function convertSeo($seo)
+    {
+        if (is_string($seo) && is_object(json_decode($seo)) && (json_last_error() == JSON_ERROR_NONE)) {
+            $seo = json_decode($seo);
+        }
+        return $seo;
     }
 
 }

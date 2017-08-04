@@ -38,9 +38,7 @@ class RouteServiceProvider extends ServiceProvider
                     return \Fresh\Estet\Article::where('alias', $value)->first();
                 });
 
-        Route::bind('article', function ($value) {
-                    return \Fresh\Estet\Article::where('id', $value)->first();
-                });
+        Route::model('article', \Fresh\Estet\Article::class);
 
 
     }
