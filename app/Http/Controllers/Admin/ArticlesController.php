@@ -35,26 +35,25 @@ class ArticlesController extends AdminController
                     break;
                 case 2:
                     $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['title', $data['value']]);
-                    dd($articles);
                     break;
                 case 3:
-                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0]);
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['approved', 0], ['created_at', 'desc']);
                     if ($articles) $articles->appends(['param' => $data['param']])->links();
                     break;
                 case 4:
-                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'doctor']);
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'doctor'], ['created_at', 'desc']);
                     if ($articles) $articles->appends(['param' => $data['param']])->links();
                     break;
                 case 5:
-                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'patient']);
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'patient'], ['created_at', 'desc']);
                     if ($articles) $articles->appends(['param' => $data['param']])->links();
                     break;
                 default:
-                    $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0]);
+                    $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0], ['created_at', 'desc']);
                     if ($articles) $articles->appends(['param' => $data['param']])->links();
             }
         } else {
-            $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0]);
+            $articles = $this->a_rep->get(['alias', 'title', 'created_at', 'id'], false, true, ['approved', 0], ['created_at', 'desc']);
         }
 
         $this->content = view('admin.article.index')->with(['articles' => $articles])->render();

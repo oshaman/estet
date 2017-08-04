@@ -2,8 +2,10 @@
 
 namespace Fresh\Estet\Http\Controllers;
 
+use Fresh\Estet\Repositories\ArticlesRepository;
 use Illuminate\Http\Request;
 use Menu;
+use DB;
 
 class DocsController extends Controller
 {
@@ -12,12 +14,27 @@ class DocsController extends Controller
     protected $title;
     protected $vars;
     protected $sidebar_vars = false;
+    protected $a_rep;
 
 
-    public function index()
+    public function __construct(ArticlesRepository $repository)
     {
+        $this->a_rep = $repository;
+    }
 
-        $this->content = view('doc.content')->render();
+    public function index($article=null)
+    {
+        if ($article) {
+            dd($article);
+        }
+
+        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'doctor']);
+
+        $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
+//        dd($articles);
+
+
+        $this->content = view('doc.content')->with(['articles' => $articles])->render();
         return $this->renderOutput();
     }
 

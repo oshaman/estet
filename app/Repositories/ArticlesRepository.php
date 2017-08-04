@@ -15,6 +15,27 @@ class ArticlesRepository extends Repository
         $this->model = $rep;
     }
 
+    public function getMain($select, $where, $with, $take, $order)
+    {
+        return $this->check($this->model->where($where)
+            ->take($take)
+            ->with($with)
+            ->select($select)
+            ->orderBy($order[0], $order[1])
+            ->get())->transform(function($item) {
+
+            if (!empty($item->content)) {
+                if (preg_replace('/<p><picture>.+<\/picture><\/p>/', '', $item->content)) {
+                    $item->content = preg_replace('/<p><picture>.+<\/picture><\/p>/', '', $item->content);
+                }
+                $item->content = preg_replace('/<p><iframe .+<\/iframe><\/p>/', '', $item->content);
+            }
+
+            return $item;
+
+        });
+    }
+
     /**
      * @param $request
      * @return Result array
@@ -289,7 +310,7 @@ class ArticlesRepository extends Repository
                 }
             }
 
-            return ['status' => trans('admin.material_added'), $error];
+            return ['status' => trans('admin.material_updated'), $error];
         }
         return ['error' => $error];
     }

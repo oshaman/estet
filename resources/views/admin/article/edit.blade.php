@@ -17,7 +17,7 @@
     {{ Form::label('own', 'Принадлежность') }}
     <div>
         {!! Form::select('own', [0=>'Раздел пациентов', 1=>'Раздел докторов'],
-            old('own') ? : ($article->own ?? '') , [ 'class'=>'form-control', 'placeholder'=>'Доктор\Пациент'])
+            old('own') ? : (($article->own !== 'doctor') ? 0 : 1) , [ 'class'=>'form-control', 'placeholder'=>'Доктор\Пациент'])
         !!}
     </div>
 </div>

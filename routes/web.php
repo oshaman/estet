@@ -11,13 +11,13 @@
 |
 */
 
-Route::get('/', ['uses'=>'MainController@index', 'as'=>'main']);
+Route::get('/', ['uses'=>'Patient\ArticlesController@index', 'as'=>'main']);
 Route::get('/home', 'HomeController@index')->name('home');
 /**
  * Articles
  */
 Route::group(['prefix' =>'articles'], function () {
-    Route::get('/{article_alias?}', 'Patient\ArticlesController@index')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
+    Route::get('/{article_alias?}', 'Patient\ArticlesController@show')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
 });
 /**
  *  Profile

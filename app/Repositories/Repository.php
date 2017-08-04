@@ -52,7 +52,7 @@ abstract class Repository {
             $created = strtotime($item->created_at);
 
             if ($created > $midnight) {
-                $item->created = date('H:i:s', $created);
+                $item->created = date('H:i', $created);
             } else {
                 $item->created = date('d-m-Y H:i:s', $created);
             }
