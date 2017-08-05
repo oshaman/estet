@@ -89,6 +89,7 @@ class BlogsController extends AdminController
             $this->validate($request, [
                 'alias' => 'required|unique:blogs,alias|max:255',
             ]);
+
             $result = $this->blog_rep->addBlog($request);
 
             if(is_array($result) && !empty($result['error'])) {

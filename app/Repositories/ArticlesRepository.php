@@ -25,23 +25,29 @@ class ArticlesRepository extends Repository
      */
     public function getMain($select, $where, $with, $take, $order)
     {
-        return $this->check($this->model->where($where)
+         $res = $this->check($this->model->where($where)
             ->take($take)
             ->with($with)
             ->select($select)
             ->orderBy($order[0], $order[1])
-            ->get())->transform(function($item) {
+            ->get());
+         if (!empty($res)) {
+             $res = $res->transform(function($item) {
 
-            if (!empty($item->content)) {
-                if (preg_replace('/<p><picture>.+<\/picture><\/p>/', '', $item->content)) {
-                    $item->content = preg_replace('/<p><picture>.+<\/picture><\/p>/', '', $item->content);
-                }
-                $item->content = preg_replace('/<p><iframe .+<\/iframe><\/p>/', '', $item->content);
-            }
+                 if (!empty($item->content)) {
+                     if (preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content)) {
+                         $item->content = preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content);
+                     }
+                     if (!empty($item->content)) {
+                         $item->content = preg_replace('/<p><iframe .+<\/iframe><\/p>/s', '', $item->content);
+                     }
+                 }
 
-            return $item;
+                 return $item;
 
-        });
+             });
+         }
+        return $res;
     }
 
     public function getLast($select, $where, $take, $order)
@@ -517,5 +523,15 @@ class ArticlesRepository extends Repository
         } else {
             return false;
         }
+    }
+
+    public function getByTag($tag)
+    {
+        $articles = $this->model->whereHas('tags', function($q) use ( $tag )
+        {
+            $q->where('tag_id', $tag);
+        })->get();
+
+        return $articles;
     }
 }

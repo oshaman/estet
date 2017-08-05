@@ -36,7 +36,9 @@ class BlogController extends Controller
             switch ($data['param']) {
                 case 1:
                     $blogs = $this->blog_rep->get(['title', 'id', 'created_at', 'blog_id'], false, true, [['user_id', Auth::id()], ['moderate', true]]);
-                    $blogs->appends(['param' => $data['param']])->links();
+                    if ($blogs) {
+                        $blogs->appends(['param' => $data['param']])->links();
+                    }
                     break;
                 case 2:
                     $model = new BlogsRepository(new Blog);

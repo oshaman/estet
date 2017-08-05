@@ -64,13 +64,9 @@ class ArticlesController extends Controller
 
     public function tag($tag)
     {
+        $articles = $this->a_rep->getByTag($tag);
 
-        $articles = Article::whereHas('tags', function($q)
-        {
-            $q->whereId($tag);
-        })->get();
         dd($articles);
-//        $articles = $this->a_rep->with('tags')->whereName();
     }
 
     public function renderOutput()
@@ -81,7 +77,7 @@ class ArticlesController extends Controller
 
         $this->vars = array_add($this->vars, 'nav', $menu);
 
-        if($this->content) {
+        if(false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
         }
 
