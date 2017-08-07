@@ -30,6 +30,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'DELETE_BLOG'],
 //                establishment
                 ['name'=>'UPDATE_ESTABLISHMENT'],
+//                goroscop
+                ['name'=>'UPDATE_GOROSCOP'],
             ]
         );
     }

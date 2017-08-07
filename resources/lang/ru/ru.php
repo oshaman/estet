@@ -26,6 +26,7 @@ return [
     'DELETE_BLOG' => 'Удаление статей блога',
     'UPDATE_ESTABLISHMENT' => 'Редактирование учреждений',
     'ADD_ARTICLES' => 'Редактирование статей',
+    'UPDATE_GOROSCOP' => 'Редактирование гороскопа',
 
     /**
      *  Roles

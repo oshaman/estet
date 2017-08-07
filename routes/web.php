@@ -86,7 +86,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     /**
      *   Admin PERMISSIONS
      */
-    Route::match(['get', 'post'], '/permissions', ['uses' => 'Admin\PermissionsController@index', 'as' => 'permissions']);
+    Route::match(['get', 'post'], '/permissions', ['uses' => 'Admin\PermissionsController@index', 'as' => 'permissions']);/**
+     /**
+     *   Admin GOROSCOP
+     */
+    Route::match(['get', 'post'], '/goroscop', ['uses' => 'Admin\GoroscopController@index', 'as' => 'admin_goroscop']);
     /**
      *   Admin TAGS
      */
@@ -150,9 +154,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix' => 'articles'], function () {
         //  show articles list
         Route::get('/', ['uses' => 'Admin\ArticlesController@index', 'as' => 'admin_articles']);
-        //  (editor uses)show articles list sort by .....................
-//        Route::match(['get', 'post'], 'selection', ['uses'=>'Admin\ArticlesController@sorted', 'as'=>'selection']);
-
         Route::match(['get', 'post'], 'create', ['uses'=>'Admin\ArticlesController@create', 'as'=>'create_article']);
         Route::match(['get', 'post'], 'edit/{article}', ['uses'=>'Admin\ArticlesController@edit', 'as'=>'edit_article'])->where('article', '[0-9]+');
         Route::get('del/{article}', ['uses'=>'Admin\ArticlesController@del', 'as'=>'delete_article'])->where('article', '[0-9]+');

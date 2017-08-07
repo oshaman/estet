@@ -74,7 +74,7 @@ class ArticlesController extends Controller
 
     public function category($cat)
     {
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );;
+        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );
         $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
 
         $this->content = view('patient.cat')->with(['articles' => $articles])->render();
@@ -97,11 +97,13 @@ class ArticlesController extends Controller
     }
 
     public function getMenu() {
-        return Menu::make('docsMenu', function($menu) {
+        $cats = \Fresh\Estet\Category::all();
+        return Menu::make('docsMenu', function($menu) use ($cats) {
 
-            $menu->add(trans('ru.home'),  array('route'  => 'main'));
+            foreach ($cats as $cat) {
+                $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
+            }
 
-            $menu->add(trans('ru.blog'),  array('route'  => 'blogs'));
         });
     }
 }

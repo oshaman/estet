@@ -3,7 +3,6 @@
 namespace Fresh\Estet\Http\Controllers;
 
 use Fresh\Estet\Repositories\ArticlesRepository;
-use Illuminate\Http\Request;
 use Menu;
 use DB;
 
@@ -54,11 +53,13 @@ class DocsController extends Controller
     }
 
     public function getMenu() {
-        return Menu::make('docsMenu', function($menu) {
+        $cats = \Fresh\Estet\BlogCategory::all();
+        return Menu::make('docsMenu', function($menu) use ($cats) {
 
-            $menu->add(trans('ru.home'),  array('route'  => 'main'));
+            foreach ($cats as $cat) {
+                $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
+            }
 
-            $menu->add(trans('ru.blog'),  array('route'  => 'blogs'));
         });
     }
 }

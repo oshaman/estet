@@ -43,6 +43,7 @@
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
+                    @yield('navbar')
                     <ul class="nav navbar-nav">
                         &nbsp;<li class="dropdown">
                             <a href="{{ route('catalog') }}" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Каталог<span class="caret"></span></a>
