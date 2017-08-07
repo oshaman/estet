@@ -19,8 +19,23 @@ class BlogCategoriesRepository extends Repository {
      */
     public function addCat($request)
     {
-        $data['name'] = $request->only('cat')['cat'];
-        $res = $this->model->fill($data)->save();
+        $data = $request->except('_token');
+
+        $cat['name'] = $data['cat'];
+
+        if (empty($data['alias'])) {
+            $cat['alias'] = $this->transliterate($data['cat']);
+        } else {
+            $cat['alias'] = $this->transliterate($data['alias']);
+        }
+        if ($this->one($cat['alias'],FALSE)) {
+            $request->merge(array('alias' => $cat['alias']));
+            $request->flash();
+
+            return ['error' => trans('admin.alias_in_use')];
+        }
+
+        $res = $this->model->fill($cat)->save();
 
         return $res;
     }
@@ -30,12 +45,31 @@ class BlogCategoriesRepository extends Repository {
      * @param $id
      * @return mixed
      */
-    public function updateCat($request, $id)
+    public function updateCat($request, $cat)
     {
-        $model = $this->findById($id);
-        $model->name = $request->cat;
+        if ($cat->name != $request->cat) {
+            $cat->name = $request->cat;
+        }
 
-        $res = $model->save();
+        if (empty($request->alias)) {
+            $alias = $this->transliterate($request->cat);
+            if ($alias != $cat->alias) {
+                if ($this->one($alias)) {
+                    $request->merge(array('alias' => $alias));
+                    $request->flash();
+
+                    return ['error' => trans('admin.alias_in_use')];
+                }
+                $cat->alias = $alias;
+            }
+        } else {
+            $alias = $this->transliterate($request->alias);
+            if ($alias != $cat->alias) {
+                $cat->alias = $alias;
+            }
+        }
+
+        $res = $cat->save();
         return $res;
     }
 

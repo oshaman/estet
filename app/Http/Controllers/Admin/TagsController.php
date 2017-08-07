@@ -2,8 +2,7 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Fresh\Estet\Http\Controllers\Admin\AdminController;
+use Fresh\Estet\Http\Requests\TagsRequest;
 use Fresh\Estet\Repositories\TagsRepository;
 use Validator;
 use Gate;
@@ -22,24 +21,14 @@ class TagsController extends AdminController
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(TagsRequest $request)
     {
         if (Gate::denies('UPDATE_TAGS')) {
             abort(404);
         }
 
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'tag' => ['unique:tags,name', 'required', 'between:5, 32', 'regex:#^[а-яА-ЯёЁ\s-]+$#u']
-            ]);
-
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-//dd($request);
+            //dd($request);
             $result = $this->tag_rep->addTag($request);
 
             if ($result) {
@@ -51,7 +40,7 @@ class TagsController extends AdminController
 
         }
 
-        $tags = $this->tag_rep->get(['name', 'id'], false, true);
+        $tags = $this->tag_rep->get(['name', 'id', 'alias'], false, true);
         $this->content = view('admin.tags.content')->with('tags', $tags);
 
         return $this->renderOutput();
@@ -63,36 +52,38 @@ class TagsController extends AdminController
      * @param $tag tag_id
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $tag)
+    public function edit(TagsRequest $request, $tag)
     {
         if (Gate::denies('UPDATE_TAGS')) {
             abort(404);
         }
 
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'tag' => ['unique:tags,name', 'required', 'between:5, 32', 'regex:#^[а-яА-ЯёЁ\s-]+$#u']
-            ]);
-
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
 
             $result = $this->tag_rep->updateTag($request, $tag);
             if ($result) {
-                return back()->with(['status'=>'Тэг обновлен.']);
+                return redirect()->route('tags')->with(['status'=>'Тэг обновлен.']);
             } else {
 
                 return redirect()->back()->withErrors(['message'=>'Ошибка изменения тэга, повторите попытку позже.']);
             }
         }
 
-        $tag = $this->tag_rep->findById($tag);
-
         $this->content = view('admin.tags.edit')->with('tag', $tag);
         return $this->renderOutput();
+    }
+
+    public function destroy($tag)
+    {
+        if (Gate::denies('UPDATE_TAGS')) {
+            abort(404);
+        }
+
+        $result = $this->tag_rep->deleteTag($tag);
+        if(is_array($result) && !empty($result['error'])) {
+            return back()->with($result);
+        }
+        return redirect()->route('tags')->with($result);
+
     }
 }

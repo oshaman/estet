@@ -7,6 +7,9 @@
         {!! Form::text('cat', old('cat') ? : '' , ['placeholder'=>'Психиатрия...', 'id'=>'cat', 'class'=>'form-control']) !!}
     </div>
     <div class="row">
+        {!! Form::text('alias', old('alias') ? : '' , ['placeholder'=>'psihiatriya...', 'id'=>'cat', 'class'=>'form-control']) !!}
+    </div>
+    <div class="row">
         {!! Form::button(trans('admin.add_spec'), ['class' => 'btn btn-primary','type'=>'submit']) !!}
     </div>
     {!! Form::close() !!}
@@ -16,12 +19,13 @@
 @if(!empty($categories))
     <table class="table">
         <thead>
-        <tr><th>Имя</th><th>Редактировать</th></tr>
+        <tr><th>Имя</th><th>Псевдоним</th><th>Редактировать</th></tr>
         </thead>
         <tbody>
         @foreach($categories as $category)
             <tr>
                 <td>{{ $category->name }}</td>
+                <td>{{ $category->alias }}</td>
                 <td>
                     {!! Form::open(['url' => route('edit_blogcats',['cat'=> $category->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                     {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}

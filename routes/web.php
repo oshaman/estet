@@ -18,7 +18,8 @@ Route::get('/home', 'HomeController@index')->name('home');
  */
 Route::group(['prefix' =>'articles'], function () {
     Route::get('/{article_alias?}', 'Patient\ArticlesController@show')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
-    Route::get('/tag/{tag}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag', '[0-9]+');
+    Route::get('/tag/{tag_alias}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
+    Route::get('category/{cat_alias}', 'Patient\ArticlesController@category')->name('article_cat')->where('cat', '[a-zA-Z0-9-_]+');
 });
 /**
  *  Profile
@@ -92,6 +93,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix'=>'tags'], function () {
         Route::match(['get', 'post'], '/', ['uses' => 'Admin\TagsController@index', 'as' => 'tags']);
         Route::match(['get', 'post'], 'edit/{tag}', ['uses' => 'Admin\TagsController@edit', 'as' => 'edit_tags'])->where('tag', '[0-9]+');
+        Route::get('delete/{tag}', ['uses' => 'Admin\TagsController@destroy', 'as' => 'delete_tag'])->where('tag', '[0-9]+');
     });
     /**
      *   Admin CATEGORIES

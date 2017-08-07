@@ -31,7 +31,6 @@ class ArticlesController extends Controller
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
 
         $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
-//        dd($articles);
 
         $this->content = view('patient.content')->with(['articles' => $articles])->render();
         return $this->renderOutput();
@@ -48,7 +47,6 @@ class ArticlesController extends Controller
             $article->load('category');
             $article->load('tags');
 
-//            dd($article);
 //            Last 2 publications
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article->id]);
             $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
@@ -62,11 +60,25 @@ class ArticlesController extends Controller
         return $this->renderOutput();
     }
 
+    /**
+     * Select crticles by tag
+     * @param $tag
+     * @return view result
+     */
     public function tag($tag)
     {
-        $articles = $this->a_rep->getByTag($tag);
+        $articles = $this->a_rep->getByTag($tag->id);
+        $this->content = view('patient.tags')->with(['articles' => $articles])->render();
+        return $this->renderOutput();
+    }
 
-        dd($articles);
+    public function category($cat)
+    {
+        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );;
+        $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+
+        $this->content = view('patient.cat')->with(['articles' => $articles])->render();
+        return $this->renderOutput();
     }
 
     public function renderOutput()

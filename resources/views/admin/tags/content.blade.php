@@ -7,6 +7,9 @@
         {!! Form::text('tag', old('tag') ? : '' , ['placeholder'=>'Психиатрия...', 'id'=>'tag', 'class'=>'form-control']) !!}
     </div>
     <div class="row">
+        {!! Form::text('alias', old('alias') ? : '' , ['placeholder'=>'psihiatriya...', 'id'=>'alias', 'class'=>'form-control']) !!}
+    </div>
+    <div class="row">
         {!! Form::button(trans('admin.add_spec'), ['class' => 'btn btn-primary','type'=>'submit']) !!}
     </div>
     {!! Form::close() !!}
@@ -16,15 +19,21 @@
 @if(!empty($tags))
     <table class="table">
         <thead>
-        <tr><th>Имя</th><th>Редактировать</th></tr>
+        <tr><th>Имя</th><th>Псевдоним</th><th>Редактировать</th></tr>
         </thead>
         <tbody>
         @foreach($tags as $tag)
             <tr>
                 <td>{{ $tag->name }}</td>
+                <td>{{ $tag->alias }}</td>
                 <td>
                     {!! Form::open(['url' => route('edit_tags',['cat'=> $tag->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                     {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
+                    {!! Form::close() !!}
+                </td>
+                <td>
+                    {!! Form::open(['url' => route('delete_tag',['tag'=> $tag->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                    {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
                     {!! Form::close() !!}
                 </td>
             </tr>

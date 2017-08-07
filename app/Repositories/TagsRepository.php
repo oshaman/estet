@@ -19,8 +19,23 @@ class TagsRepository extends Repository {
      */
     public function addTag($request)
     {
-        $data['name'] = $request->only('tag')['tag'];
-        $res = $this->model->fill($data)->save();
+        $data = $request->except('_token');
+
+        $tag['name'] = $data['tag'];
+
+        if (empty($data['alias'])) {
+            $tag['alias'] = $this->transliterate($data['tag']);
+        } else {
+            $tag['alias'] = $this->transliterate($data['alias']);
+        }
+        if ($this->one($tag['alias'],FALSE)) {
+            $request->merge(array('alias' => $tag['alias']));
+            $request->flash();
+
+            return ['error' => trans('admin.alias_in_use')];
+        }
+
+        $res = $this->model->fill($tag)->save();
 
         return $res;
     }
@@ -30,15 +45,41 @@ class TagsRepository extends Repository {
      * @param $id
      * @return mixed
      */
-    public function updateTag($request, $id)
+    public function updateTag($request, $tag)
     {
-        $model = $this->findById($id);
-        $model->name = $request->tag;
+        if ($tag->name != $request->tag) {
+            $tag->name = $request->tag;
+        }
 
-        $res = $model->save();
+        if (empty($request->alias)) {
+            $alias = $this->transliterate($request->tag);
+            if ($alias != $tag->alias) {
+                if ($this->one($alias)) {
+                    $request->merge(array('alias' => $alias));
+                    $request->flash();
+
+                    return ['error' => trans('admin.alias_in_use')];
+                }
+                $tag->alias = $alias;
+            }
+        } else {
+            $alias = $this->transliterate($request->alias);
+            if ($alias != $tag->alias) {
+                $tag->alias = $alias;
+            }
+        }
+
+        $res = $tag->save();
         return $res;
     }
 
+    public function deleteTag($tag)
+    {
+        if($tag->delete()) {
+            return ['status' => trans('Тег удален')];
+        }
+
+    }
     /**
      *
      * @return tags array

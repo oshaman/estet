@@ -2,8 +2,8 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Fresh\Estet\Http\Controllers\Admin\AdminController;
+use Fresh\Estet\Http\Requests\BlogCatsRequest;
 use Fresh\Estet\Repositories\BlogCategoriesRepository;
 use Gate;
 use Validator;
@@ -22,24 +22,14 @@ class BlogCatsController extends AdminController
      * @param Request $request
      * @return View
      */
-    public function index(Request $request)
+    public function index(BlogCatsRequest $request)
     {
         if (Gate::denies('UPDATE_CATS')) {
             abort(404);
         }
 
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'cat' => ['unique:blog_categories,name', 'required', 'between:5, 32', 'regex:#^[а-яА-ЯёЁ\s-]+$#u']
-            ]);
 
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
-//dd($request);
             $result = $this->cat_rep->addCat($request);
 
             if ($result) {
@@ -51,7 +41,7 @@ class BlogCatsController extends AdminController
 
         }
 
-        $cats = $this->cat_rep->get(['name', 'id'], false, true);
+        $cats = $this->cat_rep->get(['name', 'alias', 'id'], false, true);
         $this->content = view('admin.blogcats.content')->with('categories', $cats);
 
         return $this->renderOutput();
@@ -63,34 +53,23 @@ class BlogCatsController extends AdminController
      * @param $cat cat_id
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function edit(Request $request, $cat)
+    public function edit(BlogCatsRequest $request, $cat)
     {
         if (Gate::denies('UPDATE_CATS')) {
             abort(404);
         }
 
         if ($request->isMethod('post')) {
-            $validator = Validator::make($request->all(), [
-                'cat' => ['unique:blog_categories,name', 'required', 'between:5, 32', 'regex:#^[а-яА-ЯёЁ\s-]+$#u']
-            ]);
-
-            if ($validator->fails()) {
-                return redirect()
-                    ->back()
-                    ->withErrors($validator)
-                    ->withInput();
-            }
 
             $result = $this->cat_rep->updateCat($request, $cat);
             if ($result) {
-                return back()->with(['status'=>'Категория обновлена.']);
+                return redirect()->route('blogcats')->with(['status'=>'Категория обновлена.']);
             } else {
 
                 return redirect()->back()->withErrors(['message'=>'Ошибка изменения категории, повторите попытку позже.']);
             }
         }
-
-        $cat = $this->cat_rep->findById($cat);
+//        dd($cat);
 
         $this->content = view('admin.blogcats.edit')->with('category', $cat);
         return $this->renderOutput();

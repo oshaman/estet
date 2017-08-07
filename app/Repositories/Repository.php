@@ -23,7 +23,7 @@ abstract class Repository {
 
         if ($where) {
             if (is_array($where[0])) {
-                $builder->where([$where[0], $where[1]]);
+                $builder->where($where);
             } else {
                 $builder->where($where[0], $where[1], $where[2] = false);
             }
@@ -54,7 +54,7 @@ abstract class Repository {
             if ($created > $midnight) {
                 $item->created = date('H:i', $created);
             } else {
-                $item->created = date('d-m-Y H:i:s', $created);
+                $item->created = date('d-m-Y H:i', $created);
             }
 
             /*if (is_string($item->seo) && is_object(json_decode($item->seo)) && (json_last_error() == JSON_ERROR_NONE)) {
@@ -159,7 +159,7 @@ abstract class Repository {
         if ($created > $midnight) {
             $date = date('H:i', $created);
         } else {
-            $date = date('d-m-Y H:i:s', $created);
+            $date = date('d-m-Y H:i', $created);
         }
         return $date;
     }

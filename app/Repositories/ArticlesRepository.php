@@ -525,13 +525,18 @@ class ArticlesRepository extends Repository
         }
     }
 
+    /**
+     * @param $tag
+     * @return articles collection
+     */
     public function getByTag($tag)
     {
         $articles = $this->model->whereHas('tags', function($q) use ( $tag )
         {
             $q->where('tag_id', $tag);
-        })->get();
+        })->select('title', 'alias')->get();
 
         return $articles;
     }
+
 }
