@@ -30,6 +30,7 @@ class CategoriesTableSeeder extends Seeder
                 ['name' => 'Медицина и лечение', 'alias'=>'medicina-i-lechenie'],
                 ['name' => 'Полезные советы', 'alias'=>'poleznyie-sovety'],
                 ['name' => 'Интересные факты', 'alias'=>'interesnye-fakty'],
+                ['name' => 'Психология', 'alias'=>'psihologiya'],
 
             ]
         );

@@ -15,18 +15,18 @@ class CreateHoroscopesTable extends Migration
     {
         Schema::create('horoscopes', function (Blueprint $table) {
             $table->increments('id');
-            $table->text('Aries');
-            $table->text('Taurus');
-            $table->text('Gemini');
-            $table->text('Cancer');
-            $table->text('Leo');
-            $table->text('Virgo');
-            $table->text('Libra');
-            $table->text('Scorpio');
-            $table->text('Sagittarius');
-            $table->text('Capricorn');
-            $table->text('Aquarius');
-            $table->text('Pisces');
+            $table->text('Aries')->nullable()->default(null);
+            $table->text('Taurus')->nullable()->default(null);
+            $table->text('Gemini')->nullable()->default(null);
+            $table->text('Cancer')->nullable()->default(null);
+            $table->text('Leo')->nullable()->default(null);
+            $table->text('Virgo')->nullable()->default(null);
+            $table->text('Libra')->nullable()->default(null);
+            $table->text('Scorpio')->nullable()->default(null);
+            $table->text('Sagittarius')->nullable()->default(null);
+            $table->text('Capricorn')->nullable()->default(null);
+            $table->text('Aquarius')->nullable()->default(null);
+            $table->text('Pisces')->nullable()->default(null);
             $table->timestamps();
         });
     }

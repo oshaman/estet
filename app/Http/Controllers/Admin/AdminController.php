@@ -86,6 +86,10 @@ class AdminController extends Controller
             if(Gate::allows('UPDATE_GOROSCOP')) {
                 $menu->add('Гороскоп', array('route' => 'admin_goroscop'));
             }
+
+            if(Gate::allows('UPDATE_MENUS')) {
+                $menu->add('Меню', array('route' => 'menus'));
+            }
             /*
             if(Gate::allows('UPDATE_EVENTS')) {
                  $menu->add(trans('ua.history'), array('route' => 'admin_events'))->prepend('<i class="icon-calendar"></i>');

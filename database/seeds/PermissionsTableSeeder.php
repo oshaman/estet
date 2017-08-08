@@ -32,6 +32,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'UPDATE_ESTABLISHMENT'],
 //                goroscop
                 ['name'=>'UPDATE_GOROSCOP'],
+//                menu
+                ['name'=>'UPDATE_MENUS'],
             ]
         );
     }

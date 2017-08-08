@@ -29,7 +29,10 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
     Route::match(['get', 'post'], '/edit', 'ProfileController@update')->name('edit_profile');
 
 });
-
+/**
+ * Horoscope
+ */
+Route::get('goroscop', 'Patient\HoroscopeController@index')->name('horoscope');
 /**
  *  Catalog
  */
@@ -49,6 +52,7 @@ Route::post('/switch', 'SwitchController@index')->name('switch');
  */
 Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
     Route::get('/', 'DocsController@index')->name('doctors');
+    Route::get('category/{cat_alias}', 'DocsController@category')->name('docs_cat')->where('cat', '[a-zA-Z0-9-_]+');
     //  Blog
     Route::group(['prefix' => '/blog'], function () {
         Route::get('/{blog_alias?}', 'BlogsController@index')->name('blogs')->where('blog_alias', '[a-zA-Z0-9-_]+');
@@ -159,6 +163,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('del/{article}', ['uses'=>'Admin\ArticlesController@del', 'as'=>'delete_article'])->where('article', '[0-9]+');
 
     });
+    /**
+     * Admin Menus
+     */
+    Route::match(['post', 'get'], 'menus', 'Admin\MenusController@index')->name('menus');
 
 });
 

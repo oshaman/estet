@@ -90,6 +90,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('UPDATE_GOROSCOP', FALSE);
         });
 
+        Gate::define('UPDATE_MENUS', function ($user) {
+            return $user->canDo('UPDATE_MENUS', FALSE);
+        });
+
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);
         });

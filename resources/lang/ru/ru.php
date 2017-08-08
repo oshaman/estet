@@ -27,6 +27,7 @@ return [
     'UPDATE_ESTABLISHMENT' => 'Редактирование учреждений',
     'ADD_ARTICLES' => 'Редактирование статей',
     'UPDATE_GOROSCOP' => 'Редактирование гороскопа',
+    'UPDATE_MENUS' => 'Редактирование меню',
 
     /**
      *  Roles

@@ -2,24 +2,39 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
-use Fresh\Estet\Http\Controllers\Controller;
 use Fresh\Estet\Horoscope;
+use Illuminate\Http\Request;
+use Validator;
 
-class GoroscopController extends Controller
+class GoroscopController extends AdminController
 {
-    protected $model;
 
-    public function __construct(Horoscope $horoscope)
-    {
-        $this->model = $horoscope;
-    }
-
-    public function index()
+    public function index(Request $request)
     {
 
-        $signs = array_except($this->model->first()->toArray(), ['id', 'created_at', 'updated_at']);
+        if ($request->isMethod('post')) {
 
-        return view('admin.horoscope')->with('signs', $signs)->render();
+            $data = $request->except('_token');
+            $validator = Validator::make($data, [
+                '*' => ['nullable', 'string'],
+            ]);
+
+            if ($validator->fails()) {
+                return redirect()
+                    ->back()
+                    ->withErrors($validator)
+                    ->withInput();
+            }
+
+            $model = Horoscope::find(1);
+            $model->fill($data)->save();
+
+        }
+
+        $signs = array_except(Horoscope::first()->toArray(), ['id', 'created_at', 'updated_at']);
+
+        $this->content = view('admin.horoscope')->with('signs', $signs)->render();
+
+        return $this->renderOutput();
     }
 }

@@ -12,4 +12,5 @@ class Category extends Model
     {
         return $this->belongsToMany('Fresh\Estet\Article', 'article_tag');
     }
+
 }

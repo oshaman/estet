@@ -37,6 +37,15 @@ class DocsController extends Controller
         return $this->renderOutput();
     }
 
+    public function category($cat)
+    {
+        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id] );
+        $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+
+        $this->content = view('patient.cat')->with(['articles' => $articles])->render();
+        return $this->renderOutput();
+    }
+
     public function renderOutput()
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
@@ -53,11 +62,12 @@ class DocsController extends Controller
     }
 
     public function getMenu() {
-        $cats = \Fresh\Estet\BlogCategory::all();
+        $cats = DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
+//        dd($cats);
         return Menu::make('docsMenu', function($menu) use ($cats) {
 
             foreach ($cats as $cat) {
-                $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
+                $menu->add($cat->name, ['route'=>['docs_cat', $cat->alias]]);
             }
 
         });

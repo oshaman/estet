@@ -1,6 +1,5 @@
 <h2>Добавление статьи</h2>
 {!! Form::open(['url'=>route('create_article'), 'method'=>'POST', 'class'=>'form-horizontal', 'files'=>true]) !!}
-{{ csrf_field() }}
 <div class="row">
     {{ Form::label('title', 'Заголовок страницы') }}
     <div>

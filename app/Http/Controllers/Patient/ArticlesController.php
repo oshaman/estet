@@ -1,16 +1,10 @@
 <?php
-
 namespace Fresh\Estet\Http\Controllers\Patient;
 
 use Fresh\Estet\Http\Controllers\Controller;
-use Fresh\Estet\Repositories\TagsRepository;
-use Fresh\Estet\Tag;
 use Menu;
 use DB;
 use Fresh\Estet\Repositories\ArticlesRepository;
-
-
-use Fresh\Estet\Article;
 
 class ArticlesController extends Controller
 {
@@ -97,7 +91,8 @@ class ArticlesController extends Controller
     }
 
     public function getMenu() {
-        $cats = \Fresh\Estet\Category::all();
+        $cats = DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
+
         return Menu::make('docsMenu', function($menu) use ($cats) {
 
             foreach ($cats as $cat) {
