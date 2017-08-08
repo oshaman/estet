@@ -78,4 +78,31 @@ class BlogsController extends DocsController
         $this->content = view('doc.blogs')->with('blogs', $blogs)->render();
         return $this->renderOutput();
     }
+
+    /**
+     * Select crticles by tag
+     * @param $tag
+     * @return view result
+     */
+    public function tag($tag)
+    {
+        $blogs = $this->blog_rep->getByTag($tag->id);
+
+        $this->content = view('blog.tags')->with(['blogs' => $blogs])->render();
+        return $this->renderOutput();
+    }
+
+    /**
+     * Select blogs by category
+     * @param $cat
+     * @return $this
+     */
+    public function category($cat)
+    {
+        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $cat->id] );
+        $blogs = $this->blog_rep->get(['title', 'alias'], false, true, $where);
+
+        $this->content = view('doc.blogcat')->with(['blogs' => $blogs])->render();
+        return $this->renderOutput();
+    }
 }

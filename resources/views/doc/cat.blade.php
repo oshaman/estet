@@ -2,7 +2,7 @@
     <ul>
         @foreach($articles as $article)
             <li>
-                <a href="{{ route('articles', $article->alias) }}"><h3>{{ $article->title }}</h3></a>
+                <a href="{{ route('doctors', $article->alias) }}"><h3>{{ $article->title }}</h3></a>
             </li>
         @endforeach
     </ul>

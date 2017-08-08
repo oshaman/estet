@@ -51,12 +51,14 @@ Route::post('/switch', 'SwitchController@index')->name('switch');
  * Doctor's
  */
 Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
-    Route::get('/', 'DocsController@index')->name('doctors');
+    Route::get('/{article_alias?}', 'DocsController@index')->name('doctors')->where('article_alias', '[a-zA-Z0-9-_]+');
     Route::get('category/{cat_alias}', 'DocsController@category')->name('docs_cat')->where('cat', '[a-zA-Z0-9-_]+');
+    Route::get('/tag/{tag_alias}', 'DocsController@tag')->name('docs_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     //  Blog
     Route::group(['prefix' => '/blog'], function () {
         Route::get('/{blog_alias?}', 'BlogsController@index')->name('blogs')->where('blog_alias', '[a-zA-Z0-9-_]+');
         Route::get('category/{blogs_cat?}', 'BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
+        Route::get('/tag/{tag_alias}', 'BlogsController@tag')->name('blog_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     });
 });
 /**

@@ -17,11 +17,14 @@
     </div>
     <div class="row">
     @foreach($blog->tags as $tag)
-            <span class="label label-info">{{ $tag->name }}</span>
+            {!! Form::open(['url' => route('blog_tag',['tag_alias'=> $tag->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
+            {!! Form::button($tag->name, ['class' => 'btn btn-info btn-xs','type'=>'submit']) !!}
+            {!! Form::close() !!}
     @endforeach
     </div>
     <div class="row"><h1>{!! $blog->content !!}</h1></div>
     @if($blogs)
+        <hr>
         <div class="row">
             @foreach($blogs as $blog)
                 <div class="row">
@@ -30,7 +33,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="row">
-                            <span>{{ $blog->category->name }}</span> <span class="label label-default">{{ $blog->created }}</span>
+                            {!! Form::open(['url' => route('blogs_cat',['blogs_cat'=> $blog->category->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                            {!! Form::button($blog->category->name, ['class' => 'btn btn-success btn-xs','type'=>'submit']) !!}
+                            {!! Form::close() !!}
+                            <span class="label label-default">{{ $blog->created }}</span>
                         </div>
                         <h2>{{ $blog->title }}</h2>
                         <h5>{{ $blog->person->person->name . ' ' . $blog->person->person->lastname }}</h5>

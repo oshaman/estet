@@ -24,14 +24,27 @@ class DocsController extends Controller
     public function index($article=null)
     {
         if ($article) {
-            dd($article);
+            if ($article) {
+
+                if (!empty($article->seo)) {
+                    $article->seo = $this->a_rep->convertSeo($article->seo);
+                }
+                $article->created = $this->a_rep->convertDate($article->created_at);
+                $article->load('category');
+                $article->load('tags');
+
+//            Last 2 publications
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $article->id]);
+                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+
+                $this->content = view('doc.article')->with(['article'=>$article, 'lasts'=>$lasts])->render();
+                return $this->renderOutput();
+            }
         }
 
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'doctor']);
 
         $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
-//        dd($articles);
-
 
         $this->content = view('doc.content')->with(['articles' => $articles])->render();
         return $this->renderOutput();
@@ -42,7 +55,7 @@ class DocsController extends Controller
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id] );
         $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
 
-        $this->content = view('patient.cat')->with(['articles' => $articles])->render();
+        $this->content = view('doc.cat')->with(['articles' => $articles])->render();
         return $this->renderOutput();
     }
 
@@ -71,5 +84,17 @@ class DocsController extends Controller
             }
 
         });
+    }
+
+    /**
+     * Select crticles by tag
+     * @param $tag
+     * @return view result
+     */
+    public function tag($tag)
+    {
+        $articles = $this->a_rep->getByTag($tag->id);
+        $this->content = view('doc.tags')->with(['articles' => $articles])->render();
+        return $this->renderOutput();
     }
 }

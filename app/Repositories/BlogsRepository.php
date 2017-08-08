@@ -619,4 +619,18 @@ class BlogsRepository extends Repository {
             return $builder->get();
         }
     }
+
+    /**
+     * @param $tag
+     * @return articles collection
+     */
+    public function getByTag($tag)
+    {
+        $blogs = $this->model->whereHas('tags', function($q) use ( $tag )
+        {
+            $q->where('tag_id', $tag);
+        })->select('title', 'alias')->get();
+
+        return $blogs;
+    }
 }
