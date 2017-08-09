@@ -23,6 +23,6 @@ class CreateDocsmenuview extends Migration
      */
     public function down()
     {
-        DB::statement( 'DROP VIEW docsmenuview' );
+        DB::statement( 'DROP VIEW IF EXISTS docsmenuview' );
     }
 }

@@ -67,9 +67,9 @@ class CatalogController extends Controller
      * @param alias $salon
      * @return view
      */
-    public function salons ($salon = false)
+    public function distributors ($distributor = false)
     {
-        $this->title = 'Салоны';
+        $this->title = 'Дистрибьюторы';
         return view('catalog.index')->with('title', $this->title);
     }
 

@@ -6,7 +6,7 @@
             </div>
             <div class="col-md-6">
                 <div class="row">
-                    <span>{{ $article->category->name }}</span> <span class="label label-default">{{ $article->created }}</span>
+                    <a href="{{ route('docs_cat', $article->category->alias) }}"><span>{{ $article->category->name }}</span></a> <span class="label label-default">{{ $article->created }}</span>
                 </div>
                 <h2>{{ $article->title }}</h2>
                 <div class="row">{!! str_limit($article->content, 600) !!}</div>

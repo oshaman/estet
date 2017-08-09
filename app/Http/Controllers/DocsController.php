@@ -41,8 +41,7 @@ class DocsController extends Controller
                 return $this->renderOutput();
             }
         }
-
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'doctor']);
+        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
 
         $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
 
