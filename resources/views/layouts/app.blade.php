@@ -50,7 +50,7 @@
                             <ul class="dropdown-menu">
                                 <li><a href="{{ route('docs') }}">Врачи</a></li>
                                 <li><a href="{{ route('clinics') }}">Клиники</a></li>
-                                <li><a href="{{ route('salons') }}">Салоны</a></li>
+                                <li><a href="{{ route('distributors') }}">Дистрибьюторы</a></li>
                                 <li><a href="{{ route('brands') }}">Бренды</a></li>
                             </ul>
                         </li>

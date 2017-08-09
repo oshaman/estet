@@ -1,0 +1,71 @@
+<h2>Добавление учреждения</h2>
+<div class="row">
+    {!! Form::open(['url' => route('create_establishments'), 'method' => 'post', 'class' => 'form-horizontal']) !!}
+    <div class="row">
+        {{ Form::label('title', 'Название') }}
+        {!! Form::text('title', old('title') ? : '', ['placeholder' => 'Название учреждения', 'id'=>'title', 'class'=>'form-control']) !!}
+    </div>
+    {{--Alias Phones--}}
+    <div class="row">
+        <div class="col-lg-6">
+            {{ Form::label('alias', 'Псевдоним') }}
+            {!! Form::text('alias', old('alias') ? : '', ['placeholder' => 'nazvanie-uchrezhdeniya', 'id'=>'alias', 'class'=>'form-control']) !!}
+        </div>
+        <div class="col-lg-6">
+            {{ Form::label('phones', 'Телефоны') }}
+            {!! Form::text('phones', old('phones') ? : '', ['placeholder' => '+38 050 555 55 55', 'id'=>'phones', 'class'=>'form-control']) !!}
+        </div>
+    </div>
+    {{--Logo--}}
+    {{ Form::label('logo', 'Логотип') }}
+    <div class="row">
+        {!! Form::file('logo', ['accept'=>'image/*', 'id'=>'logo', 'class'=>'form-control']) !!}
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ Form::label('category', 'Категория') }}
+            {!! Form::select('category', ['Клиника', 'Дистрибьютор', 'Бренд'],
+                old('category') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Категория'])
+            !!}
+        </div>
+        <div class="col-lg-6">
+            {{ Form::label('parent', 'Родитель') }}
+            {!! Form::select('parent', $parents,
+                old('parent') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Родитель'])
+            !!}
+        </div>
+    </div>
+    <div class="row">
+        {{ Form::label('address', 'Адрес') }}
+        {!! Form::text('address', old('address') ? : '', ['placeholder' => 'Город, улица...', 'id'=>'address', 'class'=>'form-control']) !!}
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ Form::label('site', 'Сайт') }}
+            {!! Form::text('site', old('site') ? : '', ['placeholder' => 'site.com...', 'id'=>'site', 'class'=>'form-control']) !!}
+        </div>
+        <div class="col-lg-6">
+            {{ Form::label('spec', 'Специализация') }}
+            {!! Form::text('spec', old('spec') ? : '', ['placeholder' => 'специализация...', 'id'=>'spec', 'class'=>'form-control']) !!}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            {{ Form::label('services', 'Услуги\Категории продукции') }}
+            {!! Form::text('services', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+            {!! Form::text('services', old('services[1]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+        </div>
+        <div class="col-lg-6">
+            {{ Form::label('extra', 'Дополнительно') }}
+            {!! Form::text('extra', old('extra[0]') ? : '', ['placeholder' => 'Дополнительно...', 'id'=>'extra[]', 'class'=>'form-control']) !!}
+            {!! Form::text('extra', old('extra[1]') ? : '', ['placeholder' => 'Дополнительно...', 'id'=>'extra[]', 'class'=>'form-control']) !!}
+        </div>
+    </div>
+    <div class="row">
+        {{ Form::label('about', 'Дополнительно') }}
+        <textarea name="about" class="form-control editor">{!! old('about') ? : '' !!}</textarea>
+    </div>
+    <hr>
+    {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
+    {!! Form::close() !!}
+</div>

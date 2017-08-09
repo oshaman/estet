@@ -85,4 +85,10 @@ return [
     'Capricorn' => 'Козерог',
     'Aquarius' => 'Водолей',
     'Pisces' => 'Рыбы',
+//    Establishment
+    'clinic' => 'Клиника',
+    'distributor' => 'Дистрибьютор',
+    'brand' => 'Бренд',
+    'logo' => 'Логотип',
+    'phones' => 'Телефоны',
 ];

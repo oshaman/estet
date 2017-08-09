@@ -48,13 +48,16 @@ abstract class Repository {
         }
 
         $result->transform(function($item) {
-            $midnight = strtotime('today midnight');
-            $created = strtotime($item->created_at);
 
-            if ($created > $midnight) {
-                $item->created = date('H:i', $created);
-            } else {
-                $item->created = date('d-m-Y H:i', $created);
+            if ($item->created_at) {
+                $midnight = strtotime('today midnight');
+                $created = strtotime($item->created_at);
+
+                if ($created > $midnight) {
+                    $item->created = date('H:i', $created);
+                } else {
+                    $item->created = date('d-m-Y H:i', $created);
+                }
             }
 
             /*if (is_string($item->seo) && is_object(json_decode($item->seo)) && (json_last_error() == JSON_ERROR_NONE)) {

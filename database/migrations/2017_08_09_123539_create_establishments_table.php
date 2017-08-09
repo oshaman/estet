@@ -22,7 +22,7 @@ class CreateEstablishmentsTable extends Migration
             $table->string('phones');
             $table->string('site');
             $table->float('ratio', 2, 1)->nullable()->default(null);
-            $table->unsignedInteger('parent')->default(0)->index();
+            $table->unsignedInteger('parent')->nullable()->default(null)->index();
             $table->text('extra')->nullable()->default(null);
             $table->text('services')->nullable()->default(null);
             $table->text('about');

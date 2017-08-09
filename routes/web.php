@@ -150,8 +150,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix'=>'establishments'], function () {
         //  view profile
         Route::match(['get', 'post'], '/', 'Admin\EstablishmentsController@index')->name('admin_establishment');
+        //  create new
+        Route::match(['get', 'post'], 'create', ['uses'=>'Admin\EstablishmentsController@create', 'as'=>'create_establishments']);
         //  edit profile
-        Route::match(['get', 'post'], 'edit/{establishment}', 'Admin\ProfileController@edit')->name('edit_establishment');
+        Route::match(['get', 'post'], 'edit/{establishment}', 'Admin\EstablishmentsController@edit')->name('edit_establishment')->where('establishment', '[0-9]+');
+        //  delete
+        Route::get('del/{establishment}', ['uses'=>'Admin\EstablishmentsController@del', 'as'=>'delete_establishment'])->where('establishment', '[0-9]+');
     });
     /**
      *   Admin ARTICLES

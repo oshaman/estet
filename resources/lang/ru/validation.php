@@ -82,7 +82,7 @@ return [
         'string'  => 'The :attribute must be :size characters.',
         'array'   => 'The :attribute must contain :size items.',
     ],
-    'string'               => 'The :attribute must be a string.',
+    'string'               => 'Поле :attribute должно быть строкового типа.',
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'Значение в поле :attribute уже используется.',
     'uploaded'             => 'The :attribute failed to upload.',
