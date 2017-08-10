@@ -27,7 +27,7 @@ class CreateEstablishmentsTable extends Migration
             $table->text('services')->nullable()->default(null);
             $table->text('about');
             $table->enum('category', ['clinic', 'brand', 'distributor']);
-            $table->string('spec');
+            $table->string('spec')->nullable()->default(null);
 
             $table->timestamps();
         });

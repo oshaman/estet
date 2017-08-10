@@ -1,6 +1,6 @@
 <!-- START CONTENT -->
 <div class="container">
-    {!! Form::open(['url' => route('admin_establishment'), 'class'=>'form-horizontal','method'=>'POST' ]) !!}
+    {!! Form::open(['url' => route('admin_establishment'), 'class'=>'form-horizontal','method'=>'GET' ]) !!}
     <h3>Поиск учреждения:</h3>
     <div class="row">
         {{ Form::label('value', 'Параметр') }}
@@ -9,10 +9,9 @@
         {!! Form::select('param',
                 [
                     1=>'Псевдоним',
-                    2=>'ID',
-                    3=>'Все',
+                    2=>'Название',
                 ], old('val') ? : 1, ['class'=>'custom-select'])
-!!}
+        !!}
     </div>
     <div class="row">
         {!! Form::button(trans('admin.find'), ['class' => 'btn btn-primary','type'=>'submit']) !!}
@@ -31,7 +30,7 @@
             <th>Название</th><th>Категория</th><th>Телефон</th>
         </tr>
         </thead>
-        @if (!empty($profiles))
+        @if (!empty($profiles) && null != $profiles[0])
             <tbody>
             @foreach ($profiles as $profile)
                 <tr>

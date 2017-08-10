@@ -19,4 +19,9 @@ return [
         'small' => ['width'=>312,'height'=>215],
         'mini' => ['width'=>271,'height'=>186],
     ],
+    'establishment_img' => [
+        'main' => ['width'=>535,'height'=>369],
+        'middle' => ['width'=>335,'height'=>231],
+        'small' => ['width'=>312,'height'=>215],
+    ],
 ];

@@ -1,6 +1,6 @@
 <h2>Добавление учреждения</h2>
 <div class="row">
-    {!! Form::open(['url' => route('create_establishments'), 'method' => 'post', 'class' => 'form-horizontal']) !!}
+    {!! Form::open(['url' => route('create_establishments'), 'method' => 'post', 'class' => 'form-horizontal', 'files'=>true]) !!}
     <div class="row">
         {{ Form::label('title', 'Название') }}
         {!! Form::text('title', old('title') ? : '', ['placeholder' => 'Название учреждения', 'id'=>'title', 'class'=>'form-control']) !!}
@@ -42,7 +42,7 @@
     <div class="row">
         <div class="col-lg-6">
             {{ Form::label('site', 'Сайт') }}
-            {!! Form::text('site', old('site') ? : '', ['placeholder' => 'site.com...', 'id'=>'site', 'class'=>'form-control']) !!}
+            {!! Form::text('site', old('site') ? : '', ['placeholder' => 'http://site.com...', 'id'=>'site', 'class'=>'form-control']) !!}
         </div>
         <div class="col-lg-6">
             {{ Form::label('spec', 'Специализация') }}
@@ -52,17 +52,23 @@
     <div class="row">
         <div class="col-lg-6">
             {{ Form::label('services', 'Услуги\Категории продукции') }}
-            {!! Form::text('services', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-            {!! Form::text('services', old('services[1]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+            {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+            {!! Form::text('services[]', old('services[1]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
         </div>
         <div class="col-lg-6">
-            {{ Form::label('extra', 'Дополнительно') }}
-            {!! Form::text('extra', old('extra[0]') ? : '', ['placeholder' => 'Дополнительно...', 'id'=>'extra[]', 'class'=>'form-control']) !!}
-            {!! Form::text('extra', old('extra[1]') ? : '', ['placeholder' => 'Дополнительно...', 'id'=>'extra[]', 'class'=>'form-control']) !!}
+            <h5>Дополнительно</h5>
+            <div class="col-lg-6">
+                {!! Form::text('extra[0][0]', old('extra[0][0]') ? : '', ['placeholder' => 'Ключ 1', 'class'=>'form-control']) !!}
+                {!! Form::text('extra[0][1]', old('extra[0][1]') ? : '', ['placeholder' => 'Значение 1', 'class'=>'form-control']) !!}
+            </div>
+            <div class="col-lg-6">
+                {!! Form::text('extra[1][0]', old('extra[1][0]') ? : '', ['placeholder' => 'Ключ 2', 'class'=>'form-control']) !!}
+                {!! Form::text('extra[1][1]', old('extra[1][1]') ? : '', ['placeholder' => 'Значение 2', 'class'=>'form-control']) !!}
+            </div>
         </div>
     </div>
     <div class="row">
-        {{ Form::label('about', 'Дополнительно') }}
+        {{ Form::label('about', 'Описание') }}
         <textarea name="about" class="form-control editor">{!! old('about') ? : '' !!}</textarea>
     </div>
     <hr>
