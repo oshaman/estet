@@ -11,7 +11,7 @@
                 <h2>{{ $article->title }}</h2>
                 <div class="row">{!! str_limit($article->content, 600) !!}</div>
                 <p>
-                    {!! Form::open(['url' => route('articles',['article'=> $article->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                    {!! Form::open(['url' => route('doctors',['article'=> $article->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
                     {!! Form::button(trans('ru.more'), ['class' => 'btn btn-basic','type'=>'submit']) !!}
                     {!! Form::close() !!}
                 </p>

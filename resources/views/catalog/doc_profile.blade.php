@@ -69,8 +69,6 @@
                         <li>{{ $service }}</li>
                     @endforeach
                 </ul>
-            @else
-                {{dump($profile)}}
             @endif
             <hr>
         </div>
