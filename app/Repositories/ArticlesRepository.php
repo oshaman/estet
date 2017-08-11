@@ -90,7 +90,7 @@ class ArticlesRepository extends Repository
         }
 
         if ($data['own']) {
-            $article['own'] = 'doctor';
+            $article['own'] = 'docs';
         } else {
             $article['own'] = 'patient';
         }
@@ -200,7 +200,7 @@ class ArticlesRepository extends Repository
         }
 
         if ($data['own']) {
-            $article['own'] = 'doctor';
+            $article['own'] = 'docs';
         } else {
             $article['own'] = 'patient';
         }
@@ -266,6 +266,13 @@ class ArticlesRepository extends Repository
 
         $error = '';
         if (!empty($updated)) {
+
+            try {
+                $article->establishments()->sync($data['mentions'] ?? []);
+            } catch (Exception $e) {
+                \Log::info('Ошибка обновления рекламодателей: ', $e->getMessage());
+                $error[] = ['mentions' => 'Ошибка обновления рекламодателей'];
+            }
 
             $old_img = $article->image->path;
             // Main Image handle

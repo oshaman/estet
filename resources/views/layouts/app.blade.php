@@ -64,7 +64,7 @@
                         @if(!session()->has('doc'))
                             {!! Form::open(['url' => route('switch'), 'method'=>'POST']) !!}
                             {!! Form::hidden('doc', true) !!}
-                            {!! Form::button(trans('ru.doc'), ['class' => 'btn btn-success','type'=>'submit']) !!}
+                            {!! Form::button(trans('ru.doctor'), ['class' => 'btn btn-success','type'=>'submit']) !!}
                             {!! Form::close() !!}
                         @else
                             {!! Form::open(['url' => route('switch'), 'method'=>'POST']) !!}

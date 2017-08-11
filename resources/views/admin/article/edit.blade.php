@@ -17,7 +17,7 @@
     {{ Form::label('own', 'Принадлежность') }}
     <div>
         {!! Form::select('own', [0=>'Раздел пациентов', 1=>'Раздел докторов'],
-            old('own') ? : (($article->own !== 'doctor') ? 0 : 1) , [ 'class'=>'form-control', 'placeholder'=>'Доктор\Пациент'])
+            old('own') ? : (($article->own !== 'docs') ? 0 : 1) , [ 'class'=>'form-control', 'placeholder'=>'Доктор\Пациент'])
         !!}
     </div>
 </div>
@@ -30,11 +30,11 @@
     </div>
 </div>
 <div class="row">
-        {{ Form::label('img', 'Основное изображение') }}
+    {{ Form::label('img', 'Основное изображение') }}
     @if(!empty($img))
-    <div>
-        {{ Html::image(asset('/images/article/main').'/'.$img->path, 'a picture', array('class' => 'thumb')) }}
-    </div>
+        <div>
+            {{ Html::image(asset('/images/article/main').'/'.$img->path, 'a picture', array('class' => 'thumb')) }}
+        </div>
     @endif
     {{ Form::label('img', 'Параметры картинки') }}
     <div class="row">
@@ -52,25 +52,25 @@
 <div class="row">
     {{ Form::label('tags', 'Тэги') }}
     @if(!empty($tags))
-    <div>
-        <table class="table">
-            @foreach($tags as $id=>$tag)
-                <td>
-                    <input name="tags[]"  type="checkbox"
-                    @if(!empty(old('tags')))
-                        @foreach(old('tags') as $val)
-                            @if($val == $id)
-                                 checked
-                            @endif
-                        @endforeach
-                    @elseif($article->hasTag($id))
-                        checked
-                    @endif
-                    value="{{ $id }}"> {{ $tag }}
-                </td>
-            @endforeach
-        </table>
-    </div>
+        <div>
+            <table class="table">
+                @foreach($tags as $id=>$tag)
+                    <td>
+                        <input name="tags[]" type="checkbox"
+                               @if(!empty(old('tags')))
+                               @foreach(old('tags') as $val)
+                               @if($val == $id)
+                               checked
+                               @endif
+                               @endforeach
+                               @elseif($article->hasTag($id))
+                               checked
+                               @endif
+                               value="{{ $id }}"> {{ $tag }}
+                    </td>
+                @endforeach
+            </table>
+        </div>
     @endif
 </div>
 <!-- SEO -->
@@ -121,7 +121,8 @@
     <div class="row">
         {{ Form::label('seo_text', 'SEO_TEXT') }}
         <div>
-            <textarea name="seo_text" class="form-control">{!! old('seo_text') ? : ($article->seo->seo_text ?? '') !!}</textarea>
+            <textarea name="seo_text"
+                      class="form-control">{!! old('seo_text') ? : ($article->seo->seo_text ?? '') !!}</textarea>
         </div>
     </div>
 </div>
@@ -129,14 +130,42 @@
 <div class="row>">
     <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
     <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>
-        <input type="text" name="outputtime" id="outputtime" value="{{ old('outputtime') ? : (date('Y-m-d H:i', strtotime($article->created_at)) ?? date('Y-m-d H:i')) }}">
+        <input type="text" name="outputtime" id="outputtime"
+               value="{{ old('outputtime') ? : (date('Y-m-d H:i', strtotime($article->created_at)) ?? date('Y-m-d H:i')) }}">
     </div>
 </div>
 <div class="row">
-        <label><input type="checkbox" {{ (old('confirmed') || !empty($article->approved)) ? 'checked' : '' }} value="1" name="confirmed"> В тираж</label>
+    <label><input type="checkbox" {{ (old('confirmed') || !empty($article->approved)) ? 'checked' : '' }} value="1"
+                  name="confirmed"> В тираж</label>
 </div>
 <div class="row">
     <textarea name="content" class="form-control editor">{!! old('content') ? : ($article->content ?? '') !!}</textarea>
+    <hr>
+    @if(!empty($establishments))
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" href="#mentions">Прикрепить рекламодателей: </a>
+            </h4>
+        </div>
+        <div id="mentions" class="panel-collapse collapse">
+            @foreach($establishments as $id=>$establishment)
+                <p>
+                    <input name="mentions[]" type="checkbox"
+                        @if(!empty(old('mentions')))
+                            @foreach(old('mentions') as $val)
+                                @if($val == $id)
+                                    checked
+                                @endif
+                            @endforeach
+                        @elseif($article->hasEstablishment($establishment->id))
+                            checked
+                        @endif
+                            value="{{ $establishment->id }}"> {{ $establishment->title }}
+                </p>
+            @endforeach
+        </div>
+    @endif
+    <hr>
     {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
 </div>
 {!! Form::close() !!}

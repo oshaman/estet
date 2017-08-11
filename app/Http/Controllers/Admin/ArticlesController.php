@@ -2,6 +2,7 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin;
 
+use Fresh\Estet\Repositories\EstablishmentsRepository;
 use Gate;
 use Fresh\Estet\Article;
 use Fresh\Estet\Repositories\ArticlesRepository;
@@ -41,7 +42,7 @@ class ArticlesController extends AdminController
                     if ($articles) $articles->appends(['param' => $data['param']])->links();
                     break;
                 case 4:
-                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'doctor'], ['created_at', 'desc']);
+                    $articles = $this->a_rep->get(['title', 'id', 'alias', 'created_at'], false, true, ['own', 'docs'], ['created_at', 'desc']);
                     if ($articles) $articles->appends(['param' => $data['param']])->links();
                     break;
                 case 5:
@@ -93,7 +94,7 @@ class ArticlesController extends AdminController
         return $this->renderOutput();
     }
 
-    public function edit(ArticleRequest $request, $article)
+    public function edit(ArticleRequest $request, EstablishmentsRepository $e_rep, $article)
     {
         if (Gate::denies('UPDATE_ARTICLES')) {
             abort(404);
@@ -120,7 +121,9 @@ class ArticlesController extends AdminController
         $img = $article->image;
         $article->seo = $this->a_rep->convertSeo($article->seo);
 
-        $this->content = view('admin.article.edit')->with(['article'=>$article, 'cats' => $lists, 'tags'=>$tag, 'img'=>$img])->render();
+        $establishments = $e_rep->get(['id', 'title'], false, false, false, ['title', 'ASC'] );
+
+        $this->content = view('admin.article.edit')->with(['article'=>$article, 'cats' => $lists, 'tags'=>$tag, 'img'=>$img, 'establishments'=>$establishments])->render();
 
         return $this->renderOutput();
 

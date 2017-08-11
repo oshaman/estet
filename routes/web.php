@@ -38,10 +38,10 @@ Route::get('goroscop', 'Patient\HoroscopeController@index')->name('horoscope');
  */
 Route::group(['prefix'=>'catalog'], function () {
     Route::get('/', 'CatalogController@index')->name('catalog');
-    Route::get('/vrachi/{doc?}', 'CatalogController@docs')->name('docs')->where('doc', '[a-zA-Z0-9-_]+');
-    Route::get('/kliniki/{establishment_alias?}', 'CatalogController@clinics')->name('clinics')->where('establishment_alias', '[a-zA-Z0-9-_]+');
-    Route::get('/distributory/{establishment_alias?}', 'CatalogController@distributors')->name('distributors')->where('establishment_alias', '[a-zA-Z0-9-_]+');
-    Route::get('/brendy/{establishment_alias?}', 'CatalogController@brands')->name('brands')->where('establishment_alias', '[a-zA-Z0-9-_]+');
+    Route::match(['get', 'post'], '/vrachi/{doc?}', 'CatalogController@docs')->name('docs')->where('doc', '[a-zA-Z0-9-_]+');
+    Route::match(['get', 'post'], '/kliniki/{establishment_alias?}', 'CatalogController@clinics')->name('clinics')->where('establishment_alias', '[a-zA-Z0-9-_]+');
+    Route::match(['get', 'post'], '/distributory/{establishment_alias?}', 'CatalogController@distributors')->name('distributors')->where('establishment_alias', '[a-zA-Z0-9-_]+');
+    Route::match(['get', 'post'], '/brendy/{establishment_alias?}', 'CatalogController@brands')->name('brands')->where('establishment_alias', '[a-zA-Z0-9-_]+');
 });
 /**
  * Switch

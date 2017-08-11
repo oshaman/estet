@@ -46,6 +46,24 @@ class Article extends Model
         }
         return false;
     }
+
+    public function hasEstablishment($id)
+    {
+        foreach ($this->establishments as $establishment) {
+            if ($establishment->id == $id) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     *  Get the role associated with the establishments.
+     */
+
+    public function establishments()
+    {
+        return $this->belongsToMany('Fresh\Estet\Establishment','mentions')->select(['id', 'title']);
+    }
     /* public function comments()
     {
         return $this->hasMany('Fresh\Estet\Comment');

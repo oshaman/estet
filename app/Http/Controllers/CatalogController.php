@@ -3,6 +3,7 @@
 namespace Fresh\Estet\Http\Controllers;
 
 use Fresh\Estet\Repositories\ArticlesRepository;
+use Fresh\Estet\Repositories\EstablishmentratioRepository;
 use Fresh\Estet\Repositories\EstablishmentsRepository;
 use Fresh\Estet\Repositories\PersonsRepository;
 use Fresh\Estet\Person;
@@ -71,12 +72,22 @@ class CatalogController extends Controller
      * @param alias $clinic
      * @return view
      */
-    public function clinics (EstablishmentsRepository $repository, $clinic = false)
+    public function clinics (EstablishmentratioRepository $ratio_rep, EstablishmentsRepository $repository, $clinic = false)
     {
         if ($clinic) {
+
+            /*$ua = $_SERVER['HTTP_USER_AGENT'];
+            $ip = $_SERVER['REMOTE_ADDR'];
+
+            $val = md5($ua . $ip);*/
+
+            $clinic->load('articles');
+
+            $ratio = $ratio_rep->getRatio($clinic->id);
+
             $clinic = $repository->convertParams($clinic);
 
-            $this->content = view('catalog.profiles.clinic')->with('clinic', $clinic)->render();
+            $this->content = view('catalog.profiles.clinic')->with(['clinic' => $clinic, 'ratio' => $ratio[0]])->render();
 
             return $this->renderOutput();
         }
@@ -96,6 +107,9 @@ class CatalogController extends Controller
     public function distributors (EstablishmentsRepository $repository, $distributor = false)
     {
         if ($distributor) {
+
+            $distributor->load('articles');
+
             $distributor = $repository->convertParams($distributor);
 
             $children = $repository->getChildren($distributor->id);
