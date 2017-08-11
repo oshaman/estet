@@ -1,9 +1,5 @@
-@extends('/../layouts.app')
-@section('content')
-<h1>{{ $title }}</h1>
 @if (!empty($profiles))
-@foreach($profiles as $profile)
-     <div class="container">
+    @foreach($profiles as $profile)
         <div class="row">
             <div class="col-xs-8">
                 <div class="row">
@@ -13,12 +9,12 @@
                 <div class="row">
                     <h4>{{ $profile->specialties->implode('name', ', ') ?? ''}}</h4>
                     <hr>
-                @if(!empty($profile->address))
-                    <h4>{{ $profile->address}}</h4>
-                @endif
-                @if(!empty($profile->job))
-                    <h4>{{ $profile->job ?? ''}}</h4>
-                @endif
+                    @if(!empty($profile->address))
+                        <h4>{{ $profile->address}}</h4>
+                    @endif
+                    @if(!empty($profile->job))
+                        <h4>{{ $profile->job ?? ''}}</h4>
+                    @endif
                     <h4>{{ $profile->phone ?? ''}}</h4>
                     <h4>{{ $profile->site ?? ''}}</h4>
                     <hr>
@@ -33,34 +29,32 @@
             {!! Form::button('Подробнее о ' . trans('ru.doce'), ['class' => 'btn btn-primary','type'=>'submit']) !!}
             {!! Form::close() !!}
         </div>
-    </div>
-@endforeach
+    @endforeach
 
-<!--PAGINATION-->
+    <!--PAGINATION-->
 
-<div class="general-pagination group">
+    <div class="general-pagination group">
 
-    @if($profiles->lastPage() > 1)
-        <ul class="pagination">
-            @if($profiles->currentPage() !== 1)
-                <li><a href="{{ $profiles->url(($profiles->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>
-            @endif
-
-            @for($i = 1; $i <= $profiles->lastPage(); $i++)
-                @if($profiles->currentPage() == $i)
-                    <li><a class="selected disabled">{{ $i }}</a></li>
-                @else
-                    <li><a href="{{ $profiles->url($i) }}">{{ $i }}</a></li>
+        @if($profiles->lastPage() > 1)
+            <ul class="pagination">
+                @if($profiles->currentPage() !== 1)
+                    <li><a href="{{ $profiles->url(($profiles->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>
                 @endif
-            @endfor
 
-            @if($profiles->currentPage() !== $profiles->lastPage())
-                <li><a href="{{ $profiles->url(($profiles->currentPage() + 1)) }}">{{ Lang::get('pagination.next') }}</a></li>
-            @endif
-        </ul>
+                @for($i = 1; $i <= $profiles->lastPage(); $i++)
+                    @if($profiles->currentPage() == $i)
+                        <li><a class="selected disabled">{{ $i }}</a></li>
+                    @else
+                        <li><a href="{{ $profiles->url($i) }}">{{ $i }}</a></li>
+                    @endif
+                @endfor
 
-    @endif
+                @if($profiles->currentPage() !== $profiles->lastPage())
+                    <li><a href="{{ $profiles->url(($profiles->currentPage() + 1)) }}">{{ Lang::get('pagination.next') }}</a></li>
+                @endif
+            </ul>
 
-</div>
+        @endif
+
+    </div>
 @endif
-@endsection

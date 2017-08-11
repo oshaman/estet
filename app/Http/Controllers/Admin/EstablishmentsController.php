@@ -84,9 +84,7 @@ class EstablishmentsController extends AdminController
         $this->template = 'admin.article.admin';
         $parents = $this->est_rep->getParents();
 
-        $establishment = $this->est_rep->convertParams($establishment);
-
-//        dd($establishment->services);
+        $establishment = $this->est_rep->convertParams($establishment, true);
 
         $this->content = view('admin.establishment.edit')->with(['parents' => $parents, 'establishment' => $establishment])->render();
         return $this->renderOutput();

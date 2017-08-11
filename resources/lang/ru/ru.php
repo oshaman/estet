@@ -55,6 +55,10 @@ return [
      * Catalog
      */
     'doce' => 'враче',
+    'brands' => 'Бренды',
+    'clinics' => 'Клиники',
+    'distributors' => 'Дистрибьюторы',
+    'docs' => 'Врачи',
     /**
      * Блог
      */

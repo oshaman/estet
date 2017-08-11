@@ -26,8 +26,9 @@ class CatalogController extends Controller
 
     public function index ()
     {
-        $this->title = 'Каталог';
-        return view('catalog.index')->with('title', $this->title);
+        abort(404);
+//        $this->title = 'Каталог';
+//        return view('catalog.index')->with('title', $this->title);
     }
 
     /**
@@ -56,13 +57,14 @@ class CatalogController extends Controller
             $blogs = $blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
 
             $this->title = $profile->name . ' ' . $profile->lastname;
-            return view('catalog.doc_profile')->with(['profile' => $profile, 'blogs' => $blogs]);
+            return view('catalog.profiles.doc_profile')->with(['profile' => $profile, 'blogs' => $blogs]);
         }
         $this->title = 'Врачи';
 
         $profiles = $rep->get(['name', 'address', 'phone', 'site', 'alias', 'photo'], false, true, false, false, 'specialties');
 
-        return view('catalog.docs')->with(['title' => $this->title, 'profiles' => $profiles]);
+        $this->content = view('catalog.docs')->with(['title' => $this->title, 'profiles' => $profiles]);
+        return $this->renderOutput();
     }
 
     /**
@@ -72,7 +74,11 @@ class CatalogController extends Controller
     public function clinics (EstablishmentsRepository $repository, $clinic = false)
     {
         if ($clinic) {
-            dd($clinic);
+            $clinic = $repository->convertParams($clinic);
+
+            $this->content = view('catalog.profiles.clinic')->with('clinic', $clinic)->render();
+
+            return $this->renderOutput();
         }
 
         $this->title = 'Клиники';
@@ -87,20 +93,45 @@ class CatalogController extends Controller
      * @param alias $salon
      * @return view
      */
-    public function distributors ($distributor = false)
+    public function distributors (EstablishmentsRepository $repository, $distributor = false)
     {
+        if ($distributor) {
+            $distributor = $repository->convertParams($distributor);
+
+            $children = $repository->getChildren($distributor->id);
+
+            $this->content = view('catalog.profiles.distributor')->with(['distributor' => $distributor, 'children' => $children])->render();
+
+            return $this->renderOutput();
+        }
         $this->title = 'Дистрибьюторы';
-        return view('catalog.index')->with('title', $this->title);
+        $distributors = $repository->get(['logo', 'title', 'about', 'alias', 'address'], false, true, ['category','distributor']);
+
+        $this->content = view('catalog.distributors')->with(['distributors' => $distributors])->render();
+        return $this->renderOutput();
     }
 
     /**
      * @param alias $brand
      * @return $this
      */
-    public function brands ($brand = false)
+    public function brands (EstablishmentsRepository $repository, $brand = false)
     {
+        if ($brand) {
+            $brand = $repository->convertParams($brand);
+
+            $parent = $repository->findById($brand->parent);
+
+            $this->content = view('catalog.profiles.brand')->with(['brand' => $brand, 'parent' => $parent])->render();
+
+            return $this->renderOutput();
+        }
+        
         $this->title = 'Бренды';
-        return view('catalog.index')->with('title', $this->title);
+        $brands = $repository->get(['logo', 'title', 'about', 'alias', 'address'], false, true, ['category','brand']);
+
+        $this->content = view('catalog.brands')->with(['brands' => $brands])->render();
+        return $this->renderOutput();
     }
 
     public function renderOutput()
