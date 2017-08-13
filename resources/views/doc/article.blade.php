@@ -17,6 +17,22 @@
             {!! Form::close() !!}
         @endforeach
     </div>
+    <hr>
+    <div class="row">
+        <h4>Добавить коментарий</h4>
+        <div class="row">
+            {!! Form::open(['url' => route('comments'),'class'=>'form-horizontal','method'=>'post']) !!}
+            {!! Form::text('email', old('email') ? : '' , ['placeholder'=>'Ваша почта', 'id'=>'email', 'class'=>'form-control']) !!}
+            {!! Form::text('name', old('name') ? : '' , ['placeholder'=>'Имя', 'id'=>'name', 'class'=>'form-control']) !!}
+            {!! Form::textarea('text', old('text') ? : '' , ['placeholder'=>'Коментарий', 'id'=>'text', 'class'=>'form-control', 'rows'=>5, 'cols'=>50]) !!}
+            {!! Form::button(trans('admin.sent'), ['class' => 'btn btn-success','type'=>'submit']) !!}
+            {{ Form::hidden('comment_post_ID', $article->id) }}
+            {{ Form::hidden('comment_parent', 0) }}
+            {{ Form::hidden('comment_source', 1) }}
+            {!! Form::close() !!}
+        </div>
+    </div>
+    <hr>
 </div>
 <div class="col-lg-3">
     <div class="row">

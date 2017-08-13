@@ -48,6 +48,10 @@ Route::group(['prefix'=>'catalog'], function () {
  */
 Route::post('/switch', 'SwitchController@index')->name('switch');
 /**
+ * Comments
+ */
+Route::post('comments', 'CommentsController@store')->name('comments');
+/**
  * Doctor's
  */
 Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
@@ -173,7 +177,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      * Admin Menus
      */
     Route::match(['post', 'get'], 'menus', 'Admin\MenusController@index')->name('menus');
-
+    /**
+     * Admin Comments
+     */
+    Route::group(['prefix' => 'comments'], function () {
+        Route::match(['post', 'get'], '/', 'Admin\CommentsController@index')->name('admin_comments');
+        Route::match(['post', 'get'], 'edit', 'Admin\CommentsController@edit')->name('edit_comment');
+        Route::get('del', 'Admin\CommentsController@destroy')->name('delete_comment');
+    });
 });
 
 /**

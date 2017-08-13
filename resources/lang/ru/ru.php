@@ -28,6 +28,7 @@ return [
     'ADD_ARTICLES' => 'Редактирование статей',
     'UPDATE_GOROSCOP' => 'Редактирование гороскопа',
     'UPDATE_MENUS' => 'Редактирование меню',
+    'UPDATE_COMMENTS' => 'Модерация коментариев',
 
     /**
      *  Roles

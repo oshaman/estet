@@ -71,6 +71,7 @@ return [
     'cpassword' => 'Повтор пароля',
     'confirmed' => 'В тираж',
     'moder' =>'Отправить модератору',
+    'sent' =>'Отправить',
 
 //    Horoscope
     'Aries' => 'Овен',
@@ -93,4 +94,8 @@ return [
     'phones' => 'Телефоны',
     'parent' => 'Родитель',
     'about' => 'Описание',
+//    comments
+    'comment_added' => 'Коментарий отправлен на модерацию',
+    'comment' => 'ID коментария',
+
 ];
