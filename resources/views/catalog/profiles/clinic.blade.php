@@ -40,3 +40,36 @@
         @endforeach
     </div>
 @endif
+@if(count($clinic->comments) > 0)
+    <hr>
+    @foreach($clinic->comments as $comment)
+        @if(0 !== $comment->parent_id)
+            @continue
+        @endif
+        <div class="row">
+            <table class="table">
+                <tr><th>#</th><th>{{ $comment->id }}</th></tr>
+                <tr><td>E-mail</td><td>{{ $comment->email }}</td></tr>
+                <tr><td>Имя</td><td>{{ $comment->name }}</td></tr>
+                <tr><td>Коментарий</td><td>{{ $comment->text }}</td></tr>
+            </table>
+        </div>
+        @include('comment', ['children' => $clinic->comments, 'id' => $comment->id])
+    @endforeach
+@endif
+<hr>
+<div class="row">
+    <h4>Добавить коментарий</h4>
+    <div class="row">
+        {!! Form::open(['url' => route('comments'),'class'=>'form-horizontal','method'=>'post']) !!}
+        {!! Form::text('email', old('email') ? : '' , ['placeholder'=>'Ваша почта', 'id'=>'email', 'class'=>'form-control']) !!}
+        {!! Form::text('name', old('name') ? : '' , ['placeholder'=>'Имя', 'id'=>'name', 'class'=>'form-control']) !!}
+        {!! Form::textarea('text', old('text') ? : '' , ['placeholder'=>'Коментарий', 'id'=>'text', 'class'=>'form-control', 'rows'=>5, 'cols'=>50]) !!}
+        {!! Form::button(trans('admin.sent'), ['class' => 'btn btn-success','type'=>'submit']) !!}
+        {{ Form::hidden('comment_post_ID', $clinic->id) }}
+        {{ Form::hidden('comment_parent', 0) }}
+        {{ Form::hidden('comment_source', 3) }}
+        {!! Form::close() !!}
+    </div>
+</div>
+<hr>

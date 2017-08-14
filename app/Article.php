@@ -64,8 +64,9 @@ class Article extends Model
     {
         return $this->belongsToMany('Fresh\Estet\Establishment','mentions')->select(['id', 'title']);
     }
-    /* public function comments()
+
+    public function comments()
     {
-        return $this->hasMany('Fresh\Estet\Comment');
-    } */
+        return $this->hasMany('Fresh\Estet\Comment')->where('approved', 1);
+    }
 }

@@ -55,11 +55,11 @@ Route::post('comments', 'CommentsController@store')->name('comments');
  * Doctor's
  */
 Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
-    Route::get('/{article_alias?}', 'DocsController@index')->name('doctors')->where('article_alias', '[a-zA-Z0-9-_]+');
+    Route::get('/statyi/{article_alias?}', 'DocsController@index')->name('doctors')->where('article_alias', '[a-zA-Z0-9-_]+');
     Route::get('category/{cat_alias}', 'DocsController@category')->name('docs_cat')->where('cat', '[a-zA-Z0-9-_]+');
     Route::get('/tag/{tag_alias}', 'DocsController@tag')->name('docs_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     //  Blog
-    Route::group(['prefix' => '/blog'], function () {
+    Route::group(['prefix' => 'blog'], function () {
         Route::get('/{blog_alias?}', 'BlogsController@index')->name('blogs')->where('blog_alias', '[a-zA-Z0-9-_]+');
         Route::get('category/{blogs_cat?}', 'BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
         Route::get('/tag/{tag_alias}', 'BlogsController@tag')->name('blog_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
@@ -182,8 +182,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::group(['prefix' => 'comments'], function () {
         Route::match(['post', 'get'], '/', 'Admin\CommentsController@index')->name('admin_comments');
-        Route::match(['post', 'get'], 'edit', 'Admin\CommentsController@edit')->name('edit_comment');
-        Route::get('del', 'Admin\CommentsController@destroy')->name('delete_comment');
+        Route::match(['post', 'get'], 'edit/{comment}', 'Admin\CommentsController@edit')->name('edit_comment');
+        Route::get('del{comment}', 'Admin\CommentsController@destroy')->name('delete_comment');
     });
 });
 

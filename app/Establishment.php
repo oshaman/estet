@@ -18,4 +18,9 @@ class Establishment extends Model
         return $this->belongsToMany('Fresh\Estet\Article','mentions')->select(['alias', 'title']);
     }
 
+
+    public function comments()
+    {
+        return $this->hasMany('Fresh\Estet\Establishmentcomment')->where('approved', 1);
+    }
 }

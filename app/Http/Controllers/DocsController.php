@@ -32,7 +32,8 @@ class DocsController extends Controller
                 $article->created = $this->a_rep->convertDate($article->created_at);
                 $article->load('category');
                 $article->load('tags');
-
+                $article->load('comments');
+//                dd($article);
 //            Last 2 publications
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $article->id]);
                 $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);

@@ -293,7 +293,7 @@ class BlogsRepository extends Repository {
 //        END Content
         $updated = $blog->fill($new)->save();
 
-        $error = '';
+        $error = [];
         if (!empty($updated)) {
             $old_img = $blog->blog_img->path;
             // Main Image handle

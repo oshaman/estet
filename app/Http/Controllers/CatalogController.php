@@ -82,6 +82,7 @@ class CatalogController extends Controller
             $val = md5($ua . $ip);*/
 
             $clinic->load('articles');
+            $clinic->load('comments');
 
             $ratio = $ratio_rep->getRatio($clinic->id);
 
@@ -109,6 +110,7 @@ class CatalogController extends Controller
         if ($distributor) {
 
             $distributor->load('articles');
+            $distributor->load('comments');
 
             $distributor = $repository->convertParams($distributor);
 
@@ -133,6 +135,7 @@ class CatalogController extends Controller
     {
         if ($brand) {
             $brand = $repository->convertParams($brand);
+            $brand->load('comments');
 
             $parent = $repository->findById($brand->parent);
 

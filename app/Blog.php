@@ -59,10 +59,11 @@ class Blog extends Model
         }
         return false;
     }
-    /* public function comments()
+
+    public function comments()
     {
-        return $this->hasMany('Fresh\Estet\Comment');
-    } */
+        return $this->hasMany('Fresh\Estet\Blogcomment')->where('approved', 1);
+    }
 
     public function person()
     {

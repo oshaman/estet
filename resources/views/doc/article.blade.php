@@ -17,7 +17,24 @@
             {!! Form::close() !!}
         @endforeach
     </div>
-    <hr>
+    @if(count($article->comments) > 0)
+        <hr>
+        @foreach($article->comments as $comment)
+            @if(0 !== $comment->parent_id)
+                @continue
+            @endif
+            <div class="row">
+                <table class="table">
+                    <tr><th>#</th><th>{{ $comment->id }}</th></tr>
+                    <tr><td>E-mail</td><td>{{ $comment->email }}</td></tr>
+                    <tr><td>Имя</td><td>{{ $comment->name }}</td></tr>
+                    <tr><td>Коментарий</td><td>{{ $comment->text }}</td></tr>
+                </table>
+            </div>
+                @include('comment', ['children' => $article->comments, 'id' => $comment->id])
+        @endforeach
+    @endif
+        <hr>
     <div class="row">
         <h4>Добавить коментарий</h4>
         <div class="row">

@@ -35,12 +35,14 @@
                     <td>{{ $comment->text }}</td>
                     <td>
                         {!! Form::open(['url' => route('edit_comment',['comment'=> $comment->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                        {{ Form::hidden('comment_source', $source) }}
                         {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                         {!! Form::close() !!}
                     </td>
                     <td>
                         {!! Form::open(['url' => route('delete_comment',['comment'=> $comment->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
-                        {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
+                        {{ Form::hidden('comment_source', $source) }}
+                        {!! Form::button(trans('admin.delete', ['comment'=> $comment->id]), ['class' => 'btn btn-danger','type'=>'submit']) !!}
                         {!! Form::close() !!}
                     </td>
                 </tr>
