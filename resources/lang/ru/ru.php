@@ -29,6 +29,7 @@ return [
     'UPDATE_GOROSCOP' => 'Редактирование гороскопа',
     'UPDATE_MENUS' => 'Редактирование меню',
     'UPDATE_COMMENTS' => 'Модерация коментариев',
+    'UPDATE_PREMIUMS' => 'Добавление премиум',
 
     /**
      *  Roles

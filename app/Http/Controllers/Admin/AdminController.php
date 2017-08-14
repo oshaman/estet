@@ -94,6 +94,10 @@ class AdminController extends Controller
             if(Gate::allows('UPDATE_COMMENTS')) {
                 $menu->add('Коментарии', array('route' => 'admin_comments'));
             }
+
+            if(Gate::allows('UPDATE_PREMIUMS')) {
+                $menu->add('Премиум', array('route' => 'premium'));
+            }
             /*
             if(Gate::allows('UPDATE_EVENTS')) {
                  $menu->add(trans('ua.history'), array('route' => 'admin_events'))->prepend('<i class="icon-calendar"></i>');

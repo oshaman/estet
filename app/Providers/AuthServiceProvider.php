@@ -98,6 +98,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('UPDATE_COMMENTS', FALSE);
         });
 
+        Gate::define('UPDATE_PREMIUMS', function ($user) {
+            return $user->canDo('UPDATE_PREMIUMS', FALSE);
+        });
+
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);
         });

@@ -16,6 +16,13 @@ class EstablishmentsRepository extends Repository
         $this->model = $establishment;
     }
 
+    public function getPrems($ids)
+    {
+        $result = $this->model->select(['logo', 'title', 'about', 'alias', 'address'])
+                    ->whereIn('id', [$ids[0]['prem_id'], $ids[1]['prem_id']])
+                    ->get();
+        return $result;
+    }
     /**
      * Getting distributiors
      * @return array

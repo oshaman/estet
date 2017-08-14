@@ -9,6 +9,7 @@ use Fresh\Estet\Repositories\PersonsRepository;
 use Fresh\Estet\Person;
 use Fresh\Estet\Repositories\BlogsRepository;
 use DB;
+use Fresh\Estet\Repositories\PremiumsRepository;
 
 class CatalogController extends Controller
 {
@@ -131,7 +132,7 @@ class CatalogController extends Controller
      * @param alias $brand
      * @return $this
      */
-    public function brands (EstablishmentsRepository $repository, $brand = false)
+    public function brands (PremiumsRepository $prem_rep, EstablishmentsRepository $repository, $brand = false)
     {
         if ($brand) {
             $brand = $repository->convertParams($brand);
@@ -145,9 +146,13 @@ class CatalogController extends Controller
         }
         
         $this->title = 'Бренды';
+        $prems_ids = $prem_rep->getPremIds('brand');
+
+        $prems = $repository->getPrems($prems_ids);
+
         $brands = $repository->get(['logo', 'title', 'about', 'alias', 'address'], false, true, ['category','brand']);
 
-        $this->content = view('catalog.brands')->with(['brands' => $brands])->render();
+        $this->content = view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems])->render();
         return $this->renderOutput();
     }
 
@@ -167,8 +172,6 @@ class CatalogController extends Controller
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
 
-
-//        $this->template = $status ? '\doc.index' : '\patient.index';
         $menu = $this->getMenu($status);
 
         $this->vars = array_add($this->vars, 'nav', $menu);

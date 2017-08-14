@@ -27,13 +27,14 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Название</th><th>Категория</th><th>Телефон</th>
+            <th>ID</th><th>Название</th><th>Категория</th><th>Телефон</th>
         </tr>
         </thead>
         @if (!empty($profiles) && null != $profiles[0])
             <tbody>
             @foreach ($profiles as $profile)
                 <tr>
+                    <td>{{ $profile->id }}</td>
                     <td>{{ $profile->title }}</td>
                     <td>{{ trans('admin.' . $profile->category) }}</td>
                     <td>{{ $profile->phones }}</td>

@@ -36,6 +36,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'UPDATE_MENUS'],
 //                comments
                 ['name'=>'UPDATE_COMMENTS'],
+//                premium
+                ['name'=>'UPDATE_PREMIUMS'],
             ]
         );
     }

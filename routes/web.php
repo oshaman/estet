@@ -178,6 +178,10 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::match(['post', 'get'], 'menus', 'Admin\MenusController@index')->name('menus');
     /**
+     * Admin Premiums
+     */
+    Route::match(['post', 'get'], 'premium', 'Admin\PremiumsController@index')->name('premium');
+    /**
      * Admin Comments
      */
     Route::group(['prefix' => 'comments'], function () {

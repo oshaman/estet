@@ -59,7 +59,7 @@ return [
     'mimes'                => 'Для загрузки в поле :attribute допустимы следующие типы файлов: :values.',
     'mimetypes'            => 'The :attribute must be a file of type: :values.',
     'min'                  => [
-        'numeric' => 'The :attribute must be at least :min.',
+        'numeric' => 'Значение в поле :attribute не должно быть меньше :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
         'string'  => 'The :attribute must be at least :min characters.',
         'array'   => 'The :attribute must have at least :min items.',

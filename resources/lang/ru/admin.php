@@ -97,5 +97,7 @@ return [
 //    comments
     'comment_added' => 'Коментарий отправлен на модерацию',
     'comment' => 'ID коментария',
-
+//    prem
+    'prem1' => 'ID №1',
+    'prem2' => 'ID №2',
 ];
