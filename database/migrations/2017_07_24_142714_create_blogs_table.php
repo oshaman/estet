@@ -18,8 +18,10 @@ class CreateBlogsTable extends Migration
             $table->increments('id');
             $table->string('title')->index();
             $table->string('alias')->unique();
-            $table->boolean('approved')->default(false);
+            $table->boolean('approved')->default(false)->index();
             $table->text('content')->nullable()->default(null);
+            $table->unsignedInteger('view')->default(1)->index();
+
 
             $table->integer('user_id')->nullable()->unsigned()->default(1);
             $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');

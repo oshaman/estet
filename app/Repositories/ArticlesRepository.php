@@ -15,6 +15,19 @@ class ArticlesRepository extends Repository
         $this->model = $rep;
     }
 
+
+    public function displayed($id)
+    {
+        try {
+            $this->model->find($id)->increment('view');
+
+        } catch (Exception $e) {
+            \Log::info('Ошибка записи просмотра: ', $e->getMessage());
+
+        }
+        return true;
+    }
+
     /**
      * @param $select
      * @param $where

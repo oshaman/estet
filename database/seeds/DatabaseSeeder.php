@@ -21,5 +21,7 @@ class DatabaseSeeder extends Seeder
         $this->call(HoroscopeSeeder::class);
         $this->call(EstablishmentsTableSeeder::class);
         $this->call(PremiumTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(CitiesTableSeeder::class);
     }
 }

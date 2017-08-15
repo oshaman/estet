@@ -15,6 +15,22 @@ class BlogsRepository extends Repository {
         $this->model = $blog;
     }
 
+
+    /**
+     * @param $id Blog's ID
+     * @return bool
+     */
+    public function displayed($id)
+    {
+        try {
+            $this->model->find($id)->increment('view');
+
+        } catch (Exception $e) {
+            \Log::info('Ошибка записи просмотра: ', $e->getMessage());
+
+        }
+        return true;
+    }
     /**
      *
      * @param $alias

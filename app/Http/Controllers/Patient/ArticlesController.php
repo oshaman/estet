@@ -40,6 +40,7 @@ class ArticlesController extends Controller
             $article->created = $this->a_rep->convertDate($article->created_at);
             $article->load('category');
             $article->load('tags');
+            $this->a_rep->displayed($article->id);
 
 //            Last 2 publications
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article->id]);

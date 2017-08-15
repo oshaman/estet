@@ -27,7 +27,7 @@ class BlogsController extends DocsController
         if ($blog_alias) {
             $blog = $this->blog_rep->one($blog_alias, true);
             $blog->load('comments');
-
+            $this->blog_rep->displayed($blog->id);
             //  Blogs preview
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $blog->user_id], ['id', '!=', $blog->id]);
             $blogs = $this->blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);

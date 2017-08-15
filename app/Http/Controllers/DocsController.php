@@ -33,7 +33,8 @@ class DocsController extends Controller
                 $article->load('category');
                 $article->load('tags');
                 $article->load('comments');
-//                dd($article);
+
+                $this->a_rep->displayed($article->id);
 //            Last 2 publications
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $article->id]);
                 $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);

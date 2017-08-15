@@ -38,6 +38,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'UPDATE_COMMENTS'],
 //                premium
                 ['name'=>'UPDATE_PREMIUMS'],
+//                geo
+                ['name'=>'UPDATE_GEO'],
             ]
         );
     }

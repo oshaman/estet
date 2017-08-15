@@ -128,9 +128,6 @@
         @else
             <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
         @endif
-        {{--<div>
-            {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
-        </div>--}}
     </li>
     <li class="list-group-item">
         <label><input type="checkbox" {{ (old('confirmed') || !empty($profile->confirmed)) ? 'checked' : '' }} value="doc" name="confirmed"> Назначить автором</label>

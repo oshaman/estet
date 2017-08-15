@@ -178,6 +178,25 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
      */
     Route::match(['post', 'get'], 'menus', 'Admin\MenusController@index')->name('menus');
     /**
+     * Admin Country
+     */
+    Route::group(['prefix'=>'country'], function () {
+        Route::get('/', 'Admin\CountriesController@index')->name('country');
+        Route::match(['post', 'get'], 'edit/{country}', 'Admin\CountriesController@edit')->name('edit_country')->where('country', '[0-9]+');
+        Route::get('del/{country}', 'Admin\CountriesController@destroy')->name('delete_country')->where('country', '[0-9]+');
+        Route::match(['post', 'get'],'add', 'Admin\CountriesController@create')->name('create_country');
+    });
+    /**
+     * Admin City
+     */
+    Route::group(['prefix'=>'city'], function () {
+        Route::match(['post', 'get'], '/{id?}', 'Admin\CitiesController@index')->name('city');
+        Route::match(['post', 'get'], 'edit/{city}', 'Admin\CitiesController@edit')->name('edit_city')->where('city', '[0-9]+');
+        Route::get('del/{city}', 'Admin\CitiesController@destroy')->name('delete_city')->where('city', '[0-9]+');
+        Route::match(['post', 'get'],'add', 'Admin\CitiesController@create')->name('create_city');
+    });
+
+    /**
      * Admin Premiums
      */
     Route::match(['post', 'get'], 'premium', 'Admin\PremiumsController@index')->name('premium');
@@ -187,7 +206,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix' => 'comments'], function () {
         Route::match(['post', 'get'], '/', 'Admin\CommentsController@index')->name('admin_comments');
         Route::match(['post', 'get'], 'edit/{comment}', 'Admin\CommentsController@edit')->name('edit_comment');
-        Route::get('del{comment}', 'Admin\CommentsController@destroy')->name('delete_comment');
+        Route::get('del/{comment}', 'Admin\CommentsController@destroy')->name('delete_comment');
     });
 });
 

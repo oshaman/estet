@@ -30,6 +30,7 @@ return [
     'UPDATE_MENUS' => 'Редактирование меню',
     'UPDATE_COMMENTS' => 'Модерация коментариев',
     'UPDATE_PREMIUMS' => 'Добавление премиум',
+    'UPDATE_GEO' => 'Добавление Страны\Города',
 
     /**
      *  Roles

@@ -58,6 +58,8 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('blogcat', \Fresh\Estet\BlogCategory::class);
         Route::model('tag', \Fresh\Estet\Tag::class);
         Route::model('establishment', \Fresh\Estet\Establishment::class);
+        Route::model('country', \Fresh\Estet\Country::class);
+        Route::model('city', \Fresh\Estet\City::class);
 //        Route::model('tag', \Fresh\Estet\Tag::class);
 
 
