@@ -1,3 +1,24 @@
+@if(!empty($prems))
+    @foreach($prems as $prem)
+        <div class="row bg-info">
+            <div class="col-lg-4">
+                {{ Html::image(asset('/images/establishment/main') . '/' . $prem->logo, $prem->title, array('class' => 'img-thumbnail')) }}
+            </div>
+            <div class="col-lg-8">
+                <h3>{{ $prem->title }}</h3>
+                <p>{!! str_limit($prem->about, 254) !!}</p>
+                <hr>
+                <h6>{{ $prem->address }}</h6>
+                <p>
+                    {!! Form::open(['url' => route('clinics',['clinic'=> $prem->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                    {!! Form::button(trans('ru.more'), ['class' => 'btn btn-basic','type'=>'submit']) !!}
+                    {!! Form::close() !!}
+                </p>
+            </div>
+        </div>
+        <hr>
+    @endforeach
+@endif
 @if(!empty($clinics))
     @foreach($clinics as $clinic)
     <div class="row">

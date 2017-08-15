@@ -16,10 +16,40 @@ class EstablishmentsRepository extends Repository
         $this->model = $establishment;
     }
 
+    public function getWithoutPrems($select='*', $pagination=false, $where=false, $wherenot=false, $order=false)
+    {
+        $builder = $this->model->select($select);
+
+        if ($where) {
+            if (is_array($where[0])) {
+                $builder->where($where);
+            } else {
+                $builder->where($where[0], $where[1], $where[2] = false);
+            }
+        }
+
+        if ($wherenot) {
+            $builder->whereNotIn('id', $wherenot);
+        }
+
+        if ($order) {
+            $builder->orderBy($order[0], $order[1]);
+        }
+
+        if($pagination) {
+            return $builder->paginate(Config::get('settings.paginate'));
+        }
+
+        return $builder->get();
+    }
+    /**
+     * @param $ids
+     * @return \Illuminate\Support\Collection
+     */
     public function getPrems($ids)
     {
         $result = $this->model->select(['logo', 'title', 'about', 'alias', 'address'])
-                    ->whereIn('id', [$ids[0]['prem_id'], $ids[1]['prem_id']])
+                    ->whereIn('id', $ids)
                     ->get();
         return $result;
     }
@@ -89,8 +119,10 @@ class EstablishmentsRepository extends Repository
                 $result[] = $value;
             }
 
-            if ($result) {
+            if (!empty($result)) {
                 $data['extra'] = json_encode($result);
+            } else {
+                array_forget($data, 'extra');
             }
 
         }

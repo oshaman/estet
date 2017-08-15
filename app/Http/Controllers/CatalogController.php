@@ -26,7 +26,7 @@ class CatalogController extends Controller
     }
 
 
-    public function index ()
+    public function index()
     {
         abort(404);
 //        $this->title = 'Каталог';
@@ -38,7 +38,7 @@ class CatalogController extends Controller
      * @param alias $doc
      * @return view
      */
-    public function docs (PersonsRepository $rep, BlogsRepository $blog_rep, $doc = false)
+    public function docs(PersonsRepository $rep, BlogsRepository $blog_rep, $doc = false)
     {
         if ($doc) {
             $docs = new PersonsRepository(new Person);
@@ -73,7 +73,7 @@ class CatalogController extends Controller
      * @param alias $clinic
      * @return view
      */
-    public function clinics (EstablishmentratioRepository $ratio_rep, EstablishmentsRepository $repository, $clinic = false)
+    public function clinics(PremiumsRepository $prem_rep, EstablishmentratioRepository $ratio_rep, EstablishmentsRepository $repository, $clinic = false)
     {
         if ($clinic) {
 
@@ -95,10 +95,13 @@ class CatalogController extends Controller
         }
 
         $this->title = 'Клиники';
+        $prems_ids = $prem_rep->getPremIds('clinic');
 
-        $clinics = $repository->get(['logo', 'title', 'about', 'alias', 'address'], false, true, ['category','clinic']);
+        $prems = $repository->getPrems($prems_ids);
 
-        $this->content = view('catalog.clinics')->with(['clinics' => $clinics])->render();
+        $clinics = $repository->getWithoutPrems(['logo', 'title', 'about', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
+
+        $this->content = view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems])->render();
         return $this->renderOutput();
     }
 
@@ -106,7 +109,7 @@ class CatalogController extends Controller
      * @param alias $salon
      * @return view
      */
-    public function distributors (EstablishmentsRepository $repository, $distributor = false)
+    public function distributors(PremiumsRepository $prem_rep, EstablishmentsRepository $repository, $distributor = false)
     {
         if ($distributor) {
 
@@ -122,9 +125,14 @@ class CatalogController extends Controller
             return $this->renderOutput();
         }
         $this->title = 'Дистрибьюторы';
-        $distributors = $repository->get(['logo', 'title', 'about', 'alias', 'address'], false, true, ['category','distributor']);
 
-        $this->content = view('catalog.distributors')->with(['distributors' => $distributors])->render();
+        $prems_ids = $prem_rep->getPremIds('distributor');
+
+        $prems = $repository->getPrems($prems_ids);
+
+        $distributors = $repository->getWithoutPrems(['logo', 'title', 'about', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
+
+        $this->content = view('catalog.distributors')->with(['distributors' => $distributors, 'prems' => $prems])->render();
         return $this->renderOutput();
     }
 
@@ -132,7 +140,7 @@ class CatalogController extends Controller
      * @param alias $brand
      * @return $this
      */
-    public function brands (PremiumsRepository $prem_rep, EstablishmentsRepository $repository, $brand = false)
+    public function brands(PremiumsRepository $prem_rep, EstablishmentsRepository $repository, $brand = false)
     {
         if ($brand) {
             $brand = $repository->convertParams($brand);
@@ -144,13 +152,13 @@ class CatalogController extends Controller
 
             return $this->renderOutput();
         }
-        
+
         $this->title = 'Бренды';
         $prems_ids = $prem_rep->getPremIds('brand');
 
         $prems = $repository->getPrems($prems_ids);
 
-        $brands = $repository->get(['logo', 'title', 'about', 'alias', 'address'], false, true, ['category','brand']);
+        $brands = $repository->getWithoutPrems(['logo', 'title', 'about', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
 
         $this->content = view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems])->render();
         return $this->renderOutput();
@@ -166,9 +174,9 @@ class CatalogController extends Controller
         $own = $status ? 'docs' : 'patient';
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
 
-        $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where,2, ['created_at', 'desc']);
+        $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
 
-        $this->sidebar = view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' =>$status])->render();
+        $this->sidebar = view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => $status])->render();
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
 
@@ -176,7 +184,7 @@ class CatalogController extends Controller
 
         $this->vars = array_add($this->vars, 'nav', $menu);
 
-        if(false !== $this->content) {
+        if (false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
         }
 
@@ -185,7 +193,7 @@ class CatalogController extends Controller
 
     public function getMenu($status)
     {
-        $select =  $status ? 'docsmenuview' : 'patientmenuview';
+        $select = $status ? 'docsmenuview' : 'patientmenuview';
         $cats = DB::select('SELECT `name`, `alias` FROM ' . $select);
         return $cats;
 
