@@ -29,6 +29,7 @@ class EstablishmentsRepository extends Repository
         }
 
         if ($wherenot) {
+            $wherenot = array_diff($wherenot, ['']);
             $builder->whereNotIn('id', $wherenot);
         }
 

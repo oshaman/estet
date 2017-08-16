@@ -20,7 +20,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-55-55',
                 'site' => 'site1.com',
                 'parent' => null,
-                'services' => 'test_services',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 1',
                 'category' => 'clinic',
                 'spec' => 'test_spec1'
@@ -33,7 +33,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-55-77',
                 'site' => 'site2.com',
                 'parent' => null,
-                'services' => 'test_services2',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 2',
                 'category' => 'distributor',
                 'spec' => 'test_spec2'
@@ -46,7 +46,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-77-55',
                 'site' => 'site3.com',
                 'parent' => 3,
-                'services' => 'test_services3',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 3',
                 'category' => 'brand',
                 'spec' => 'test_spec3'
@@ -59,7 +59,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-77-54',
                 'site' => 'site4.com',
                 'parent' => 3,
-                'services' => 'test_service43',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 4',
                 'category' => 'brand',
                 'spec' => 'test_spec4'
@@ -72,7 +72,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '545-55-55',
                 'site' => 'site5.com',
                 'parent' => null,
-                'services' => 'test_services5',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 5',
                 'category' => 'clinic',
                 'spec' => 'test_spec5'
@@ -85,7 +85,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-87-77',
                 'site' => 'site6.com',
                 'parent' => null,
-                'services' => 'test_services6',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 6',
                 'category' => 'distributor',
                 'spec' => 'test_spec6'
@@ -98,7 +98,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-77-58',
                 'site' => 'site7.com',
                 'parent' => 6,
-                'services' => 'test_services7',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 7',
                 'category' => 'brand',
                 'spec' => 'test_spec7'
@@ -111,7 +111,7 @@ class EstablishmentsTableSeeder extends Seeder
                 'phones' => '555-77-34',
                 'site' => 'site8.com',
                 'parent' => 6,
-                'services' => 'test_service4673',
+                'services' => '["\u0422\u0440\u0435\u043f\u0430\u043d\u0430\u0446\u0438\u044f \u0447\u0435\u0440\u0435\u043f\u0430"]',
                 'about' => 'About Us test 8',
                 'category' => 'brand',
                 'spec' => 'test_spec8'

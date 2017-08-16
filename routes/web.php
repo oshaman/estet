@@ -75,7 +75,12 @@ Route::group(['prefix'=>'admin-blog', 'middleware'=>'admin_blog'], function () {
     Route::match(['get', 'post'], 'edit/{tmp}/{blogid?}', 'AdminBlog\BlogController@edit')->name('edit_blog')->where(['tmp'=>'[0-9]+', 'blogid'=>'[0-9]+']);
     Route::get('destroy/{tmpblog}', 'AdminBlog\BlogController@destroy')->name('destroy_tmp')->where('tmpblog', '[0-9]+');
 });
-
+/**
+ * SEARCH
+ */
+Route::group(['prefix' => 'search'], function () {
+    Route::get('/', 'SearchController@show')->name('search');
+});
 
 
 /**
