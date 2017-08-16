@@ -74,8 +74,12 @@
     @endif
 </div>
 <!-- SEO -->
-<div class="row">
-    <h2>SEO</h2>
+<div class="panel-heading">
+    <h2>
+        <a data-toggle="collapse" href="#service" class="btn btn-info btn-block">SEO</a>
+    </h2>
+</div>
+<div id="service" class="panel-collapse collapse row">
     <div class="row">
         <div class="col-lg-6">
             {{ Form::label('seo_title', 'SEO_TITLE') }}
@@ -127,7 +131,8 @@
     </div>
 </div>
 <!-- SEO -->
-<div class="row>">
+
+<div class="row">
     <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
     <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>
         <input type="text" name="outputtime" id="outputtime"
@@ -143,8 +148,8 @@
     <hr>
     @if(!empty($establishments))
         <div class="panel-heading">
-            <h4 class="panel-title">
-                <a data-toggle="collapse" href="#mentions">Прикрепить рекламодателей: </a>
+            <h4>
+                <a data-toggle="collapse" href="#mentions" class="btn btn-info btn-block">Прикрепить рекламодателей: </a>
             </h4>
         </div>
         <div id="mentions" class="panel-collapse collapse">

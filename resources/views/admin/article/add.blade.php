@@ -66,8 +66,12 @@
     @endif
 </div>
 <!-- SEO -->
-<div class="row">
-    <h2>SEO</h2>
+<div class="panel-heading">
+    <h2>
+        <a data-toggle="collapse" href="#service" class="btn btn-info btn-block">SEO</a>
+    </h2>
+</div>
+<div id="service" class="panel-collapse collapse row">    <h2>SEO</h2>
     <div class="row">
         <div class="col-lg-6">
             {{ Form::label('seo_title', 'SEO_TITLE') }}

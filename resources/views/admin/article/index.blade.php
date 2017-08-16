@@ -13,7 +13,7 @@
                         3 =>'На паузе',
                         4=>'В разделе врачей',
                         5=>'В разделе пациентов',
-                    ], old('val') ? : 1, ['class'=>'custom-select'])
+                    ], old('val') ? : 1, ['class'=>'form-control'])
             !!}
     </div>
     <div class="row">
@@ -21,6 +21,7 @@
     </div>
     {!! Form::close() !!}
 </div>
+<hr>
 <div class="row">
     {!! Html::link(route('create_article'),'Создать статью',['class' => 'btn btn-success']) !!}
 </div>
