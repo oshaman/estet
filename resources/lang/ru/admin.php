@@ -100,4 +100,7 @@ return [
 //    prem
     'prem1' => 'ID №1',
     'prem2' => 'ID №2',
+//    country
+    'country' => 'Страна',
+
 ];

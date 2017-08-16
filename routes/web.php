@@ -183,14 +183,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix'=>'country'], function () {
         Route::get('/', 'Admin\CountriesController@index')->name('country');
         Route::match(['post', 'get'], 'edit/{country}', 'Admin\CountriesController@edit')->name('edit_country')->where('country', '[0-9]+');
-        Route::get('del/{country}', 'Admin\CountriesController@destroy')->name('delete_country')->where('country', '[0-9]+');
         Route::match(['post', 'get'],'add', 'Admin\CountriesController@create')->name('create_country');
     });
     /**
      * Admin City
      */
     Route::group(['prefix'=>'city'], function () {
-        Route::match(['post', 'get'], '/{id?}', 'Admin\CitiesController@index')->name('city');
+        Route::match(['post', 'get'], 'select/{id?}', 'Admin\CitiesController@index')->name('city');
         Route::match(['post', 'get'], 'edit/{city}', 'Admin\CitiesController@edit')->name('edit_city')->where('city', '[0-9]+');
         Route::get('del/{city}', 'Admin\CitiesController@destroy')->name('delete_city')->where('city', '[0-9]+');
         Route::match(['post', 'get'],'add', 'Admin\CitiesController@create')->name('create_city');

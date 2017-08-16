@@ -11,6 +11,10 @@ class CountriesRepository extends Repository
         $this->model = $country;
     }
 
+    /**
+     * @param $request
+     * @return array Status
+     */
     public function addCountry($request)
     {
         $validator = Validator::make($request->all(), [
@@ -28,5 +32,41 @@ class CountriesRepository extends Repository
             return ['status' => 'Записи обновлены'];
         }
         return ['error'=>'Ошибка записи'];
+    }
+
+    /**
+     * @param $request
+     * @param $country Instance of Country
+     * @return array Stetus
+     */
+    public function updateCountry($request, $country)
+    {
+        if ($country->name !== $request->get('country')) {
+            $validator = Validator::make($request->all(), [
+                'country' => 'unique:countries,name|required|string|max:40',
+            ]);
+
+            if ($validator->fails()) {
+                return ['error'=>$validator];
+            }
+            $country->name = $request->get('country');
+            $result = $country->save();
+
+            if ($result) {
+                return ['status' => 'Запись обновлена'];
+            }
+            return ['error'=>'Ошибка записи'];
+        }
+        return ['status' => 'Запись обновлена'];
+    }
+
+    public function getCountriesSelect()
+    {
+        $models = $this->get();
+        $result =[];
+        foreach ($models as $item) {
+            $result[$item->id] = $item->name;
+        }
+        return $result;
     }
 }

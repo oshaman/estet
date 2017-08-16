@@ -19,11 +19,6 @@
                     {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                     {!! Form::close() !!}
                 </td>
-                <td>
-                    {!! Form::open(['url' => route('delete_country',['country'=> $country->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
-                    {!! Form::button(trans('admin.delete'), ['class' => 'btn btn-danger','type'=>'submit']) !!}
-                    {!! Form::close() !!}
-                </td>
             </tr>
         @endforeach
         </tbody>

@@ -15,6 +15,9 @@ class CountriesController extends AdminController
         $this->repository = $rep;
     }
 
+    /**
+     * @return $this Views Instance
+     */
     public function index()
     {
         if (Gate::denies('UPDATE_GEO')) {
@@ -28,6 +31,10 @@ class CountriesController extends AdminController
         return $this->renderOutput();
     }
 
+    /**
+     * @param Request $request
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function create(Request $request)
     {
         if (Gate::denies('UPDATE_GEO')) {
@@ -49,22 +56,29 @@ class CountriesController extends AdminController
 
     }
 
+    /**
+     * @param Request $request
+     * @param $country
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function edit(Request $request, $country)
     {
         if (Gate::denies('UPDATE_GEO')) {
             abort(404);
         }
 
+        if ($request->isMethod('post')) {
+
+            $result = $this->repository->updateCountry($request, $country);
+//            dd($result);
+            if(is_array($result) && !empty($result['error'])) {
+                return redirect()->back()->withErrors($result['error'])->withInput();
+            }
+            return redirect()->route('country')->with($result);
+        }
+
         $this->content = view('admin.geo.country_update')->with('country', $country)->render();
 
         return $this->renderOutput();
-    }
-
-    public function destroy($id)
-    {
-        if (Gate::denies('UPDATE_GEO')) {
-        abort(404);
-        }
-        dd($id);
     }
 }

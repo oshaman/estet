@@ -2,7 +2,7 @@
 
 <div class="row">
     {!! Form::open(['url' => route('create_country'), 'class'=>'form-horizontal','method'=>'POST' ]) !!}
-    {{ Form::label('name', 'Название страны') }}
+    {{ Form::label('name', 'Страна') }}
     <div class="row">
         {!! Form::text('name', old('name') ? : '' , ['placeholder'=>'Никарагуа...', 'id'=>'name', 'class'=>'form-control']) !!}
     </div>
