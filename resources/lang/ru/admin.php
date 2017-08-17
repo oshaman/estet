@@ -102,5 +102,7 @@ return [
     'prem2' => 'ID №2',
 //    country
     'country' => 'Страна',
-
+//    events
+    'eventcat' => 'Категория',
+    'organizer' => 'Организатор',
 ];

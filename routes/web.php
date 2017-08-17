@@ -212,6 +212,24 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::match(['post', 'get'], 'edit/{comment}', 'Admin\CommentsController@edit')->name('edit_comment');
         Route::get('del/{comment}', 'Admin\CommentsController@destroy')->name('delete_comment');
     });
+    /**
+     * Admin Events
+     */
+    Route::group(['prefix' => 'events'], function () {
+        Route::match(['post', 'get'], '/show', 'Admin\Events\EventsController@show')->name('events_admin');
+        Route::match(['post', 'get'], 'edit/{event}', 'Admin\Events\EventsController@edit')->name('edit_event');
+        Route::get('del/{event}', 'Admin\Events\EventsController@destroy')->name('delete_event');
+        Route::match(['post', 'get'],'add', 'Admin\Events\EventsController@create')->name('create_event');
+
+        Route::group(['prefix' => 'cats'], function () {
+            Route::match(['post', 'get'], '/show', 'Admin\Events\CategoriesController@show')->name('eventcats_admin');
+            Route::match(['get', 'post'], 'edit/{eventcat}', ['uses' => 'Admin\Events\CategoriesController@edit', 'as' => 'eventcats_edit'])->where('eventcat', '[0-9]+');
+        });
+        Route::group(['prefix' => 'organizer'], function () {
+            Route::match(['post', 'get'], '/show', 'Admin\Events\OrganizersController@show')->name('organizers_admin');
+            Route::match(['get', 'post'], 'edit/{organizer}', ['uses' => 'Admin\Events\OrganizersController@edit', 'as' => 'organizer_edit'])->where('organizer', '[0-9]+');
+        });
+    });
 });
 
 /**

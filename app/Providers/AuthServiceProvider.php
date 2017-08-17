@@ -106,6 +106,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('UPDATE_GEO', FALSE);
         });
 
+        Gate::define('UPDATE_EVENTS', function ($user) {
+                    return $user->canDo('UPDATE_EVENTS', FALSE);
+                });
+
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);
         });

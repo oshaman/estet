@@ -1,18 +1,19 @@
 <?php
 
-namespace Fresh\Estet\Http\Controllers\Admin;
+namespace Fresh\Estet\Http\Controllers\Admin\Events;
 
-use Fresh\Estet\Http\Requests\Cats;
-use Fresh\Estet\Repositories\CategoriesRepository;
+use Fresh\Estet\Http\Controllers\Admin\AdminController;
+use Fresh\Estet\Http\Requests\EventcatsRequest;
+use Fresh\Estet\Repositories\EventCategoriesRepository;
 use Gate;
-use Validator;
 
-class CatsController extends AdminController
+class CategoriesController extends AdminController
 {
     protected $cat_rep;
 
-    public function __construct(CategoriesRepository $rep)
+    public function __construct(EventCategoriesRepository $rep)
     {
+        $this->template = 'admin.events.index';
         $this->cat_rep = $rep;
     }
 
@@ -21,9 +22,9 @@ class CatsController extends AdminController
      * @param Request $request
      * @return View
      */
-    public function index(Cats $request)
+    public function show(EventcatsRequest $request)
     {
-        if (Gate::denies('UPDATE_CATS')) {
+        if (Gate::denies('UPDATE_EVENTS')) {
             abort(404);
         }
 
@@ -41,7 +42,7 @@ class CatsController extends AdminController
         }
 
         $cats = $this->cat_rep->get(['name', 'id', 'alias'], false, true);
-        $this->content = view('admin.cats.content')->with('categories', $cats);
+        $this->content = view('admin.events.cats.content')->with('categories', $cats);
 
         return $this->renderOutput();
     }
@@ -52,9 +53,9 @@ class CatsController extends AdminController
      * @param $cat cat_id
      * @return $this|\Illuminate\Http\RedirectResponse
      */
-    public function edit(Cats $request, $cat)
+    public function edit(EventcatsRequest $request, $cat)
     {
-        if (Gate::denies('UPDATE_CATS')) {
+        if (Gate::denies('UPDATE_EVENTS')) {
             abort(404);
         }
 
@@ -67,14 +68,14 @@ class CatsController extends AdminController
             }
 
             if ($result) {
-                return redirect()->route('cats')->with(['status'=>'Категория обновлена.']);
+                return redirect()->route('eventcats_admin')->with(['status'=>'Категория обновлена.']);
             } else {
+
                 return redirect()->back()->withErrors(['message'=>'Ошибка изменения категории, повторите попытку позже.']);
             }
         }
 
-        $this->content = view('admin.cats.edit')->with('category', $cat);
+        $this->content = view('admin.events.cats.edit')->with('category', $cat);
         return $this->renderOutput();
     }
-
 }

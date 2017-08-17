@@ -10,7 +10,7 @@ class Category extends Model
 
     public function articles()
     {
-        return $this->belongsToMany('Fresh\Estet\Article', 'article_tag');
+        return $this->belongsToMany('Fresh\Estet\Article');
     }
 
 }

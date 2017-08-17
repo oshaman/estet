@@ -31,6 +31,7 @@ return [
     'UPDATE_COMMENTS' => 'Модерация коментариев',
     'UPDATE_PREMIUMS' => 'Добавление премиум',
     'UPDATE_GEO' => 'Добавление Страны\Города',
+    'UPDATE_EVENTS' => 'Управление мероприятиями',
 
     /**
      *  Roles

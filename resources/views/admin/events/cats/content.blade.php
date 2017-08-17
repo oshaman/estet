@@ -1,10 +1,10 @@
 <h1>Добавление \ Редактирование категорий</h1>
 
-{!! Form::open(['url' => route('cats'), 'class'=>'form-horizontal','method'=>'POST' ]) !!}
+{!! Form::open(['url' => route('eventcats_admin'), 'class'=>'form-horizontal','method'=>'POST' ]) !!}
 <div class="row">
-    {{ Form::label('cat', 'Название категории') }}
+    {{ Form::label('eventcat', 'Название категории') }}
     <div class="row">
-    {!! Form::text('cat', old('cat') ? : '' , ['placeholder'=>'Психиатрия...', 'id'=>'cat', 'class'=>'form-control']) !!}
+    {!! Form::text('eventcat', old('eventcat') ? : '' , ['placeholder'=>'Психиатрия...', 'id'=>'eventcat', 'class'=>'form-control']) !!}
     </div>
     <div class="row">
         {!! Form::text('alias', old('alias') ? : '' , ['placeholder'=>'psihiatriya...', 'id'=>'alias', 'class'=>'form-control']) !!}
@@ -27,7 +27,7 @@
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->alias }}</td>
                 <td>
-                    {!! Form::open(['url' => route('edit_cats',['cat'=> $category->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
+                    {!! Form::open(['url' => route('eventcats_edit',['eventcat'=> $category->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                     {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
                     {!! Form::close() !!}
                 </td>
