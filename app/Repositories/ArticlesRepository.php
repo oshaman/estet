@@ -151,7 +151,7 @@ class ArticlesRepository extends Repository
 //        END Content
         $new = $this->model->firstOrCreate($article);
 
-        $error = '';
+        $error = [];
         if (!empty($new)) {
             // Main Image handle
             if ($request->hasFile('img')) {

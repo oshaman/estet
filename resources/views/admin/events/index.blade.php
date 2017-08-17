@@ -1,5 +1,34 @@
 @extends('admin.index')
 
+@section('tiny')
+    <script src="{{ asset('/js/tinymce/js/tinymce/tinymce.min.js') }}"></script>
+    <script>
+        var editor_config = {
+            path_absolute : "/",
+            selector: "textarea.editor",
+            language: 'ru',
+            branding: false,
+            height : 650,
+            width : 960,
+            plugins: [
+                "advlist autolink lists link charmap print preview hr anchor pagebreak",
+                "searchreplace wordcount visualblocks visualchars code fullscreen",
+                "insertdatetime nonbreaking save table contextmenu directionality",
+                "emoticons template paste textcolor colorpicker textpattern",
+                "importcss"
+            ],
+            content_css: "{{asset('css')}}/app.css",
+            importcss_append: true,
+            importcss_file_filter: "{{asset('css')}}/app.css",
+            themes: "modern",
+            toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent",
+            relative_urls: false,
+        };
+
+        tinymce.init(editor_config);
+    </script>
+@endsection
+
 @section('content')
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">

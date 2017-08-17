@@ -6,6 +6,7 @@
     <div class="row">
     {!! Form::text('eventcat', old('eventcat') ? : '' , ['placeholder'=>'Психиатрия...', 'id'=>'eventcat', 'class'=>'form-control']) !!}
     </div>
+    {{ Form::label('alias', 'Псевдоним') }}
     <div class="row">
         {!! Form::text('alias', old('alias') ? : '' , ['placeholder'=>'psihiatriya...', 'id'=>'alias', 'class'=>'form-control']) !!}
     </div>

@@ -87,4 +87,14 @@ class CitiesRepository extends Repository
         }
         return ['error'=>'Ошибка записи'];
     }
+
+    public function citiesSelect()
+    {
+        $cities = $this->model->select(['name', 'id'])->get();
+        $lists = array();
+        foreach($cities as $city) {
+            $lists[$city->id] = $city->name;
+        }
+        return $lists;
+    }
 }

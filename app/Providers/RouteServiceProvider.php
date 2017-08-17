@@ -62,6 +62,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('city', \Fresh\Estet\City::class);
         Route::model('eventcat', \Fresh\Estet\Eventscategory::class);
         Route::model('organizer', \Fresh\Estet\Organizer::class);
+        Route::model('event', \Fresh\Estet\Event::class);
 //        Route::model('tag', \Fresh\Estet\Tag::class);
 
 

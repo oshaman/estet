@@ -6,6 +6,7 @@
     <div class="row">
         {!! Form::text('eventcat', old('eventcat') ? : ($category->name ?? '') , ['placeholder'=>'Психиатр...', 'id'=>'eventcat', 'class'=>'form-control']) !!}
     </div>
+    {{ Form::label('alias', 'Псевдоним') }}
     <div class="row">
         {!! Form::text('alias', old('alias') ? : ($category->alias ?? '') , ['placeholder'=>'psihiatr...', 'id'=>'alias', 'class'=>'form-control']) !!}
     </div>

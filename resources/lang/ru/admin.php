@@ -102,7 +102,11 @@ return [
     'prem2' => 'ID №2',
 //    country
     'country' => 'Страна',
+    'city' => 'Город',
 //    events
     'eventcat' => 'Категория',
     'organizer' => 'Организатор',
+    'start' => 'Дата начала',
+    'stop' => 'Дата окончания',
+
 ];
