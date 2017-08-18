@@ -33,8 +33,6 @@ class CitiesRepository extends Repository
         } else {
             return null;
         }
-
-
     }
 
     /**

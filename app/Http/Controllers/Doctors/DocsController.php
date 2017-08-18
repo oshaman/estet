@@ -1,8 +1,9 @@
 <?php
 
-namespace Fresh\Estet\Http\Controllers;
+namespace Fresh\Estet\Http\Controllers\Doctors;
 
 use Fresh\Estet\Repositories\ArticlesRepository;
+use Fresh\Estet\Http\Controllers\Controller;
 use Menu;
 use DB;
 
@@ -12,7 +13,7 @@ class DocsController extends Controller
     protected $content = FALSE;
     protected $title;
     protected $vars;
-    protected $sidebar_vars = false;
+    protected $sidebar = false;
     protected $a_rep;
 
 
@@ -24,24 +25,22 @@ class DocsController extends Controller
     public function index($article=null)
     {
         if ($article) {
-            if ($article) {
 
-                if (!empty($article->seo)) {
-                    $article->seo = $this->a_rep->convertSeo($article->seo);
-                }
-                $article->created = $this->a_rep->convertDate($article->created_at);
-                $article->load('category');
-                $article->load('tags');
-                $article->load('comments');
-
-                $this->a_rep->displayed($article->id);
-//            Last 2 publications
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $article->id]);
-                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
-
-                $this->content = view('doc.article')->with(['article'=>$article, 'lasts'=>$lasts])->render();
-                return $this->renderOutput();
+            if (!empty($article->seo)) {
+                $article->seo = $this->a_rep->convertSeo($article->seo);
             }
+            $article->created = $this->a_rep->convertDate($article->created_at);
+            $article->load('category');
+            $article->load('tags');
+            $article->load('comments');
+
+            $this->a_rep->displayed($article->id);
+//            Last 2 publications
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $article->id]);
+            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+
+            $this->content = view('doc.article')->with(['article'=>$article, 'lasts'=>$lasts])->render();
+            return $this->renderOutput();
         }
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
 
@@ -67,7 +66,7 @@ class DocsController extends Controller
         $menu = $this->getMenu();
 
         $this->vars = array_add($this->vars, 'nav', $menu);
-
+        
         if($this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
         }
@@ -77,7 +76,7 @@ class DocsController extends Controller
 
     public function getMenu() {
         $cats = DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
-//        dd($cats);
+
         return Menu::make('docsMenu', function($menu) use ($cats) {
 
             foreach ($cats as $cat) {

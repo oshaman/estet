@@ -23,4 +23,12 @@ class Event extends Model
     {
         return $this->hasMany('Fresh\Estet\Slider');
     }
+
+    /**
+     * @return $this
+     */
+    public function comments()
+    {
+        return $this->hasMany('Fresh\Estet\Eventcomment')->where('approved', 1);
+    }
 }

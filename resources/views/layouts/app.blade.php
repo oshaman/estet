@@ -55,8 +55,6 @@
                             </ul>
                         </li>
                     </ul>
-                    <a class="navbar-brand" href="{{ route('blogs') }}"> Блог</a>
-                    <a class="navbar-brand" href="{{ route('horoscope') }}"> Гороскоп</a>
                     <a class="navbar-brand" href="{{ route('articles') }}"> Статьи</a>
                     <a class="navbar-brand" href="{{ route('search') }}"> Поиск</a>
 

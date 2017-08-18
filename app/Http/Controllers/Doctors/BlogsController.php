@@ -1,12 +1,8 @@
 <?php
 
-namespace Fresh\Estet\Http\Controllers;
+namespace Fresh\Estet\Http\Controllers\Doctors;
 
-use Illuminate\Http\Request;
-
-use Fresh\Estet\Http\Controllers\DocsController;
 use Fresh\Estet\Repositories\BlogsRepository;
-
 use DB;
 
 class BlogsController extends DocsController

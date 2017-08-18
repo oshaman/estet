@@ -24,13 +24,34 @@ class EventsController extends AdminController
         $this->repository = $repository;
     }
 
-    public function show()
+    public function show(EventRequest $request)
     {
         if (Gate::denies('UPDATE_EVENTS')) {
             abort(404);
         }
 
-        $events = $this->repository->get(['id', 'title', 'start', 'stop'], false, true, false, ['created_at', 'desc']);
+        $data = $request->except('_token');
+        if (!empty($data['param'])) {
+            $data['value'] = $data['value'] ?? null;
+            switch ($data['param']) {
+                case 1:
+                    $events[] = $this->repository->one($data['value']);
+                    break;
+                case 2:
+                    $events = $this->repository->get(['id', 'title', 'start', 'stop'], false, true, ['organizer_id', $data['value']]);
+                    if ($events) $events->appends(['param' => $data['param'], 'value' => $data['value']])->links();
+                    break;
+                case 3:
+                    $events = $this->repository->get(['id', 'title', 'start', 'stop'], false, true, ['cat_id', $data['value']]);
+                    if ($events) $events->appends(['param' => $data['param'], 'value' => $data['value']])->links();
+                    break;
+                default:
+                    $events = $this->repository->get(['id', 'title', 'start', 'stop'], false, true, false, ['created_at', 'desc']);
+                    if ($events) $events->appends(['param' => $data['param']])->links();
+            }
+        } else {
+            $events = $this->repository->get(['id', 'title', 'start', 'stop'], false, true, false, ['created_at', 'desc']);
+        }
 
         $this->content = view('admin.events.show')->with('events', $events)->render();
         return $this->renderOutput();

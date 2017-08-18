@@ -72,6 +72,15 @@ class ArticlesRepository extends Repository
             ->get());
     }
 
+    public function mostDisplayed($select, $where, $take, $order)
+    {
+        return $this->check($this->model->where($where)
+            ->take($take)
+            ->select($select)
+            ->orderBy($order[0], $order[1])
+            ->get());
+    }
+
     /**
      * @param $request
      * @return Result array

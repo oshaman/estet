@@ -328,4 +328,60 @@ class EventsRepository extends Repository
         }
         return true;
     }
+
+    /**
+     * @param $id
+     * @return bool
+     */
+    public function displayed($id)
+    {
+        try {
+            $this->model->find($id)->increment('view');
+
+        } catch (Exception $e) {
+            \Log::info('Ошибка записи просмотра: ', $e->getMessage());
+
+        }
+        return true;
+    }
+
+    public function getWithoutPrems($pagination=false, $where=false, $wherenot=false, $order=false)
+    {
+        $builder = $this->model->with('logo');
+
+        if ($where) {
+            if (is_array($where[0])) {
+                $builder->where($where);
+            } else {
+                $builder->where($where[0], $where[1], $where[2] = false);
+            }
+        }
+
+        if ($wherenot) {
+            $wherenot = array_diff($wherenot, ['']);
+            $builder->whereNotIn('id', $wherenot);
+        }
+
+        if ($order) {
+            $builder->orderBy($order[0], $order[1]);
+        }
+
+        if($pagination) {
+            return $builder->paginate(Config::get('settings.paginate'));
+        }
+
+        return $builder->get();
+    }
+
+    /**
+     * @param $ids
+     * @return \Illuminate\Support\Collection
+     */
+    public function getPrems($ids)
+    {
+        $result = $this->model->with('logo')
+                        ->whereIn('id', $ids)
+                        ->get();
+        return $result;
+    }
 }

@@ -53,6 +53,10 @@ class RouteServiceProvider extends ServiceProvider
             return \Fresh\Estet\Establishment::where('alias', $value)->first();
         });
 
+        Route::bind('event_alias', function ($value) {
+            return \Fresh\Estet\Event::where('alias', $value)->first();
+        });
+
         Route::model('article', \Fresh\Estet\Article::class);
         Route::model('cat', \Fresh\Estet\Category::class);
         Route::model('blogcat', \Fresh\Estet\BlogCategory::class);

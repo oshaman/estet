@@ -4,7 +4,7 @@
     {{ Form::label('value', 'Параметр поиска') }}
     {!! Form::text('value', old('value') ? : '' , ['placeholder'=>'ID...', 'id'=>'value', 'class'=>'form-control']) !!}
     {{ Form::label('param', 'Критерий поиска') }}
-    {!! Form::select('param', ['Все', 'Организатор', 'Категория'], old('param') ? : '', ['class'=>'form-control']) !!}
+    {!! Form::select('param', [1=>'Псевдоним', 2=>'ID Организатора', 3=>'ID Категории'], old('param') ? : '', ['class'=>'form-control']) !!}
 </div>
 <hr>
 <div class="row">
@@ -42,7 +42,7 @@
 
     <div class="general-pagination group">
 
-        @if($events->lastPage() > 1)
+        @if(is_object($events) && !empty($events->lastPage()) && $events->lastPage() > 1)
             <ul class="pagination">
                 @if($events->currentPage() !== 1)
                     <li><a href="{{ $events->url(($events->currentPage() - 1)) }}">{{ Lang::get('pagination.previous') }}</a></li>

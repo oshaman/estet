@@ -20,11 +20,12 @@
 @if(!empty($categories))
     <table class="table">
         <thead>
-        <tr><th>Имя</th><th>Псевдоним</th><th>Редактировать</th></tr>
+        <tr><th>ID</th><th>Имя</th><th>Псевдоним</th><th>Редактировать</th></tr>
         </thead>
         <tbody>
     @foreach($categories as $category)
             <tr>
+                <td>{{ $category->id }}</td>
                 <td>{{ $category->name }}</td>
                 <td>{{ $category->alias }}</td>
                 <td>

@@ -3,10 +3,12 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Blogcomment;
 use Fresh\Estet\Establishmentcomment;
+use Fresh\Estet\Eventcomment;
 use Validator;
 use Fresh\Estet\Article;
 use Fresh\Estet\Establishment;
 use Fresh\Estet\Blog;
+use Fresh\Estet\Event;
 use Fresh\Estet\Comment;
 use Config;
 
@@ -25,6 +27,9 @@ class CommentsRepository
             case 3:
                 $comments = Establishmentcomment::where('approved', 0)->select(['name', 'email', 'id', 'text'])->orderBy('created_at', 'desc')->paginate(Config::get('settings.paginate_comments'));
                 return $comments;
+            case 4:
+                $comments = Eventcomment::where('approved', 0)->select(['name', 'email', 'id', 'text'])->orderBy('created_at', 'desc')->paginate(Config::get('settings.paginate_comments'));
+                return $comments;
             default:
                 return ['error'=>'Ошибка получения коментария'];
         }
@@ -42,6 +47,10 @@ class CommentsRepository
                 return $comment;
             case 3:
                 $comment = Establishmentcomment::find($id);
+
+                return $comment;
+            case 4:
+                $comment = Eventcomment::find($id);
 
                 return $comment;
             default:
@@ -94,6 +103,13 @@ class CommentsRepository
                 }
                 $data['establishment_id'] = $data['comment_post_ID'];
                 $model = new Establishmentcomment();
+                break;
+            case 4:
+                if (!Event::where('id', '=', $data['comment_post_ID'])->exists()) {
+                    return ['error'=>'Ошибка получения коментария'];
+                }
+                $data['event_id'] = $data['comment_post_ID'];
+                $model = new Eventcomment();
                 break;
             default:
                 return ['error'=>'Ошибка получения коментария'];
@@ -160,6 +176,15 @@ class CommentsRepository
 
                 $data['establishment_id'] = $data['comment_post_ID'];
                 break;
+            case 4:
+                $model = Eventcomment::where('id', '=', $id)->first();
+
+                if (!$model) {
+                    return ['error'=>'Ошибка получения коментария'];
+                }
+
+                $data['event_id'] = $data['comment_post_ID'];
+                break;
             default:
                 return ['error'=>'Ошибка получения коментария'];
         }
@@ -195,6 +220,13 @@ class CommentsRepository
                 break;
             case 3:
                 $model = Establishmentcomment::where('id', '=', $id)->first();
+
+                if (!$model) {
+                    return ['error'=>'Ошибка получения коментария'];
+                }
+                break;
+            case 4:
+                $model = Eventcomment::where('id', '=', $id)->first();
 
                 if (!$model) {
                     return ['error'=>'Ошибка получения коментария'];

@@ -64,7 +64,6 @@
     @endforeach
 @endif
 <hr>
-<hr>
 <div class="row">
     <h4>Добавить коментарий</h4>
     <div class="row">
