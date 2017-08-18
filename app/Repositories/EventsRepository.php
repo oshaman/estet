@@ -4,6 +4,7 @@ namespace Fresh\Estet\Repositories;
 use Fresh\Estet\Event;
 use Image;
 use Config;
+use File;
 
 class EventsRepository extends Repository
 {
@@ -41,8 +42,6 @@ class EventsRepository extends Repository
         $event['stop'] = date('Y-m-d', strtotime($data['stop']));
 
         $event['content'] = $data['content'];
-        $event['description'] = $data['description'];
-
         $event['description'] = $data['description'];
 
         $img_prop['imgalt'] = $data['imgalt'] ? $data['imgalt'] : null;
@@ -107,9 +106,139 @@ class EventsRepository extends Repository
 
     }
 
+    public function updateEvent($request, $event)
+    {
+        $event->load('logo');
+        $event->load('slider');
+        
+        $data = $request->except('_token', 'logo', 'slider');
+
+        $new['title'] = $data['title'];
+
+        $new['alias'] = $this->transliterate($data['alias']);
+        $new['country_id'] = $data['country'];
+        $new['city_id'] = $data['city'];
+
+
+        $new['organizer_id'] = $data['organizer'];
+        $new['cat_id'] = $data['cats'];
+
+        $new['start'] = date('Y-m-d', strtotime($data['start']));
+        $new['stop'] = date('Y-m-d', strtotime($data['start']));
+
+        $new['content'] = $data['content'];
+        $new['description'] = $data['description'];
+
+        if (!empty($data['confirmed'])) {
+            $new['approved'] = 1;
+        } else {
+            $new['approved'] = 0;
+        }
+        // SEO handle
+        if (!empty($data['seo_title'] || !empty($data['seo_keywords']) || !empty($data['seo_description']) || !empty($data['seo_text'])
+            || !empty($data['og_image']) || !empty($data['og_title']) || !empty($data['og_description']))) {
+            $obj = new \stdClass;
+            $obj->seo_title = $data['seo_title'] ?? '';
+            $obj->seo_keywords = $data['seo_keywords'] ?? '';
+            $obj->seo_description = $data['seo_description'] ?? '';
+            $obj->seo_text = $data['seo_text'] ?? '';
+            $obj->og_image = $data['og_image'] ?? '';
+            $obj->og_title = $data['og_title'] ?? '';
+            $obj->og_description = $data['og_description'] ?? '';
+            $new['seo'] = json_encode($obj);
+        }
+        // SEO handle
+        // Logo props
+        if ($data['imgalt'] !== $event->logo->title) {
+            $new['imgalt'] = $data['imgalt'];
+        } else {
+            $new['imgalt'] = $event->logo->title;
+        }
+
+        if ($data['imgtitle'] !== $event->logo->title) {
+            $new['imgtitle'] = $data['imgtitle'];
+        } else {
+            $new['imgtitle'] = $event->logo->title;
+        }
+        // Logo props
+
+
+        $updated = $event->fill($new)->save();
+
+        $error = '';
+        if (!empty($updated)) {
+
+            // Main Image handle
+            if ($request->hasFile('img')) {
+                $old_img = $event->logo->path;
+                $path = $this->mainImg($request->file('img'), $event['alias']);
+
+                if (false === $path) {
+                    $error[] =  ['img' => 'Ошибка загрузки картинки'];
+                } else {
+                    $img = $event->logo()->update(['path'=>$path, 'alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
+                }
+
+                if (null == $img) {
+                    $error[] = ['img' => 'Ошибка записи картинки'];
+                }
+                //DELETE OLD IMAGE
+                $this->deleteOldImages($old_img, 'event');
+            } else {
+                try {
+                    $event->logo()->update(['alt' => $new['imgalt'], 'title' => $new['imgtitle']]);
+                } catch (Exception $e) {
+                    \Log::info('Ошибка обновления главного изображения статьи: ', $e->getMessage());
+                    $error[] = ['img' => 'Ошибка обновления главного изображения статьи'];
+                }
+            }
+            //Slider
+            $slider_path = [];
+            if ($request->hasFile('slider')) {
+                foreach ($request->file('slider') as $slider) {
+                    $slider_path[] = $this->sliderImg($slider, $event['alias']);
+                }
+
+            }
+            // slider imgs
+            if (!empty($slider_path)) {
+                try {
+                    $event->slider()->createMany($slider_path);
+                } catch (Exception $e) {
+                    \Log::info('Ошибка записи фотографий слайдера: ', $e->getMessage());
+                    $error[] = ['slider' => 'Ошибка записи фотографий слайдера'];
+                }
+            }
+
+            return ['status' => trans('admin.material_updated'), $error];
+        }
+        return ['error' => $error];
+    }
+
+    /**
+     * @param $event
+     * @return array
+     */
     public function deleteEvent($event)
     {
-        $event->delete();
+
+        $logo = $event->logo()->first();
+        $slider = $event->slider()->select('path')->get();
+
+
+        if ($slider->isNotEmpty()) {
+            foreach ($slider->toArray() as $name) {
+                $this->deleteOldImages($name['path'], 'event/slider');
+            }
+        }
+        $this->deleteOldImages($logo->path, 'event');
+
+        try {
+            $event->delete();
+        } catch (Exception $e) {
+            \Log::info('Ошибка удаления мероприятия: ', $e->getMessage());
+        }
+
         return ['status' => trans('admin.deleted')];
     }
     /**
@@ -172,5 +301,31 @@ class EventsRepository extends Repository
         } else {
             return false;
         }
+    }
+    /**
+     * delete old main image
+     * @param $path
+     * @return true
+     */
+    public function deleteOldImages($name, $path)
+    {
+
+//        dd(File::exists(public_path('/images/'. $path .'/main/') . $name));
+        if (File::exists(public_path('/images/'. $path .'/main/') . $name)) {
+            File::delete(public_path('/images/'. $path .'/main/') . $name);
+        }
+        if (File::exists(public_path('/images/'. $path .'/middle/'). $name)) {
+            File::delete(public_path('/images/'. $path .'/middle/') . $name);
+        }
+        if (File::exists(public_path('/images/'. $path .'/small/'). $name)) {
+            File::delete(public_path('/images/'. $path .'/small/'). $name);
+        }
+        if (File::exists(public_path('/images/'. $path .'/mini/'). $name)) {
+            File::delete(public_path('/images/'. $path .'/mini/'). $name);
+        }
+        if (File::exists(public_path('/images/'. $path .'/tmp/'). $name)) {
+            File::delete(public_path('/images/'. $path .'/tmp/'). $name);
+        }
+        return true;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin\Events;
 
+use Fresh\Estet\Event;
 use Fresh\Estet\Http\Controllers\Admin\AdminController;
 use Fresh\Estet\Http\Requests\EventRequest;
 use Fresh\Estet\Repositories\CitiesRepository;
@@ -13,6 +14,7 @@ use Gate;
 
 class EventsController extends AdminController
 {
+    protected $repository;
     /**
      * EventsController constructor.
      */
@@ -28,8 +30,9 @@ class EventsController extends AdminController
             abort(404);
         }
 
+        $events = $this->repository->get(['id', 'title', 'start', 'stop'], false, true, false, ['created_at', 'desc']);
 
-        $this->content = view('admin.events.show')->render();
+        $this->content = view('admin.events.show')->with('events', $events)->render();
         return $this->renderOutput();
     }
 
@@ -76,11 +79,42 @@ class EventsController extends AdminController
         return redirect()->route('events_admin')->with($result);
     }
 
-    public function edit()
+    public function edit(
+        EventCategoriesRepository $cat_rep,
+        OrganizersRepository $org_rep,
+        CitiesRepository $city_rep,
+        CountriesRepository $country_rep,
+        EventRequest $request,
+        $event
+    )
     {
         if (Gate::denies('UPDATE_EVENTS')) {
             abort(404);
         }
-        dd('del');
+        if ($request->isMethod('post')) {
+
+            $result = $this->repository->updateEvent($request, $event);
+
+            if(is_array($result) && !empty($result['error'])) {
+                return back()->withErrors($result);
+            }
+            return redirect()->route('events_admin')->with($result);
+        }
+
+        $cats = $cat_rep->catSelect();
+        $organizers = $org_rep->organizerSelect();
+        $countries = $country_rep->getCountriesSelect();
+        $cities = $city_rep->citiesSelect();
+
+        $logo = $event->logo;
+        $slider = $event->slider;
+
+        $event->seo = $this->repository->convertSeo($event->seo);
+
+        $this->content = view('admin.events.update')
+                ->with(['cats' => $cats, 'organizers' => $organizers, 'countries' => $countries, 'cities' => $cities,
+                    'logo' => $logo, 'slider' => $slider, 'event' => $event])
+                ->render();
+        return $this->renderOutput();
     }
 }

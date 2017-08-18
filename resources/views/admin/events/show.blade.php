@@ -15,12 +15,14 @@
 @if(!empty($events))
     <table class="table">
         <thead>
-        <tr><th>Имя</th><th>Редактировать</th><th>Удалить</th></tr>
+        <tr><th>Название</th><th>Начало</th><th>Конец</th><th>Редактировать</th><th>Удалить</th></tr>
         </thead>
         <tbody>
         @foreach($events as $event)
             <tr>
-                <td>{{ $event->name }}</td>
+                <td>{{ $event->title }}</td>
+                <td>{{ $event->start }}</td>
+                <td>{{ $event->stop }}</td>
                 <td>
                     {!! Form::open(['url' => route('edit_event',['$event'=> $event->id]),'class'=>'form-horizontal','method'=>'GET']) !!}
                     {!! Form::button(trans('admin.edit_btn'), ['class' => 'btn btn-warning','type'=>'submit']) !!}
