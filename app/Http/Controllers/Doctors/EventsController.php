@@ -91,8 +91,8 @@ class EventsController extends DocsController
 //            ['start', '>=', date('Y-m-d', now())]
 //        ];
 
-        $calendar = $this->repository->get(['title'], false, false, $where1, false, ['logo']);
-        dd($calendar);
+       /* $calendar = $this->repository->get(['title'], false, false, $where1, false, ['logo']);
+        dd($calendar);*/
         $events = $this->repository->getWithoutPrems(true, $where, $prems_ids);
 //        dd($events);
 

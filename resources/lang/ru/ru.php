@@ -32,6 +32,7 @@ return [
     'UPDATE_PREMIUMS' => 'Добавление премиум',
     'UPDATE_GEO' => 'Добавление Страны\Города',
     'UPDATE_EVENTS' => 'Управление мероприятиями',
+    'UPDATE_SEO' => 'SEO',
 
     /**
      *  Roles

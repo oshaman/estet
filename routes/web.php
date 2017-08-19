@@ -234,6 +234,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             Route::match(['get', 'post'], 'edit/{organizer}', ['uses' => 'Admin\Events\OrganizersController@edit', 'as' => 'organizer_edit'])->where('organizer', '[0-9]+');
         });
     });
+    /**
+     * Admin SEO
+     */
+    Route::group(['prefix'=>'seo'], function () {
+        Route::get('/', 'Admin\SeoController@index')->name('seo_admin');
+        Route::match(['post', 'get'], 'edit/{seo}', 'Admin\SeoController@edit')->name('seo_update')->where('seo', '[0-9]+');
+    });
 });
 
 /**
