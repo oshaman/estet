@@ -6,6 +6,7 @@ use Fresh\Estet\Repositories\ArticlesRepository;
 use Fresh\Estet\Http\Controllers\Controller;
 use Menu;
 use DB;
+use Cache;
 
 class DocsController extends Controller
 {
@@ -63,9 +64,14 @@ class DocsController extends Controller
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
 
-        $menu = $this->getMenu();
+        Cache::forget('docsMenu');
 
-        $this->vars = array_add($this->vars, 'nav', $menu);
+        $nav = Cache::remember('docsMenu', 60,function() {
+            $menu = $this->getMenu();
+            return view('doc.nav')->with('menu', $menu)->render();
+        });
+
+        $this->vars = array_add($this->vars, 'nav', $nav);
         
         if($this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);

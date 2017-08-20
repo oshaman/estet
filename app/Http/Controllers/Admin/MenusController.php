@@ -7,6 +7,7 @@ use Fresh\Estet\Repositories\MenusRepository;
 use Fresh\Estet\Menu;
 use Fresh\Estet\Http\Requests\MenusRequest;
 use Gate;
+use Cache;
 
 class MenusController extends AdminController
 {
@@ -29,6 +30,8 @@ class MenusController extends AdminController
             if(is_array($result) && !empty($result['error'])) {
                 return back()->withErrors($result);
             }
+            Cache::forget('patientMenu');
+            Cache::forget('docsMenu');
             return back()->with($result);
         }
 

@@ -1,10 +1,13 @@
 <?php
 namespace Fresh\Estet\Http\Controllers\Patient;
 
+use Fresh\Estet\Article;
 use Fresh\Estet\Http\Controllers\Controller;
 use Menu;
 use DB;
+use Cache;
 use Fresh\Estet\Repositories\ArticlesRepository;
+
 
 class ArticlesController extends Controller
 {
@@ -80,9 +83,12 @@ class ArticlesController extends Controller
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
 
-        $menu = $this->getMenu();
+        $nav = Cache::remember('patientMenu', 60,function() {
+            $menu = $this->getMenu();
+            return view('patient.nav')->with('menu', $menu)->render();
+        });
 
-        $this->vars = array_add($this->vars, 'nav', $menu);
+        $this->vars = array_add($this->vars, 'nav', $nav);
 
         if(false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
@@ -94,7 +100,7 @@ class ArticlesController extends Controller
     public function getMenu() {
         $cats = DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
 
-        return Menu::make('docsMenu', function($menu) use ($cats) {
+        return Menu::make('patientMenu', function($menu) use ($cats) {
 
             foreach ($cats as $cat) {
                 $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
