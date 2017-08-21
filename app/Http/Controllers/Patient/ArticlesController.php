@@ -1,6 +1,7 @@
 <?php
 namespace Fresh\Estet\Http\Controllers\Patient;
 
+use function foo\func;
 use Fresh\Estet\Article;
 use Fresh\Estet\Http\Controllers\Controller;
 use Menu;
@@ -15,7 +16,7 @@ class ArticlesController extends Controller
     protected $content = FALSE;
     protected $title;
     protected $vars;
-    protected $sidebar_vars = false;
+    protected $sidebar = false;
     protected $a_rep;
 
     public function __construct(ArticlesRepository $repository)
@@ -45,23 +46,22 @@ class ArticlesController extends Controller
             $article->load('category');
             $article->load('tags');
             $this->a_rep->displayed($article->id);
+            $article_id = $article->id;
+            $this->sidebar = Cache::remember('patientSidebar', 60, function () use ($article_id) {
+//                Last 2 publications
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article_id]);
+                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
 
-//            Last 2 publications
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article->id]);
-            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+    //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+                return view('patient.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
+            });
 
-//          most displayed
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
-            $sidebar = view('patient.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
-
-            $this->content = view('patient.article')->with(['article'=>$article, 'sidebar'=>$sidebar])->render();
+            $this->content = view('patient.article')->with(['article'=>$article, 'sidebar'=>$this->sidebar])->render();
             return $this->renderOutput();
         }
-
-
-        $this->content = 'ARTICLES';
-        return $this->renderOutput();
+        return redirect()->route('main');
     }
 
     /**

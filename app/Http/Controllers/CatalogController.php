@@ -10,6 +10,7 @@ use Fresh\Estet\Person;
 use Fresh\Estet\Repositories\BlogsRepository;
 use DB;
 use Fresh\Estet\Repositories\PremiumsRepository;
+use Cache;
 
 class CatalogController extends Controller
 {
@@ -171,12 +172,19 @@ class CatalogController extends Controller
         $status = session('doc');
 
 //        sidebar
-        $own = $status ? 'docs' : 'patient';
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
 
-        $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
+        $this->sidebar = Cache::remember('catalog_sidebar', 60, function () use ($status) {
+            $own = $status ? 'docs' : 'patient';
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
+            $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
 
-        $this->sidebar = view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => $status])->render();
+            //          most displayed
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
+            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+
+            return view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => $status, 'articles' => $articles])->render();
+        });
+
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
 
@@ -193,8 +201,13 @@ class CatalogController extends Controller
 
     public function getMenu($status)
     {
-        $select = $status ? 'docsmenuview' : 'patientmenuview';
-        $cats = DB::select('SELECT `name`, `alias` FROM ' . $select);
+        if ($status) {
+            $cats= Cache::remember('catalogMenu', 600, function () {
+                return DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
+            });
+        } else {
+            return DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
+        }
         return $cats;
 
     }

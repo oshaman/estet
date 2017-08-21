@@ -7,6 +7,7 @@ use File;
 use Image;
 use Config;
 use Validator;
+use Cache;
 
 class ArticlesRepository extends Repository
 {
@@ -196,6 +197,13 @@ class ArticlesRepository extends Repository
                 }
             }
 
+            Cache::forget('patientSidebar');
+            Cache::forget('horoscopeSidebar');
+            Cache::forget('catalog_sidebar');
+            Cache::forget('docsArticleSidebar');
+            Cache::forget('docsSidebar');
+            Cache::forget('docsArticles');
+
             return ['status' => trans('admin.material_added'), $error];
         }
         return ['error' => $error];
@@ -361,6 +369,8 @@ class ArticlesRepository extends Repository
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
+            Cache::forget('patientSidebar');
+            Cache::forget('horoscopeSidebar');
 
             return ['status' => trans('admin.material_updated'), $error];
         }
@@ -408,6 +418,9 @@ class ArticlesRepository extends Repository
                     }
                 }
             }
+            Cache::forget('patientSidebar');
+            Cache::forget('horoscopeSidebar');
+
             return ['status' => trans('admin.deleted')];
         }
 

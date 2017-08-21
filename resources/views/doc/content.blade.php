@@ -1,8 +1,9 @@
+<div class="col-lg-9">
 @if(!empty($articles))
     @foreach($articles as $article)
         <div class="row">
             <div class="col-md-6">
-                {{ Html::image(asset('/images/article/main') . '/' . $article->image->path, $article->image->alt, ['title' => $article->image->title]) }}
+                {{ Html::image(asset('/images/article/middle') . '/' . $article->image->path, $article->image->alt, ['title' => $article->image->title]) }}
             </div>
             <div class="col-md-6">
                 <div class="row">
@@ -19,3 +20,9 @@
         </div>
     @endforeach
 @endif
+</div>
+<div class="col-lg-2 col-lg-offset-1">
+    @if(!empty($sidebar))
+        {!! $sidebar !!}
+    @endif
+</div>

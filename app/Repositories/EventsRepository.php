@@ -346,7 +346,7 @@ class EventsRepository extends Repository
         return true;
     }
 
-    public function getWithoutPrems($pagination=false, $where=false, $wherenot=false, $order=false)
+    public function getWithoutPrems($pagination=false, $where=false, $wherenot=false, $order=false, $where_in)
     {
         $builder = $this->model->with('logo');
 
@@ -356,6 +356,10 @@ class EventsRepository extends Repository
             } else {
                 $builder->where($where[0], $where[1], $where[2] = false);
             }
+        }
+
+        if ($where_in) {
+            $builder->whereIn('organizer_id', $where_in);
         }
 
         if ($wherenot) {

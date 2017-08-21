@@ -23,6 +23,13 @@
                 {{ Form::label('organizer', 'Выбрать организатора') }}
                 {!! Form::select('organizer', [null => 'Организатор'] + $organizer, old('organizer') ? : '', ['class'=>'form-control']) !!}
             </div>
+            <hr>
+            @if(!empty($children))
+            @foreach($children as $child)
+                <a href="{{ route('events') }}/?country=&city=&cat=&organizer={{ $child->id }}">{{ $child->name }}</a>
+            @endforeach
+            @endif
+            <hr>
             {!! Form::button('Поиск', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
             <hr>
             {!! Form::close() !!}

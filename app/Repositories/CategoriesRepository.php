@@ -3,6 +3,7 @@
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Category;
+use Cache;
 
 class CategoriesRepository extends Repository {
 
@@ -67,6 +68,9 @@ class CategoriesRepository extends Repository {
                 $cat->alias = $alias;
             }
         }
+        Cache::forget('patientMenu');
+        Cache::forget('docsMenu');
+        Cache::forget('catalogMenu');
 
         $res = $cat->save();
         return $res;

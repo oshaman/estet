@@ -36,18 +36,40 @@ class DocsController extends Controller
             $article->load('comments');
 
             $this->a_rep->displayed($article->id);
-//            Last 2 publications
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $article->id]);
-            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+            $id = $article->id;
+            $this->sidebar = Cache::remember('docsArticleSidebar', 60, function () use ($id) {
+                //            Last 2 publications
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $id]);
+                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+                return view('doc.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
+            });
 
-            $this->content = view('doc.article')->with(['article'=>$article, 'lasts'=>$lasts])->render();
+
+            $this->content = view('doc.article')->with(['article'=>$article, 'sidebar'=>$this->sidebar])->render();
             return $this->renderOutput();
         }
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
 
-        $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
+//        Cache::flush();
+        $this->sidebar = Cache::remember('docsSidebar', 60, function () {
+            //            Last 2 publications
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+            //          most displayed
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+            return view('doc.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
+        });
 
-        $this->content = view('doc.content')->with(['articles' => $articles])->render();
+        $articles = Cache::remember('docsArticles', 60, function () {
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $select = ['alias', 'title', 'category_id', 'id', 'created_at', 'content'];
+            return $this->a_rep->getMain($select, $where, ['image', 'category'], 3, ['created_at', 'desc']);
+        });
+
+        $this->content = view('doc.content')->with(['articles' => $articles, 'sidebar' => $this->sidebar])->render();
         return $this->renderOutput();
     }
 

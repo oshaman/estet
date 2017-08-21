@@ -55,7 +55,6 @@
                             </ul>
                         </li>
                     </ul>
-                    <a class="navbar-brand" href="{{ route('articles') }}"> Статьи</a>
                     <a class="navbar-brand" href="{{ route('search') }}"> Поиск</a>
 
                     <!-- Right Side Of Navbar -->

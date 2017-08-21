@@ -16,10 +16,10 @@ Route::get('/home', 'HomeController@index')->name('home');
 /**
  * Articles
  */
-Route::group(['prefix' =>'articles'], function () {
+Route::group(['prefix' =>'statyi'], function () {
     Route::get('/{article_alias?}', 'Patient\ArticlesController@show')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
-    Route::get('/tag/{tag_alias}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
-    Route::get('category/{cat_alias}', 'Patient\ArticlesController@category')->name('article_cat')->where('cat', '[a-zA-Z0-9-_]+');
+    Route::get('/teg/{tag_alias}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
+    Route::get('kategorii/{cat_alias}', 'Patient\ArticlesController@category')->name('article_cat')->where('cat', '[a-zA-Z0-9-_]+');
 });
 /**
  *  Profile
@@ -64,13 +64,13 @@ Route::post('comments', 'CommentsController@store')->name('comments');
  */
 Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
     Route::get('/statyi/{article_alias?}', 'Doctors\DocsController@index')->name('doctors')->where('article_alias', '[a-zA-Z0-9-_]+');
-    Route::get('category/{cat_alias}', 'Doctors\DocsController@category')->name('docs_cat')->where('cat', '[a-zA-Z0-9-_]+');
-    Route::get('/tag/{tag_alias}', 'Doctors\DocsController@tag')->name('docs_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
+    Route::get('categorii/{cat_alias}', 'Doctors\DocsController@category')->name('docs_cat')->where('cat', '[a-zA-Z0-9-_]+');
+    Route::get('/teg/{tag_alias}', 'Doctors\DocsController@tag')->name('docs_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     //  Blog
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/{blog_alias?}', 'Doctors\BlogsController@index')->name('blogs')->where('blog_alias', '[a-zA-Z0-9-_]+');
-        Route::get('category/{blogs_cat?}', 'Doctors\BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
-        Route::get('/tag/{tag_alias}', 'Doctors\BlogsController@tag')->name('blog_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
+        Route::get('categorii/{blogs_cat?}', 'Doctors\BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
+        Route::get('/teg/{tag_alias}', 'Doctors\BlogsController@tag')->name('blog_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     });
 });
 /**

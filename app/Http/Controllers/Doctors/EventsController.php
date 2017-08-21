@@ -12,6 +12,7 @@ use DB;
 use Fresh\Estet\Repositories\OrganizersRepository;
 use Fresh\Estet\Repositories\PremiumsRepository;
 use Cache;
+use Carbon\Carbon;
 
 class EventsController extends DocsController
 {
@@ -69,7 +70,9 @@ class EventsController extends DocsController
             return $this->renderOutput();
         }
 
-
+//        $now = Carbon::now();
+//        $month = $now->format('Y-m');
+//        dd($month);
 
 
 
@@ -78,6 +81,8 @@ class EventsController extends DocsController
         });
 
         $where = false;
+        $where_in = false;
+        $children = false;
         if (!empty($request->all())) {
             $data = $request->all();
             if(!empty($data['country'])) {
@@ -93,7 +98,13 @@ class EventsController extends DocsController
             }
 
             if(!empty($data['organizer'])) {
-                $where[] = ['organizer_id', $data['organizer']];
+                $children = $this->organizer->getChildren($data['organizer']);
+                $where_in[] = $data['organizer'];
+                if ($children->isNotEmpty()) {
+                    foreach ($children as $child) {
+                        $where_in[] = $child->id;
+                    }
+                }
             }
         }
 //
@@ -107,7 +118,7 @@ class EventsController extends DocsController
 
        /* $calendar = $this->repository->get(['title'], false, false, $where1, false, ['logo']);
         dd($calendar);*/
-        $events = $this->repository->getWithoutPrems(true, $where, $prems_ids);
+        $events = $this->repository->getWithoutPrems(true, $where, $prems_ids, false, $where_in);
 //        dd($events);
 
         $vars = [
@@ -126,6 +137,7 @@ class EventsController extends DocsController
             'prems'=>Cache::remember('prems', 600, function() use ($prems_ids) {
                 return $this->repository->getPrems($prems_ids);
             }),
+            'children'=>$children,
         ];
 
         $this->content = view('doc.events.index')->with($vars)->render();

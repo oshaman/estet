@@ -89,6 +89,11 @@ class OrganizersRepository extends Repository {
         return $lists;
     }
 
+    public function getChildren($id)
+    {
+        return $this->model->select('id', 'name')->where('parent', $id)->get();
+    }
+
 }
 
 ?>

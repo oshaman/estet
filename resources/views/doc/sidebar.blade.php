@@ -1,14 +1,10 @@
 <div class="row">
     <h3>Последние статьи</h3>
-    @if(!empty($lasts))
+    @if($lasts)
         @foreach($lasts as $last)
             <div class="row">
                 <p><span class="label label-default">{{ $last->created }}</span></p>
-                @if($status)
-                    <p><a href="{{ route('doctors', $last->alias) }}"> {{ $last->title }}</a></p>
-                @else
-                    <p><a href="{{ route('articles', $last->alias) }}"> {{ $last->title }}</a></p>
-                @endif
+                <p><a href="{{ route('doctors', $last->alias) }}"> {{ $last->title }}</a></p>
             </div>
         @endforeach
     @endif
@@ -20,11 +16,7 @@
         @foreach($articles as $article)
             <div class="row">
                 <p><span class="label label-default">{{ $article->created }}</span></p>
-                @if(!session()->has('doc'))
-                    <p><a href="{{ route('patient', $article->alias) }}"> {{ $article->title }}</a></p>
-                @else
-                    <p><a href="{{ route('doctors', $article->alias) }}"> {{ $article->title }}</a></p>
-                @endif
+                <p><a href="{{ route('doctors', $article->alias) }}"> {{ $article->title }}</a></p>
             </div>
         @endforeach
     @endif
