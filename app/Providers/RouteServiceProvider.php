@@ -68,7 +68,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('organizer', \Fresh\Estet\Organizer::class);
         Route::model('event', \Fresh\Estet\Event::class);
         Route::model('seo', \Fresh\Estet\Seo::class);
-//        Route::model('tag', \Fresh\Estet\Tag::class);
+        Route::model('advertising', \Fresh\Estet\Advertising::class);
 
 
     }

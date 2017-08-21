@@ -42,6 +42,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'UPDATE_GEO'],
 //                events
                 ['name'=>'UPDATE_EVENTS'],
+//                ADVERTISING
+                ['name'=>'UPDATE_ADVERTISING'],
             ]
         );
     }

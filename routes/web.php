@@ -245,6 +245,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::get('/', 'Admin\SeoController@index')->name('seo_admin');
         Route::match(['post', 'get'], 'edit/{seo}', 'Admin\SeoController@edit')->name('seo_update')->where('seo', '[0-9]+');
     });
+    /**
+     * Admin Advertising
+     */
+    Route::group(['prefix'=>'advertising'], function () {
+        Route::get('/', 'Admin\AdvertisingController@index')->name('advertising_admin');
+        Route::match(['post', 'get'], 'edit/{advertising}', 'Admin\AdvertisingController@edit')->name('advertising_update')->where('advertising', '[0-9]+');
+    });
 });
 
 /**

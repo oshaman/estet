@@ -33,6 +33,7 @@ return [
     'UPDATE_GEO' => 'Добавление Страны\Города',
     'UPDATE_EVENTS' => 'Управление мероприятиями',
     'UPDATE_SEO' => 'SEO',
+    'UPDATE_ADVERTISING' => 'Реклама',
 
     /**
      *  Roles
@@ -77,4 +78,9 @@ return [
      */
     'articles' => 'Статьи',
     'subscribe' => 'Подписка оформлена',
+//    Реклама
+    'footer' => 'Футер',
+    'sidebar' => 'Сайдбар',
+    'main_1' => 'Главная №1',
+    'main_2' => 'Главная №2',
 ];
