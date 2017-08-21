@@ -34,7 +34,7 @@ class CategoriesRepository extends Repository {
 
             return ['error' => trans('admin.alias_in_use')];
         }
-
+        Cache::forget('allCats');
         $res = $this->model->fill($cat)->save();
 
         return $res;
@@ -71,6 +71,7 @@ class CategoriesRepository extends Repository {
         Cache::forget('patientMenu');
         Cache::forget('docsMenu');
         Cache::forget('catalogMenu');
+        Cache::forget('allCats');
 
         $res = $cat->save();
         return $res;

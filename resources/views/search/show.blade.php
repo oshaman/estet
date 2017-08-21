@@ -14,19 +14,19 @@
     <hr>
     <div class="row bg-success">
         <div class="col-lg-4">
-            {!! Form::checkbox('comments', 'comments', false, ['class' => 'optradio']) !!} Коментарии<br>
-            {!! Form::checkbox('categories', 'categories', false, ['class' => 'optradio']) !!} Категории<br>
-            {!! Form::checkbox('contacts', 'contacts', false, ['class' => 'optradio']) !!} Контакты
+            {!! Form::checkbox('doctor', 'doctor', false, ['class' => 'optradio']) !!} Статьи для докторов<br>
+            {!! Form::checkbox('blog', 'blog', false, ['class' => 'optradio']) !!} Блог<br>
         </div>
         <div class="col-lg-4">
-            {!! Form::checkbox('materials', 'materials', false, ['class' => 'optradio']) !!} Материалы<br>
-            {!! Form::checkbox('rss', 'rss', false, ['class' => 'optradio']) !!} Ленты новостей<br>
-            {!! Form::checkbox('links', 'links', false, ['class' => 'optradio']) !!} Ссылки
+            {!! Form::checkbox('patient', 'patient', false, ['class' => 'optradio']) !!} Статьи для читателей<br>
+            {!! Form::checkbox('catalog', 'catalog', false, ['class' => 'optradio']) !!} Каталог<br>
         </div>
         <div class="col-lg-4">
             {!! Form::select('limit', ['20', '50', '100'], old('limit') ? : '') !!} Кол-во строк
         </div>
-
+    </div>
+    <div class="row bg-success">
+        {!! Form::select('categories', [null => 'Категория'] + $cats ?? [], old('categories') ? : '') !!}  Категории статей
     </div>
     <hr>
     <div class="row">
