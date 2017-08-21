@@ -47,12 +47,16 @@ class SendNews extends Command
 
         if ($docs->isNotEmpty()) {
             $content = Cache::get('sub_doc');
-            foreach ($docs as $doc) dispatch((new Dispatch($doc->email, $content))->onQueue('sibscriber'));
+            if (!empty($content)) {
+                foreach ($docs as $doc) dispatch((new Dispatch($doc->email, $content))->onQueue('sibscriber'));
+            }
         }
 
         if ($patients->isNotEmpty()) {
             $content = Cache::get('sub_patient');
-            foreach ($patients as $patient) dispatch((new Dispatch($patient->email, $content))->onQueue('sibscriber'));
+            if (!empty($content)) {
+                foreach ($patients as $patient) dispatch((new Dispatch($patient->email, $content))->onQueue('sibscriber'));
+            }
         }
         \Log::info('Mailer update complite - '. date("d-m-Y H:i:s"));
     }

@@ -64,8 +64,6 @@ class DocsController extends Controller
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
 
-        Cache::forget('docsMenu');
-
         $nav = Cache::remember('docsMenu', 60,function() {
             $menu = $this->getMenu();
             return view('doc.nav')->with('menu', $menu)->render();

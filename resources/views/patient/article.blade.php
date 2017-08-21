@@ -52,19 +52,7 @@
     <hr>
 </div>
 <div class="col-lg-3">
-    <div class="row">
-        <h3>Последние статьи</h3>
-    @if($lasts)
-        @foreach($lasts as $last)
-            <div class="row">
-                <p><span class="label label-default">{{ $last->created }}</span></p>
-                <p><a href="{{ route('articles', $last->alias) }}"> {{ $last->title }}</a></p>
-            </div>
-        @endforeach
+    @if(!empty($sidebar))
+        {!! $sidebar !!}
     @endif
-    </div>
-    <hr>
-    <div class="row">
-        <h3>Самое популярное</h3>
-    </div>
 </div>

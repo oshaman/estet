@@ -11,6 +11,7 @@ use Fresh\Estet\Repositories\EventsRepository;
 use DB;
 use Fresh\Estet\Repositories\OrganizersRepository;
 use Fresh\Estet\Repositories\PremiumsRepository;
+use Cache;
 
 class EventsController extends DocsController
 {
@@ -42,16 +43,16 @@ class EventsController extends DocsController
 
     public function show(EventRequest $request, $event=false)
     {
-
-        //        Last 2 publications
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-        $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+        $this->sidebar = Cache::remember('eventSidebar', 60,function() {
+            //        Last 2 publications
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+            $articles = $this->repository->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
 //        Last 2 events
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
-        $lasts = $this->repository->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+            $lasts = $this->repository->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
 
-        $this->sidebar = view('doc.events.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
-
+            return view('doc.events.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
+        });
 
         if ($event) {
             if (!empty($event->seo)) {
@@ -72,16 +73,29 @@ class EventsController extends DocsController
 
 
 
-        $prems_ids = $this->prem->getPremIds('event');
-
+        $prems_ids = Cache::remember('event_prem', 60, function() {
+            return $this->prem->getPremIds('event');
+        });
 
         $where = false;
-        if ($request->isMethod('post')) {
-            dd($request->all());
+        if (!empty($request->all())) {
+            $data = $request->all();
+            if(!empty($data['country'])) {
+                $where[] = ['country_id', $data['country']];
+            }
+
+            if(!empty($data['city'])) {
+                $where[] = ['city_id', $data['city']];
+            }
+
+            if(!empty($data['cat'])) {
+                $where[] = ['cat_id', $data['cat']];
+            }
+
+            if(!empty($data['organizer'])) {
+                $where[] = ['organizer_id', $data['organizer']];
+            }
         }
-
-        $where = false;
-
 //
 //        $now = \Carbon::now();
 //        $month = $now->format('m');
@@ -99,11 +113,19 @@ class EventsController extends DocsController
         $vars = [
             'events'=>$events,
             'sidebar'=>$this->sidebar,
-            'countries'=>$this->countries->getCountriesSelect(),
+            'countries'=>Cache::remember('countries', 600, function() {
+                return $this->countries->getCountriesSelect();
+                }),
             'cities'=>$this->cities->citiesSelect(),
-            'cats'=>$this->cats->catSelect(),
-            'organizer'=>$this->organizer->organizerSelect(),
-            'prems'=>$this->repository->getPrems($prems_ids),
+            'cats'=>Cache::remember('eventCats', 600, function() {
+                return $this->cats->catSelect();
+            }),
+            'organizer'=>Cache::remember('organizer', 600, function() {
+                return $this->organizer->organizerSelect();
+            }),
+            'prems'=>Cache::remember('prems', 600, function() use ($prems_ids) {
+                return $this->repository->getPrems($prems_ids);
+            }),
         ];
 
         $this->content = view('doc.events.index')->with($vars)->render();

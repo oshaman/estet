@@ -5,6 +5,7 @@ use Fresh\Estet\Event;
 use Image;
 use Config;
 use File;
+use Cache;
 
 class EventsRepository extends Repository
 {
@@ -99,7 +100,7 @@ class EventsRepository extends Repository
                     $error[] = ['slider' => 'Ошибка записи фотографий слайдера'];
                 }
             }
-
+            Cache::forget('eventSidebar');
             return ['status' => trans('admin.material_added'), $error];
         }
         return ['error' => $error];
@@ -383,5 +384,21 @@ class EventsRepository extends Repository
                         ->whereIn('id', $ids)
                         ->get();
         return $result;
+    }
+
+    /**
+     * @param $select
+     * @param $where
+     * @param $take
+     * @param $order
+     * @return bool
+     */
+    public function mostDisplayed($select, $where, $take, $order)
+    {
+        return $this->check($this->model->where($where)
+            ->take($take)
+            ->select($select)
+            ->orderBy($order[0], $order[1])
+            ->get());
     }
 }

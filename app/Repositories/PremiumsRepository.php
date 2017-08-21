@@ -3,6 +3,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Premium;
 use Validator;
+use Cache;
 
 class PremiumsRepository
 {
@@ -115,7 +116,7 @@ class PremiumsRepository
             default:
                 return ['error'=>'Ошибка записи'];
         }
-
+        Cache::forget('prems');
         return ['status' => 'Записи обновлены'];
     }
 }

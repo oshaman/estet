@@ -25,6 +25,7 @@ class ArticlesController extends Controller
 
     public function index()
     {
+//        dd(Cache::get('sub_doc'));
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
 
         $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
@@ -49,7 +50,12 @@ class ArticlesController extends Controller
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article->id]);
             $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
 
-            $this->content = view('patient.article')->with(['article'=>$article, 'lasts'=>$lasts])->render();
+//          most displayed
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+            $sidebar = view('patient.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
+
+            $this->content = view('patient.article')->with(['article'=>$article, 'sidebar'=>$sidebar])->render();
             return $this->renderOutput();
         }
 

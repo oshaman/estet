@@ -52,6 +52,10 @@ Route::group(['prefix'=>'catalog'], function () {
  */
 Route::post('/switch', 'SwitchController@index')->name('switch');
 /**
+ * Subscribers
+ */
+Route::post('/subscribe', 'SubscribersController@add')->name('subscribe');
+/**
  * Comments
  */
 Route::post('comments', 'CommentsController@store')->name('comments');

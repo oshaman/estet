@@ -1,5 +1,5 @@
 @if ($menu)
-    <a class="navbar-brand" href="{{ route('horoscope') }}"> Гороскоп</a>
+    <a class="navbar-brand" href="{{ route('events') }}"> Мероприятия</a>
     <ul class="nav navbar-nav">
         &nbsp;<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Cтатьи<span class="caret"></span></a>

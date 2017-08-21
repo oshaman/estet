@@ -90,6 +90,18 @@ class EventRequest extends FormRequest
                 'value' => ['nullable', 'string', 'between:1,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\?\!\.]+$#u'],
                 'param' => 'nullable|digits:1',
             ];
+            if ($this->request->has('country')) {
+                $rules['country'] = ['digits_between:1,4','nullable', 'max:400'];
+            }
+            if ($this->request->has('city')) {
+                $rules['city'] = ['digits_between:1,4','nullable', 'max:400'];
+            }
+            if ($this->request->has('organizer')) {
+                $rules['organizer'] = ['digits_between:1,10','nullable', 'max:4294967295'];
+            }
+            if ($this->request->has('cat')) {
+                $rules['cat'] = ['digits_between:1,10', 'nullable', 'max:4294967295'];
+            }
             return $rules;
         }
 
@@ -102,6 +114,10 @@ class EventRequest extends FormRequest
     {
         return [
             'slider.*.*' => 'В полях СЛАЙДЕРА должны быть файлы в формате "jpg,bmp,png,jpeg" не более 5120 байт',
+            'country.*' => 'Ошибка получения данных поля country',
+            'city.*' => 'Ошибка получения данных поля city',
+            'organizer.*' => 'Ошибка получения данных поля organizer',
+            'cat.*' => 'Ошибка получения данных поля cat',
         ];
     }
 }

@@ -3,6 +3,7 @@
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Organizer;
+use Cache;
 
 class OrganizersRepository extends Repository {
 
@@ -37,7 +38,7 @@ class OrganizersRepository extends Repository {
         if (!empty($data['parent'])) {
             $organizer['parent'] = $data['parent'];
         }
-
+        Cache::forget('organizer');
         $res = $this->model->fill($organizer)->save();
 
         return $res;
@@ -74,6 +75,7 @@ class OrganizersRepository extends Repository {
         $organizer['parent'] = $request->parent ? : null;
 
         $res = $organizer->save();
+        Cache::forget('organizer');
         return $res;
     }
 

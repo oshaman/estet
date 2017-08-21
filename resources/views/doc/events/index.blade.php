@@ -6,23 +6,24 @@
             <div class="row">
                 <div class="col-lg-4">
                     {{ Form::label('country', 'Выбрать страну') }}
-                    {!! Form::select('country', $countries, old('country') ? : '', ['class'=>'form-control']) !!}
+                    {!! Form::select('country', [null => 'Страна'] + $countries, old('country') ? : '', ['class'=>'form-control']) !!}
                 </div>
                 <div class="col-lg-4">
                     {{ Form::label('city', 'Выбрать город') }}
-                    {!! Form::select('city', $cities, old('city') ? : '', ['class'=>'form-control']) !!}
+                    {!! Form::select('city', [null => 'Город'] + $cities, old('city') ? : '', ['class'=>'form-control']) !!}
                 </div>
                 <div class="col-lg-4">
                     {{ Form::label('cat', 'Выбрать категорию') }}
-                    {!! Form::select('cat', $cats, old('cat') ? : '', ['class'=>'form-control']) !!}
+                    {!! Form::select('cat', [null => 'Категория'] + $cats, old('cat') ? : '', ['class'=>'form-control']) !!}
                 </div>
                 <hr>
             </div>
             <hr>
             <div>
                 {{ Form::label('organizer', 'Выбрать организатора') }}
-                {!! Form::select('organizer', $organizer, old('organizer') ? : '', ['class'=>'form-control']) !!}
+                {!! Form::select('organizer', [null => 'Организатор'] + $organizer, old('organizer') ? : '', ['class'=>'form-control']) !!}
             </div>
+            {!! Form::button('Поиск', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
             <hr>
             {!! Form::close() !!}
         </div>
@@ -73,13 +74,13 @@
             @endif
         </div>
     </div>
-
+{{--SIDEBAR--}}
     <div class="col-lg-2 col-lg-offset-1">
         <div class="">
-
             {!! $sidebar !!}
         </div>
     </div>
+{{--SIDEBAR--}}
 </div>
 <!--PAGINATION-->
 <div class="general-pagination group">

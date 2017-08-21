@@ -3,6 +3,7 @@
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Eventscategory;
+use Cache;
 
 class EventCategoriesRepository extends Repository {
 
@@ -34,6 +35,7 @@ class EventCategoriesRepository extends Repository {
             return ['error' => trans('admin.alias_in_use')];
         }
 
+        Cache::forget('eventCats');
         $res = $this->model->fill($cat)->save();
 
         return $res;
@@ -68,7 +70,7 @@ class EventCategoriesRepository extends Repository {
                 $cat->alias = $alias;
             }
         }
-
+        Cache::forget('eventCats');
         $res = $cat->save();
         return $res;
     }

@@ -3,6 +3,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Country;
 use Validator;
+use Cache;
 
 class CountriesRepository extends Repository
 {
@@ -29,6 +30,7 @@ class CountriesRepository extends Repository
         $result = $this->model->save();
 
         if ($result) {
+            Cache::forget('countries');
             return ['status' => 'Записи обновлены'];
         }
         return ['error'=>'Ошибка записи'];
@@ -53,6 +55,7 @@ class CountriesRepository extends Repository
             $result = $country->save();
 
             if ($result) {
+                Cache::forget('countries');
                 return ['status' => 'Запись обновлена'];
             }
             return ['error'=>'Ошибка записи'];

@@ -29,7 +29,7 @@ class DispatchEmail extends Mailable
      */
     public function build()
     {
-        $subject = "Estet Portal";
+        $subject = "Estet Portal рассылка";
 
         return $this->from(env('ADMIN_EMAIL'))->subject($subject)->view('email.dispatch')->with('content', $this->content);
     }
