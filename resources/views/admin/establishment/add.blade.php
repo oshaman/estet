@@ -52,8 +52,19 @@
     <div class="row">
         <div class="col-lg-6">
             {{ Form::label('services', 'Услуги\Категории продукции') }}
-            {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-            {!! Form::text('services[]', old('services[1]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+            <div class="shablon" style="display:none">
+                <div>
+                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                </div>
+            </div>
+            <div class="block-to-add">
+                <div>
+                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+                    <span class="remove-this"></span>
+                </div>
+            </div>
+            <div class="add-new"><button type="button" class="btn btn-primary">+</button></div>
         </div>
         <div class="col-lg-6">
             <h5>Дополнительно</h5>

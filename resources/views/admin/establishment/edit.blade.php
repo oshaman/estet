@@ -54,16 +54,37 @@
     </div>
     <div class="row">
         <div class="col-lg-6">
-
         {{ Form::label('services', 'Услуги\Категории продукции') }}
         @if(!empty($establishment->services) && is_array($establishment->services))
+            <div class="shablon" style="display:none">
+                <div>
+                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                </div>
+            </div>
             @foreach($establishment->services as $k=>$serv)
+            <div class="block-to-add">
+                <div>
                 {!! Form::text('services[]', old('services[$k]') ? : ($serv ?? ''), ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+                    <span class="remove-slider"><button type="button" class="btn btn-danger">-</button></span>
             @endforeach
+                </div>
+            </div>
         @else
-            {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-            {!! Form::text('services[]', old('services[1]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-        @endif
+            <div class="shablon" style="display:none">
+                <div>
+                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                </div>
+            </div>
+            <div class="block-to-add">
+                <div>
+                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                </div>
+            </div>
+            @endif
+            <div class="add-new"><button type="button" class="btn btn-primary">+</button></div>
         </div>
         <div class="col-lg-6">
             <h5>Дополнительно</h5>

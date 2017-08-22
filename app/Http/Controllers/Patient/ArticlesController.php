@@ -26,7 +26,6 @@ class ArticlesController extends Controller
 
     public function index()
     {
-//        dd(Cache::get('sub_doc'));
         $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
 
         $articles = $this->a_rep->getMain(['alias', 'title', 'category_id', 'id', 'created_at', 'content'], $where, ['image', 'category'], 3, ['created_at', 'desc']);
@@ -91,7 +90,7 @@ class ArticlesController extends Controller
 
         $nav = Cache::remember('patientMenu', 60,function() {
             $menu = $this->getMenu();
-            return view('patient.nav')->with('menu', $menu)->render();
+            return view('layouts.nav')->with('menu', $menu)->render();
         });
 
         $this->vars = array_add($this->vars, 'nav', $nav);
@@ -106,7 +105,7 @@ class ArticlesController extends Controller
     public function getMenu() {
         $cats = DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
 
-        return Menu::make('patientMenu', function($menu) use ($cats) {
+        return Menu::make('menu', function($menu) use ($cats) {
 
             foreach ($cats as $cat) {
                 $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);

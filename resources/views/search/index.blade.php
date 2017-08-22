@@ -1,5 +1,9 @@
 @extends('/../layouts/app')
 
+@section('navbar')
+    {!! $nav !!}
+@endsection
+
 @section('content')
     <div class="col-lg-9">
         {!!  $content !!}

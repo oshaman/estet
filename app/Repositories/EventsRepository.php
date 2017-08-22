@@ -2,6 +2,7 @@
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Event;
+use Fresh\Estet\Slider;
 use Image;
 use Config;
 use File;
@@ -310,8 +311,6 @@ class EventsRepository extends Repository
      */
     public function deleteOldImages($name, $path)
     {
-
-//        dd(File::exists(public_path('/images/'. $path .'/main/') . $name));
         if (File::exists(public_path('/images/'. $path .'/main/') . $name)) {
             File::delete(public_path('/images/'. $path .'/main/') . $name);
         }
@@ -404,5 +403,25 @@ class EventsRepository extends Repository
             ->select($select)
             ->orderBy($order[0], $order[1])
             ->get());
+    }
+
+    public function delSlider($id)
+    {
+        $slider = Slider::find($id);
+
+        if (empty($slider)) {
+            return ['error' => 'Ошибка удаления слайдера'];
+        }
+        $name = $slider->path;
+        try {
+            $slider->delete();
+        } catch (Exception $e) {
+            return ['error' => 'Ошибка удаления слайдера'];
+        }
+        $this->deleteOldImages($name, 'event/slider');
+
+        return ['success' => 'Слайдер обновлен'];
+
+
     }
 }

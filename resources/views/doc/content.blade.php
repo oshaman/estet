@@ -1,4 +1,3 @@
-<div class="col-lg-9">
 @if(!empty($articles))
     @foreach($articles as $article)
         <div class="row">
@@ -20,9 +19,3 @@
         </div>
     @endforeach
 @endif
-</div>
-<div class="col-lg-2 col-lg-offset-1">
-    @if(!empty($sidebar))
-        {!! $sidebar !!}
-    @endif
-</div>

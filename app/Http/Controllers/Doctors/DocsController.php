@@ -52,24 +52,13 @@ class DocsController extends Controller
             return $this->renderOutput();
         }
 
-//        Cache::flush();
-        $this->sidebar = Cache::remember('docsSidebar', 60, function () {
-            //            Last 2 publications
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
-            //          most displayed
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
-            return view('doc.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
-        });
-
         $articles = Cache::remember('docsArticles', 60, function () {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
             $select = ['alias', 'title', 'category_id', 'id', 'created_at', 'content'];
             return $this->a_rep->getMain($select, $where, ['image', 'category'], 3, ['created_at', 'desc']);
         });
 
-        $this->content = view('doc.content')->with(['articles' => $articles, 'sidebar' => $this->sidebar])->render();
+        $this->content = view('doc.content')->with(['articles' => $articles])->render();
         return $this->renderOutput();
     }
 
@@ -88,7 +77,7 @@ class DocsController extends Controller
 
         $nav = Cache::remember('docsMenu', 60,function() {
             $menu = $this->getMenu();
-            return view('doc.nav')->with('menu', $menu)->render();
+            return view('layouts.nav')->with('menu', $menu)->render();
         });
 
         $this->vars = array_add($this->vars, 'nav', $nav);
@@ -103,12 +92,11 @@ class DocsController extends Controller
     public function getMenu() {
         $cats = DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
 
-        return Menu::make('docsMenu', function($menu) use ($cats) {
+        return Menu::make('menu', function($menu) use ($cats) {
 
             foreach ($cats as $cat) {
                 $menu->add($cat->name, ['route'=>['docs_cat', $cat->alias]]);
             }
-
         });
     }
 

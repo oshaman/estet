@@ -11,6 +11,8 @@ use Fresh\Estet\Repositories\EventCategoriesRepository;
 use Fresh\Estet\Repositories\EventsRepository;
 use Fresh\Estet\Repositories\OrganizersRepository;
 use Gate;
+use Validator;
+use Illuminate\Http\Request;
 
 class EventsController extends AdminController
 {
@@ -112,6 +114,7 @@ class EventsController extends AdminController
         if (Gate::denies('UPDATE_EVENTS')) {
             abort(404);
         }
+
         if ($request->isMethod('post')) {
 
             $result = $this->repository->updateEvent($request, $event);
@@ -121,7 +124,7 @@ class EventsController extends AdminController
             }
             return redirect()->route('events_admin')->with($result);
         }
-
+//$this->repository->delSlider(26);
         $cats = $cat_rep->catSelect();
         $organizers = $org_rep->organizerSelect();
         $countries = $country_rep->getCountriesSelect();
@@ -137,5 +140,24 @@ class EventsController extends AdminController
                     'logo' => $logo, 'slider' => $slider, 'event' => $event])
                 ->render();
         return $this->renderOutput();
+    }
+
+
+    public function slider(Request $request)
+    {
+        if (Gate::denies('UPDATE_EVENTS')) {
+            abort(404);
+        }
+        $validator = Validator::make($request->all(),[
+            'slider_id' => 'integer|required',
+        ]);
+
+        if($validator->fails()) {
+            return \Response::json(['error'=>$validator->errors()->all()]);
+        }
+
+        $result = $this->repository->delSlider($request->get('slider_id'));
+
+        return \Response::json($result);
     }
 }

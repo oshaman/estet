@@ -77,41 +77,7 @@ dd($data);
                 $limit = 20;
         }
 
-        if (!empty($data['comments'])) {
-            $comments = true;
-        } else {
-            $comments = false;
-        }
 
-        if (!empty($data['materials'])) {
-            $materials = true;
-        } else {
-            $materials = false;
-        }
-
-        if (!empty($data['categories'])) {
-            $categories = true;
-        } else {
-            $categories = false;
-        }
-
-        if (!empty($data['contacts'])) {
-            $contacts = true;
-        } else {
-            $contacts = false;
-        }
-
-        if (!empty($data['rss'])) {
-            $rss = true;
-        } else {
-            $rss = false;
-        }
-
-        if (!empty($data['links'])) {
-            $links = true;
-        } else {
-            $links = false;
-        }
 
 
 
@@ -127,13 +93,13 @@ dd($data);
                 $coincidence = 20;
                 break;
             case 'any':
-                $limit = 50;
+                $coincidence = 50;
                 break;
             case 'exact':
-                $limit = 100;
+                $coincidence = 100;
                 break;
             default:
-                $limit = 20;
+                $coincidence = 20;
         }
 
     }

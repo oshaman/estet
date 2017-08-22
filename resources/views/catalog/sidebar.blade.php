@@ -21,7 +21,7 @@
             <div class="row">
                 <p><span class="label label-default">{{ $article->created }}</span></p>
                 @if(!session()->has('doc'))
-                    <p><a href="{{ route('patient', $article->alias) }}"> {{ $article->title }}</a></p>
+                    <p><a href="{{ route('articles', $article->alias) }}"> {{ $article->title }}</a></p>
                 @else
                     <p><a href="{{ route('doctors', $article->alias) }}"> {{ $article->title }}</a></p>
                 @endif

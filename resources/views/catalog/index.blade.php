@@ -1,5 +1,9 @@
 @extends('/../layouts/app')
 
+@section('navbar')
+    {!! $nav !!}
+@endsection
+
 @section('content')
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">

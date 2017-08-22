@@ -45,9 +45,18 @@
     <div class="col-lg-6">
         {{ Form::label('city', 'Город') }}
         <div>
-            {!! Form::select('city', $cities,
-                old('city') ? : '' , [ 'class'=>'form-control', 'placeholder'=>'Город'])
-            !!}
+            <div>
+                <select id="city" name="city" class="form-control">
+                    <option value="" selected="selected">Город</option>
+                    @foreach($cities as $city)
+                        <option value="{{ $city->id }}" data-country="{{ $city->country_id }}"
+                                @if(old('city') == $city->id)
+                                    selected="selected"
+                                @endif
+                        >{{ $city->name }}</option>
+                    @endforeach
+                </select>
+            </div>
         </div>
     </div>
 </div>
@@ -89,16 +98,19 @@
 {{-- Слайдер --}}
 {{ Form::label('slider', 'Фото для слайдера') }}
 <div class="row">
-    <div class="col-lg-6">
+    <div class="shablon" style="display:none">
         <div>
             {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
+            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="block-to-add">
         <div>
             {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
+            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
         </div>
     </div>
+    <div class="add-new"><button type="button" class="btn btn-primary">+</button></div>
 </div>
 {{-- Слайдер --}}
 <hr>

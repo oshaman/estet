@@ -19,9 +19,9 @@
                 "emoticons template paste textcolor colorpicker textpattern",
                 "importcss"
             ],
-            content_css: "{{asset('css')}}/app.css",
+            content_css: "{{asset('css')}}/tinimce.css",
             importcss_append: true,
-            importcss_file_filter: "{{asset('css')}}/app.css",
+            importcss_file_filter: "{{asset('css')}}/tinimce.css",
             themes: "modern",
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
             relative_urls: false,

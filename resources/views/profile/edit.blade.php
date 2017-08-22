@@ -1,6 +1,5 @@
 @extends('/../layouts.app')
 @section('content')
-
     <h1>Edit profile</h1>
     {!! Form::open(['url' => route('edit_profile'), 'class'=>'form-horizontal', 'method'=>'POST', 'files'=>true]) !!}
     <ul class="list-group">
@@ -82,10 +81,23 @@
             {{ Form::label('services', 'Услуги') }}
             @if(!empty($profile->services) && is_array($profile->services))
                 @foreach($profile->services as $key=>$service)
+                    <div>
                     {!! Form::text('services[]', old('services[$key]') ? : ($service ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                        <div class="add-new">+</div>
+                    </div>
+                <div class="shablon" style="display:none">
+                    <div>
+                        {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                        <div class="add-new"><button type="button" class="btn btn-primary">-</button></div>
+                        <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                    </div>
+                </div>
                 @endforeach
             @else
-                {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                <div>
+                    {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                    <div class="add-new"><button type="button" class="btn btn-primary">-</button></div>
+                </div>
             @endif
         </li>
         <li class="list-group-item">
@@ -115,3 +127,4 @@
     {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}
     {!! Form::close() !!}
 @endsection
+<script src="{{ asset('js/admin.js') }}"></script>

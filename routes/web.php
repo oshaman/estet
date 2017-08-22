@@ -228,6 +228,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::match(['post', 'get'],'add', 'Admin\Events\EventsController@create')->name('create_event');
         Route::match(['post', 'get'], 'edit/{event}', 'Admin\Events\EventsController@edit')->name('edit_event');
         Route::get('del/{event}', 'Admin\Events\EventsController@destroy')->name('delete_event');
+        Route::post('slider', 'Admin\Events\EventsController@slider')->name('delete_slider');
 
         Route::group(['prefix' => 'cats'], function () {
             Route::match(['post', 'get'], '/show', 'Admin\Events\CategoriesController@show')->name('eventcats_admin');

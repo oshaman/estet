@@ -32,7 +32,6 @@ class MenusController extends AdminController
             }
             Cache::forget('patientMenu');
             Cache::forget('docsMenu');
-            Cache::forget('catalogMenu');
             return back()->with($result);
         }
 

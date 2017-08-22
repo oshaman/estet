@@ -89,7 +89,9 @@ class EventsController extends DocsController
                 $where[] = ['country_id', $data['country']];
             }
 
+            $request->session()->forget('city');
             if(!empty($data['city'])) {
+                $request->session()->flash('city', $data['city']);
                 $where[] = ['city_id', $data['city']];
             }
 
@@ -139,7 +141,7 @@ class EventsController extends DocsController
             }),
             'children'=>$children,
         ];
-
+//dd($vars['cities']);
         $this->content = view('doc.events.index')->with($vars)->render();
         return $this->renderOutput();
     }

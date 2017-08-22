@@ -11,6 +11,7 @@ use Fresh\Estet\Repositories\BlogsRepository;
 use DB;
 use Fresh\Estet\Repositories\PremiumsRepository;
 use Cache;
+use Menu;
 
 class CatalogController extends Controller
 {
@@ -188,9 +189,19 @@ class CatalogController extends Controller
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
 
-        $menu = $this->getMenu($status);
+        if ($status) {
+            $nav = Cache::remember('docsMenu', 600,function() use ($status) {
+                $menu = $this->getMenu($status);
+                return view('layouts.nav')->with('menu', $menu)->render();
+            });
+        } else {
+            $nav = Cache::remember('patientMenu', 600,function() use ($status) {
+                $menu = $this->getMenu($status);
+                return view('layouts.nav')->with('menu', $menu)->render();
+            });
+        }
 
-        $this->vars = array_add($this->vars, 'nav', $menu);
+        $this->vars = array_add($this->vars, 'nav', $nav);
 
         if (false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
@@ -201,15 +212,14 @@ class CatalogController extends Controller
 
     public function getMenu($status)
     {
-        if ($status) {
-            $cats= Cache::remember('catalogMenu', 600, function () {
-                return DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
-            });
-        } else {
-            return DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
-        }
-        return $cats;
+        $cats = DB::select('SELECT `name`, `alias` FROM ' . ($status ? 'docsmenuview' : 'patientmenuview'));
 
+        return Menu::make('menu', function($menu) use ($cats, $status) {
+            $route = $status ? 'docs_cat' : 'article_cat';
+            foreach ($cats as $cat) {
+                $menu->add($cat->name, ['route'=>[$route, $cat->alias]]);
+            }
+        });
     }
 
 }

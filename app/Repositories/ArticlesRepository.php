@@ -199,7 +199,6 @@ class ArticlesRepository extends Repository
 
             Cache::forget('patientSidebar');
             Cache::forget('horoscopeSidebar');
-            Cache::forget('catalog_sidebar');
             Cache::forget('docsArticleSidebar');
             Cache::forget('docsSidebar');
             Cache::forget('docsArticles');

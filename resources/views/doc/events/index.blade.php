@@ -10,7 +10,16 @@
                 </div>
                 <div class="col-lg-4">
                     {{ Form::label('city', 'Выбрать город') }}
-                    {!! Form::select('city', [null => 'Город'] + $cities, old('city') ? : '', ['class'=>'form-control']) !!}
+                    <select id="city" name="city" class="form-control">
+                        <option value="" selected="selected">Город</option>
+                        @foreach($cities as $city)
+                            <option value="{{ $city->id }}" data-country="{{ $city->country_id }}"
+                            @if(session('city') == $city->id)
+                                selected="selected"
+                            @endif
+                            >{{ $city->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
                 <div class="col-lg-4">
                     {{ Form::label('cat', 'Выбрать категорию') }}

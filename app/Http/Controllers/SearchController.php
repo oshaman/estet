@@ -45,7 +45,8 @@ class SearchController extends Controller
             if(is_array($result) && !empty($result['error'])) {
                 return redirect()->back()->withErrors($result['error'])->withInput();
             }
-            return redirect()->back()->with($result);
+            $this->content = view('search.show')->with(['cats'=>$cats, 'result'=>$result])->render();
+            return $this->renderOutput();
         }
 
         $this->content = view('search.show')->with(['cats'=>$cats])->render();
@@ -65,25 +66,46 @@ class SearchController extends Controller
         $status = session('doc');
 
 //        sidebar
+        if ($status) {
+            $this->sidebar = Cache::remember('docsSidebar', 60, function () {
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+                $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
 
-        $this->sidebar = Cache::remember('catalog_sidebar', 60, function () use ($status) {
-            $own = $status ? 'docs' : 'patient';
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
-            $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
 
-            //          most displayed
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
-            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+                return view('search.sidebar')->with(['lasts' => $last_articles, 'status' => true, 'articles' => $articles])->render();
+            });
+        } else {
+            $this->sidebar = Cache::remember('patientSidebar', 60, function () {
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
 
-            return view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => $status, 'articles' => $articles])->render();
-        });
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+
+                return view('search.sidebar')->with(['lasts' => $last_articles, 'status' => false, 'articles' => $articles])->render();
+            });
+        }
 
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
 
-        $menu = $this->getMenu($status);
+        if ($status) {
+            $nav = Cache::remember('docsMenu', 600,function() use ($status) {
+                $menu = $this->getMenu($status);
+                return view('layouts.nav')->with('menu', $menu)->render();
+            });
+        } else {
+            $nav = Cache::remember('patientMenu', 600,function() use ($status) {
+                $menu = $this->getMenu($status);
+                return view('layouts.nav')->with('menu', $menu)->render();
+            });
+        }
 
-        $this->vars = array_add($this->vars, 'nav', $menu);
+        $this->vars = array_add($this->vars, 'nav', $nav);
 
         if (false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
@@ -92,17 +114,20 @@ class SearchController extends Controller
         return view($this->template)->with($this->vars);
     }
 
+    /**
+     * @param $status boolean
+     * @return mixed Menu Instance
+     */
     public function getMenu($status)
     {
-        if ($status) {
-            $cats= Cache::remember('catalogMenu', 600, function () {
-                return DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
-            });
-        } else {
-            return DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
-        }
-        return $cats;
+        $cats = DB::select('SELECT `name`, `alias` FROM ' . ($status ? 'docsmenuview' : 'patientmenuview'));
 
+        return Menu::make('menu', function($menu) use ($cats, $status) {
+            $route = $status ? 'docs_cat' : 'article_cat';
+            foreach ($cats as $cat) {
+                $menu->add($cat->name, ['route'=>[$route, $cat->alias]]);
+            }
+        });
     }
 
 }

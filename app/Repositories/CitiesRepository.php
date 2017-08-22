@@ -88,11 +88,12 @@ class CitiesRepository extends Repository
 
     public function citiesSelect()
     {
-        $cities = $this->model->select(['name', 'id'])->get();
-        $lists = array();
-        foreach($cities as $city) {
-            $lists[$city->id] = $city->name;
-        }
-        return $lists;
+        $cities = $this->model->select(['name', 'id','country_id'])->orderBy('name', 'asc')->get();
+//        $lists = array();
+//        foreach($cities as $city) {
+//            $lists[$city->id] = $city->name;
+//        }
+//        return $lists;
+        return $cities;
     }
 }

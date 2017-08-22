@@ -45,9 +45,18 @@
     <div class="col-lg-6">
         {{ Form::label('city', 'Город') }}
         <div>
-            {!! Form::select('city', $cities,
-                old('city') ? : ($event->city_id ?? '') , [ 'class'=>'form-control', 'placeholder'=>'Город'])
-            !!}
+            <select id="city" name="city" class="form-control">
+                <option value="" selected="selected">Город</option>
+                @foreach($cities as $city)
+                    <option value="{{ $city->id }}" data-country="{{ $city->country_id }}"
+                            @if(session('city') == $city->id)
+                                selected="selected"
+                            @elseif($city->id == $event->city_id)
+                                selected="selected"
+                            @endif
+                    >{{ $city->name }}</option>
+                @endforeach
+            </select>
         </div>
     </div>
 </div>
@@ -94,23 +103,28 @@
 {{-- Слайдер --}}
 @if($slider->isNotEmpty())
     @foreach($slider as $pic)
-        <div class="thumbnail">
-            {{ Html::image(asset('/images/event/slider/main').'/'.$pic->path, 'a picture', array('class' => 'thumb')) }}
+        <div class="thumbnail" data-id="{{ $pic->id }}">
+            {{ Html::image(asset('/images/event/slider/middle').'/'.$pic->path, 'a picture', array('class' => 'thumb')) }}
+            <span class="remove-slider"><button type="button" class="btn btn-danger">-</button></span>
         </div>
     @endforeach
 @endif
+<div id="msg"></div>
 {{ Form::label('slider', 'Фото для слайдера') }}
 <div class="row">
-    <div class="col-lg-6">
+    <div class="shablon" style="display:none">
         <div>
             {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
+            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
         </div>
     </div>
-    <div class="col-lg-6">
+    <div class="block-to-add">
         <div>
             {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
+            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
         </div>
     </div>
+    <div class="add-new"><button type="button" class="btn btn-primary">+</button></div>
 </div>
 {{-- Слайдер --}}
 <hr>
@@ -193,3 +207,7 @@
 <hr>
 {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
 {!! Form::close() !!}
+
+
+{!! Form::open(['url' => route('delete_slider'), 'class' => 'form-horizontal', 'method' => 'post']) !!}
+<hr>
