@@ -6,9 +6,9 @@
     </div>
     <h3>Cовпадение   -----------------------------------------------------</h3>
     <div class="row bg-success">
-        {!! Form::radio('coincidence', 'all', true, ['class' => 'optradio']) !!} Все слова
+        {!! Form::radio('coincidence', 'exact', true, ['class' => 'optradio']) !!} Точное совпадение
+        {!! Form::radio('coincidence', 'all', false, ['class' => 'optradio']) !!} Все слова
         {!! Form::radio('coincidence', 'any', false, ['class' => 'optradio']) !!} Любое слово
-        {!! Form::radio('coincidence', 'exact', false, ['class' => 'optradio']) !!} Точное совпадение
         {!! Form::select('order', ['Новые первыми', 'Старые первыми', 'По алфавиту', 'По популярности'], old('order') ? : '') !!} Порядок
     </div>
     <hr>

@@ -20,6 +20,12 @@ class SearchController extends Controller
     protected $a_rep;
     protected $cat_rep;
 
+    /**
+     * SearchController constructor.
+     * @param SearchRepository $repository
+     * @param ArticlesRepository $a_rep
+     * @param CategoriesRepository $cat_rep
+     */
     public function __construct(
         SearchRepository $repository,
         ArticlesRepository $a_rep,

@@ -1,15 +1,15 @@
 <?php
 namespace Fresh\Estet\Repositories;
 
+use Fresh\Estet\Article;
+use Fresh\Estet\Establishment;
 use Validator;
 
 class SearchRepository
 {
 
-    protected $a_rep;
-    protected $comm_rep;
-    protected $est_rep;
-    protected $cat_rep;
+    protected $article;
+    protected $establishment;
 
     /**
      * SearchRepository constructor.
@@ -18,13 +18,10 @@ class SearchRepository
      * @param EstablishmentsRepository $establishment
      * @param CategoriesRepository $category
      */
-    public function __construct(ArticlesRepository $article, CommentsRepository $comment,
-                                EstablishmentsRepository $establishment, CategoriesRepository $category)
+    public function __construct(Article $article, Establishment $establishment)
     {
-        $this->a_rep = $article;
-        $this->comm_rep = $comment;
-        $this->est_rep = $establishment;
-        $this->cat_rep = $category;
+        $this->article = $article;
+        $this->establishment = $establishment;
     }
 
     public function get($request)
@@ -38,7 +35,7 @@ class SearchRepository
         }
 
         $data = $request->all();
-dd($data);
+//dd($data);
         switch ($data['order']) {
             case 0:
                 $order[0] = 'created_at';
@@ -49,7 +46,8 @@ dd($data);
                 $order[1] = 'asc';
                 break;
             case 2:
-                $order = 'false';
+                $order[0] = 'title';
+                $order[1] = 'asc';
                 break;
             case 3:
                 $order[0] = 'view';
@@ -69,28 +67,22 @@ dd($data);
             case 2:
                 $limit = 100;
                 break;
-            case 3:
-                $order[0] = 'view';
-                $order[1] = 'asc';
-                break;
             default:
                 $limit = 20;
         }
 
+        $res = $this->sql($this->article, $data['coincidence'], $data['value']);
+        dd($res);
 
+    }
 
+    public function sql($model, $coincidence, $value)
+    {
+        $builder = $model->select('title', 'id');
 
-
-
-
-
-
-
-
-
-        switch ($data['coincidence']) {
+        switch ($coincidence) {
             case 'all':
-                $coincidence = 20;
+                $builder->where('title', 'like', '%'.$value.'%');
                 break;
             case 'any':
                 $coincidence = 50;
@@ -101,6 +93,7 @@ dd($data);
             default:
                 $coincidence = 20;
         }
-
     }
+
+
 }
