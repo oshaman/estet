@@ -112,12 +112,6 @@
 <div id="msg"></div>
 {{ Form::label('slider', 'Фото для слайдера') }}
 <div class="row">
-    <div class="shablon" style="display:none">
-        <div>
-            {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
-            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
-        </div>
-    </div>
     <div class="block-to-add">
         <div>
             {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
@@ -210,4 +204,11 @@
 
 
 {!! Form::open(['url' => route('delete_slider'), 'class' => 'form-horizontal', 'method' => 'post']) !!}
+{!! Form::close() !!}
+<div class="shablon" style="display:none">
+    <div>
+        {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
+        <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+    </div>
+</div>
 <hr>

@@ -33,7 +33,7 @@
         <hr>
         <div class="row">{{ $brand->address }}</div>
         <h3>О нас</h3>
-        <div class="row">{!! $brand->about !!}</div>
+        <div class="row">{!! $brand->content !!}</div>
     </div>
 </div>
 <hr>

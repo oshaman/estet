@@ -28,12 +28,13 @@ class PremiumsController extends AdminController
                 $category = $request->get('params');
             }
         }
+
         $data = '';
 
         if (!empty($category)) {
             $data = $model->getPrem($category);
+            if ($data->isEmpty()) $data = '';
         }
-
         $this->content = view('admin.prem')->with('data', $data)->render();
 
         return $this->renderOutput();

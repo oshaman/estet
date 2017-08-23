@@ -8,6 +8,7 @@ use Fresh\Estet\Repositories\SearchRepository;
 use Illuminate\Http\Request;
 use DB;
 use Cache;
+use Menu;
 
 class SearchController extends Controller
 {

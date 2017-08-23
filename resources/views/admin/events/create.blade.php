@@ -98,12 +98,6 @@
 {{-- Слайдер --}}
 {{ Form::label('slider', 'Фото для слайдера') }}
 <div class="row">
-    <div class="shablon" style="display:none">
-        <div>
-            {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
-            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
-        </div>
-    </div>
     <div class="block-to-add">
         <div>
             {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
@@ -193,3 +187,9 @@
 <hr>
 {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
 {!! Form::close() !!}
+<div class="shablon" style="display:none">
+    <div>
+        {!! Form::file('slider[]', ['accept'=>'image/*', 'class'=>'form-control']) !!}
+        <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+    </div>
+</div>

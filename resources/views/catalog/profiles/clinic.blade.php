@@ -27,7 +27,7 @@
         <hr>
         <div class="row">{{ $clinic->address }}</div>
         <h3>О нас</h3>
-        <div class="row">{!! $clinic->about !!}</div>
+        <div class="row">{!! $clinic->content !!}</div>
     </div>
 </div>
 <hr>

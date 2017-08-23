@@ -49,11 +49,11 @@ class PremiumsRepository
             default:
                 return null;
         }
-
         $result = $result->toArray();
 
         $ids = array_flatten($result);
-        if (null == $ids[0]) {
+
+        if (empty($ids[0])) {
             array_forget($ids, 0);
         } elseif (null == $ids[1]) {
             array_forget($ids, 1);

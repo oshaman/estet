@@ -70,29 +70,42 @@ class SearchRepository
             default:
                 $limit = 20;
         }
+        $builder = $this->article->select('title', 'id');
 
-        $res = $this->sql($this->article, $data['coincidence'], $data['value']);
+//        UNION
+        /*SELECT title,alias,created_at,own AS article FROM articles WHERE title LIKE '%test%'
+        UNION
+        SELECT title,alias,created_at,('blog') FROM blogs WHERE title LIKE '%test%'
+        UNION
+        SELECT title,alias,created_at,category FROM establishments WHERE title LIKE '%Бренд%'*/
+//        UNION
+
+        $res = $this->sql($builder, $data['coincidence'], $data['value']);
         dd($res);
 
     }
 
-    public function sql($model, $coincidence, $value)
+    public function sql($builder, $coincidence, $value)
     {
-        $builder = $model->select('title', 'id');
+
 
         switch ($coincidence) {
             case 'all':
                 $builder->where('title', 'like', '%'.$value.'%');
+                $builder->orWhere('content', 'like', '%'.$value.'%');
                 break;
             case 'any':
-                $coincidence = 50;
+                $builder->whereRaw("MATCH(title, content)AGAINST(?)", $value);
                 break;
             case 'exact':
-                $coincidence = 100;
+                $builder->where('title', $value);
+                $builder->orWhere('content', $value);
                 break;
             default:
-                $coincidence = 20;
+                $builder->where('title', 'like', '%'.$value.'%');
+                $builder->orWhere('content', 'like', '%'.$value.'%');
         }
+        return $builder->get();
     }
 
 

@@ -55,7 +55,7 @@ class Article extends FormRequest
     {
         if ($this->isMethod('post')) {
             $rules = [
-                'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9\-\s\,\:\!\.]+$#u'],
+                'title' => ['required', 'string', 'between:4,255'],
                 'cats' => ['digits_between:1,4', 'nullable', 'required'],
                 'tags' => 'array',
                 'img' => 'mimes:jpg,bmp,png,jpeg|max:5120',

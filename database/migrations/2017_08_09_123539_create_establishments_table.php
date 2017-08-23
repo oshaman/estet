@@ -25,7 +25,7 @@ class CreateEstablishmentsTable extends Migration
             $table->unsignedInteger('parent')->nullable()->default(null)->index();
             $table->text('extra')->nullable()->default(null);
             $table->text('services')->nullable()->default(null);
-            $table->text('about');
+            $table->text('content');
             $table->enum('category', ['clinic', 'brand', 'distributor']);
             $table->string('spec')->nullable()->default(null);
 

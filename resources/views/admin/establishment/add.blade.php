@@ -52,12 +52,6 @@
     <div class="row">
         <div class="col-lg-6">
             {{ Form::label('services', 'Услуги\Категории продукции') }}
-            <div class="shablon" style="display:none">
-                <div>
-                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
-                </div>
-            </div>
             <div class="block-to-add">
                 <div>
                     {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
@@ -79,10 +73,16 @@
         </div>
     </div>
     <div class="row">
-        {{ Form::label('about', 'Описание') }}
-        <textarea name="about" class="form-control editor">{!! old('about') ? : '' !!}</textarea>
+        {{ Form::label('content', 'Описание') }}
+        <textarea name="content" class="form-control editor">{!! old('content') ? : '' !!}</textarea>
     </div>
     <hr>
     {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
     {!! Form::close() !!}
+</div>
+<div class="shablon" style="display:none">
+    <div>
+        {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+        <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+    </div>
 </div>

@@ -22,7 +22,8 @@
             content_css: "{{asset('css')}}/tinimce.css",
             importcss_append: true,
             importcss_file_filter: "{{asset('css')}}/tinimce.css",
-            themes: "modern",
+            themes: "advanced",
+            theme_advanced_styles: "Header 1=test",
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
             relative_urls: false,
             file_browser_callback : function(field_name, url, type, win) {

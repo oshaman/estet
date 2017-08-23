@@ -49,7 +49,7 @@ class EstablishmentsRepository extends Repository
      */
     public function getPrems($ids)
     {
-        $result = $this->model->select(['logo', 'title', 'about', 'alias', 'address'])
+        $result = $this->model->select(['logo', 'title', 'content', 'alias', 'address'])
                     ->whereIn('id', $ids)
                     ->get();
         return $result;
@@ -177,7 +177,6 @@ class EstablishmentsRepository extends Repository
             }
         }
 
-
         switch ($data['category']) {
             case 0:
                 $data['category'] = 'clinic';
@@ -205,10 +204,11 @@ class EstablishmentsRepository extends Repository
                 $result[] = $value;
             }
 
-            if ($result) {
+            if (!empty($result)) {
                 $data['extra'] = json_encode($result);
+            } else {
+                array_forget($data, 'extra');
             }
-
         }
         // Main Image handle
         if ($request->hasFile('logo')) {

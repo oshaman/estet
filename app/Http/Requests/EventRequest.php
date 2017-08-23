@@ -13,6 +13,9 @@ class EventRequest extends FormRequest
      */
     public function authorize()
     {
+        if ($this->route()->named('events')) {
+            return true;
+        }
         return \Auth::user()->canDo('UPDATE_EVENTS');
     }
 

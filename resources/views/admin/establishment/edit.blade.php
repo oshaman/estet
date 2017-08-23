@@ -56,27 +56,15 @@
         <div class="col-lg-6">
         {{ Form::label('services', 'Услуги\Категории продукции') }}
         @if(!empty($establishment->services) && is_array($establishment->services))
-            <div class="shablon" style="display:none">
-                <div>
-                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
-                </div>
-            </div>
-            @foreach($establishment->services as $k=>$serv)
             <div class="block-to-add">
+            @foreach($establishment->services as $k=>$serv)
                 <div>
                 {!! Form::text('services[]', old('services[$k]') ? : ($serv ?? ''), ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
                     <span class="remove-slider"><button type="button" class="btn btn-danger">-</button></span>
-            @endforeach
                 </div>
+            @endforeach
             </div>
         @else
-            <div class="shablon" style="display:none">
-                <div>
-                    {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
-                    <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
-                </div>
-            </div>
             <div class="block-to-add">
                 <div>
                     {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
@@ -99,10 +87,16 @@
         </div>
     </div>
     <div class="row">
-        {{ Form::label('about', 'Описание') }}
-        <textarea name="about" class="form-control editor">{!! old('about') ? : ($establishment->about) !!}</textarea>
+        {{ Form::label('content', 'Описание') }}
+        <textarea name="content" class="form-control editor">{!! old('content') ? : ($establishment->content) !!}</textarea>
     </div>
     <hr>
     {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
     {!! Form::close() !!}
+</div>
+<div class="shablon" style="display:none">
+    <div>
+        {!! Form::text('services[]', old('services[0]') ? : '', ['placeholder' => 'список...', 'id'=>'services[]', 'class'=>'form-control']) !!}
+        <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+    </div>
 </div>

@@ -80,23 +80,26 @@
         <li class="list-group-item">
             {{ Form::label('services', 'Услуги') }}
             @if(!empty($profile->services) && is_array($profile->services))
-                @foreach($profile->services as $key=>$service)
-                    <div>
-                    {!! Form::text('services[]', old('services[$key]') ? : ($service ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
-                        <div class="add-new">+</div>
+                <div class="row">
+                    <div class="block-to-add">
+                    @foreach($profile->services as $key=>$service)
+                            <div>
+                                {!! Form::text('services[]', old('services[$key]') ? : ($service ?? '' ), ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                                <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                            </div>
+                    @endforeach
                     </div>
-                <div class="shablon" style="display:none">
-                    <div>
-                        {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
-                        <div class="add-new"><button type="button" class="btn btn-primary">-</button></div>
-                        <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
-                    </div>
+                    <div class="add-new"><button type="button" class="btn btn-primary">+</button></div>
                 </div>
-                @endforeach
             @else
-                <div>
-                    {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
-                    <div class="add-new"><button type="button" class="btn btn-primary">-</button></div>
+                <div class="row">
+                    <div class="block-to-add">
+                        <div>
+                            {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+                            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+                        </div>
+                    </div>
+                    <div class="add-new"><button type="button" class="btn btn-primary">+</button></div>
                 </div>
             @endif
         </li>
@@ -126,5 +129,10 @@
     </ul>
     {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}
     {!! Form::close() !!}
+    <div class="shablon" style="display:none">
+        <div>
+            {!! Form::text('services[]', old('services[]') ? : '', ['placeholder'=>'Пересадка бровей, ресниц, бороды...', 'class'=>'form-control']) !!}
+            <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
+        </div>
+    </div>
 @endsection
-<script src="{{ asset('js/admin.js') }}"></script>

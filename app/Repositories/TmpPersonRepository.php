@@ -68,7 +68,7 @@ class TmpPersonRepository extends Repository {
             $data->shedule = $request['shedule'];
         }
 
-        if ($request['services'] != null && $request['services'] != $data->services) {
+        if (!empty($request['services']) && $request['services'] != $data->services) {
             $request['services'] = json_encode($request['services']);
 
             if ($data->services != $request['services']) {

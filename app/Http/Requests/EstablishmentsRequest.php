@@ -62,7 +62,7 @@ class EstablishmentsRequest extends FormRequest
                 'address' => 'string|required',
                 'site' => 'url|max:255|required',
                 'spec' => 'string|nullable',
-                'about' => 'required|string',
+                'content' => 'required|string',
             ];
 
             if ($this->request->has('extra') && ($this->request->get('extra') != null)) {

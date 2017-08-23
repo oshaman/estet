@@ -49,10 +49,12 @@ class TmpPersonRequest extends FormRequest
                 'year'=>'regex:#^[0-9]{4}$#',
 
             ];
-            foreach($this->request->get('services') as $key => $val)
-            {
-                $rules['services.'.$key] = ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'];
+            if($this->has('services')) {
+                foreach($this->request->get('services') as $key => $val){
+                    $rules['services.'.$key] = ['regex:#^[a-zA-zа-яА-ЯёЁ0-9():№_\,\-\s\;\\\/\.]+$#u', 'nullable'];
+                }
             }
+
             return $rules;
         }
         return [

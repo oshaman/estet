@@ -124,7 +124,6 @@ class EventsController extends AdminController
             }
             return redirect()->route('events_admin')->with($result);
         }
-//$this->repository->delSlider(26);
         $cats = $cat_rep->catSelect();
         $organizers = $org_rep->organizerSelect();
         $countries = $country_rep->getCountriesSelect();

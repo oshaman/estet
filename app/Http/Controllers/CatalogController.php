@@ -101,7 +101,7 @@ class CatalogController extends Controller
 
         $prems = $repository->getPrems($prems_ids);
 
-        $clinics = $repository->getWithoutPrems(['logo', 'title', 'about', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
+        $clinics = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
 
         $this->content = view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems])->render();
         return $this->renderOutput();
@@ -132,7 +132,7 @@ class CatalogController extends Controller
 
         $prems = $repository->getPrems($prems_ids);
 
-        $distributors = $repository->getWithoutPrems(['logo', 'title', 'about', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
+        $distributors = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
 
         $this->content = view('catalog.distributors')->with(['distributors' => $distributors, 'prems' => $prems])->render();
         return $this->renderOutput();
@@ -160,7 +160,7 @@ class CatalogController extends Controller
 
         $prems = $repository->getPrems($prems_ids);
 
-        $brands = $repository->getWithoutPrems(['logo', 'title', 'about', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
+        $brands = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
 
         $this->content = view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems])->render();
         return $this->renderOutput();

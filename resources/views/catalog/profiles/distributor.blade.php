@@ -39,7 +39,7 @@
         <hr>
         <div class="row">{{ $distributor->address }}</div>
         <h3>О нас</h3>
-        <div class="row">{!! $distributor->about !!}</div>
+        <div class="row">{!! $distributor->content !!}</div>
     </div>
     <hr>
 </div>

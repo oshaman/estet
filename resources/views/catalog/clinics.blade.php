@@ -6,7 +6,7 @@
             </div>
             <div class="col-lg-8">
                 <h3>{{ $prem->title }}</h3>
-                <p>{!! str_limit($prem->about, 254) !!}</p>
+                <p>{!! str_limit($prem->content, 254) !!}</p>
                 <hr>
                 <h6>{{ $prem->address }}</h6>
                 <p>
@@ -27,7 +27,7 @@
         </div>
         <div class="col-lg-8">
             <h3>{{ $clinic->title }}</h3>
-            <p>{!! str_limit($clinic->about, 254) !!}</p>
+            <p>{!! str_limit($clinic->content, 254) !!}</p>
             <hr>
             <h6>{{ $clinic->address }}</h6>
             <p>

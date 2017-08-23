@@ -70,6 +70,12 @@
     @endif
 </div>
 <!-- SEO -->
+<div class="panel-heading">
+    <h2>
+        <a data-toggle="collapse" href="#service" class="btn btn-info btn-block">SEO</a>
+    </h2>
+</div>
+<div id="service" class="panel-collapse collapse row">
 <div class="row">
     <h2>SEO</h2>
     <div class="row">
@@ -120,6 +126,7 @@
             <textarea name="seo_text" class="form-control">{!! old('seo_text') ? : ($content->seo->seo_text ?? '') !!}</textarea>
         </div>
     </div>
+</div>
 </div>
 <!-- SEO -->
 <div class="row>">
