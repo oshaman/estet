@@ -134,9 +134,8 @@
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
 
-    <script src="{{ asset('js/admin.js') }}"></script>
-    {{--@if()
-        @yield('admin')
-    @endif--}}
+    @if((Route::currentRouteName() ==  'edit_profile') || (Route::currentRouteName() ==  'events'))
+        <script src="{{ asset('js/admin.js') }}"></script>
+    @endif
 </body>
 </html>

@@ -48,11 +48,11 @@ class SearchController extends Controller
 
         if ($request->has('value')) {
             $result = $this->repository->get($request);
-
+//dd($result);
             if(is_array($result) && !empty($result['error'])) {
-                return redirect()->back()->withErrors($result['error'])->withInput();
+                return redirect()->route('search')->withErrors($result['error']);
             }
-            $this->content = view('search.show')->with(['cats'=>$cats, 'result'=>$result])->render();
+            $this->content = view('search.show')->with(['cats'=>$cats, 'titles'=>$result])->render();
             return $this->renderOutput();
         }
 

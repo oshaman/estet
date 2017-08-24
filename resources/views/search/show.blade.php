@@ -34,3 +34,12 @@
     </div>
 {!! Form::close() !!}
 </div>
+@if(!empty($titles))
+    <div class="row">
+    @foreach($titles as $title)
+        <div class="row">
+            <h3>{{ $title->$title }}</h3>
+        </div>
+    @endforeach
+    </div>
+@endif
