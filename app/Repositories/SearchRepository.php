@@ -1,10 +1,7 @@
 <?php
 namespace Fresh\Estet\Repositories;
 
-use Fresh\Estet\Article;
-use Fresh\Estet\Establishment;
 use Validator;
-use Fresh\Estet\Blog;
 use DB;
 use Fresh\Estet\Search;
 
@@ -18,19 +15,17 @@ class SearchRepository
 
     /**
      * SearchRepository constructor.
-     * @param ArticlesRepository $article
-     * @param CommentsRepository $comment
-     * @param EstablishmentsRepository $establishment
-     * @param CategoriesRepository $category
+     * @param Search $search
      */
-    public function __construct(Article $article, Establishment $establishment, Blog $blog, Search $search)
+    public function __construct(Search $search)
     {
-        $this->article = $article;
-        $this->establishment = $establishment;
-        $this->blog = $blog;
         $this->search = $search;
     }
 
+    /**
+     * @param $request
+     * @return mixed
+     */
     public function get($request)
     {
         $validator = Validator::make($request->all(), [
@@ -43,8 +38,6 @@ class SearchRepository
 
         $data = $request->all();
 
-        $data['value'] = $this->verifyVal($data['value']);
-//        dd(empty($data['value']));
         if (empty($data['value'])) {
             return false;
         }
@@ -63,7 +56,7 @@ class SearchRepository
                 break;
             case 3:
                 $order[0] = 'view';
-                $order[1] = 'asc';
+                $order[1] = 'desc';
                 break;
             default:
                 $order = 'false';
@@ -71,114 +64,53 @@ class SearchRepository
 
         switch ($data['limit']) {
             case 0:
-                $limit = 20;
+                $limit = 2;
                 break;
             case 1:
-                $limit = 50;
+                $limit = 5;
                 break;
             case 2:
-                $limit = 100;
+                $limit = 10;
                 break;
             default:
-                $limit = 20;
+                $limit = 2;
         }
 
-
-//        $result = $this->search->where('created_at', '<', DB::raw('NOW()'))->orderBy('view', 'desc')->paginate(7);
-        
-//        $result = $this->search->where('title', 'like', '%'.$value.'%')->orderBy('view', 'desc')->paginate(7);
-//        $result = $this->search->where('content', 'like', '%'.$value.'%')->orderBy('view', 'desc')->paginate(7);
-
-        $result = $this->search->where('content', 'like', '%'.$value.'%')->orderBy('view', 'desc')->paginate(7);
-dd($result);
-
-
-        if (!empty($data['doctor']) && !empty($data['patient'])) {
-            $builder = $this->article->select('title', 'alias', 'created_at', 'view as view', 'own as status');
-            $builder->where('approved', 1);
-            $builder = $this->sql($builder, $data['coincidence'], $data['value']);
-
-            if (!empty($data['blog'])) {
-                $builder->union($this->blog($data['coincidence'], $data['value']));
-            }
-
-            if (!empty($data['catalog'])) {
-                $builder->union($this->establishment($data['coincidence'], $data['value']));
-            }
-        } elseif (!empty($data['doctor']) && empty($data['patient'])) {
-            $builder = $this->article->select('title', 'alias', 'created_at', 'view', 'own as status');
-            $builder->where([['own', 'doctor'], ['approved', 1]]);
-            $builder = $this->sql($builder, $data['coincidence'], $data['value']);
-
-            if (!empty($data['blog'])) {
-                $builder->union($this->blog($data['coincidence'], $data['value']));
-            }
-
-            if (!empty($data['catalog'])) {
-                $builder->union($this->establishment($data['coincidence'], $data['value']));
-            }
-        } elseif (empty($data['doctor']) && !empty($data['patient'])) {
-            $builder = $this->article->select('title', 'alias', 'created_at', 'view', 'own as status');
-            $builder->where([['own', 'patient'], ['approved', 1]]);
-            $builder = $this->sql($builder, $data['coincidence'], $data['value']);
-
-            if (!empty($data['blog'])) {
-                $builder->union($this->blog($data['coincidence'], $data['value']));
-            }
-
-            if (!empty($data['catalog'])) {
-                $builder->union($this->establishment($data['coincidence'], $data['value']));
-            }
-        } else {
-            if (!empty($data['catalog'])) {
-                $builder = $this->establishment($data['coincidence'], $data['value']);
-                if (!empty($data['blog'])) {
-                    $builder->union($this->blog($data['coincidence'], $data['value']));
-                }
-            } elseif (!empty($data['blog'])) {
-                $builder = $this->blog($data['coincidence'], $data['value']);
-            } else {
-                $builder = $this->article->select('title', 'alias', 'created_at', 'view', 'own as status');
-                $builder->where('approved', 1);
-                $builder = $this->sql($builder, $data['coincidence'], $data['value']);
-            }
+        $status = [];
+        if (!empty($data['doctor'])) {
+            $status[] = 'docs';
         }
+        if (!empty($data['patient'])) {
+            $status[] = 'patient';
+        }
+        if (!empty($data['blog'])) {
+            $status[] = 'blog';
+        }
+        if (!empty($data['catalog'])) {
+            $status[] = 'clinic';
+            $status[] = 'distributor';
+            $status[] = 'brand';
+        }
+        if (empty($data['doctor']) && empty($data['patient']) && empty($data['blog']) && empty($data['catalog'])) {
+            $status[] = 'docs';
+            $status[] = 'patient';
+        }
+
+        $builder = $this->search->select('title', 'status', 'created_at', 'alias', 'view');
+        $builder = $builder->where(function ($q) use ($status) { $q->whereIn('status', $status); });
+        $coincidence = $data['coincidence'];
+        $val = $data['value'];
+        $builder = $builder->where(function ($q) use ($coincidence, $val) {
+            $q = $this->sql($q, $coincidence, $val);
+            return $q;
+        });
 
         if ($order) {
             $builder->orderBy($order[0], $order[1]);
         }
 
-        $res = $builder->paginate($limit);
+        return $this->check($builder->paginate($limit));
 
-
-
-        dd($res);
-
-    }
-
-    /**
-     * @param $coincidence
-     * @param $value
-     * @return $this|mixed
-     */
-    public function blog($coincidence, $value)
-    {
-        $blog = $this->blog->select('title', 'alias', 'created_at', 'view', DB::raw("('blog')"));
-        $blog->where('approved', 1);
-        $blog = $this->sql($blog, $coincidence, $value);
-        return $blog;
-    }
-
-    /**
-     * @param $coincidence
-     * @param $value
-     * @return $this|mixed
-     */
-    public function establishment($coincidence, $value)
-    {
-        $establishment = $this->establishment->select('title', 'alias', 'created_at', DB::raw("'1' as 'view'"), 'category as status');
-        $establishment = $this->sql($establishment, $coincidence, $value);
-        return $establishment;
     }
 
     /**
@@ -195,7 +127,12 @@ dd($result);
                 $builder->orWhere('content', 'like', '%'.$value.'%');
                 break;
             case 'any':
-                $builder->whereRaw("MATCH(title, content)AGAINST(?)", $value);
+                $value = $this->verifyVal($value);
+                $values = explode(' ', $value);
+                foreach ($values as $val) {
+                    $builder->orWhere('title', 'like', '%'.$val.'%');
+                    $builder->orWhere('content', 'like', '%'.$val.'%');
+                }
                 break;
             case 'exact':
                 $builder->where('title', $value);
@@ -208,10 +145,61 @@ dd($result);
         return $builder;
     }
 
+    /**
+     * @param $val
+     * @return string
+     */
     public function verifyVal($val)
     {
-        $val = preg_replace('/[^а-яА-ЯёЁ\w\s\-;:\.,\(\)]/', ' ', $val);
-        $val = preg_replace('/\b(\S{1,2})\b/', ' ', $val);
+        $val = preg_replace('/[^а-яА-ЯёЁ\w\s\-;:\.,\(\)]/u', ' ', $val);
+        $val = preg_replace('/\b([а-яА-ЯёЁ\w\s\-;:\.,\(\)]{1,2})\b/u', ' ', $val);
         return trim(preg_replace('/\s\s+/', ' ', $val));
+    }
+
+    protected function check($result)
+    {
+
+        if($result->isEmpty()) {
+            return FALSE;
+        }
+
+        $result->transform(function($item) {
+
+            if (!empty($item->created_at)) {
+                $created = strtotime($item->created_at);
+                $item->created = date('d', $created) . ' ' . trans('ru.' . date('m', $created)) . ' ' . date('Y', $created);
+            } else {
+                $item->created = date('d') . ' ' . trans('ru.' . date('m')) . ' ' . date('Y');
+            }
+
+            if (!empty($item->status)) {
+                switch ($item->status) {
+                    case 'docs':
+                        $item->path = route('doctors').'/'. $item->alias;
+                        break;
+                    case 'patient':
+                        $item->path = route('articles').'/'. $item->alias;
+                        break;
+                    case 'blog':
+                        $item->path = route('blogs').'/'. $item->alias;
+                        break;
+                    case 'distributor':
+                        $item->path = route('distributors').'/'. $item->alias;
+                        break;
+                    case 'brand':
+                        $item->path = route('brands').'/'. $item->alias;
+                        break;
+                    case 'clinic':
+                        $item->path = route('clinics').'/'. $item->alias;
+                        break;
+                }
+            }
+
+            return $item;
+
+        });
+
+        return $result;
+
     }
 }

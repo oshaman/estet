@@ -46,11 +46,16 @@ class SearchController extends Controller
             return $this->cat_rep->catSelect();
         });
 
+//        dd($request->all());
+
         if ($request->has('value')) {
             $result = $this->repository->get($request);
-//dd($result);
+
             if(is_array($result) && !empty($result['error'])) {
                 return redirect()->route('search')->withErrors($result['error']);
+            }
+            if (is_object($result) && $result->isNotEmpty()) {
+                $result->appends($request->all())->links();
             }
             $this->content = view('search.show')->with(['cats'=>$cats, 'titles'=>$result])->render();
             return $this->renderOutput();
