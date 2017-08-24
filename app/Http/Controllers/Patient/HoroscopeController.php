@@ -11,7 +11,9 @@ class HoroscopeController extends ArticlesController
 {
     public function index()
     {
-        $signs = array_except(Horoscope::first()->toArray(), ['id', 'created_at', 'updated_at']);
+        $signs = Cache::remember('horoscope', 60*24*30, function () {
+           return array_except(Horoscope::first()->toArray(), ['id', 'created_at', 'updated_at']);
+        });
 
         $this->sidebar = Cache::remember('horoscopeSidebar', 60, function () {
 //                Last 2 publications

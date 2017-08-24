@@ -4,7 +4,9 @@
     <div class="row">
         {!! Form::text('value', old('value') ? : '' , ['placeholder'=>'введите ваш запрос...', 'id'=>'value', 'class'=>'form-control']) !!}
     </div>
-    <h4>Результаты поиска <span class="label label-info">{{ $titles->total() }}</span></h4>
+    @if(!empty($titles) && $titles->total())
+        <h4>Результаты поиска <span class="label label-info">{{ $titles->total()}}</span></h4>
+    @endif
     <h3>Cовпадение   -----------------------------------------------------</h3>
     <div class="row bg-success">
         {!! Form::radio('coincidence', 'exact', true, ['class' => 'optradio']) !!} Точное совпадение
@@ -37,7 +39,7 @@
 </div>
 @if(!empty($titles))
     <div class="row">
-    @if($titles->lastPage() >1)
+    @if(!empty($titles->lastPage()) && $titles->lastPage() >1)
         <h4>Страница <span class="label label-primary">{{ $titles->currentPage() }}</span> из <span class="label label-info">{{ $titles->lastPage() }}</span></h4>
     @endif
     @foreach($titles as $title)

@@ -5,6 +5,7 @@ namespace Fresh\Estet\Http\Controllers\Admin;
 use Fresh\Estet\Horoscope;
 use Illuminate\Http\Request;
 use Validator;
+use Cache;
 
 class GoroscopController extends AdminController
 {
@@ -28,6 +29,7 @@ class GoroscopController extends AdminController
 
             $model = Horoscope::find(1);
             $model->fill($data)->save();
+            Cache::forget('horoscope');
 
         }
 

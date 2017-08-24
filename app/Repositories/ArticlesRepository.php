@@ -197,11 +197,7 @@ class ArticlesRepository extends Repository
                 }
             }
 
-            Cache::forget('patientSidebar');
-            Cache::forget('horoscopeSidebar');
-            Cache::forget('docsArticleSidebar');
-            Cache::forget('docsSidebar');
-            Cache::forget('docsArticles');
+            $this->clearArticlesCache();
 
             return ['status' => trans('admin.material_added'), $error];
         }
@@ -368,8 +364,8 @@ class ArticlesRepository extends Repository
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
-            Cache::forget('patientSidebar');
-            Cache::forget('horoscopeSidebar');
+
+            $this->clearArticlesCache();
 
             return ['status' => trans('admin.material_updated'), $error];
         }
@@ -417,8 +413,8 @@ class ArticlesRepository extends Repository
                     }
                 }
             }
-            Cache::forget('patientSidebar');
-            Cache::forget('horoscopeSidebar');
+
+            $this->clearArticlesCache();
 
             return ['status' => trans('admin.deleted')];
         }
@@ -578,6 +574,21 @@ class ArticlesRepository extends Repository
         })->select('title', 'alias')->get();
 
         return $articles;
+    }
+
+    /**
+     * Clear
+     */
+    protected function clearArticlesCache()
+    {
+        Cache::forget('patientSidebar');
+        Cache::forget('horoscopeSidebar');
+        Cache::forget('docsArticleSidebar');
+        Cache::forget('docsSidebar');
+        Cache::forget('docsArticles');
+        Cache::forget('main');
+        Cache::forget('articles_cats');
+        Cache::forget('docs_cats');
     }
 
 }

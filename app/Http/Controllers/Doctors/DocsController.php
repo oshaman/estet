@@ -64,10 +64,14 @@ class DocsController extends Controller
 
     public function category($cat)
     {
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id] );
-        $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
 
-        $this->content = view('doc.cat')->with(['articles' => $articles])->render();
+        $this->content = Cache::remember('docs_cats', 60, function () use ($cat) {
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id] );
+            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+
+            return view('doc.cat')->with(['articles' => $articles])->render();
+        });
+
         return $this->renderOutput();
     }
 

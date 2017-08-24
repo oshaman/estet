@@ -45,9 +45,15 @@ class LoginController extends Controller
     protected function authenticated($request=null, $user)
     {
 
-        if($user->hasRole('admin') || $user->hasRole('moderator')) {
+        if ($user->hasRole('admin') || $user->hasRole('moderator'))
+        {
             return redirect('admin');
         }
+
+        if (!$user->hasRole('admin') || !$user->hasRole('moderator')) {
+            Session::put('profile_role', 'user');
+        }
+        Session::put('profile_email', $user->email);
 
         return redirect()->intended('home');
     }

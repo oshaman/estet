@@ -173,7 +173,6 @@ class CatalogController extends Controller
         $status = session('doc');
 
 //        sidebar
-
         $this->sidebar = Cache::remember('catalog_sidebar', 60, function () use ($status) {
             $own = $status ? 'docs' : 'patient';
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
