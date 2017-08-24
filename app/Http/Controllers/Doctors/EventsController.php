@@ -47,7 +47,7 @@ class EventsController extends DocsController
         $this->sidebar = Cache::remember('eventSidebar', 60,function() {
             //        Last 2 publications
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
-            $articles = $this->repository->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
 //        Last 2 events
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
             $lasts = $this->repository->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
