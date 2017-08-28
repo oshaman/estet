@@ -28,6 +28,7 @@ return [
     'add_outputtime' => 'Дата публикации:',
     'deleted' => 'Материал удален',
     'param' => 'Параметр',
+    'categories' => 'Категории',
     //  blogs
     'cats' => 'Категория',
     //  articles

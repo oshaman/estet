@@ -8,7 +8,6 @@ class SwitchController extends Controller
 {
     public function index(Request $request)
     {
-//        dd($request->has('doc'));
         if ($request->isMethod('post')) {
             if ($request->has('doc')) {
                 $request->session()->put('doc', true);

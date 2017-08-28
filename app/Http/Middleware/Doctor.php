@@ -15,7 +15,7 @@ class Doctor
      */
     public function handle($request, Closure $next)
     {
-        if (!session()->has('doc')) {
+        if (!session()->has('doc') || !('Googlebot' == $_SERVER['HTTP_USER_AGENT'])) {
             return redirect()->back();
         }
         return $next($request);

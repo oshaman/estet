@@ -14,11 +14,11 @@ class CreateSearchView extends Migration
     public function up()
     {
         DB::statement( 'CREATE VIEW searchview AS 
-            (SELECT `title`, `alias`, `content`, `created_at`, `view`, `own` AS `status` FROM `articles`)
+            (SELECT `title`, `alias`, `category_id` AS `category`, `content`, `created_at`, `view`, `own` AS `status` FROM `articles`)
             UNION ALL
-            (SELECT `title`, `alias`, `content`, `created_at`, `view`, (\'blog\') FROM `blogs`)
+            (SELECT `title`, `alias`, `category_id` AS `category`, `content`, `created_at`, `view`, (\'blog\') FROM `blogs`)
             UNION ALL
-            (SELECT `title`, `alias`, `content`, `created_at`, 1 AS \'view\', `category` FROM `establishments`)
+            (SELECT `title`, `alias`, `category` AS `category`, `content`, `created_at`, 1 AS \'view\', `category` FROM `establishments`)
         ' );
     }
 

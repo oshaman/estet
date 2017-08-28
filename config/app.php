@@ -182,6 +182,7 @@ return [
         'Lavary\Menu\ServiceProvider',
         Intervention\Image\ImageServiceProvider::class,
         Unisharp\Laravelfilemanager\LaravelFilemanagerServiceProvider::class,
+        'Roumen\Sitemap\SitemapServiceProvider',
 
     ],
 

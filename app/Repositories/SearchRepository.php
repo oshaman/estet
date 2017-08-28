@@ -30,6 +30,7 @@ class SearchRepository
     {
         $validator = Validator::make($request->all(), [
             'value' => 'required|string|max:128',
+            'categories' => 'nullable|integer|min:1|max:4294967295',
         ]);
 
         if ($validator->fails()) {
@@ -37,7 +38,7 @@ class SearchRepository
         }
 
         $data = $request->all();
-
+//        dd($data);
         if (empty($data['value'])) {
             return false;
         }
@@ -97,6 +98,9 @@ class SearchRepository
         }
 
         $builder = $this->search->select('title', 'status', 'created_at', 'alias', 'view');
+        if (!empty($data['categories'])) {
+            $builder->where('category', $data['categories']);
+        }
         $builder = $builder->where(function ($q) use ($status) { $q->whereIn('status', $status); });
         $coincidence = $data['coincidence'];
         $val = $data['value'];
