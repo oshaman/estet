@@ -67,6 +67,7 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
     Route::get('/statyi/{article_alias?}', 'Doctors\DocsController@index')->name('doctors')->where('article_alias', '[a-zA-Z0-9-_]+');
     Route::get('categorii/{cat_alias}', 'Doctors\DocsController@category')->name('docs_cat')->where('cat', '[a-zA-Z0-9-_]+');
     Route::get('/teg/{tag_alias}', 'Doctors\DocsController@tag')->name('docs_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
+    Route::get('/poslednie-novosti/{ids?}', 'Doctors\DocsController@lastArticles')->name('docs_articles_last');
     //  Blog
     Route::group(['prefix' => 'blog'], function () {
         Route::get('/{blog_alias?}', 'Doctors\BlogsController@index')->name('blogs')->where('blog_alias', '[a-zA-Z0-9-_]+');

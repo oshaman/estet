@@ -46,8 +46,6 @@ class SearchController extends Controller
             return $this->cat_rep->catSelect();
         });
 
-//        dd($request->all());
-
         if ($request->has('value')) {
             $result = $this->repository->get($request);
 

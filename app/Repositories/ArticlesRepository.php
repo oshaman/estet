@@ -17,10 +17,10 @@ class ArticlesRepository extends Repository
     }
 
 
-    public function displayed($id)
+    public function displayed($article)
     {
         try {
-            $this->model->find($id)->increment('view');
+            $article->increment('view');
 
         } catch (Exception $e) {
             \Log::info('Ошибка записи просмотра: ', $e->getMessage());

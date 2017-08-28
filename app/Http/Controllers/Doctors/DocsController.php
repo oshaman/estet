@@ -27,16 +27,21 @@ class DocsController extends Controller
     {
         if ($article) {
 
-            if (!empty($article->seo)) {
-                $article->seo = $this->a_rep->convertSeo($article->seo);
-            }
-            $article->created = $this->a_rep->convertDate($article->created_at);
-            $article->load('category');
-            $article->load('tags');
-            $article->load('comments');
+            $article = Cache::remember('docs_article-'.$article->id, 60, function () use ($article) {
+                if (!empty($article->seo)) {
+                    $article->seo = $this->a_rep->convertSeo($article->seo);
+                }
+                $article->created = $this->a_rep->convertDate($article->created_at);
+                $article->load('category');
+                $article->load('tags');
+                $article->load('comments');
+                return $article;
+            });
 
-            $this->a_rep->displayed($article->id);
+            $this->a_rep->displayed($article);
+
             $id = $article->id;
+
             $this->sidebar = Cache::remember('docsArticleSidebar', 60, function () use ($id) {
                 //            Last 2 publications
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $id]);
@@ -97,7 +102,7 @@ class DocsController extends Controller
         $cats = DB::select('SELECT `name`, `alias` FROM `docsmenuview`');
 
         return Menu::make('menu', function($menu) use ($cats) {
-
+            $menu->add('Последние', ['route'=>['docs_articles_last']]);
             foreach ($cats as $cat) {
                 $menu->add($cat->name, ['route'=>['docs_cat', $cat->alias]]);
             }
@@ -113,6 +118,20 @@ class DocsController extends Controller
     {
         $articles = $this->a_rep->getByTag($tag->id);
         $this->content = view('doc.tags')->with(['articles' => $articles])->render();
+        return $this->renderOutput();
+    }
+    /**
+     * @return ArticlesController
+     */
+    public function lastArticles()
+    {
+        $this->content = Cache::remember('articles_last', 60, function () {
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+
+            return view('doc.cat')->with(['articles' => $articles])->render();
+        });
+
         return $this->renderOutput();
     }
 }

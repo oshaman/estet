@@ -26,7 +26,6 @@ class ArticlesController extends Controller
 
     public function index()
     {
-//        Cache::flush();
         $this->content = Cache::remember('main', 60, function() {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
 
@@ -43,15 +42,17 @@ class ArticlesController extends Controller
         if ($article) {
 
             $article_id = $article->id;
-            $this->a_rep->displayed($article->id);
+            $this->a_rep->displayed($article);
 
-
-            if (!empty($article->seo)) {
-                $article->seo = $this->a_rep->convertSeo($article->seo);
-            }
-            $article->created = $this->a_rep->convertDate($article->created_at);
-            $article->load('category');
-            $article->load('tags');
+            $article = Cache::remember('patients_article-'.$article->id, 60, function () use ($article) {
+                if (!empty($article->seo)) {
+                    $article->seo = $this->a_rep->convertSeo($article->seo);
+                }
+                $article->created = $this->a_rep->convertDate($article->created_at);
+                $article->load('category');
+                $article->load('tags');
+                return $article;
+            });
 
             $this->sidebar = Cache::remember('patientSidebar', 60, function () use ($article_id) {
 //                Last 2 publications
@@ -134,6 +135,9 @@ class ArticlesController extends Controller
         });
     }
 
+    /**
+     * @return ArticlesController
+     */
     public function lastArticles()
     {
         $this->content = Cache::remember('articles_last', 60, function () {

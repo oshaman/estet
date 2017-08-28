@@ -21,7 +21,6 @@ class PersonsRepository extends Repository {
         }
         $data = $request->except('_token');
 
-//        dd($data);
         if (!empty($data['services'])) {
             $data['services'] = json_encode($data['services']);
         }

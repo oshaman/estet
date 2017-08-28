@@ -595,7 +595,6 @@ class BlogsRepository extends Repository {
             if (is_array($with)){
                 $builder = $this->model->with($with[0], $with[1], $with[2]);
             } else {
-//                dd('not array');
                 $builder = $this->model->with($with);
             }
         }

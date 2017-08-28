@@ -70,7 +70,7 @@ class CountriesController extends AdminController
         if ($request->isMethod('post')) {
 
             $result = $this->repository->updateCountry($request, $country);
-//            dd($result);
+
             if(is_array($result) && !empty($result['error'])) {
                 return redirect()->back()->withErrors($result['error'])->withInput();
             }

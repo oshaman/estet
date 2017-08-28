@@ -42,7 +42,6 @@ class CatalogController extends Controller
      */
     public function docs(PersonsRepository $rep, BlogsRepository $blog_rep, $doc = false)
     {
-//        Cache::flush();
         if ($doc) {
             $docs = new PersonsRepository(new Person);
             $profile = $docs->one($doc);

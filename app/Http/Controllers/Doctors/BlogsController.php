@@ -21,8 +21,6 @@ class BlogsController extends DocsController
      */
     public function index($blog_alias=false)
     {
-
-//        Cache::flush();
         if ($blog_alias) {
 
             $blog = Cache::remember('blog-'.$blog_alias, '10', function() use ($blog_alias) {

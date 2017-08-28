@@ -27,10 +27,9 @@ class SpecialtiesRepository extends Repository {
 
     public function updateSpec($request, $id)
     {
-//        dd($request);
         $model = $this->findById($id);
         $model->name = $request->spec;
-//        dd($model);
+
         $res = $model->save();
         return $res;
     }

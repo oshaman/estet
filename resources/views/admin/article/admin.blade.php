@@ -21,9 +21,21 @@
             ],
             content_css: "{{asset('css')}}/tinimce.css",
             importcss_append: true,
-            importcss_file_filter: "{{asset('css')}}/tinimce.css",
-            themes: "advanced",
-            theme_advanced_styles: "Header 1=test",
+            {{--importcss_file_filter: "{{asset('css')}}/tinimce.css",--}}
+//            themes: "advanced",
+
+            style_formats: [
+                {
+                    title: 'Тест1',
+                    classes: 'left'
+                },
+
+            ],
+            {{--templates: "{{asset('js')}}/tinymce/templates/templatelist.js",--}}
+            templates: [
+                {title: 'Картинка слева', description: 'Текст с описанием', url: '/js/tinymce/templates/image_left.html'}
+            ],
+
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
             relative_urls: false,
             file_browser_callback : function(field_name, url, type, win) {

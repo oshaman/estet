@@ -13,7 +13,6 @@ class SitemapRepository
 {
     public function index()
     {
-        Cache::flush();
         // create new sitemap object
         $sitemap_article_docs = App::make("sitemap");
         $sitemap_article_patients = App::make("sitemap");
