@@ -21,6 +21,7 @@ Route::group(['prefix' =>'statyi'], function () {
     Route::get('/teg/{tag_alias}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     Route::get('kategorii/{cat_alias}', 'Patient\ArticlesController@category')->name('article_cat')->where('cat', '[a-zA-Z0-9-_]+');
 });
+Route::get('poslednie-novosti', 'Patient\ArticlesController@lastArticles')->name('articles_last');
 /**
  *  Profile
  */

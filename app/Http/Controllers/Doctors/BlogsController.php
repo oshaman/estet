@@ -4,6 +4,7 @@ namespace Fresh\Estet\Http\Controllers\Doctors;
 
 use Fresh\Estet\Repositories\BlogsRepository;
 use DB;
+use Cache;
 
 class BlogsController extends DocsController
 {
@@ -20,59 +21,81 @@ class BlogsController extends DocsController
      */
     public function index($blog_alias=false)
     {
+
+//        Cache::flush();
         if ($blog_alias) {
-            $blog = $this->blog_rep->one($blog_alias, true);
-            $blog->load('comments');
+
+            $blog = Cache::remember('blog-'.$blog_alias, '10', function() use ($blog_alias) {
+                $blog = $this->blog_rep->one($blog_alias, true);
+                if ($blog) {
+                    $blog->load('comments');
+                }
+                return $blog;
+            });
+
+            if (!$blog) {
+                abort(404);
+            }
             $this->blog_rep->displayed($blog->id);
-            //  Blogs preview
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $blog->user_id], ['id', '!=', $blog->id]);
-            $blogs = $this->blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
+
+
+            $this->content = Cache::remember('blogs-preview-'.$blog_alias, 10, function () use ($blog) {
+
+
+                //  Blogs preview
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $blog->user_id], ['id', '!=', $blog->id]);
+                $blogs = $this->blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
                 //  If not enough author's blogs, attach blogs from the same category
-            if (empty($blogs) || ($blogs->count() < 3)) {
-                if (empty($blogs)) {
-                    $take = 3;
-                } else {
-                    $take = 3 - $blogs->count();
-                }
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $blog->category_id], ['user_id', '!=', $blog->user_id]);
-                $by_cat = $this->blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
-
-                if ($by_cat) {
+                if (empty($blogs) || ($blogs->count() < 3)) {
                     if (empty($blogs)) {
-                        $blogs = $by_cat;
+                        $take = 3;
                     } else {
-                        $blogs = $blogs->merge($by_cat);
-                        $blogs->all();
+                        $take = 3 - $blogs->count();
+                    }
+                    $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $blog->category_id], ['user_id', '!=', $blog->user_id]);
+                    $by_cat = $this->blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
+
+                    if ($by_cat) {
+                        if (empty($blogs)) {
+                            $blogs = $by_cat;
+                        } else {
+                            $blogs = $blogs->merge($by_cat);
+                            $blogs->all();
+                        }
                     }
                 }
-            }
                 //  If not enough blogs, attach any blogs
-            if (empty($blogs) || ($blogs->count() < 3)) {
-                if (empty($blogs)) {
-                    $take = 3;
-                } else {
-                    $take = 3 - $blogs->count();
-                }
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', '!=', $blog->category_id], ['user_id', '!=', $blog->user_id]);
-                $by_created = $this->blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
-                if ($by_created) {
+                if (empty($blogs) || ($blogs->count() < 3)) {
                     if (empty($blogs)) {
-                        $blogs = $by_created;
+                        $take = 3;
                     } else {
-                        $blogs = $blogs->merge($by_created);
-                        $blogs->all();
+                        $take = 3 - $blogs->count();
+                    }
+                    $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', '!=', $blog->category_id], ['user_id', '!=', $blog->user_id]);
+                    $by_created = $this->blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
+                    if ($by_created) {
+                        if (empty($blogs)) {
+                            $blogs = $by_created;
+                        } else {
+                            $blogs = $blogs->merge($by_created);
+                            $blogs->all();
+                        }
                     }
                 }
-            }
-            //  End Blogs preview
+                //  End Blogs preview
 
-            $this->content = view('doc.blog')->with(['blog' => $blog, 'blogs' => $blogs])->render();
+                return view('doc.blog')->with(['blog' => $blog, 'blogs' => $blogs])->render();
+            });
             return $this->renderOutput();
         }
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
-        $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'], false, true, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
 
-        $this->content = view('doc.blogs')->with('blogs', $blogs)->render();
+        $this->content = Cache::remember('blogs', 10, function () {
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+            $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'], false, true, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
+
+            return view('doc.blogs')->with('blogs', $blogs)->render();
+        });
+
         return $this->renderOutput();
     }
 
@@ -83,9 +106,11 @@ class BlogsController extends DocsController
      */
     public function tag($tag)
     {
-        $blogs = $this->blog_rep->getByTag($tag->id);
+        $this->content = Cache::remember('blog-tag-'.$tag->id, 15, function () use ($tag) {
+            $blogs = $this->blog_rep->getByTag($tag->id);
 
-        $this->content = view('blog.tags')->with(['blogs' => $blogs])->render();
+            return view('blog.tags')->with(['blogs' => $blogs])->render();
+        });
         return $this->renderOutput();
     }
 
@@ -96,10 +121,14 @@ class BlogsController extends DocsController
      */
     public function category($cat)
     {
-        $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $cat->id] );
-        $blogs = $this->blog_rep->get(['title', 'alias'], false, true, $where);
+        $this->content = Cache::remember('blog-cat'.$cat->id, 15, function() use ($cat) {
 
-        $this->content = view('doc.blogcat')->with(['blogs' => $blogs])->render();
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $cat->id] );
+            $blogs = $this->blog_rep->get(['title', 'alias'], false, true, $where);
+
+            return view('doc.blogcat')->with(['blogs' => $blogs])->render();
+        });
+
         return $this->renderOutput();
     }
 }

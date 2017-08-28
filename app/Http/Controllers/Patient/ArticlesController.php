@@ -26,6 +26,7 @@ class ArticlesController extends Controller
 
     public function index()
     {
+//        Cache::flush();
         $this->content = Cache::remember('main', 60, function() {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
 
@@ -81,10 +82,12 @@ class ArticlesController extends Controller
         return $this->renderOutput();
     }
 
+    /**
+     * @param $cat
+     * @return $this
+     */
     public function category($cat)
     {
-
-
         $this->content = Cache::remember('articles_cats', 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );
             $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
@@ -95,6 +98,9 @@ class ArticlesController extends Controller
         return $this->renderOutput();
     }
 
+    /**
+     * @return $this
+     */
     public function renderOutput()
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
@@ -113,15 +119,30 @@ class ArticlesController extends Controller
         return view($this->template)->with($this->vars);
     }
 
+    /**
+     * @return mixed
+     */
     public function getMenu() {
         $cats = DB::select('SELECT `name`, `alias` FROM `patientmenuview`');
 
         return Menu::make('menu', function($menu) use ($cats) {
-
+            $menu->add('Последние', ['route'=>['articles_last']]);
             foreach ($cats as $cat) {
                 $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
             }
 
         });
+    }
+
+    public function lastArticles()
+    {
+        $this->content = Cache::remember('articles_last', 60, function () {
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+
+            return view('patient.cat')->with(['articles' => $articles])->render();
+        });
+
+        return $this->renderOutput();
     }
 }

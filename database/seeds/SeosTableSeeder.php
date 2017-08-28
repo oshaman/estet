@@ -22,8 +22,6 @@ class SeosTableSeeder extends Seeder
                 ['uri'=>'catalog/kliniki'],
                 ['uri'=>'catalog/distributory'],
                 ['uri'=>'catalog/brendy'],
-                ['uri'=>'search'],
-                ['uri'=>'404'],
             ]
         );
     }

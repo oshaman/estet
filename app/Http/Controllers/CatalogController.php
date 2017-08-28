@@ -42,6 +42,7 @@ class CatalogController extends Controller
      */
     public function docs(PersonsRepository $rep, BlogsRepository $blog_rep, $doc = false)
     {
+//        Cache::flush();
         if ($doc) {
             $docs = new PersonsRepository(new Person);
             $profile = $docs->one($doc);
@@ -65,9 +66,11 @@ class CatalogController extends Controller
         }
         $this->title = 'Врачи';
 
-        $profiles = $rep->get(['name', 'address', 'phone', 'site', 'alias', 'photo'], false, true, false, false, 'specialties');
+        $this->content = Cache::remember('catalog_doc', 60, function () use ($rep) {
+            $profiles = $rep->get(['name', 'address', 'phone', 'site', 'alias', 'photo'], false, true, false, false, 'specialties');
 
-        $this->content = view('catalog.docs')->with(['title' => $this->title, 'profiles' => $profiles]);
+            return view('catalog.docs')->with(['title' => $this->title, 'profiles' => $profiles])->render();
+        });
         return $this->renderOutput();
     }
 
@@ -97,13 +100,18 @@ class CatalogController extends Controller
         }
 
         $this->title = 'Клиники';
-        $prems_ids = $prem_rep->getPremIds('clinic');
 
-        $prems = $repository->getPrems($prems_ids);
+        $this->content = Cache::remember('catalog-clinic', 60, function() use ($prem_rep, $repository) {
+            $prems_ids = $prem_rep->getPremIds('clinic');
 
-        $clinics = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
+            $prems = $repository->getPrems($prems_ids);
 
-        $this->content = view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems])->render();
+            $clinics = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
+
+            return view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems])->render();
+
+        });
+
         return $this->renderOutput();
     }
 
@@ -128,13 +136,16 @@ class CatalogController extends Controller
         }
         $this->title = 'Дистрибьюторы';
 
-        $prems_ids = $prem_rep->getPremIds('distributor');
+        $this->content = Cache::remember('catalog-distributor', 60, function () use ($prem_rep, $repository) {
+            $prems_ids = $prem_rep->getPremIds('distributor');
 
-        $prems = $repository->getPrems($prems_ids);
+            $prems = $repository->getPrems($prems_ids);
 
-        $distributors = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
+            $distributors = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
 
-        $this->content = view('catalog.distributors')->with(['distributors' => $distributors, 'prems' => $prems])->render();
+            return view('catalog.distributors')->with(['distributors' => $distributors, 'prems' => $prems])->render();
+        });
+
         return $this->renderOutput();
     }
 
@@ -156,13 +167,16 @@ class CatalogController extends Controller
         }
 
         $this->title = 'Бренды';
-        $prems_ids = $prem_rep->getPremIds('brand');
 
-        $prems = $repository->getPrems($prems_ids);
+        $this->content = Cache::remember('clinic-brand', 60, function() use ($prem_rep, $repository) {
+            $prems_ids = $prem_rep->getPremIds('brand');
 
-        $brands = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
+            $prems = $repository->getPrems($prems_ids);
 
-        $this->content = view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems])->render();
+            $brands = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
+
+            return view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems])->render();
+        });
         return $this->renderOutput();
     }
 
@@ -173,17 +187,30 @@ class CatalogController extends Controller
         $status = session('doc');
 
 //        sidebar
-        $this->sidebar = Cache::remember('catalog_sidebar', 60, function () use ($status) {
-            $own = $status ? 'docs' : 'patient';
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
-            $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
+        if ($status) {
+            $this->sidebar = Cache::remember('catalog_sidebar_docs', 60, function () {
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+                $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
 
-            //          most displayed
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', $own]);
-            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
 
-            return view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => $status, 'articles' => $articles])->render();
-        });
+                return view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => true, 'articles' => $articles])->render();
+            });
+        } else {
+            $this->sidebar = Cache::remember('catalog_sidebar_patient', 60, function () {
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
+
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+
+                return view('catalog.sidebar')->with(['lasts' => $last_articles, 'status' => false, 'articles' => $articles])->render();
+            });
+        }
+
 
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
@@ -220,5 +247,4 @@ class CatalogController extends Controller
             }
         });
     }
-
 }

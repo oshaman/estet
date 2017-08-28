@@ -15,7 +15,6 @@ class CategoriesTableSeeder extends Seeder
             [
                 ['name' => 'Практика', 'alias'=>'praktika'],
                 ['name' => 'Эксперты', 'alias'=>'eksperty'],
-                ['name' => 'Последние', 'alias'=>'poslednie'],
                 ['name' => 'Дерматология', 'alias'=>'dermatologiya'],
                 ['name' => 'Косметология', 'alias'=>'kosmetologia'],
                 ['name' => 'Пластическая хирургия', 'alias'=>'plasticheskaya-hirurgiya'],

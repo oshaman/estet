@@ -7,6 +7,7 @@ use Gate;
 use Image;
 use Config;
 use File;
+use Cache;
 
 
 class EstablishmentsRepository extends Repository
@@ -148,6 +149,7 @@ class EstablishmentsRepository extends Repository
         }
 
         if (!empty($new)) {
+            $this->clearCatalogCache();
             return ['status' => trans('admin.material_added')];
         }
 
@@ -232,6 +234,7 @@ class EstablishmentsRepository extends Repository
 
         if (!empty($updated)) {
             if (!empty($path)) $this->deleteOldImage($old_logo);
+            $this->clearCatalogCache();
             return ['status' => trans('admin.material_updated')];
         }
 
@@ -254,7 +257,7 @@ class EstablishmentsRepository extends Repository
             if (!empty($old_img)) {
                 $this->deleteOldImage($old_img);
             }
-
+            $this->clearCatalogCache();
             return ['status' => trans('admin.deleted')];
         }
     }
@@ -360,6 +363,15 @@ class EstablishmentsRepository extends Repository
     public function getChildren($id)
     {
         return $this->model->where('parent', $id)->select('title', 'alias')->get();
+    }
+    /**
+     * Clear
+     */
+    protected function clearCatalogCache()
+    {
+        Cache::forget('catalog-clinic');
+        Cache::forget('catalog-distributor');
+        Cache::forget('catalog-brand');
     }
 
 }
