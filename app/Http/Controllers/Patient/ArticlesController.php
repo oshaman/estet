@@ -26,19 +26,19 @@ class ArticlesController extends Controller
 
     public function index()
     {
-        Cache::flush();
         $this->content = Cache::remember('main', 60, function() {
 
             $articles = [
-                'lasts' => $this->a_rep->getMain([['id', '<>', null]],3, ['created_at', 'desc']),
-                'popular' => $this->a_rep->getMain([['id', '<>', null]],4, ['view', 'desc']),
-                'facts' => $this->a_rep->getMain([['category_id', 17]],3, ['created_at', 'desc']),
-                'diet' => $this->a_rep->getMain([['category_id', 19]],4, ['created_at', 'desc']),
-                'beauty' => $this->a_rep->getMain([['category_id', 14]],3, ['created_at', 'desc']),
-                'medicine' => $this->a_rep->getMain([['category_id', 15]],4, ['created_at', 'desc']),
-                'advice' => $this->a_rep->getMain([['category_id', 16]],3, ['created_at', 'desc']),
-                'stomatology' => $this->a_rep->getMain([['category_id', 8]],4, ['created_at', 'desc']),
-                'psychology' => $this->a_rep->getMain([['category_id', 18]],3, ['created_at', 'desc']),
+                'lasts' => $this->a_rep->getMain([['id', '<>', null]],3, ['created_at', 'desc'], 'patient'),
+                'popular' => $this->a_rep->getMain([['id', '<>', null]],4, ['view', 'desc'], 'patient'),
+                'video' => $this->a_rep->getMain([['category_id', 20]],3, ['created_at', 'desc'], 'patient'),
+                'facts' => $this->a_rep->getMain([['category_id', 17]],3, ['created_at', 'desc'], 'patient'),
+                'diet' => $this->a_rep->getMain([['category_id', 19]],4, ['created_at', 'desc'], 'patient'),
+                'beauty' => $this->a_rep->getMain([['category_id', 14]],3, ['created_at', 'desc'], 'patient'),
+                'medicine' => $this->a_rep->getMain([['category_id', 15]],4, ['created_at', 'desc'], 'patient'),
+                'advice' => $this->a_rep->getMain([['category_id', 16]],3, ['created_at', 'desc'], 'patient'),
+                'stomatology' => $this->a_rep->getMain([['category_id', 8]],4, ['created_at', 'desc'], 'patient'),
+                'psychology' => $this->a_rep->getMain([['category_id', 18]],3, ['created_at', 'desc'], 'patient'),
             ];
             return view('patient.content')->with(['articles' => $articles])->render();
 
@@ -87,7 +87,7 @@ class ArticlesController extends Controller
      */
     public function tag($tag)
     {
-        $articles = $this->a_rep->getByTag($tag->id);
+        $articles = $this->a_rep->getByTag($tag->id, 'patient');
         $this->content = view('patient.tags')->with(['articles' => $articles])->render();
         return $this->renderOutput();
     }
@@ -98,7 +98,7 @@ class ArticlesController extends Controller
      */
     public function category($cat)
     {
-        $this->content = Cache::remember('articles_cats', 60, function () use ($cat) {
+        $this->content = Cache::remember('articles_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );
             $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
 

@@ -46,7 +46,7 @@ class EventsController extends DocsController
     {
         $this->sidebar = Cache::remember('eventSidebar', 60, function () {
             //        Last 2 publications
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
             $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
 //        Last 2 events
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
@@ -56,8 +56,6 @@ class EventsController extends DocsController
         });
 
         if ($event) {
-
-
             $this->content = Cache::remember('event_content' . $event->alias, 15, function () use ($event) {
                 if (!empty($event->seo)) {
                     $event->seo = $this->repository->convertSeo($event->seo);
@@ -145,7 +143,6 @@ class EventsController extends DocsController
             }),
             'children' => $children,
         ];
-//dd($vars['cities']);
         $this->content = view('doc.events.index')->with($vars)->render();
         return $this->renderOutput();
     }

@@ -1,4 +1,5 @@
 <?php
+
 namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Article;
@@ -65,7 +66,7 @@ class ArticlesRepository extends Repository
         $article['category_id'] = $data['cats'];
 
         $article['alias'] = $this->transliterate($data['alias']);
-        if ($this->one($article['alias'],FALSE)) {
+        if ($this->one($article['alias'], FALSE)) {
             $request->merge(array('alias' => $article['alias']));
             $request->flash();
 
@@ -134,9 +135,9 @@ class ArticlesRepository extends Repository
                 $path = $this->mainImg($request->file('img'), $article['alias']);
 
                 if (false === $path) {
-                    $error[] =  ['img' => 'Ошибка загрузки картинки'];
+                    $error[] = ['img' => 'Ошибка загрузки картинки'];
                 } else {
-                    $img = $new->image()->create(['path'=>$path, 'alt' => $img_prop['imgalt'], 'title' => $img_prop['imgtitle']]);
+                    $img = $new->image()->create(['path' => $path, 'alt' => $img_prop['imgalt'], 'title' => $img_prop['imgtitle']]);
                 }
 
                 if (null == $img) {
@@ -221,7 +222,7 @@ class ArticlesRepository extends Repository
         }
 
         if (!empty($data['confirmed'])) {
-                $new['approved'] = 1;
+            $new['approved'] = 1;
         } else {
             $new['approved'] = 0;
         }
@@ -238,7 +239,9 @@ class ArticlesRepository extends Repository
             $obj->og_title = $data['og_title'] ?? '';
             $obj->og_description = $data['og_description'] ?? '';
             $new['seo'] = json_encode($obj);
-        } else { $new['seo'] = null; }
+        } else {
+            $new['seo'] = null;
+        }
 
         //        Content
         if (!empty($data['content']) && ($data['content'] != $article['content'])) {
@@ -301,14 +304,14 @@ class ArticlesRepository extends Repository
             //            delete old imgs
             if (!$old_photos->isEmpty()) {
                 foreach ($old_photos as $img) {
-                    if (preg_match('#'.$img->path.'#', $data['content'])) {
+                    if (preg_match('#' . $img->path . '#', $data['content'])) {
                         continue;
                     }
                     if (File::exists(public_path('images/article/photos/small/') . $img->path)) {
                         File::delete(public_path('images/article/photos/small/') . $img->path);
                     }
                     if (File::exists(public_path('images/article/photos/middle/') . $img->path)) {
-                        File::delete(public_path('images/article/photos/middle/'). $img->path);
+                        File::delete(public_path('images/article/photos/middle/') . $img->path);
                     }
                     if (File::exists(public_path('images/article/photos/main/') . $img->path)) {
                         File::delete(public_path('images/article/photos/main/') . $img->path);
@@ -337,6 +340,7 @@ class ArticlesRepository extends Repository
         }
         return ['error' => $error];
     }
+
     /**
      *
      * @param $article
@@ -357,7 +361,7 @@ class ArticlesRepository extends Repository
             $old_img = $article->image->path;
         }
 
-        if($article->delete()) {
+        if ($article->delete()) {
 
             if (!empty($old_img)) {
                 $this->deleteOldImage($old_img);
@@ -370,12 +374,12 @@ class ArticlesRepository extends Repository
                         File::delete(public_path('/images/article/photos/main/') . $pic);
                     }
 
-                    if (File::exists(public_path('/images/article/photos/middle/'). $pic)) {
+                    if (File::exists(public_path('/images/article/photos/middle/') . $pic)) {
                         File::delete(public_path('/images/article/photos/middle/') . $pic);
                     }
 
-                    if (File::exists(public_path('/images/article/photos/small/'). $pic)) {
-                        File::delete(public_path('/images/article/photos/small/'). $pic);
+                    if (File::exists(public_path('/images/article/photos/small/') . $pic)) {
+                        File::delete(public_path('/images/article/photos/small/') . $pic);
                     }
                 }
             }
@@ -397,20 +401,21 @@ class ArticlesRepository extends Repository
         if (File::exists(public_path('/images/article/main/') . $path)) {
             File::delete(public_path('/images/article/main/') . $path);
         }
-        if (File::exists(public_path('/images/article/middle/'). $path)) {
+        if (File::exists(public_path('/images/article/middle/') . $path)) {
             File::delete(public_path('/images/article/middle/') . $path);
         }
-        if (File::exists(public_path('/images/article/small/'). $path)) {
-            File::delete(public_path('/images/article/small/'). $path);
+        if (File::exists(public_path('/images/article/small/') . $path)) {
+            File::delete(public_path('/images/article/small/') . $path);
         }
-        if (File::exists(public_path('/images/article/mini/'). $path)) {
-            File::delete(public_path('/images/article/mini/'). $path);
+        if (File::exists(public_path('/images/article/mini/') . $path)) {
+            File::delete(public_path('/images/article/mini/') . $path);
         }
-        if (File::exists(public_path('/images/article/tmp/'). $path)) {
-            File::delete(public_path('/images/article/tmp/'). $path);
+        if (File::exists(public_path('/images/article/tmp/') . $path)) {
+            File::delete(public_path('/images/article/tmp/') . $path);
         }
         return true;
     }
+
     /**
      * @param $content
      * @param $alias
@@ -438,18 +443,20 @@ class ArticlesRepository extends Repository
             $picture = array_map(function ($v) {
                 return
                     '<picture>
-                            <source srcset="http://estet-portal.loc/images/article/photos/small/' .$v. '" media="(max-width: 320px)">
-                            <source srcset="http://estet-portal.loc/images/article/photos/middle/' .$v. '" media="(max-width: 768px)">
-                            <source srcset="http://estet-portal.loc/images/article/photos/main/' .$v. '" media="(max-width: 1024px)">
-                            <source srcset="http://estet-portal.loc/images/article/photos/main/' .$v. '">
-                            <img srcset="http://estet-portal.loc/images/article/photos/small/' .$v. '" alt="My default image">
+                            <source srcset="http://estet-portal.loc/images/article/photos/small/' . $v . '" media="(max-width: 320px)">
+                            <source srcset="http://estet-portal.loc/images/article/photos/middle/' . $v . '" media="(max-width: 768px)">
+                            <source srcset="http://estet-portal.loc/images/article/photos/main/' . $v . '" media="(max-width: 1024px)">
+                            <source srcset="http://estet-portal.loc/images/article/photos/main/' . $v . '">
+                            <img srcset="http://estet-portal.loc/images/article/photos/small/' . $v . '" alt="My default image">
                         </picture>';
             }, $new_path);
 //          convert content text
-            $patterns = array_map(function($v){ return '#<img src="\/photos\/' .addcslashes($v, '\./'). '.*?>#i'; }, $imgs[0]);
+            $patterns = array_map(function ($v) {
+                return '#<img src="\/photos\/' . addcslashes($v, '\./') . '.*?>#i';
+            }, $imgs[0]);
             $result['content'] = preg_replace($patterns, $picture, $content);
             $new_path = array_map(function ($v) {
-                return ['path'=>$v];
+                return ['path' => $v];
             }, $new_path);
             $result['path'] = $new_path;
             return $result;
@@ -466,11 +473,11 @@ class ArticlesRepository extends Repository
      */
     public function addPhotos($path, $alias)
     {
-        if(file_exists(public_path('/photos') . '/' .$path)) {
+        if (file_exists(public_path('/photos') . '/' . $path)) {
 
-            $img = Image::make(asset('photos'). '/' .$path);
+            $img = Image::make(asset('photos') . '/' . $path);
 
-            $str = substr($alias, 0, 32) . '-' . str_random(2) . time() .'.jpg';
+            $str = substr($alias, 0, 32) . '-' . str_random(2) . time() . '.jpg';
 
             $width = $img->width();
             if ($width <= 312) {
@@ -496,6 +503,7 @@ class ArticlesRepository extends Repository
             }
         } else return 'Ошибка добавления файла';
     }
+
     /**
      * @param File $image
      * @param $alias
@@ -504,24 +512,32 @@ class ArticlesRepository extends Repository
      */
     public function mainImg($image, $alias, $position = 'center')
     {
-        if($image->isValid()) {
+        if ($image->isValid()) {
 
             $path = substr($alias, 0, 64) . '-' . time() . '.jpeg';
 
             $img = Image::make($image);
 
             $img->fit(Config::get('settings.articles_img')['main']['width'], Config::get('settings.articles_img')['main']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/article/main/'.$path, 100);
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/article/main/' . $path, 100);
             $img->fit(Config::get('settings.articles_img')['middle']['width'], Config::get('settings.articles_img')['middle']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/article/middle/'.$path, 100);
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/article/middle/' . $path, 100);
             $img->fit(Config::get('settings.articles_img')['small']['width'], Config::get('settings.articles_img')['small']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/article/small/'.$path, 100);
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/article/small/' . $path, 100);
             $img->fit(Config::get('settings.articles_img')['mini']['width'], Config::get('settings.articles_img')['mini']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/article/mini/'.$path, 100);
+                function ($constraint) {
+                    $constraint->upsize();
+                },
+                $position)->save(public_path() . '/images/article/mini/' . $path, 100);
             return $path;
         } else {
             return false;
@@ -532,12 +548,11 @@ class ArticlesRepository extends Repository
      * @param $tag
      * @return articles collection
      */
-    public function getByTag($tag)
+    public function getByTag($tag, $own)
     {
-        $articles = $this->model->whereHas('tags', function($q) use ( $tag )
-        {
+        $articles = $this->model->whereHas('tags', function ($q) use ($tag) {
             $q->where('tag_id', $tag);
-        })->select('title', 'alias')->get();
+        })->select('title', 'alias')->where('own', $own)->get();
 
         return $articles;
     }
@@ -550,15 +565,23 @@ class ArticlesRepository extends Repository
      * @param $order
      * @return Instance of Article
      */
-    public function getMain($where, $take, $order)
+    public function getMain($where, $take, $order, $status)
     {
-        $res = $this->check(
-            DB::table('articles_view')->where($where)
-            ->take($take)
-            ->orderBy($order[0], $order[1])
-            ->get());
-        /*if (!empty($res)) {
-            $res = $res->transform(function($item) {
+        if ('docs' == $status) {
+            $res = $this->check(
+                DB::table('docs_articles_view')->where($where)
+                    ->take($take)
+                    ->orderBy($order[0], $order[1])
+                    ->get());
+        } else {
+            $res = $this->check(
+                DB::table('articles_view')->where($where)
+                    ->take($take)
+                    ->orderBy($order[0], $order[1])
+                    ->get());
+        }
+        if (!empty($res)) {
+            $res = $res->transform(function ($item) {
 
                 if (!empty($item->content)) {
                     if (preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content)) {
@@ -572,13 +595,9 @@ class ArticlesRepository extends Repository
                 return $item;
 
             });
-        }*/
+        }
         return $res;
     }
-
-
-
-
 
 
     /**
@@ -594,6 +613,8 @@ class ArticlesRepository extends Repository
         Cache::forget('main');
         Cache::forget('articles_cats');
         Cache::forget('docs_cats');
+        Cache::forget('eventSidebar');
+        Cache::forget('event_content');
     }
 
 }
