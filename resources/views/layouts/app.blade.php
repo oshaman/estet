@@ -80,7 +80,7 @@
                                     {{ trans('ru.profile') }}
                                 </a>
                             @endif
-                            @if(Auth::user()->hasRole('author'))
+                            @if('user' == session('author') || Auth::user()->hasRole('author'))
                                 <a class="navbar-brand" href="{{ route('admin_blog') }}">
                                     {{ trans('ru.blog') }}
                                 </a>

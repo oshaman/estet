@@ -33,7 +33,8 @@
             ],
             {{--templates: "{{asset('js')}}/tinymce/templates/templatelist.js",--}}
             templates: [
-                {title: 'Картинка слева', description: 'Текст с описанием', url: '/js/tinymce/templates/image_left.html'}
+                {title: 'Картинка слева', description: 'Текст с описанием', url: '/js/tinymce/templates/image_left.html'},
+                {title: "Две картинки", description: "Две картинки", url: "/js/tinymce/templates/two_imgs.html"},
             ],
 
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",

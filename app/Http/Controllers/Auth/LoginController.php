@@ -53,6 +53,11 @@ class LoginController extends Controller
         if (!$user->hasRole('admin') || !$user->hasRole('moderator')) {
             Session::put('profile_role', 'user');
         }
+
+        if ($user->hasRole('author')) {
+            Session::put('author', 'author');
+        }
+
         Session::put('profile_email', $user->email);
 
         return redirect()->intended('home');

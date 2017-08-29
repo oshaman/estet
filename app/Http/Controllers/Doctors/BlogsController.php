@@ -50,7 +50,7 @@ class BlogsController extends DocsController
                     } else {
                         $take = 3 - $blogs->count();
                     }
-                    $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $blog->category_id], ['user_id', '!=', $blog->user_id]);
+                    $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $blog->category_id], ['user_id', '<>', $blog->user_id]);
                     $by_cat = $this->blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
 
                     if ($by_cat) {
@@ -69,7 +69,7 @@ class BlogsController extends DocsController
                     } else {
                         $take = 3 - $blogs->count();
                     }
-                    $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', '!=', $blog->category_id], ['user_id', '!=', $blog->user_id]);
+                    $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', '<>', $blog->category_id], ['user_id', '<>', $blog->user_id]);
                     $by_created = $this->blog_rep->get(['alias', 'title', 'created_at'], $take, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
                     if ($by_created) {
                         if (empty($blogs)) {

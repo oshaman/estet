@@ -8,6 +8,7 @@ use Image;
 use Config;
 use Validator;
 use Cache;
+use DB;
 
 class ArticlesRepository extends Repository
 {
@@ -27,41 +28,6 @@ class ArticlesRepository extends Repository
 
         }
         return true;
-    }
-
-    /**
-     * @param $select
-     * @param $where
-     * @param $with
-     * @param $take
-     * @param $order
-     * @return Instance of Article
-     */
-    public function getMain($select, $where, $with, $take, $order)
-    {
-         $res = $this->check($this->model->where($where)
-            ->take($take)
-            ->with($with)
-            ->select($select)
-            ->orderBy($order[0], $order[1])
-            ->get());
-         if (!empty($res)) {
-             $res = $res->transform(function($item) {
-
-                 if (!empty($item->content)) {
-                     if (preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content)) {
-                         $item->content = preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content);
-                     }
-                     if (!empty($item->content)) {
-                         $item->content = preg_replace('/<p><iframe .+<\/iframe><\/p>/s', '', $item->content);
-                     }
-                 }
-
-                 return $item;
-
-             });
-         }
-        return $res;
     }
 
     public function getLast($select, $where, $take, $order)
@@ -575,6 +541,45 @@ class ArticlesRepository extends Repository
 
         return $articles;
     }
+
+    /**
+     * @param $select
+     * @param $where
+     * @param $with
+     * @param $take
+     * @param $order
+     * @return Instance of Article
+     */
+    public function getMain($where, $take, $order)
+    {
+        $res = $this->check(
+            DB::table('articles_view')->where($where)
+            ->take($take)
+            ->orderBy($order[0], $order[1])
+            ->get());
+        /*if (!empty($res)) {
+            $res = $res->transform(function($item) {
+
+                if (!empty($item->content)) {
+                    if (preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content)) {
+                        $item->content = preg_replace('/<p><picture>.+<\/picture><\/p>/s', '', $item->content);
+                    }
+                    if (!empty($item->content)) {
+                        $item->content = preg_replace('/<p><iframe .+<\/iframe><\/p>/s', '', $item->content);
+                    }
+                }
+
+                return $item;
+
+            });
+        }*/
+        return $res;
+    }
+
+
+
+
+
 
     /**
      * Clear

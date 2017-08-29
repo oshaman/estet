@@ -117,6 +117,8 @@ class PremiumsRepository
                 return ['error'=>'Ошибка записи'];
         }
         Cache::forget('prems');
+        Cache::forget('event_prem');
+
         return ['status' => 'Записи обновлены'];
     }
 }

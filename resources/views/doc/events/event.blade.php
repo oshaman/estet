@@ -74,6 +74,30 @@
         </div>
     </div>
     <hr>
+    @if(!empty($similars))
+        <div class="row">
+            <div class="col-lg-4">
+                <img src="{{ asset('images\event\mini').'/'. $similars[0]->logo->path}}">
+                <p><span class="label label-default">{{ $similars[0]->created}}</span></p>
+                <a href="{{ route('events', $similars[0]->alias) }}">{{ $similars[0]->title}}</a>
+            </div>
+            <div class="col-lg-4">
+                @if(!empty($similars[1]))
+                    <img src="{{ asset('images\event\mini').'/'. $similars[1]->logo->path}}">
+                    <p><span class="label label-default">{{ $similars[1]->created}}</span></p>
+                    <a href="{{ route('events', $similars[1]->alias) }}">{{ $similars[1]->title}}</a>
+                @endif
+            </div>
+            <div class="col-lg-4">
+                @if(!empty($similars[2]))
+                    <img src="{{ asset('images\event\mini').'/'. $similars[2]->logo->path}}">
+                    <p><span class="label label-default">{{ $similars[2]->created}}</span></p>
+                    <a href="{{ route('events', $similars[2]->alias) }}">{{ $similars[2]->title}}</a>
+                @endif
+            </div>
+        </div>
+        <hr>
+    @endif
 </div>
 <div class="col-lg-3">
     {!! $sidebar !!}

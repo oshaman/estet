@@ -36,6 +36,8 @@ class EventCategoriesRepository extends Repository {
         }
 
         Cache::forget('eventCats');
+        Cache::forget('eventSidebar');
+        Cache::forget('event_content');
         $res = $this->model->fill($cat)->save();
 
         return $res;
@@ -71,6 +73,8 @@ class EventCategoriesRepository extends Repository {
             }
         }
         Cache::forget('eventCats');
+        Cache::forget('eventSidebar');
+        Cache::forget('event_content');
         $res = $cat->save();
         return $res;
     }

@@ -102,6 +102,7 @@ class EventsRepository extends Repository
                 }
             }
             Cache::forget('eventSidebar');
+            Cache::forget('event_content');
             return ['status' => trans('admin.material_added'), $error];
         }
         return ['error' => $error];
@@ -211,6 +212,8 @@ class EventsRepository extends Repository
                     $error[] = ['slider' => 'Ошибка записи фотографий слайдера'];
                 }
             }
+            Cache::forget('eventSidebar');
+            Cache::forget('event_content');
 
             return ['status' => trans('admin.material_updated'), $error];
         }
@@ -240,7 +243,8 @@ class EventsRepository extends Repository
         } catch (Exception $e) {
             \Log::info('Ошибка удаления мероприятия: ', $e->getMessage());
         }
-
+        Cache::forget('eventSidebar');
+        Cache::forget('event_content');
         return ['status' => trans('admin.deleted')];
     }
     /**
@@ -333,10 +337,10 @@ class EventsRepository extends Repository
      * @param $id
      * @return bool
      */
-    public function displayed($id)
+    public function displayed($event)
     {
         try {
-            $this->model->find($id)->increment('view');
+            $event->increment('view');
 
         } catch (Exception $e) {
             \Log::info('Ошибка записи просмотра: ', $e->getMessage());
@@ -405,6 +409,10 @@ class EventsRepository extends Repository
             ->get());
     }
 
+    /**
+     * @param $id
+     * @return array
+     */
     public function delSlider($id)
     {
         $slider = Slider::find($id);
@@ -423,5 +431,26 @@ class EventsRepository extends Repository
         return ['success' => 'Слайдер обновлен'];
 
 
+    }
+
+    public function getSimilar($id, $organizer_id, $cat_id)
+    {
+        $cat = $this->model->select('id', 'title', 'created_at', 'alias')
+                                ->where('cat_id', $cat_id)
+                                ->where('id', '<>', $id)
+                                ->where('organizer_id', '<>', $organizer_id);
+        $all = $this->model->select('id', 'title', 'created_at', 'alias')
+                                ->where('id', '<>', $id)
+                                ->where('cat_id', '<>', $cat_id)
+                                ->where('organizer_id', '<>', $organizer_id);
+        $similar = $this->model->select('id', 'title', 'created_at', 'alias')
+                                ->where('organizer_id', $organizer_id)
+                                ->where('id', '<>', $id)
+                                ->union($cat)
+                                ->union($all)
+            ->with('logo')
+                                ->take(3)
+                                ->get();
+        return $this->check($similar);
     }
 }

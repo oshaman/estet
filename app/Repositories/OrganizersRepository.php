@@ -39,6 +39,8 @@ class OrganizersRepository extends Repository {
             $organizer['parent'] = $data['parent'];
         }
         Cache::forget('organizer');
+        Cache::forget('eventSidebar');
+        Cache::forget('event_content');
         $res = $this->model->fill($organizer)->save();
 
         return $res;
@@ -76,6 +78,8 @@ class OrganizersRepository extends Repository {
 
         $res = $organizer->save();
         Cache::forget('organizer');
+        Cache::forget('eventSidebar');
+        Cache::forget('event_content');
         return $res;
     }
 

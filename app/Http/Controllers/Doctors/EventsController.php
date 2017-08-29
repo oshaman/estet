@@ -42,9 +42,9 @@ class EventsController extends DocsController
         $this->prem = $prem;
     }
 
-    public function show(EventRequest $request, $event=false)
+    public function show(EventRequest $request, $event = false)
     {
-        $this->sidebar = Cache::remember('eventSidebar', 60,function() {
+        $this->sidebar = Cache::remember('eventSidebar', 60, function () {
             //        Last 2 publications
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
             $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
@@ -52,21 +52,26 @@ class EventsController extends DocsController
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
             $lasts = $this->repository->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
 
-            return view('doc.events.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
+            return view('doc.events.sidebar')->with(['lasts' => $lasts, 'articles' => $articles])->render();
         });
 
         if ($event) {
-            if (!empty($event->seo)) {
-                $event->seo = $this->repository->convertSeo($event->seo);
-            }
-            $event->created = $this->repository->convertDate($event->created_at);
-            $event->load('logo');
-            $event->load('slider');
-            $event->load('comments');
 
-            $this->repository->displayed($event->id);
 
-            $this->content = view('doc.events.event')->with(['event'=>$event, 'sidebar'=>$this->sidebar])->render();
+            $this->content = Cache::remember('event_content' . $event->alias, 15, function () use ($event) {
+                if (!empty($event->seo)) {
+                    $event->seo = $this->repository->convertSeo($event->seo);
+                }
+                $event->created = $this->repository->convertDate($event->created_at);
+                $event->load('logo');
+                $event->load('slider');
+                $event->load('comments');
+                $similar = $this->repository->getSimilar($event->id, $event->organizer_id, $event->cat_id);
+
+                return view('doc.events.event')->with(['event' => $event, 'sidebar' => $this->sidebar, 'similars' => $similar])->render();
+            });
+            $this->repository->displayed($event);
+
             return $this->renderOutput();
         }
 
@@ -75,8 +80,7 @@ class EventsController extends DocsController
 //        dd($month);
 
 
-
-        $prems_ids = Cache::remember('event_prem', 60, function() {
+        $prems_ids = Cache::remember('event_prem', 60, function () {
             return $this->prem->getPremIds('event');
         });
 
@@ -85,21 +89,21 @@ class EventsController extends DocsController
         $children = false;
         if (!empty($request->all())) {
             $data = $request->all();
-            if(!empty($data['country'])) {
+            if (!empty($data['country'])) {
                 $where[] = ['country_id', $data['country']];
             }
 
             $request->session()->forget('city');
-            if(!empty($data['city'])) {
+            if (!empty($data['city'])) {
                 $request->session()->flash('city', $data['city']);
                 $where[] = ['city_id', $data['city']];
             }
 
-            if(!empty($data['cat'])) {
+            if (!empty($data['cat'])) {
                 $where[] = ['cat_id', $data['cat']];
             }
 
-            if(!empty($data['organizer'])) {
+            if (!empty($data['organizer'])) {
                 $children = $this->organizer->getChildren($data['organizer']);
                 $where_in[] = $data['organizer'];
                 if ($children->isNotEmpty()) {
@@ -118,28 +122,28 @@ class EventsController extends DocsController
 //            ['start', '>=', date('Y-m-d', now())]
 //        ];
 
-       /* $calendar = $this->repository->get(['title'], false, false, $where1, false, ['logo']);
-        dd($calendar);*/
+        /* $calendar = $this->repository->get(['title'], false, false, $where1, false, ['logo']);
+         dd($calendar);*/
         $events = $this->repository->getWithoutPrems(true, $where, $prems_ids, false, $where_in);
 //        dd($events);
 
         $vars = [
-            'events'=>$events,
-            'sidebar'=>$this->sidebar,
-            'countries'=>Cache::remember('countries', 600, function() {
+            'events' => $events,
+            'sidebar' => $this->sidebar,
+            'countries' => Cache::remember('countries', 600, function () {
                 return $this->countries->getCountriesSelect();
-                }),
-            'cities'=>$this->cities->citiesSelect(),
-            'cats'=>Cache::remember('eventCats', 600, function() {
+            }),
+            'cities' => $this->cities->citiesSelect(),
+            'cats' => Cache::remember('eventCats', 600, function () {
                 return $this->cats->catSelect();
             }),
-            'organizer'=>Cache::remember('organizer', 600, function() {
+            'organizer' => Cache::remember('organizer', 600, function () {
                 return $this->organizer->organizerSelect();
             }),
-            'prems'=>Cache::remember('prems', 600, function() use ($prems_ids) {
+            'prems' => Cache::remember('prems', 600, function () use ($prems_ids) {
                 return $this->repository->getPrems($prems_ids);
             }),
-            'children'=>$children,
+            'children' => $children,
         ];
 //dd($vars['cities']);
         $this->content = view('doc.events.index')->with($vars)->render();

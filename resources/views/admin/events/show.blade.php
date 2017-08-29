@@ -15,11 +15,12 @@
 @if(!empty($events))
     <table class="table">
         <thead>
-        <tr><th>Название</th><th>Начало</th><th>Конец</th><th>Редактировать</th><th>Удалить</th></tr>
+        <tr><th>ID</th><th>Название</th><th>Начало</th><th>Конец</th><th>Редактировать</th><th>Удалить</th></tr>
         </thead>
         <tbody>
         @foreach($events as $event)
             <tr>
+                <td>{{ $event->id }}</td>
                 <td>{{ $event->title }}</td>
                 <td>{{ $event->start }}</td>
                 <td>{{ $event->stop }}</td>
