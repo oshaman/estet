@@ -1,5 +1,10 @@
 /node_modules
 /storage/*.key
+/public
+!/public/css
+!/public/js
+!/public/.htaccess
+!/public/vendor
 /vendor
 /.idea
 /.vagrant
