@@ -20,7 +20,7 @@ class Doctor
         }
 
         if (!session()->has('doc')) {
-            return redirect()->back();
+            return redirect()->route('main');
         }
         return $next($request);
     }

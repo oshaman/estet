@@ -35,10 +35,6 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
  */
 Route::get('goroscop', 'Patient\HoroscopeController@index')->name('horoscope');
 /**
- * Events
- */
-Route::get('meropriyatiya/{event_alias?}', 'Doctors\EventsController@show')->name('events')->where('event_alias', '[a-zA-Z0-9-_]+');
-/**
  *  Catalog
  */
 Route::group(['prefix'=>'catalog'], function () {
@@ -74,6 +70,10 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
         Route::get('categorii/{blogs_cat?}', 'Doctors\BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
         Route::get('/teg/{tag_alias}', 'Doctors\BlogsController@tag')->name('blog_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     });
+    /**
+     * Events
+     */
+    Route::get('meropriyatiya/{event_alias?}', 'Doctors\EventsController@show')->name('events')->where('event_alias', '[a-zA-Z0-9-_]+');
 });
 /**
  * AdminBlog
