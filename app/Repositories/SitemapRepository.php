@@ -1,8 +1,13 @@
 <?php
 namespace Fresh\Estet\Repositories;
 
+use Fresh\Estet\BlogCategory;
+use Fresh\Estet\Establishment;
+use Fresh\Estet\Event;
+use Fresh\Estet\Eventscategory;
 use Fresh\Estet\Menu;
 use App;
+use Fresh\Estet\Person;
 use URL;
 use Cache;
 use DB;
@@ -19,8 +24,7 @@ class SitemapRepository
 
 //    Articles
         $posts = Article::where('approved', 1)->with('image')->orderBy('updated_at', 'desc')->get();
-        foreach ($posts as $post)
-        {
+        foreach ($posts as $post) {
             // get all images for the current post
             $images = array();
 
@@ -42,8 +46,7 @@ class SitemapRepository
 //    Blogs
         $sitemap_blog = App::make("sitemap");
         $blogs = Blog::with('blog_img')->orderBy('created_at', 'desc')->get();
-        foreach ($blogs as $blog)
-        {
+        foreach ($blogs as $blog) {
             // get all images for the current post
             $images = array();
 
@@ -60,8 +63,7 @@ class SitemapRepository
 //    Establishments
         $sitemap_establishment = App::make("sitemap");
         $establishments = DB::table('establishments')->orderBy('created_at', 'desc')->get();
-        foreach ($establishments as $establishment)
-        {
+        foreach ($establishments as $establishment) {
             switch ($establishment->category) {
                 case 'clinic':
                     $images = array();
@@ -99,8 +101,7 @@ class SitemapRepository
         $sitemap_doc = App::make("sitemap");
 
         $docs = DB::table('persons')->orderBy('created_at', 'desc')->get();
-        foreach ($docs as $doc)
-        {
+        foreach ($docs as $doc) {
             $images = array();
 
             $images[] = array(
@@ -125,8 +126,7 @@ class SitemapRepository
 //        categories
         $cats = Menu::with('category')->get();
 
-        foreach ($cats as $cat)
-        {
+        foreach ($cats as $cat) {
             if ('docs' == $cat->own) {
                 $sitemap_main->add(route('docs_cat', $cat->category->alias), $cat->category->updated_at, '0.5', 'weekly');
             } else {
@@ -163,5 +163,35 @@ class SitemapRepository
     public function getDocsArticles()
     {
         return Article::select('title', 'alias', 'category_id')->where([['approved', 1], ['own', 'docs']])->orderBy('updated_at', 'desc')->get();
+    }
+
+    public function getBlogs()
+    {
+        return Blog::select('title', 'alias', 'category_id')->where([['approved', 1]])->orderBy('updated_at', 'desc')->get();
+    }
+
+    public function getBlogCats()
+    {
+        return BlogCategory::select('name', 'alias', 'id')->get();
+    }
+
+    public function getDocs()
+    {
+        return Person::select('name', 'alias', 'lastname')->get();
+    }
+
+    public function getEstablishments()
+    {
+        return Establishment::select('title', 'alias', 'category')->get();
+    }
+
+    public function getEvents()
+    {
+        return Event::select('title', 'alias', 'cat_id')->where([['approved', 1]])->orderBy('updated_at', 'desc')->get();
+    }
+
+    public function getEventCats()
+    {
+        return Eventscategory::select('name', 'alias', 'id')->get();
     }
 }
