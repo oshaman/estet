@@ -150,46 +150,73 @@ class SitemapRepository
         $sitemap->store('sitemapindex', 'sitemap');
     }
 
+    /**
+     * @return mixed
+     */
     public function getCategories()
     {
         return DB::select('SELECT * FROM `cats_view`');
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getPatientArticles()
     {
         return Article::select('title', 'alias', 'category_id')->where([['approved', 1], ['own', 'patient']])->orderBy('updated_at', 'desc')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getDocsArticles()
     {
         return Article::select('title', 'alias', 'category_id')->where([['approved', 1], ['own', 'docs']])->orderBy('updated_at', 'desc')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getBlogs()
     {
         return Blog::select('title', 'alias', 'category_id')->where([['approved', 1]])->orderBy('updated_at', 'desc')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getBlogCats()
     {
         return BlogCategory::select('name', 'alias', 'id')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getDocs()
     {
         return Person::select('name', 'alias', 'lastname')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getEstablishments()
     {
         return Establishment::select('title', 'alias', 'category')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getEvents()
     {
         return Event::select('title', 'alias', 'cat_id')->where([['approved', 1]])->orderBy('updated_at', 'desc')->get();
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
     public function getEventCats()
     {
         return Eventscategory::select('name', 'alias', 'id')->get();

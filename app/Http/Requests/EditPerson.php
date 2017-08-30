@@ -79,7 +79,7 @@ class EditPerson extends FormRequest
 
             } else {
                 $rules = [
-                    'value' => ['nullable', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ\-\s]+$#u'],
+                    'value' => ['nullable', 'string', 'between:1,255', 'regex:#^[a-zA-zа-я0-9А-ЯёЁ\-\s]+$#u'],
                     'param' => 'nullable|digits:1',
                 ];
                 return $rules;
