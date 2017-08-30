@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                Реклама
+                {!! $advertising ?? '<img src="'. asset('estet/img') .'/reklama.jpg" >' !!}
             </div>
         </div>
         <div class="row">
@@ -224,6 +224,12 @@
     {!! Form::close() !!}
     <hr>
     @endif
+{{--Реклама--}}
+<div class="row">
+    {!! $advertising ?? '<img src="'. asset('estet/img') .'/your-ad-here.jpg" class="img-thumbnail">' !!}
+</div>
+<hr>
+{{--Реклама--}}
     <div class="row bg-success">
     @if(!empty($articles['dermatology'][0]))
         <div class="col-lg-5">

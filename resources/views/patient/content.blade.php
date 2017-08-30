@@ -13,7 +13,7 @@
                 </div>
             </div>
             <div class="col-lg-3">
-                Реклама
+                {!! $advertising ?? '<img src="'. asset('estet/img') .'/zastavka.jpg" >' !!}
             </div>
         </div>
         <div class="row">
@@ -225,6 +225,12 @@
     {!! Form::button(trans('Перейти к разделу'), ['class' => 'btn btn-info','type'=>'submit']) !!}
     {!! Form::close() !!}
     <hr>
+    {{--Реклама--}}
+    <div class="row">
+        {!! $advertising ?? '<img src="'. asset('estet/img') .'/your-ad-here.jpg" class="img-thumbnail">' !!}
+    </div>
+    <hr>
+    {{--Реклама--}}
     <div class="row bg-success">
         <div class="col-lg-5">
             <img src="{{ asset('/images/article/main').'/'.$articles['medicine'][0]->path }}" class="img-thumbnail">

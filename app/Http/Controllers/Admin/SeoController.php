@@ -28,7 +28,7 @@ class SeoController extends AdminController
         }
         if ($request->isMethod('post')) {
             $result = $repository->updateSeo($request, $seo);
-//dd($result);
+
             if(is_array($result) && !empty($result['error'])) {
                 return back()->withErrors($result['error']);
             }

@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-//        $schedule->call('\Fresh\Estet\Repositories\SubscribersRepository@getAll')->everyFiveMinutes();
         $schedule->call('\Fresh\Estet\Repositories\SitemapRepository@index')->dailyAt('10:30');
+        $schedule->call('\Fresh\Estet\Http\Controllers\SitemapController@index')->dailyAt('16:37');
         $schedule->command('getSubscribe')->dailyAt('11:30')->withoutOverlapping();
         $schedule->command('sendNews')->dailyAt('11:32')->withoutOverlapping();
     }
