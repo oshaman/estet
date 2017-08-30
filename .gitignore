@@ -1,11 +1,6 @@
 /node_modules
-/storage/*.key
-/public
-!/public/css
-!/public/js
-!/public/.htaccess
-!/public/vendor
-/vendor
+/vendor/
+/storage/
 /.idea
 /.vagrant
 Homestead.json

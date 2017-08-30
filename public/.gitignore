@@ -1,0 +1,8 @@
+*
+!.htaccess
+!css/
+!vendor/
+!js/
+!robots.txt
+!index.php
+!web.config
