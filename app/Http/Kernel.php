@@ -49,6 +49,9 @@ class Kernel extends HttpKernel
         'doctor' => [
             \Fresh\Estet\Http\Middleware\Doctor::class,
         ],
+        'patient' => [
+            \Fresh\Estet\Http\Middleware\Patient::class,
+        ],
     ];
 
     /**

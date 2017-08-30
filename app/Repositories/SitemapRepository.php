@@ -149,4 +149,19 @@ class SitemapRepository
         \Log::info('Sitemap updated - '. date("d-m-Y H:i:s"));
         $sitemap->store('sitemapindex', 'sitemap');
     }
+
+    public function getCategories()
+    {
+        return DB::select('SELECT * FROM `cats_view`');
+    }
+
+    public function getPatientArticles()
+    {
+        return Article::select('title', 'alias', 'category_id')->where([['approved', 1], ['own', 'patient']])->orderBy('updated_at', 'desc')->get();
+    }
+
+    public function getDocsArticles()
+    {
+        return Article::select('title', 'alias', 'category_id')->where([['approved', 1], ['own', 'docs']])->orderBy('updated_at', 'desc')->get();
+    }
 }

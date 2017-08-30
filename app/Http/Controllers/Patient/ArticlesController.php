@@ -1,8 +1,6 @@
 <?php
 namespace Fresh\Estet\Http\Controllers\Patient;
 
-use function foo\func;
-use Fresh\Estet\Article;
 use Fresh\Estet\Http\Controllers\Controller;
 use Menu;
 use DB;
@@ -138,6 +136,9 @@ class ArticlesController extends Controller
         return Menu::make('menu', function($menu) use ($cats) {
             $menu->add('Последние', ['route'=>['articles_last']]);
             foreach ($cats as $cat) {
+                if ('Видео' == $cat->name) {
+                    continue;
+                }
                 $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
             }
 

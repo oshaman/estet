@@ -1,9 +1,9 @@
 @if ($menu)
-    @if(!session()->has('doc'))
-        <a class="navbar-brand" href="{{ route('horoscope') }}"> Гороскоп</a>
-    @else
+    @if(session()->has('doc'))
         <a class="navbar-brand" href="{{ route('events') }}"> Мероприятия</a>
         <a class="navbar-brand" href="{{ route('blogs') }}"> Блог</a>
+    @else
+        <a class="navbar-brand" href="{{ route('horoscope') }}"> Гороскоп</a>
     @endif
     <ul class="nav navbar-nav">
         &nbsp;<li class="dropdown">

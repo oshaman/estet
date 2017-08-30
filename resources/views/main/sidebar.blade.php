@@ -21,9 +21,9 @@
             <div class="row">
                 <p><span class="label label-default">{{ $article->created }}</span></p>
                 @if($status)
-                    <p><a href="{{ route('articles', $article->alias) }}"> {{ $article->title }}</a></p>
-                @else
                     <p><a href="{{ route('doctors', $article->alias) }}"> {{ $article->title }}</a></p>
+                @else
+                    <p><a href="{{ route('articles', $article->alias) }}"> {{ $article->title }}</a></p>
                 @endif
             </div>
         @endforeach

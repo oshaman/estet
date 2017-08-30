@@ -136,6 +136,9 @@ class DocsController extends Controller
         return Menu::make('menu', function ($menu) use ($cats) {
             $menu->add('Последние', ['route' => ['docs_articles_last']]);
             foreach ($cats as $cat) {
+                if ('Видео' == $cat->name) {
+                    continue;
+                }
                 $menu->add($cat->name, ['route' => ['docs_cat', $cat->alias]]);
             }
         });

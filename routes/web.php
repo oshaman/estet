@@ -11,17 +11,16 @@
 |
 */
 
-Route::get('/', ['uses'=>'Patient\ArticlesController@index', 'as'=>'main']);
-Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', ['uses' => 'Patient\ArticlesController@index', 'as' => 'main'])->middleware('patient');
 /**
  * Articles
  */
-Route::group(['prefix' =>'statyi'], function () {
+Route::group(['prefix' => 'statyi', 'middleware' => 'patient'], function () {
     Route::get('/{article_alias?}', 'Patient\ArticlesController@show')->name('articles')->where('article_alias', '[a-zA-Z0-9-_]+');
     Route::get('/teg/{tag_alias}', 'Patient\ArticlesController@tag')->name('articles_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     Route::get('kategorii/{cat_alias}', 'Patient\ArticlesController@category')->name('article_cat')->where('cat', '[a-zA-Z0-9-_]+');
 });
-Route::get('poslednie-novosti', 'Patient\ArticlesController@lastArticles')->name('articles_last');
+Route::get('poslednie-novosti', 'Patient\ArticlesController@lastArticles')->name('articles_last')->middleware('patient');
 /**
  *  Profile
  */
@@ -33,7 +32,11 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
 /**
  * Horoscope
  */
-Route::get('goroscop', 'Patient\HoroscopeController@index')->name('horoscope');
+Route::get('goroscop', 'Patient\HoroscopeController@index')->name('horoscope')->middleware('patient');
+/**
+ * Sitemap
+ */
+Route::get('karta-saita', 'SitemapController@show')->name('sitemap');
 /**
  *  Catalog
  */
@@ -73,7 +76,7 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
     /**
      * Events
      */
-    Route::get('meropriyatiya/{event_alias?}', 'Doctors\EventsController@show')->name('events')->where('event_alias', '[a-zA-Z0-9-_]+');
+    Route::get('meropriyatiya/{event_alias?}', 'Doctors\EventsController@show')->name('events')->where('event_alias', '[a-zA-Z0-9-_]+')->middleware('doctor');
 });
 /**
  * AdminBlog

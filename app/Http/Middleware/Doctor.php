@@ -15,13 +15,18 @@ class Doctor
      */
     public function handle($request, Closure $next)
     {
-        if ('Googlebot' == $_SERVER['HTTP_USER_AGENT']) {
+        if ('Googlebot' == $_SERVER['HTTP_USER_AGENT'] && !session()->has('doc')) {
             session()->put('doc', true);
         }
 
-        if (!session()->has('doc')) {
-            return redirect()->route('main');
+        if (session()->has('doc')) {
+            return $next($request);
         }
-        return $next($request);
+
+        if ($request->hasCookie('user_status')) {
+            session()->put('doc', true);
+            return $next($request);
+        }
+        return redirect()->route('main');
     }
 }
