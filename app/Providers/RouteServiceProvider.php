@@ -26,25 +26,21 @@ class RouteServiceProvider extends ServiceProvider
         //
         parent::boot();
 
-        Route::bind('blog', function ($value) {
-            return \Fresh\Estet\Blog::where('id', $value)->first();
-        });
-
         Route::bind('tmpblog', function ($value) {
             return \Fresh\Estet\Tmpblog::where('id', $value)->first();
         });
 
         Route::bind('article_alias', function ($value) {
-                    return \Fresh\Estet\Article::where('alias', $value)->first();
-                });
+            return \Fresh\Estet\Article::where('alias', $value)->first();
+        });
 
         Route::bind('tag_alias', function ($value) {
-                            return \Fresh\Estet\Tag::where('alias', $value)->first();
-                        });
+            return \Fresh\Estet\Tag::where('alias', $value)->first();
+        });
 
         Route::bind('cat_alias', function ($value) {
-                            return \Fresh\Estet\Category::where('alias', $value)->first();
-                        });
+            return \Fresh\Estet\Category::where('alias', $value)->first();
+        });
         Route::bind('blogs_cat', function ($value) {
             return \Fresh\Estet\BlogCategory::where('alias', $value)->first();
         });
@@ -69,6 +65,7 @@ class RouteServiceProvider extends ServiceProvider
         Route::model('event', \Fresh\Estet\Event::class);
         Route::model('seo', \Fresh\Estet\Seo::class);
         Route::model('advertising', \Fresh\Estet\Advertising::class);
+        Route::model('blog', \Fresh\Estet\Blog::class);
 
 
     }

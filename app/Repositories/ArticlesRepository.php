@@ -613,6 +613,8 @@ class ArticlesRepository extends Repository
         Cache::forget('main');
         Cache::forget('eventSidebar');
         Cache::forget('event_content');
+        Cache::forget('articles_last');
+        Cache::forget('docs_articles_last');
     }
 
 }

@@ -1,23 +1,21 @@
-<div class="col-lg-8">
-    @if($articles)
-        <ul>
-            @foreach($articles as $article)
-                <li>
-                    <div>
-                        <p>
-                            <img src="{{ asset('/images/article/middle').'/'.$article->image->path }}"
-                                 class="img-thumbnail" alt="{{$article->image->alt}}"
-                                 title="{{ $article->image->title }}">
-                        </p>
-                        <span class="label label-default navbar-left">{{ $article->created }}</span>
-                        <a href="{{ route('doctors', $article->alias) }}"><h3>{{ $article->title }}</h3></a>
-                    </div>
-                    <hr>
-                </li>
-            @endforeach
-        </ul>
-    @endif
-</div>
+@if($articles)
+    <ul>
+        @foreach($articles as $article)
+            <li>
+                <div>
+                    <p>
+                        <img src="{{ asset('/images/article/middle').'/'.$article->image->path }}"
+                             class="img-thumbnail" alt="{{$article->image->alt}}"
+                             title="{{ $article->image->title }}">
+                    </p>
+                    <span class="label label-default navbar-left">{{ $article->created }}</span>
+                    <a href="{{ route('doctors', $article->alias) }}"><h3>{{ $article->title }}</h3></a>
+                </div>
+                <hr>
+            </li>
+        @endforeach
+    </ul>
+@endif
 <!--PAGINATION-->
 <div class="general-pagination group">
     @if($articles->lastPage() > 1)

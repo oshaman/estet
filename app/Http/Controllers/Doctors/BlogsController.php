@@ -102,7 +102,7 @@ class BlogsController extends DocsController
      * @param $tag
      * @return view result
      */
-    public function tag($tag)
+    public function tag($tag = null)
     {
         $this->content = Cache::remember('blog-tag-'.$tag->id, 15, function () use ($tag) {
             $blogs = $this->blog_rep->getByTag($tag->id);
@@ -117,7 +117,7 @@ class BlogsController extends DocsController
      * @param $cat
      * @return $this
      */
-    public function category($cat)
+    public function category($cat = null)
     {
         $this->content = Cache::remember('blog-cat'.$cat->id, 15, function() use ($cat) {
 

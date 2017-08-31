@@ -70,8 +70,11 @@ class ArticlesController extends Controller
      * @param $tag
      * @return view result
      */
-    public function tag($tag)
+    public function tag($tag = null)
     {
+        if (!$tag) {
+            abort(404);
+        }
         $this->content = Cache::remember('articles_tags' . $tag->alias, 60, function () use ($tag) {
             $articles = $this->a_rep->getByTag($tag->id, 'patient');
             return view('patient.tags')->with(['articles' => $articles])->render();
@@ -86,8 +89,11 @@ class ArticlesController extends Controller
      * @param $cat
      * @return $this
      */
-    public function category($cat)
+    public function category($cat = null)
     {
+        if (!$cat) {
+            abort(404);
+        }
         $this->content = Cache::remember('articles_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );
             $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
@@ -150,11 +156,12 @@ class ArticlesController extends Controller
     {
         $this->content = Cache::remember('articles_last', 60, function () {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
-            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+            $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
 
             return view('patient.cat')->with(['articles' => $articles])->render();
         });
 
+        $this->getSidebar();
         return $this->renderOutput();
     }
 

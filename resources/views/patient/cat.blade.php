@@ -1,5 +1,4 @@
-<div class="col-lg-8">
-    @if($articles)
+@if($articles)
     <ul>
         @foreach($articles as $article)
             <li>
@@ -15,8 +14,7 @@
             </li>
         @endforeach
     </ul>
-    @endif
-</div>
+@endif
 <!--PAGINATION-->
 <div class="general-pagination group">
     @if($articles->lastPage() > 1)

@@ -81,8 +81,11 @@ class DocsController extends Controller
      * @param $cat
      * @return DocsController
      */
-    public function category($cat)
+    public function category($cat = null)
     {
+        if (!$cat) {
+            abort(404);
+        }
         $this->content = Cache::remember('docs_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id]);
             $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
@@ -141,8 +144,11 @@ class DocsController extends Controller
      * @param $tag
      * @return view result
      */
-    public function tag($tag)
+    public function tag($tag = null)
     {
+        if (!$tag) {
+            abort(404);
+        }
         $this->content = Cache::remember('docs_tags' . $tag->alias, 60, function () use ($tag) {
             $articles = $this->a_rep->getByTag($tag->id, 'docs');
             return view('doc.tags')->with(['articles' => $articles])->render();
@@ -157,13 +163,14 @@ class DocsController extends Controller
      */
     public function lastArticles()
     {
-        $this->content = Cache::remember('articles_last', 60, function () {
+        $this->content = Cache::remember('docs_articles_last', 60, function () {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+            $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
 
             return view('doc.cat')->with(['articles' => $articles])->render();
         });
 
+        $this->getSidebar();
         return $this->renderOutput();
     }
 
