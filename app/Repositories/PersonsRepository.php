@@ -5,6 +5,7 @@ namespace Fresh\Estet\Repositories;
 use Fresh\Estet\Person;
 use Gate;
 use File;
+use Cache;
 
 class PersonsRepository extends Repository {
 
@@ -38,6 +39,7 @@ class PersonsRepository extends Repository {
         if (!empty($data['confirmed'])) {
             $person->user->roles()->sync([2]);
         }
+        Cache::forget('doc');
         return ['status' => 'Профиль обновлен'];
     }
 
@@ -73,6 +75,7 @@ class PersonsRepository extends Repository {
                 $person->user->roles()->sync([2]);
             }
         }
+        Cache::forget('doc');
         return ['status' => 'Профиль создан'];
     }
 

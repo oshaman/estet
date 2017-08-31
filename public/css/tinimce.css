@@ -1,5 +1,5 @@
 .test{
-    width: 10px;
+    width: 30px;
     background: green;
 }
 .test2{
@@ -8,5 +8,10 @@
 }
 .left{
     width: 100px;
-    background: blue;
+    background: gray;
+}
+
+.two_pics {
+    width: 333px;
+    background: yellow;
 }

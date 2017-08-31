@@ -21,22 +21,11 @@
             ],
             content_css: "{{asset('css')}}/tinimce.css",
             importcss_append: true,
-            {{--importcss_file_filter: "{{asset('css')}}/tinimce.css",--}}
 //            themes: "advanced",
-
             style_formats: [
-                {
-                    title: 'Тест1',
-                    classes: 'left'
-                },
-
+                {title: 'Тест1', block: 'div', classes: 'left', exact: true, wrapper: 1},
+                {title: 'Две картинки', block: 'div', classes: 'two_pics', exact: true, wrapper: 1},
             ],
-            {{--templates: "{{asset('js')}}/tinymce/templates/templatelist.js",--}}
-            templates: [
-                {title: 'Картинка слева', description: 'Текст с описанием', url: '/js/tinymce/templates/image_left.html'},
-                {title: "Две картинки", description: "Две картинки", url: "/js/tinymce/templates/two_imgs.html"},
-            ],
-
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
             relative_urls: false,
             file_browser_callback : function(field_name, url, type, win) {

@@ -26,6 +26,10 @@ class RouteServiceProvider extends ServiceProvider
         //
         parent::boot();
 
+        Route::bind('doc', function ($value) {
+            return \Fresh\Estet\Person::where('alias', $value)->first();
+        });
+
         Route::bind('tmpblog', function ($value) {
             return \Fresh\Estet\Tmpblog::where('id', $value)->first();
         });

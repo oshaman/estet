@@ -29,25 +29,23 @@ class CatalogController extends MainController
     public function docs(PersonsRepository $rep, BlogsRepository $blog_rep, $doc = false)
     {
         if ($doc) {
-            $docs = new PersonsRepository(new Person);
-            $profile = $docs->one($doc);
+            $this->content = Cache::remember('doc', 24 * 60, function () use ($doc, $blog_rep) {
+                if (!empty($doc->services)) {
+                    $doc->services = json_decode($doc->services);
+                }
 
-            if (!empty($profile->services)) {
-                $profile->services = json_decode($profile->services);
-            }
-            if (!$profile) {
-                abort(404);
-            }
-            if (!empty($profile->expirience)) {
-                $profile->expirience = date_create()->diff(date_create($profile->expirience))->y;
-            }
+                if (!empty($doc->expirience)) {
+                    $doc->expirience = date_create()->diff(date_create($doc->expirience))->y;
+                }
 
-            //  Blogs preview
-            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $profile->user_id]);
-            $blogs = $blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
+                //  Blogs preview
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $doc->user_id]);
+                $blogs = $blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category'], true);
 
-            $this->title = $profile->name . ' ' . $profile->lastname;
-            return view('catalog.profiles.doc_profile')->with(['profile' => $profile, 'blogs' => $blogs]);
+                return view('catalog.profiles.doc_profile')->with(['profile' => $doc, 'blogs' => $blogs])->render();
+            });
+            $this->title = $doc->name . ' ' . $doc->lastname;
+            return $this->renderOutput();
         }
         $this->title = 'Врачи';
 

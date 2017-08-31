@@ -7,6 +7,7 @@ use File;
 use Image;
 use Config;
 use Validator;
+use Cache;
 
 class BlogsRepository extends Repository {
 
@@ -181,7 +182,7 @@ class BlogsRepository extends Repository {
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
-
+            Cache::forget('doc');
             return ['status' => trans('admin.material_added')];
         }
         return ['error' => $error];
@@ -228,6 +229,7 @@ class BlogsRepository extends Repository {
                     }
                 }
             }
+            Cache::forget('doc');
             return ['status' => trans('admin.deleted')];
         }
 
@@ -389,7 +391,7 @@ class BlogsRepository extends Repository {
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
-
+            Cache::forget('doc');
             return ['status' => trans('admin.material_added')];
         }
         return ['error' => $error];
@@ -592,11 +594,7 @@ class BlogsRepository extends Repository {
         $builder = $this->model->select($select);
 
         if ($with) {
-            if (is_array($with)){
-                $builder = $this->model->with($with[0], $with[1], $with[2]);
-            } else {
-                $builder = $this->model->with($with);
-            }
+            $builder = $this->model->with($with);
         }
 
         if ($take) {
@@ -663,5 +661,10 @@ class BlogsRepository extends Repository {
             ->select($select)
             ->orderBy($order[0], $order[1])
             ->get());
+    }
+
+    public function getThreeOwn()
+    {
+
     }
 }
