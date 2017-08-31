@@ -66,7 +66,7 @@ class EventsController extends DocsController
                 $event->load('comments');
                 $similar = $this->repository->getSimilar($event->id, $event->organizer_id, $event->cat_id);
 
-                return view('doc.events.event')->with(['event' => $event, 'sidebar' => $this->sidebar, 'similars' => $similar])->render();
+                return view('doc.events.event')->with(['event' => $event, 'similars' => $similar])->render();
             });
             $this->repository->displayed($event);
 
@@ -127,7 +127,6 @@ class EventsController extends DocsController
 
         $vars = [
             'events' => $events,
-            'sidebar' => $this->sidebar,
             'countries' => Cache::remember('countries', 600, function () {
                 return $this->countries->getCountriesSelect();
             }),

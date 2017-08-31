@@ -648,4 +648,20 @@ class BlogsRepository extends Repository {
 
         return $blogs;
     }
+
+    /**
+     * @param $select
+     * @param $where
+     * @param $take
+     * @param $order
+     * @return bool
+     */
+    public function getLast($select, $where, $take, $order)
+    {
+        return $this->check($this->model->where($where)
+            ->take($take)
+            ->select($select)
+            ->orderBy($order[0], $order[1])
+            ->get());
+    }
 }

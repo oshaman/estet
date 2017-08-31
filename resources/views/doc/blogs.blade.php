@@ -2,7 +2,8 @@
     @foreach($blogs as $blog)
         <div class="row">
             <div class="col-md-6">
-                {{ Html::image(asset('/images/blog/main') . '/' . $blog->blog_img->path, $blog->blog_img->alt, ['title' => $blog->blog_img->title]) }}
+                <img src="{{ asset('/images/blog/middle') . '/' . $blog->blog_img->path }}"
+                     alt="{{ $blog->blog_img->alt }}" title="{{ $blog->blog_img->title }}" class="img-thumbnail">
             </div>
             <div class="col-md-6">
                 <div class="row">

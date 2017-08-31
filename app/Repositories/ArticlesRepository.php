@@ -606,7 +606,6 @@ class ArticlesRepository extends Repository
     protected function clearArticlesCache()
     {
         Cache::forget('patientSidebar');
-        Cache::forget('horoscopeSidebar');
         Cache::forget('docsArticleSidebar');
         Cache::forget('docsSidebar');
         Cache::forget('docsArticles');
@@ -615,6 +614,7 @@ class ArticlesRepository extends Repository
         Cache::forget('event_content');
         Cache::forget('articles_last');
         Cache::forget('docs_articles_last');
+        Cache::forget('blogs_sidebar');
     }
 
 }

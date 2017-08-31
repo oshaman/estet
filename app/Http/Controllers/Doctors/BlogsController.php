@@ -2,9 +2,11 @@
 
 namespace Fresh\Estet\Http\Controllers\Doctors;
 
+use Fresh\Estet\Event;
 use Fresh\Estet\Repositories\BlogsRepository;
 use DB;
 use Cache;
+use Fresh\Estet\Repositories\EventsRepository;
 
 class BlogsController extends DocsController
 {
@@ -84,9 +86,11 @@ class BlogsController extends DocsController
 
                 return view('doc.blog')->with(['blog' => $blog, 'blogs' => $blogs])->render();
             });
+            $this->getSidebar();
             return $this->renderOutput();
         }
 
+        $this->getSidebar();
         $this->content = Cache::remember('blogs', 10, function () {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
             $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'], false, true, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
@@ -128,5 +132,23 @@ class BlogsController extends DocsController
         });
 
         return $this->renderOutput();
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSidebar()
+    {
+        $this->sidebar = Cache::remember('blogs_sidebar', 60, function () {
+            //            Last 2 events
+            $events_rep = new EventsRepository(new Event());
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+            $lasts = $events_rep->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
+            //          most displayed
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+            $articles = $this->blog_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+            return view('doc.blogs_sidebar')->with(['lasts' => $lasts, 'articles' => $articles])->render();
+        });
+        return true;
     }
 }
