@@ -25,7 +25,7 @@ class AdvertisingController extends AdminController
         }
         if ($request->isMethod('post')) {
             $result = $repository->updateAdvertising($request, $advertising);
-//dd($result);
+
             if(is_array($result) && !empty($result['error'])) {
                 return back()->withErrors($result['error']);
             }

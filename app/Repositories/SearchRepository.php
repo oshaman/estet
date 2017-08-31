@@ -38,7 +38,7 @@ class SearchRepository
         }
 
         $data = $request->all();
-//        dd($data);
+
         if (empty($data['value'])) {
             return false;
         }

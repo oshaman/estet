@@ -144,8 +144,7 @@ class SitemapRepository
         $sitemap->addSitemap(URL::to('sitemap-establishment.xml'));
         $sitemap->addSitemap(URL::to('sitemap-doc.xml'));
         $sitemap->addSitemap(URL::to('sitemap-main.xml'));
-//        dd($sitemap);
-//        return $sitemap->render('sitemapindex', 'sitemap');
+
         \Log::info('Sitemap updated - '. date("d-m-Y H:i:s"));
         $sitemap->store('sitemapindex', 'sitemap');
     }

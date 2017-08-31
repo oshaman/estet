@@ -28,7 +28,7 @@ class TagsController extends AdminController
         }
 
         if ($request->isMethod('post')) {
-            //dd($request);
+
             $result = $this->tag_rep->addTag($request);
 
             if ($result) {

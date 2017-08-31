@@ -69,7 +69,6 @@ class BlogCatsController extends AdminController
                 return redirect()->back()->withErrors(['message'=>'Ошибка изменения категории, повторите попытку позже.']);
             }
         }
-//        dd($cat);
 
         $this->content = view('admin.blogcats.edit')->with('category', $cat);
         return $this->renderOutput();
