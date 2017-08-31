@@ -47,8 +47,6 @@ class ArticlesController extends Controller
     public function show($article=null)
     {
         if ($article) {
-
-            $article_id = $article->id;
             $this->a_rep->displayed($article);
 
             $article = Cache::remember('patients_article-'.$article->id, 60, function () use ($article) {
@@ -61,18 +59,7 @@ class ArticlesController extends Controller
                 return $article;
             });
 
-            $this->sidebar = Cache::remember('patientSidebar', 60, function () use ($article_id) {
-//                Last 2 publications
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['id', '<>', $article_id]);
-                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
-
-    //          most displayed
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
-                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
-                return view('patient.sidebar')->with(['lasts'=>$lasts, 'articles'=>$articles])->render();
-            });
-
-            $this->content = view('patient.article')->with(['article'=>$article, 'sidebar'=>$this->sidebar])->render();
+            $this->content = view('patient.article')->with(['article' => $article])->render();
             return $this->renderOutput();
         }
         return redirect()->route('main');
@@ -85,8 +72,13 @@ class ArticlesController extends Controller
      */
     public function tag($tag)
     {
-        $articles = $this->a_rep->getByTag($tag->id, 'patient');
-        $this->content = view('patient.tags')->with(['articles' => $articles])->render();
+        $this->content = Cache::remember('articles_tags' . $tag->alias, 60, function () use ($tag) {
+            $articles = $this->a_rep->getByTag($tag->id, 'patient');
+            return view('patient.tags')->with(['articles' => $articles])->render();
+        });
+
+        $this->getSidebar();
+
         return $this->renderOutput();
     }
 
@@ -98,10 +90,12 @@ class ArticlesController extends Controller
     {
         $this->content = Cache::remember('articles_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );
-            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+            $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
 
             return view('patient.cat')->with(['articles' => $articles])->render();
         });
+
+        $this->getSidebar();
 
         return $this->renderOutput();
     }
@@ -119,6 +113,10 @@ class ArticlesController extends Controller
         });
 
         $this->vars = array_add($this->vars, 'nav', $nav);
+
+        if (false !== $this->sidebar) {
+            $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
+        }
 
         if(false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
@@ -158,5 +156,23 @@ class ArticlesController extends Controller
         });
 
         return $this->renderOutput();
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSidebar()
+    {
+        $this->sidebar = Cache::remember('patientSidebar', 60, function () {
+//                Last 2 publications
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+
+            //          most displayed
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+            return view('patient.sidebar')->with(['lasts' => $lasts, 'articles' => $articles])->render();
+        });
+        return true;
     }
 }

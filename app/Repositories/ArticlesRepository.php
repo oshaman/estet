@@ -552,7 +552,7 @@ class ArticlesRepository extends Repository
     {
         $articles = $this->model->whereHas('tags', function ($q) use ($tag) {
             $q->where('tag_id', $tag);
-        })->select('title', 'alias')->where('own', $own)->get();
+        })->select('title', 'alias')->where('own', $own)->paginate(5);
 
         return $articles;
     }
@@ -611,8 +611,6 @@ class ArticlesRepository extends Repository
         Cache::forget('docsSidebar');
         Cache::forget('docsArticles');
         Cache::forget('main');
-        Cache::forget('articles_cats');
-        Cache::forget('docs_cats');
         Cache::forget('eventSidebar');
         Cache::forget('event_content');
     }

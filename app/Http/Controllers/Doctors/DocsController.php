@@ -49,20 +49,8 @@ class DocsController extends Controller
 
             $this->a_rep->displayed($article);
 
-            $id = $article->id;
-
-            $this->sidebar = Cache::remember('docsArticleSidebar', 60, function () use ($id) {
-                //            Last 2 publications
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['id', '<>', $id]);
-                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
-                //          most displayed
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
-                return view('doc.sidebar')->with(['lasts' => $lasts, 'articles' => $articles])->render();
-            });
-
-
-            $this->content = view('doc.article')->with(['article' => $article, 'sidebar' => $this->sidebar])->render();
+            $this->content = view('doc.article')->with(['article' => $article])->render();
+            $this->getSidebar();
             return $this->renderOutput();
         }
         $this->content = Cache::remember('docsArticles', 60, function () {
@@ -97,11 +85,11 @@ class DocsController extends Controller
     {
         $this->content = Cache::remember('docs_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id]);
-            $articles = $this->a_rep->get(['title', 'alias'], false, true, $where);
+            $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
 
             return view('doc.cat')->with(['articles' => $articles])->render();
         });
-
+        $this->getSidebar();
         return $this->renderOutput();
     }
 
@@ -118,6 +106,10 @@ class DocsController extends Controller
         });
 
         $this->vars = array_add($this->vars, 'nav', $nav);
+
+        if (false !== $this->sidebar) {
+            $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
+        }
 
         if ($this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
@@ -151,8 +143,12 @@ class DocsController extends Controller
      */
     public function tag($tag)
     {
-        $articles = $this->a_rep->getByTag($tag->id, 'docs');
-        $this->content = view('doc.tags')->with(['articles' => $articles])->render();
+        $this->content = Cache::remember('docs_tags' . $tag->alias, 60, function () use ($tag) {
+            $articles = $this->a_rep->getByTag($tag->id, 'docs');
+            return view('doc.tags')->with(['articles' => $articles])->render();
+        });
+
+        $this->getSidebar();
         return $this->renderOutput();
     }
 
@@ -169,5 +165,22 @@ class DocsController extends Controller
         });
 
         return $this->renderOutput();
+    }
+
+    /**
+     * @return bool
+     */
+    public function getSidebar()
+    {
+        $this->sidebar = Cache::remember('docsArticleSidebar', 60, function () {
+            //            Last 2 publications
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
+            //          most displayed
+            $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+            $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+            return view('doc.sidebar')->with(['lasts' => $lasts, 'articles' => $articles])->render();
+        });
+        return true;
     }
 }
