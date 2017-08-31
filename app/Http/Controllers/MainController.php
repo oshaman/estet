@@ -46,7 +46,7 @@ class MainController extends Controller
 
                 //          most displayed
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
 
                 return view('main.sidebar')->with(['lasts' => $last_articles, 'status' => true, 'articles' => $articles])->render();
             });
@@ -57,7 +57,7 @@ class MainController extends Controller
 
                 //          most displayed
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
-                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
 
                 return view('main.sidebar')->with(['lasts' => $last_articles, 'status' => false, 'articles' => $articles])->render();
             });
