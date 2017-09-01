@@ -46,6 +46,8 @@ class PermissionsTableSeeder extends Seeder
                 ['name'=>'UPDATE_SEO'],
 //                ADVERTISING
                 ['name'=>'UPDATE_ADVERTISING'],
+//                Static
+                ['name' => 'UPDATE_STATIC'],
             ]
         );
     }

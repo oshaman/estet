@@ -3,7 +3,6 @@
 namespace Fresh\Estet\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Support\Facades\Input;
 
 class TmpPersonRequest extends FormRequest
 {
@@ -16,13 +15,6 @@ class TmpPersonRequest extends FormRequest
     {
         return \Auth::user()->id;
     }
-
-    /*protected function getValidatorInstance()
-    {
-        $validator = parent::getValidatorInstance();
-
-        return $validator;
-    }*/
 
     /**
      * Get the validation rules that apply to the request.

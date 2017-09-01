@@ -87,10 +87,6 @@ class EstablishmentsRequest extends FormRequest
             ];
             return $rules;
         }
-
-        return [
-            //
-        ];
     }
 
     public function messages()

@@ -34,9 +34,21 @@ Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
  */
 Route::get('goroscop', 'Patient\HoroscopeController@index')->name('horoscope')->middleware('patient');
 /**
- * Sitemap
+ * Static
  */
+//Contacts
+Route::get('kontakty', 'Static_pageController@contacts')->name('contacts');
+//About
+Route::get('o-nas', 'Static_pageController@about')->name('about');
+//Conditions
+Route::get('soglashenie', 'Static_pageController@conditions')->name('conditions');
+//partnership
+Route::get('partnerstvo', 'Static_pageController@partnership')->name('partnership');
+//advertising
+Route::get('reklama', 'Static_pageController@advertising')->name('advertising');
+//Sitemap
 Route::get('karta-saita', 'SitemapController@show')->name('sitemap');
+
 /**
  *  Catalog
  */
@@ -250,6 +262,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::group(['prefix'=>'seo'], function () {
         Route::get('/', 'Admin\SeoController@index')->name('seo_admin');
         Route::match(['post', 'get'], 'edit/{seo}', 'Admin\SeoController@edit')->name('seo_update')->where('seo', '[0-9]+');
+    });
+    /**
+     * Admin STATIC
+     */
+    Route::group(['prefix' => 'static'], function () {
+        Route::get('/', 'Admin\StaticController@index')->name('admin_static');
+        Route::match(['post', 'get'], 'edit/{static}', 'Admin\StaticController@edit')->name('static_update')->where('static', '[0-9]+');
     });
     /**
      * Admin Advertising

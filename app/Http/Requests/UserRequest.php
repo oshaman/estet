@@ -16,6 +16,9 @@ class UserRequest extends FormRequest
         return \Auth::user()->canDo('ADMIN_USERS');
     }
 
+    /**
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
     protected function getValidatorInstance()
     {
         $validator = parent::getValidatorInstance();

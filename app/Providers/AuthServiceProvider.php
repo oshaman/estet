@@ -118,6 +118,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('UPDATE_ADVERTISING', FALSE);
         });
 
+        Gate::define('UPDATE_STATIC', function ($user) {
+            return $user->canDo('UPDATE_STATIC', FALSE);
+        });
+
         /*Gate::define('UPDATE_ARTICLES', function ($user) {
             return $user->canDo('UPDATE_ARTICLES', FALSE);
         });

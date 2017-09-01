@@ -2,7 +2,6 @@
 
 namespace Fresh\Estet\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use Fresh\Estet\Http\Controllers\Controller;
 
 use Auth;
@@ -118,12 +117,12 @@ class AdminController extends Controller
             if(Gate::allows('UPDATE_ADVERTISING')) {
                 $menu->add('Реклама', array('route' => 'advertising_admin'));
             }
-            /*
-            if(Gate::allows('UPDATE_EVENTS')) {
-                 $menu->add(trans('ua.history'), array('route' => 'admin_events'))->prepend('<i class="icon-calendar"></i>');
+
+            if (Gate::allows('UPDATE_STATIC')) {
+                $menu->add('Статичные страницы', array('route' => 'admin_static'));
              }
 
-             if(Gate::allows('CONFIRMATION_DATA')){
+            /* if(Gate::allows('CONFIRMATION_DATA')){
                  $menu->add(trans('ua.selection'),  array('route'  => 'selection'))->prepend('<i class="icon-file"></i>');
              }*/
         });

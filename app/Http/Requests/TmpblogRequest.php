@@ -48,9 +48,5 @@ class TmpblogRequest extends FormRequest
             ];
             return $rules;
         }
-
-       /* return [
-            //
-        ];*/
     }
 }

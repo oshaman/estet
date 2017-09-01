@@ -107,10 +107,6 @@ class EventRequest extends FormRequest
             }
             return $rules;
         }
-
-        /*return [
-            //
-        ];*/
     }
 
     public function messages()

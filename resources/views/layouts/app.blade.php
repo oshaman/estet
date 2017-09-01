@@ -55,8 +55,21 @@
                             </ul>
                         </li>
                     </ul>
-                    <a class="navbar-brand" href="{{ route('search') }}"> Поиск</a>
-                    <a class="navbar-brand" href="{{ route('sitemap') }}"> Sitemap</a>
+                    <ul class="nav navbar-nav">
+                        &nbsp;<li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                               aria-haspopup="true" aria-expanded="false">STATIC<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ route('contacts') }}">Контакты</a></li>
+                                <li><a href="{{ route('about') }}">О нас</a></li>
+                                <li><a href="{{ route('partnership') }}">Партнерство</a></li>
+                                <li><a href="{{ route('conditions') }}">Соглашение об использовании</a></li>
+                                <li><a href="{{ route('advertising') }}">Реклама на проекте</a></li>
+                                <li><a href="{{ route('search') }}"> Поиск</a></li>
+                                <li><a href="{{ route('sitemap') }}"> Sitemap</a></li>
+                            </ul>
+                        </li>
+                    </ul>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
