@@ -60,7 +60,7 @@ class LoginController extends Controller
 
         Session::put('profile_email', $user->email);
 
-        return redirect()->intended('home');
+        return redirect()->intended('');
     }
 
     protected function credentials(Request $request)

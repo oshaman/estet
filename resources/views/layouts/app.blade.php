@@ -13,12 +13,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
-
+    <script src="{{ asset('js/app.js') }}"></script>
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <!-- TinyMCE -->
-        @yield('tiny')
-    <!-- TinyMCE -->
 
 </head>
 <body>
@@ -143,12 +140,16 @@
             @yield('content')
         </div>
     </div>
-
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
 
     @if((Route::currentRouteName() ==  'edit_profile') || (Route::currentRouteName() ==  'events'))
         <script src="{{ asset('js/admin.js') }}"></script>
     @endif
+    <!-- TinyMCE -->
+    @yield('tiny')
+    <!-- TinyMCE -->
+    {{--Cropper--}}
+    @yield('cropper')
+    {{--Cropper--}}
 </body>
 </html>

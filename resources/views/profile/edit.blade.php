@@ -115,6 +115,7 @@
                 {!! Form::textarea('content', old('content') ? : ($profile->content ?? '' ), ['id'=>'content','rows'=>8, 'cols'=>100]) !!}
             </div>
         </li>
+        {{--Main Image--}}
         <li class="list-group-item">
             {{ Form::label('img', 'Фото') }}
             @if (empty($profile->approved))
@@ -123,9 +124,35 @@
                 <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
             @endif
             <div>
-                {!! Form::file('img', ['accept'=>'image/*', 'id'=>'img', 'class'=>'form-control']) !!}
+                <div id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Image Upload</h4>
+                            </div>
+                            <div class="modal-body">
+                                <img width="100%" src="" id="image_cropper">
+                            </div>
+                            <div class="modal-footer">
+                                <input type="button" class="btn save btn-primary" id="Save" value="Save"></button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="photo-back">
+                    <button class="btn btn-danger old-resource">X</button>
+                </div>
+                <!-- File Upload Button -->
+                <form id="FileUpload" action="" method="post" enctype="multipart/form-data">
+                    <input type="hidden" name="cropped_value" id="cropped_value" value="">
+                    <input type="file" name="img" id="cropper"/>
+                </form>
             </div>
         </li>
+        {{--Main Image--}}
     </ul>
     {!! Form::button(trans('admin.save'), ['class' => 'btn btn-success','type'=>'submit']) !!}
     {!! Form::close() !!}
@@ -135,4 +162,9 @@
             <span class="remove-this"><button type="button" class="btn btn-danger">-</button></span>
         </div>
     </div>
+@endsection
+@section('cropper')
+    <link href="{{ asset('js/cropperjs-master/dist') }}/cropper.css" rel="stylesheet">
+    <script src="{{ asset('js/cropperjs-master/dist') }}/cropper.js"></script>
+    <script src="{{ asset('js/croper.js') }}"></script>
 @endsection

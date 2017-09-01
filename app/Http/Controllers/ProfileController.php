@@ -6,6 +6,7 @@ use Auth;
 use Fresh\Estet\Http\Requests\TmpPersonRequest;
 use Fresh\Estet\Jobs\SendUserAddEmail;
 use Fresh\Estet\Repositories\ProfieRepository;
+use Illuminate\Http\Request;
 
 class ProfileController extends Controller
 {
@@ -54,5 +55,16 @@ class ProfileController extends Controller
 
         return view('profile.edit')->with('profile', $profile);
 
+    }
+
+    public function croppPhoto(Request $request)
+    {
+        dd($request->all());
+        if ($request->isMethod('post')) {
+
+            $result = $this->profile_rep->croppPhoto($request);
+            dd($result);
+            return \Response::json($result);
+        }
     }
 }

@@ -27,7 +27,7 @@ Route::get('poslednie-novosti', 'Patient\ArticlesController@lastArticles')->name
 Route::group(['prefix' => 'profile', 'middleware' => 'auth'], function () {
     Route::get('/', 'ProfileController@index')->name('profile');
     Route::match(['get', 'post'], '/edit', 'ProfileController@update')->name('edit_profile');
-
+    Route::post('cropp-image', 'ProfileController@croppPhoto');
 });
 /**
  * Horoscope

@@ -102,13 +102,20 @@ class TmpPersonRepository extends Repository {
 
                 $img = Image::make($image);
 
-                $img->widen(Config::get('settings.profile_img')['width'])->save(public_path().'/'.config('settings.theme').'/img/tmp_profile/'.$path, 100);
+                $img->fit(Config::get('settings.profile_img')['width'], Config::get('settings.profile_img')['height'], function ($constraint) {
+                    $constraint->upsize();
+                })->save(public_path() . '/' . config('settings.theme') . '/img/tmp_profile/' . $path, 100);
+
 
                 if (!empty($data->photo)) {
                     $old_img = $data->photo;
                     if (File::exists(config('settings.theme').'/img/tmp_profile/'.$old_img)) {
                         File::delete(config('settings.theme').'/img/tmp_profile/'.$old_img);
                     }
+                }
+
+                if (File::exists(public_path("/estet/img/tmp_tmp_profile/$id"))) {
+                    File::delete(public_path("/estet/img/tmp_tmp_profile/$id"));
                 }
 
                 $data->photo = $path;
