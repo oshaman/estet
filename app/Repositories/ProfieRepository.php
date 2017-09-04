@@ -8,6 +8,7 @@ use Fresh\Estet\Repositories\PersonsRepository;
 use Fresh\Estet\Specialty;
 use Illuminate\Support\Facades\Auth;
 use Validator;
+use Image;
 
 class ProfieRepository
 {
@@ -181,13 +182,13 @@ class ProfieRepository
 
         $cropped_value = $request->input("cropped_value"); //// Width,height,x,y,rotate for cropping
         $cp_v = explode(",", $cropped_value); /// Explode width,height,x etc
-        $file_name = Auth::user()->id . 'jpg';
+        $file_name = Auth::user()->id . '.jpg';
         if ($request->hasFile('img')) {
             $img = Image::make($request->file('img'));
             $path = public_path("/estet/img/tmp_tmp_profile/$file_name"); ///  Cropped Image Path
             $img->crop($cp_v[0], $cp_v[1], $cp_v[2], $cp_v[3])
                 ->save($path); // Crop and Save
-            return ['img' => base64_encode(file_get_contents($path))];
+            return ['success' => base64_encode(file_get_contents($path)), 'path' => asset("/estet/img/tmp_tmp_profile/$file_name")];
         }
     }
 }

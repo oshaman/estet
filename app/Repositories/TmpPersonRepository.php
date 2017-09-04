@@ -91,35 +91,31 @@ class TmpPersonRepository extends Repository {
         }
 
 
-        if ($tmp_request->hasFile('img')) {
-            $image = $tmp_request->file('img');
+        if (!empty($request['cropper_temp'])) {
+            $img = Image::make($request['cropper_temp']);
 
-            if($image->isValid()) {
+            $str = substr($data->alias, 0, 32) . '-' . time();
 
-                $str = substr($data->alias, 0, 32) . '-' . time();
+            $path = $str . '.jpg';
 
-                $path = $str.'.jpg';
-
-                $img = Image::make($image);
-
-                $img->fit(Config::get('settings.profile_img')['width'], Config::get('settings.profile_img')['height'], function ($constraint) {
-                    $constraint->upsize();
-                })->save(public_path() . '/' . config('settings.theme') . '/img/tmp_profile/' . $path, 100);
+            $img->fit(Config::get('settings.profile_img')['width'], Config::get('settings.profile_img')['height'], function ($constraint) {
+                $constraint->upsize();
+            })->save(public_path() . '/' . config('settings.theme') . '/img/tmp_profile/' . $path, 100);
 
 
-                if (!empty($data->photo)) {
-                    $old_img = $data->photo;
-                    if (File::exists(config('settings.theme').'/img/tmp_profile/'.$old_img)) {
-                        File::delete(config('settings.theme').'/img/tmp_profile/'.$old_img);
-                    }
+            if (!empty($data->photo)) {
+                $old_img = $data->photo;
+                if (File::exists(config('settings.theme') . '/img/tmp_profile/' . $old_img)) {
+                    File::delete(config('settings.theme') . '/img/tmp_profile/' . $old_img);
                 }
-
-                if (File::exists(public_path("/estet/img/tmp_tmp_profile/$id"))) {
-                    File::delete(public_path("/estet/img/tmp_tmp_profile/$id"));
-                }
-
-                $data->photo = $path;
             }
+
+            if (File::exists(public_path("/estet/img/tmp_tmp_profile/$id.jpg"))) {
+                File::delete(public_path("/estet/img/tmp_tmp_profile/$id.jpg"));
+            }
+
+            $data->photo = $path;
+
         }
 
         if ($data->save()) {

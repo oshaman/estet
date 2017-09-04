@@ -1,7 +1,7 @@
 @extends('/../layouts.app')
 @section('content')
     <h1>Edit profile</h1>
-    {!! Form::open(['url' => route('edit_profile'), 'class'=>'form-horizontal', 'method'=>'POST', 'files'=>true]) !!}
+    {!! Form::open(['url' => route('edit_profile'), 'id'=>'FileUpload', 'class'=>'form-horizontal', 'method'=>'POST', 'files'=>true]) !!}
     <ul class="list-group">
         <li class="list-group-item">
             {{ Form::label('name', '* Имя') }}
@@ -130,14 +130,14 @@
                         <div class="modal-content">
                             <div class="modal-header">
                                 <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                <h4 class="modal-title">Image Upload</h4>
+                                <h4 class="modal-title">Загрузка изображения</h4>
                             </div>
                             <div class="modal-body">
                                 <img width="100%" src="" id="image_cropper">
                             </div>
                             <div class="modal-footer">
                                 <input type="button" class="btn save btn-primary" id="Save" value="Save"></button>
-                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
                             </div>
                         </div>
                     </div>
@@ -146,10 +146,11 @@
                     <button class="btn btn-danger old-resource">X</button>
                 </div>
                 <!-- File Upload Button -->
-                <form id="FileUpload" action="" method="post" enctype="multipart/form-data">
+                {{--<form id="FileUpload" action="" method="post" enctype="multipart/form-data">--}}
                     <input type="hidden" name="cropped_value" id="cropped_value" value="">
+                <input type="hidden" name="cropper_temp" id="cropper_temp" value="">
                     <input type="file" name="img" id="cropper"/>
-                </form>
+                {{--</form>--}}
             </div>
         </li>
         {{--Main Image--}}

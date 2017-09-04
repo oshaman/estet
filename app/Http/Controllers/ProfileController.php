@@ -59,11 +59,10 @@ class ProfileController extends Controller
 
     public function croppPhoto(Request $request)
     {
-        dd($request->all());
         if ($request->isMethod('post')) {
 
             $result = $this->profile_rep->croppPhoto($request);
-            dd($result);
+
             return \Response::json($result);
         }
     }
