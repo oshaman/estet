@@ -18,7 +18,11 @@
         <tbody>
         @if(!$priv->isEmpty())
             @foreach($priv as $val)
-                <tr>
+                <tr
+                        @if(('ADMIN_USERS' == $val->name) || ('EDIT_PERMS' == $val->name))
+                        class="bg-danger"
+                        @endif
+                >
                     <td>{{ trans('ru.'.$val->name) }}</td>
                     @foreach($roles as $role)
                         <td>

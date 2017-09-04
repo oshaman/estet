@@ -7,6 +7,7 @@
             path_absolute : "/",
             selector: "textarea.editor",
             language: 'ru',
+            theme: "modern",
             branding: false,
             height : 650,
             width : 960,
@@ -20,11 +21,15 @@
                 "importcss"
             ],
             content_css: "{{asset('css')}}/tinimce.css",
+            importcss_file_filter: "{{asset('css')}}/app.css",
             importcss_append: true,
-//            themes: "advanced",
             style_formats: [
-                {title: 'Тест1', block: 'div', classes: 'left', exact: true, wrapper: 1},
-                {title: 'Две картинки', block: 'div', classes: 'two_pics', exact: true, wrapper: 1},
+                {
+                    title: 'Шаблоны', items: [
+                    {title: 'Тест1', block: 'div', classes: 'left', exact: true, wrapper: 1},
+                    {title: 'Две картинки', block: 'div', classes: 'two_pics', exact: true, wrapper: 1},
+                ]
+                },
             ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
             relative_urls: false,

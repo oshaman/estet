@@ -19,10 +19,17 @@
                 "emoticons template paste textcolor colorpicker textpattern",
                 "importcss"
             ],
-            content_css: "{{asset('css')}}/app.css",
-            importcss_append: true,
+            content_css: "{{asset('css')}}/tinimce.css",
             importcss_file_filter: "{{asset('css')}}/app.css",
-            themes: "modern",
+            importcss_append: true,
+            style_formats: [
+                {
+                    title: 'Шаблоны', items: [
+                    {title: 'Тест1', block: 'div', classes: 'left'},
+                    {title: 'Две картинки', block: 'div', classes: 'two_pics'},
+                ]
+                },
+            ],
             toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image",
             relative_urls: false,
             file_browser_callback : function(field_name, url, type, win) {
