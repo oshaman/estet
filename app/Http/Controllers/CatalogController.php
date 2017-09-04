@@ -151,7 +151,7 @@ class CatalogController extends MainController
 
         $this->title = 'Бренды';
 
-        $this->content = Cache::remember('clinic-brand', 60, function() use ($prem_rep, $repository) {
+        $this->content = Cache::remember('catalog-brand', 60, function () use ($prem_rep, $repository) {
             $prems_ids = $prem_rep->getPremIds('brand');
 
             $prems = $repository->getPrems($prems_ids);

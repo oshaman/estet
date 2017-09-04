@@ -7,7 +7,7 @@
             <div class="panel panel-default">
                 <div class=”panel-heading”>Registration Confirmed</div>
                 <div class=”panel-body”>
-                    Your Email is successfully verified. Click here to <a href="{{route('login')}}">login</a>
+                    Почтовый ящик подтвержден!
                 </div>
             </div>
         </div>

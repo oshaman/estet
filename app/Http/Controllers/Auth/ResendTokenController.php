@@ -16,7 +16,7 @@ class ResendTokenController extends Controller
     {
         if (Auth::check() && Auth::user()->verified == 1) {
             $request->session()->flash('status', 'You are already confirmed');
-            return redirect('home');
+            return redirect('/');
         }
 
         if ($request->isMethod('post')) {

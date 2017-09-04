@@ -18,9 +18,10 @@
                     </div>
                 @endif
 
-                <div class="panel-heading">Registration</div>
+                <div class="panel-heading">Регистрация</div>
                 <div class="panel-body">
-                    You have successfully registered. An email is sent to you for verification.
+                    Ваш аккаунт успешно зарегистрирован. На указанный постовый ящик отправленно письмо для
+                    подтверждения.
                 </div>
             </div>
         </div>

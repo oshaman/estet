@@ -148,7 +148,7 @@
                 <!-- File Upload Button -->
                 {{--<form id="FileUpload" action="" method="post" enctype="multipart/form-data">--}}
                     <input type="hidden" name="cropped_value" id="cropped_value" value="">
-                <input type="hidden" name="cropper_temp" id="cropper_temp" value="">
+                <input type="hidden" name="cropper_temp" id="cropper_temp" value="{{ $profile->cropper_temp ?? '' }}">
                     <input type="file" name="img" id="cropper"/>
                 {{--</form>--}}
             </div>

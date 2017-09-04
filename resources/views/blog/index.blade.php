@@ -18,6 +18,7 @@
     <div class="row">
         {!! Form::button(trans('admin.find'), ['class' => 'btn btn-primary','type'=>'submit']) !!}
     </div>
+    <hr>
     {!! Form::close() !!}
     <div class="row">
         {!! Html::link(route('create_blog'),'Создать статью блога',['class' => 'btn btn-success']) !!}
