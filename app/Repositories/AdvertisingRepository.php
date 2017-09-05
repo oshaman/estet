@@ -3,6 +3,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Advertising;
 use Validator;
+use Cache;
 
 class AdvertisingRepository extends Repository
 {
@@ -36,6 +37,23 @@ class AdvertisingRepository extends Repository
             $error[] = ['advertising' => 'Ошибка записи рекламы'];
             return $error;
         }
+        Cache::forget('main');
         return ['status' => trans('admin.material_updated')];
+    }
+
+    public function getMainPatient()
+    {
+        $collection = $this->model->select('text', 'placement')->where('own', 'patient')->get();
+        $result = [];
+        foreach ($collection as $item) {
+            if ('main_1' == $item->placement) {
+                $result['main_1'] = $item->text;
+            } elseif ('main_2' == $item->placement) {
+                $result['main_2'] = $item->text;
+            } else {
+                continue;
+            }
+        }
+        return $result;
     }
 }

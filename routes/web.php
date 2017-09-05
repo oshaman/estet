@@ -85,15 +85,12 @@ Route::group(['prefix' => 'doctor', 'middleware' => 'doctor'], function () {
         Route::get('categorii/{blogs_cat?}', 'Doctors\BlogsController@category')->name('blogs_cat')->where('blogs_cat', '[a-zA-Z0-9-_]+');
         Route::get('/teg/{tag_alias}', 'Doctors\BlogsController@tag')->name('blog_tag')->where('tag_alias', '[a-zA-Z0-9-_]+');
     });
-    /**
-     * Events
-     */
+//    Events
     Route::get('meropriyatiya/{event_alias?}', 'Doctors\EventsController@show')->name('events')->where('event_alias', '[a-zA-Z0-9-_]+')->middleware('doctor');
 });
 /**
  * AdminBlog
  */
-
 Route::group(['prefix'=>'admin-blog', 'middleware'=>'admin_blog'], function () {
     Route::match(['get', 'post'], '/', 'AdminBlog\BlogController@index')->name('admin_blog');
     Route::match(['get', 'post'], 'create', 'AdminBlog\BlogController@create')->name('create_blog');
@@ -111,8 +108,6 @@ Route::group(['prefix' => 'search'], function () {
 /**
  *  Admin panel
  */
-
-
 Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
     Route::get('/', ['uses' => 'Admin\IndexController@index', 'as' => 'admin']);
     /**
@@ -278,11 +273,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
         Route::match(['post', 'get'], 'edit/{advertising}', 'Admin\AdvertisingController@edit')->name('advertising_update')->where('advertising', '[0-9]+');
     });
 });
-
 /**
  *  Auth
  */
-
 Auth::routes();
 Route::match(['get', 'post'],'/resend', ['uses'=>'Auth\ResendTokenController@index', 'as'=>'resend_activation']);
 Route::get('/verifyemail/{token}', 'Auth\RegisterController@verify');

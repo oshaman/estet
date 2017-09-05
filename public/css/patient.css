@@ -1,0 +1,278 @@
+.slider-wrap {
+    display: flex;
+    font-size: 0;
+}
+
+.slider-wrap .slider {
+    width: 78%;
+}
+
+.slider-wrap .slider article {
+    display: flex;
+}
+
+.slide-left {
+    width: 56.3%;
+}
+
+.slide-left img {
+    width: 100%;
+}
+
+.slide-right {
+    width: 43.7%;
+    padding-left: 3.5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.slide-right_top {
+    font-family: 'Cormorant';
+    font-weight: 600;
+}
+
+.slide-right_top h3 {
+    margin-top: 8.4%;
+    font-size: 26px;
+    line-height: 1;
+}
+
+.slide-right_top p {
+    margin-top: 7%;
+    font-size: 14px;
+}
+
+.slide-right_bot {
+    text-align: right;
+}
+
+.slide-right_bot a {
+    background: #202020;
+    display: inline-block;
+    font-family: 'Roboto';
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 3.5px;
+    width: 125px;
+    height: 23px;
+    border-radius: 22px;
+    text-align: center;
+    line-height: 25px;
+}
+
+.ad {
+    width: 22%;
+    text-align: right;
+}
+
+.ad img {
+    width: 85%;
+}
+
+.most-popular {
+    margin-top: 119px;
+}
+
+.article-big .title-time {
+    margin-top: 4.2%;
+}
+
+.article-big article a:last-of-type {
+    margin-top: 3%;
+}
+
+.article-big h3 {
+    font-size: 24px;
+    line-height: 26px;
+}
+
+.video {
+    margin-top: 122px;
+}
+
+.video .articles-horizontal {
+    margin-top: 0;
+}
+
+.video .articles-horizontal .line-vertical {
+    width: 1px;
+    height: 253px;
+    top: 0;
+    position: relative;
+    background: #5d5d5d;
+}
+
+.video .articles-horizontal h3 {
+    color: #fff;
+    margin-top: 13px;
+    margin-left: 1px;
+}
+
+.video .articles-horizontal .title-time {
+    margin-top: 12px;
+}
+
+.video .articles-horizontal .title-time time {
+    padding: 0 1px;
+    line-height: 1;
+    margin-right: 19px;
+}
+
+.video .articles-horizontal::before {
+    height: 150%;
+    top: -39px;
+    background: #202020;
+}
+
+.video .button-block a {
+    background: #fff;
+    color: #202020;
+}
+
+.video .button-line::before {
+    background: #5d5d5d;
+}
+
+.video .horizontal-line {
+    width: 100%;
+    display: block;
+    position: relative;
+    height: 7px;
+    background: #5d5d5d;
+}
+
+.interesting-facts {
+    margin-top: 88px;
+}
+
+.diet-food {
+    margin-top: 88px;
+}
+
+.diet-food .content {
+    display: flex;
+}
+
+.diet-food .content > * {
+    width: 50%;
+}
+
+.diet-food .content > .button-block {
+    width: 100%;
+}
+
+.diet-food .button-block {
+    margin-top: 87px;
+    padding-right: 4.4%;
+}
+
+.beauty-health {
+    margin-top: 147px;
+}
+
+.beauty-health .articles-horizontal {
+    margin-top: 0;
+}
+
+.beauty-health .button-block {
+    margin-top: 59px;
+    padding-right: 4.4%;
+}
+
+.medicine-treatment {
+    margin-top: 88px;
+}
+
+.medicine-treatment .content {
+    display: flex;
+}
+
+.medicine-treatment .content > * {
+    width: 50%;
+}
+
+.medicine-treatment .content > .button-block {
+    width: 100%;
+}
+
+.medicine-treatment .button-block {
+    margin-top: 87px;
+    padding-right: 4.4%;
+}
+
+.helpful-tips {
+    margin-top: 147px;
+}
+
+.helpful-tips .articles-horizontal {
+    margin-top: 0;
+}
+
+.helpful-tips .button-block {
+    margin-top: 59px;
+    padding-right: 4.4%;
+}
+
+.horoscope-patient {
+    margin-top: 111px;
+}
+
+.horoscope-patient .articles-horizontal {
+    margin-top: 0;
+}
+
+.horoscope-patient .button-block {
+    margin-top: 21px;
+    padding-right: 4.4%;
+}
+
+.horoscope-patient .hrp {
+    width: 90.58%;
+    margin: 4.27% 0 0 3.4%;
+}
+
+.horoscope-patient .hrp .icons-img {
+    margin-bottom: 56px;
+}
+
+.horoscope-patient .hrp .icons-img span {
+    letter-spacing: 1px;
+    color: #000;
+}
+
+.stomatology {
+    margin-top: 100px;
+}
+
+.stomatology .content {
+    display: flex;
+}
+
+.stomatology .content > * {
+    width: 50%;
+}
+
+.stomatology .content > .button-block {
+    width: 100%;
+}
+
+.stomatology .button-block {
+    margin-top: 87px;
+    padding-right: 4.4%;
+}
+
+.psychology {
+    margin-top: 149px;
+}
+
+.psychology .articles-horizontal {
+    margin-top: 0;
+}
+
+.psychology .button-block {
+    margin-top: 59px;
+    padding-right: 4.4%;
+}

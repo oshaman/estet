@@ -1,0 +1,71 @@
+/*CormorantGaramond*/
+
+@font-face {
+    font-family: "Cormorant";
+    src: url("../fonts/cormorantgaramond_regular/CormorantGaramond-Regular-webfont.eot");
+    src: url("../fonts/cormorantgaramond_regular/CormorantGaramond-Regular-webfont.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/cormorantgaramond_regular/CormorantGaramond-Regular-webfont.woff") format("woff"),
+    url("../fonts/cormorantgaramond_regular/CormorantGaramond-Regular-webfont.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Cormorant";
+    src: url("../fonts/CormorantGaramond-SemiBold-webfont/Cormorantgaramondsemibold.eot");
+    src: url("../fonts/CormorantGaramond-SemiBold-webfont/Cormorantgaramondsemibold.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/CormorantGaramond-SemiBold-webfont/Cormorantgaramondsemibold.woff") format("woff"),
+    url("../fonts/CormorantGaramond-SemiBold-webfont/Cormorantgaramondsemibold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 600;
+}
+
+@font-face {
+    font-family: "Cormorant";
+    src: url("../fonts/CormorantGaramond-Bold-webfont/Cormorantgaramondbold.eot");
+    src: url("../fonts/CormorantGaramond-Bold-webfont/Cormorantgaramondbold.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/CormorantGaramond-Bold-webfont/Cormorantgaramondbold.woff") format("woff"),
+    url("../fonts/CormorantGaramond-Bold-webfont/Cormorantgaramondbold.ttf") format("truetype");
+    font-style: normal;
+    font-weight: 700;
+}
+
+/*for menu*/
+
+@font-face {
+    font-family: "ProximaNova";
+    src: url("../fonts/ProximaNova-Regular/ProximaNova-Regular.eot");
+    src: url("../fonts/ProximaNova-Regular/ProximaNova-Regular.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/ProximaNova-Regular/ProximaNova-Regular.woff") format("woff"),
+    url("../fonts/ProximaNova-Regular/ProximaNova-Regular.svg") format("svg"),
+    url("../fonts/ProximaNova-Regular/ProximaNova-Regular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/*for hz...*/
+
+@font-face {
+    font-family: "SegoeUIRegular";
+    src: url("../fonts/SegoeUIRegular/SegoeUIRegular.eot");
+    src: url("../fonts/SegoeUIRegular/SegoeUIRegular.eot?#iefix") format("embedded-opentype"),
+    url("../fonts/SegoeUIRegular/SegoeUIRegular.woff") format("woff"),
+    url("../fonts/SegoeUIRegular/SegoeUIRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+/*icons*/
+
+@font-face {
+    font-family: 'icons-desctop';
+    src: url('../fonts/icons-desctop/icons-desctop.eot?12226277');
+    src: url('../fonts/icons-desctop/icons-desctop.eot?12226277#iefix') format('embedded-opentype'),
+    url('../fonts/icons-desctop/icons-desctop.woff2?12226277') format('woff2'),
+    url('../fonts/icons-desctop/icons-desctop.woff?12226277') format('woff'),
+    url('../fonts/icons-desctop/icons-desctop.ttf?12226277') format('truetype'),
+    url('../fonts/icons-desctop/icons-desctop.svg?12226277#icons-desctop') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+

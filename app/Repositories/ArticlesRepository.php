@@ -407,9 +407,6 @@ class ArticlesRepository extends Repository
         if (File::exists(public_path('/images/article/small/') . $path)) {
             File::delete(public_path('/images/article/small/') . $path);
         }
-        if (File::exists(public_path('/images/article/mini/') . $path)) {
-            File::delete(public_path('/images/article/mini/') . $path);
-        }
         if (File::exists(public_path('/images/article/tmp/') . $path)) {
             File::delete(public_path('/images/article/tmp/') . $path);
         }
@@ -533,11 +530,6 @@ class ArticlesRepository extends Repository
                     $constraint->upsize();
                 },
                 $position)->save(public_path() . '/images/article/small/' . $path, 100);
-            $img->fit(Config::get('settings.articles_img')['mini']['width'], Config::get('settings.articles_img')['mini']['height'],
-                function ($constraint) {
-                    $constraint->upsize();
-                },
-                $position)->save(public_path() . '/images/article/mini/' . $path, 100);
             return $path;
         } else {
             return false;

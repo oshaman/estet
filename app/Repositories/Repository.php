@@ -56,7 +56,7 @@ abstract class Repository {
                 if ($created > $midnight) {
                     $item->created = date('H:i', $created);
                 } else {
-                    $item->created = date('d-m-Y H:i', $created);
+                    $item->created = date('d.m.Y', $created);
                 }
             }
 

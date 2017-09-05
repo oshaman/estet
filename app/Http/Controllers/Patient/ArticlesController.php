@@ -2,6 +2,7 @@
 namespace Fresh\Estet\Http\Controllers\Patient;
 
 use Fresh\Estet\Http\Controllers\Controller;
+use Fresh\Estet\Repositories\AdvertisingRepository;
 use Menu;
 use DB;
 use Cache;
@@ -16,18 +17,22 @@ class ArticlesController extends Controller
     protected $vars;
     protected $sidebar = false;
     protected $a_rep;
+    protected $adv_rep;
+    protected $title_img;
 
-    public function __construct(ArticlesRepository $repository)
+    public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv)
     {
         $this->a_rep = $repository;
+        $this->adv_rep = $adv;
     }
 
     public function index()
     {
+        Cache::flush();
         $this->content = Cache::remember('main', 60, function() {
 
             $articles = [
-                'lasts' => $this->a_rep->getMain([['id', '<>', null]],3, ['created_at', 'desc'], 'patient'),
+                'lasts' => $this->a_rep->getMain([['id', '<>', null]], 6, ['created_at', 'desc'], 'patient'),
                 'popular' => $this->a_rep->getMain([['id', '<>', null]],4, ['view', 'desc'], 'patient'),
                 'video' => $this->a_rep->getMain([['category_id', 20]],3, ['created_at', 'desc'], 'patient'),
                 'facts' => $this->a_rep->getMain([['category_id', 17]],3, ['created_at', 'desc'], 'patient'),
@@ -38,7 +43,8 @@ class ArticlesController extends Controller
                 'stomatology' => $this->a_rep->getMain([['category_id', 8]],4, ['created_at', 'desc'], 'patient'),
                 'psychology' => $this->a_rep->getMain([['category_id', 18]],3, ['created_at', 'desc'], 'patient'),
             ];
-            return view('patient.content')->with(['articles' => $articles])->render();
+            $advertising = $this->adv_rep->getMainPatient();
+            return view('patient.content')->with(['articles' => $articles, 'advertising' => $advertising])->render();
 
         });
         return $this->renderOutput();
@@ -112,7 +118,8 @@ class ArticlesController extends Controller
     public function renderOutput()
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
-
+        $this->title_img = true;
+        $this->vars = array_add($this->vars, 'title_img', $this->title_img);
         $nav = Cache::remember('patientMenu', 60,function() {
             $menu = $this->getMenu();
             return view('layouts.nav')->with('menu', $menu)->render();

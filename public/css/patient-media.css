@@ -1,0 +1,373 @@
+@media screen and (max-width: 1199px) {
+    .ad {
+        display: none;
+    }
+
+    .slider-wrap .slider {
+        width: 100%;
+    }
+}
+
+@media screen and (max-width: 991px) {
+    .container::before {
+        background: none;
+    }
+
+    .slider article {
+        flex-wrap: wrap;
+    }
+
+    .slider article > * {
+        width: 100%;
+    }
+
+    .slide-right {
+        padding-left: 0;
+    }
+
+    .slide-right_top .title-time {
+        margin-top: 4.1%;
+    }
+
+    .slide-right_top a h3 {
+        margin-top: 3.8%;
+    }
+
+    .slide-right_top p {
+        margin-top: 2.2%;
+    }
+
+    .slide-right_bot {
+        margin-top: 4.5%;
+    }
+
+    .articles-horizontal h3 {
+        margin-top: 12px;
+    }
+
+    .most-popular,
+    .diet-food,
+    .medicine-treatment,
+    .stomatology {
+        margin-top: 110px;
+    }
+
+    .most-popular .content,
+    .diet-food .content,
+    .medicine-treatment .content,
+    .stomatology .content {
+        flex-direction: column-reverse;
+    }
+
+    .most-popular .content > *,
+    .diet-food .content > *,
+    .medicine-treatment .content > *,
+    .stomatology .content > * {
+        width: 100%;
+    }
+
+    .article-big {
+        order: 2;
+    }
+
+    .article-big article a:last-of-type {
+        margin-top: 2.3%;
+    }
+
+    .articles-vertical {
+        order: 1;
+        margin-top: 32px;
+        padding-left: 0;
+    }
+
+    .articles-vertical article:nth-of-type(3) {
+        margin-bottom: 0;
+    }
+
+    .articles-vertical article {
+        margin-top: 26px;
+        margin-bottom: 32px;
+    }
+
+    .articles-vertical article > div {
+        width: 71.9%;
+        padding-left: 5%;
+    }
+
+    .articles-vertical article > div .link-title {
+        margin-top: 3%;
+    }
+
+    .articles-vertical article .link-img {
+        width: 28.1%;
+    }
+
+    .video {
+        margin-top: 99px;
+    }
+
+    .video .articles-horizontal::before {
+        top: -47px;
+    }
+
+    .video .button-block {
+        margin-top: 23px;
+        padding-right: 6.8%;
+    }
+
+    .diet-food .button-block {
+        margin-top: 78px;
+        padding-right: 0;
+    }
+
+    .diet-food .button-block .button-line::before {
+        margin-right: 37px;
+    }
+
+    .beauty-health {
+        margin-top: 142px;
+    }
+
+    .beauty-health .articles-horizontal h3 {
+        margin-top: 16px;
+    }
+
+    .beauty-health .button-block {
+        margin-top: 58px;
+        padding-right: 6.8%;
+    }
+
+    .medicine-treatment .button-block {
+        margin-top: 78px;
+        padding-right: 0;
+    }
+
+    .medicine-treatment .button-block .button-line::before {
+        margin-right: 37px;
+    }
+
+    .helpful-tips {
+        margin-top: 142px;
+    }
+
+    .helpful-tips .articles-horizontal h3 {
+        margin-top: 16px;
+    }
+
+    .helpful-tips .button-block {
+        margin-top: 58px;
+        padding-right: 6.8%;
+    }
+
+    .horoscope-patient {
+        margin-top: 115px;
+    }
+
+    .horoscope-patient .hrp {
+        width: 100%;
+        margin: 5.7% 0 0 0;
+    }
+
+    .horoscope-patient .hrp .icons-img {
+        margin-bottom: 45px;
+    }
+
+    .horoscope-patient .hrp .icons-img span {
+        letter-spacing: 2px;
+    }
+
+    .horoscope-patient .button-block {
+        margin-top: 25px;
+        padding-right: 6.8%;
+    }
+
+    .stomatology {
+        margin-top: 111px;
+    }
+
+    .stomatology .button-block {
+        margin-top: 78px;
+        padding-right: 0;
+    }
+
+    .stomatology .button-block .button-line::before {
+        margin-right: 37px;
+    }
+
+    .psychology {
+        margin-top: 143px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .slide-right_top .title-time a {
+        font-size: 10px;
+    }
+
+    .slide-right_top .title-time a::before {
+        width: 6px;
+        height: 6px;
+        margin-right: 7px;
+    }
+
+    .slide-right_top .title-time time {
+        font-size: 8px;
+        padding: 1px 2px;
+    }
+
+    .slide-right_top a h3 {
+        margin-top: 5.4%;
+    }
+
+    .slide-right_top h3 {
+        font-size: 19px;
+    }
+
+    .slide-right_top p {
+        display: none;
+    }
+
+    .slide-right_bot {
+        display: none;
+    }
+
+    .articles-horizontal {
+        margin-top: 21px;
+    }
+
+    .articles-horizontal .title-time {
+        margin-top: 0;
+        margin-bottom: 10px;
+    }
+
+    .articles-horizontal .title-time a {
+        font-size: 10px;
+        letter-spacing: 1px;
+    }
+
+    .articles-horizontal .title-time a::before {
+        width: 6px;
+        height: 6px;
+        margin-right: 8px;
+    }
+
+    .articles-horizontal .title-time time {
+        font-size: 8px;
+        padding: 1px 2px;
+    }
+
+    .articles-horizontal h3 {
+        margin-top: -2px;
+        margin-left: 12px;
+    }
+
+    .most-popular {
+        margin-top: 47px;
+    }
+
+    .most-popular .content {
+        margin-top: 13px;
+    }
+
+    .article-big .title-time {
+        margin-top: 6.3%;
+    }
+
+    .article-big .title-time time {
+        font-size: 8px;
+        padding: 2px 5px;
+    }
+
+    .article-big h3 {
+        font-size: 19px;
+        line-height: 21px;
+    }
+
+    .article-big article a:last-of-type {
+        margin-top: 3.1%;
+    }
+
+    .articles-vertical {
+        margin-top: 21px;
+        flex-direction: column-reverse;
+    }
+
+    .articles-vertical article {
+        margin-bottom: 0;
+        margin-top: 0;
+        padding: 16px 0;
+    }
+
+    .articles-vertical article h3 {
+        line-height: 15px;
+    }
+
+    .articles-vertical article .link-img {
+        width: 26.1%;
+    }
+
+    .articles-vertical article > div {
+        width: 73.9%;
+        padding-left: 3.4%;
+    }
+
+    .articles-vertical article > div .link-title {
+        margin-top: 2%;
+    }
+
+    .articles-vertical .title-time time {
+        font-size: 8px;
+        padding: 2px 3px;
+    }
+
+    .video .left-title h2 {
+        color: #fff;
+    }
+
+    .video .left-title .vertical-line {
+        background: #fff;
+    }
+
+    .video .articles-horizontal article:nth-of-type(1)::before {
+        height: 200%;
+        top: -23%;
+        background: #202020;
+    }
+
+    .video .articles-horizontal article:nth-of-type(2)::before {
+        content: '';
+        position: absolute;
+        width: 150%;
+        height: 100%;
+        left: -25%;
+        background: #202020;
+    }
+
+    .video .articles-horizontal article:nth-of-type(3)::before {
+        height: 132%;
+        background: #202020;
+    }
+
+    .video .articles-horizontal .link-img {
+        order: 1;
+        width: 100%;
+        padding-bottom: 0;
+    }
+
+    .video .articles-horizontal .link-title {
+        width: 100%;
+    }
+
+    .video .articles-horizontal .title-time {
+        margin-top: 8px;
+    }
+
+    .video .articles-horizontal h3 {
+        margin-top: 5px;
+        margin-bottom: 28px;
+    }
+
+    .video .horizontal-line {
+        height: 4px;
+    }
+}

@@ -35,9 +35,9 @@ class SitemapRepository
             );
 
             if ('patient' == $post->own) {
-                $sitemap_article_patients->add(URL::to('articles/' .$post->alias), $post->updated_at, '0.9', 'weekly', $images);
+                $sitemap_article_patients->add(URL::to('articles/' . $post->alias), $post->updated_at, '1.0', 'weekly', $images);
             } else {
-                $sitemap_article_docs->add(URL::to('doctor/statyi/' .$post->alias), $post->updated_at, '0.9', 'weekly', $images);
+                $sitemap_article_docs->add(URL::to('doctor/statyi/' . $post->alias), $post->updated_at, '1.0', 'weekly', $images);
             }
         }
         $sitemap_article_patients->store('xml','sitemap-articles-patient');
@@ -56,7 +56,7 @@ class SitemapRepository
                 'caption' => $blog->blog_img->alt
             );
 
-            $sitemap_blog->add(URL::to('doctor/blog/' .$blog->alias), $blog->updated_at, '0.9', 'weekly', $images);
+            $sitemap_blog->add(URL::to('doctor/blog/' . $blog->alias), $blog->updated_at, '1.0', 'weekly', $images);
         }
         $sitemap_blog->store('xml','sitemap-blog');
 //    Blogs
@@ -73,7 +73,7 @@ class SitemapRepository
                         'title' => $establishment->title,
                         'caption' => $establishment->title
                     );
-                    $sitemap_establishment->add(URL::to('catalog/kliniki/' . $establishment->alias), $establishment->updated_at, '0.9', 'daily', $images);
+                    $sitemap_establishment->add(URL::to('catalog/kliniki/' . $establishment->alias), $establishment->updated_at, '1.0', 'daily', $images);
                     break;
                 case 'distributor':
                     $images = array();
@@ -83,7 +83,7 @@ class SitemapRepository
                         'title' => $establishment->title,
                         'caption' => $establishment->title
                     );
-                    $sitemap_establishment->add(URL::to('catalog/distributory/' . $establishment->alias), $establishment->updated_at, '0.9', 'daily', $images);
+                    $sitemap_establishment->add(URL::to('catalog/distributory/' . $establishment->alias), $establishment->updated_at, '1.0', 'daily', $images);
                     break;
                 case 'brand':
                     $images[] = array(
@@ -91,7 +91,7 @@ class SitemapRepository
                         'title' => $establishment->title,
                         'caption' => $establishment->title
                     );
-                    $sitemap_establishment->add(URL::to('catalog/brendy/' . $establishment->alias), $establishment->updated_at, '0.9', 'daily', $images);
+                    $sitemap_establishment->add(URL::to('catalog/brendy/' . $establishment->alias), $establishment->updated_at, '1.0', 'daily', $images);
                     break;
             }
         }
@@ -109,28 +109,28 @@ class SitemapRepository
                 'title' => $doc->lastname,
                 'caption' => $doc->name. ' ' .$doc->lastname
             );
-            $sitemap_doc->add($doc->site, $doc->updated_at, '0.9', 'daily', $images);
+            $sitemap_doc->add($doc->site, $doc->updated_at, '1.0', 'daily', $images);
         }
         $sitemap_doc->store('xml','sitemap-doc');
 //      Docs
         $sitemap_main = App::make("sitemap");
 
-        $sitemap_main->add(URL::to('/'), '2017-08-15T20:10:00+02:00', '1.0', 'daily');
-        $sitemap_main->add(URL::to('goroscop'), '2012-08-16T12:30:00+02:00', '0.9', 'monthly');
-        $sitemap_main->add(URL::to('doctor/blog'), '2012-08-16T12:30:00+02:00', '0.9', 'daily');
-        $sitemap_main->add(URL::to('catalog/kliniki'), '2012-08-16T12:30:00+02:00', '0.9', 'daily');
-        $sitemap_main->add(URL::to('catalog/brendy'), '2012-08-16T12:30:00+02:00', '0.9', 'daily');
-        $sitemap_main->add(URL::to('catalog/distributory'), '2012-08-16T12:30:00+02:00', '0.9', 'daily');
-        $sitemap_main->add(URL::to('catalog/vrachi'), '2012-08-16T12:30:00+02:00', '0.9', 'daily');
+        $sitemap_main->add(URL::to('/'), '2017-08-15T20:10:00+02:00', '0.6', 'daily');
+        $sitemap_main->add(URL::to('goroscop'), '2012-08-16T12:30:00+02:00', '0.8', 'monthly');
+        $sitemap_main->add(URL::to('doctor/blog'), '2012-08-16T12:30:00+02:00', '0.8', 'daily');
+        $sitemap_main->add(URL::to('catalog/kliniki'), '2012-08-16T12:30:00+02:00', '0.8', 'daily');
+        $sitemap_main->add(URL::to('catalog/brendy'), '2012-08-16T12:30:00+02:00', '0.8', 'daily');
+        $sitemap_main->add(URL::to('catalog/distributory'), '2012-08-16T12:30:00+02:00', '0.8', 'daily');
+        $sitemap_main->add(URL::to('catalog/vrachi'), '2012-08-16T12:30:00+02:00', '0.8', 'daily');
 
 //        categories
         $cats = Menu::with('category')->get();
 
         foreach ($cats as $cat) {
             if ('docs' == $cat->own) {
-                $sitemap_main->add(route('docs_cat', $cat->category->alias), $cat->category->updated_at, '0.5', 'weekly');
+                $sitemap_main->add(route('docs_cat', $cat->category->alias), $cat->category->updated_at, '0.8', 'weekly');
             } else {
-                $sitemap_main->add(route('article_cat', $cat->category->alias), $cat->category->updated_at, '0.5', 'weekly');
+                $sitemap_main->add(route('article_cat', $cat->category->alias), $cat->category->updated_at, '0.8', 'weekly');
             }
         }
 //        categories

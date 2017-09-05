@@ -420,9 +420,6 @@ class BlogsRepository extends Repository {
             $img->fit(Config::get('settings.blogs_img')['small']['width'], Config::get('settings.blogs_img')['small']['height'],
                 function ($constraint) { $constraint->upsize();},
                 $position)->save(public_path() . '/images/blog/small/'.$path, 100);
-            $img->fit(Config::get('settings.blogs_img')['mini']['width'], Config::get('settings.blogs_img')['mini']['height'],
-                function ($constraint) { $constraint->upsize();},
-                $position)->save(public_path() . '/images/blog/mini/'.$path, 100);
             return $path;
         } else {
             return false;
@@ -456,11 +453,6 @@ class BlogsRepository extends Repository {
                     $constraint->upsize();
                 },
                 $position)->save(public_path() . '/images/blog/small/' . $path, 100);
-            $img->fit(Config::get('settings.blogs_img')['mini']['width'], Config::get('settings.blogs_img')['mini']['height'],
-                function ($constraint) {
-                    $constraint->upsize();
-                },
-                $position)->save(public_path() . '/images/blog/mini/' . $path, 100);
             return $path;
         }
         return false;
@@ -578,9 +570,6 @@ class BlogsRepository extends Repository {
         }
         if (File::exists(public_path('/images/blog/small/'). $path)) {
             File::delete(public_path('/images/blog/small/'). $path);
-        }
-        if (File::exists(public_path('/images/blog/mini/'). $path)) {
-            File::delete(public_path('/images/blog/mini/'). $path);
         }
         if (File::exists(public_path('/images/blog/tmp/'). $path)) {
             File::delete(public_path('/images/blog/tmp/'). $path);

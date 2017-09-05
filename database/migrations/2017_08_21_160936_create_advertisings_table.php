@@ -16,7 +16,7 @@ class CreateAdvertisingsTable extends Migration
         Schema::create('advertisings', function (Blueprint $table) {
             $table->increments('id');
             $table->enum('own', ['doc', 'patient'])->index();
-            $table->text('text');
+            $table->text('text')->nullable()->default(null);
             $table->enum('placement', ['footer', 'sidebar', 'main_1', 'main_2']);
 
             $table->timestamps();
