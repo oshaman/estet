@@ -3,6 +3,7 @@ namespace Fresh\Estet\Http\Controllers\Patient;
 
 use Fresh\Estet\Http\Controllers\Controller;
 use Fresh\Estet\Repositories\AdvertisingRepository;
+use Fresh\Estet\Repositories\SeoRepository;
 use Menu;
 use DB;
 use Cache;
@@ -20,11 +21,14 @@ class ArticlesController extends Controller
     protected $a_rep;
     protected $adv_rep;
     protected $title_img;
+    protected $seo_rep;
+    protected $seo = false;
 
-    public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv)
+    public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv, SeoRepository $seo_rep)
     {
         $this->a_rep = $repository;
         $this->adv_rep = $adv;
+        $this->seo_rep = $seo_rep;
     }
 
     public function index()
@@ -49,6 +53,9 @@ class ArticlesController extends Controller
 
         });
         $this->title = 'Главная';
+        $this->seo = Cache::remember('seo_main', 24 * 60, function () {
+            return $this->seo_rep->getSeo('/');
+        });
         return $this->renderOutput();
     }
 
@@ -120,13 +127,15 @@ class ArticlesController extends Controller
     public function renderOutput()
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
+        $this->vars = array_add($this->vars, 'seo', $this->seo);
+
         $this->title_img = true;
         $this->vars = array_add($this->vars, 'title_img', $this->title_img);
+
         $nav = Cache::remember('patientMenu', 60,function() {
             $menu = $this->getMenu();
             return view('layouts.nav')->with('menu', $menu)->render();
         });
-
         $this->vars = array_add($this->vars, 'nav', $nav);
 
 
@@ -146,6 +155,7 @@ class ArticlesController extends Controller
         if(false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
         }
+
 
         return view($this->template)->with($this->vars);
     }

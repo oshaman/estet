@@ -134,6 +134,7 @@
                         <a class="link-img" href="{{ route('articles', $video->alias) }}" rel="nofollow">
                             <img src="{{ asset('/images/article/small').'/'.$video->path }}" alt="{{ $video->alt }}"
                                  title="{{ $video->img_title }}">
+                            <div class="views">{{ $video->view }}</div>
                         </a>
                         <div class="title-time">
                             <time>{{ $video->created }}</time>
@@ -357,7 +358,7 @@
         </div>
         <div class="content">
             <div class="hrp ">
-                <a href="{{ route('horoscope') }}#oven" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#aries" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-oven-active"></i>
@@ -366,7 +367,7 @@
                         <span>ОВЕН</span>
                     </div>
                 </a>
-                <a href="#telets" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#taurus" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-telets-active"></i>
@@ -375,7 +376,7 @@
                         <span>ТЕЛЕЦ</span>
                     </div>
                 </a>
-                <a href="#bliznetsy" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#gemini" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-bliznetsy-active"></i>
@@ -384,7 +385,7 @@
                         <span>БЛИЗНЕЦЫ</span>
                     </div>
                 </a>
-                <a href="#rak" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#cancer" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-rak-active"></i>
@@ -393,7 +394,7 @@
                         <span>РАК</span>
                     </div>
                 </a>
-                <a href="#lev" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#leo" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-lev-active"></i>
@@ -403,7 +404,7 @@
                     </div>
                 </a>
 
-                <a href="#deva" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#virgo" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-deva-active"></i>
@@ -412,7 +413,7 @@
                         <span>ДЕВА</span>
                     </div>
                 </a>
-                <a href="#vesy" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#libra" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-vesy-active"></i>
@@ -421,7 +422,7 @@
                         <span>ВЕСЫ</span>
                     </div>
                 </a>
-                <a href="#skorpion" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#scorpio" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-skorpion-active"></i>
@@ -430,7 +431,7 @@
                         <span>СКОРПИОН</span>
                     </div>
                 </a>
-                <a href="#strelets" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#sagittarius" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-strelets-active"></i>
@@ -440,7 +441,7 @@
                     </div>
                 </a>
 
-                <a href="#kozerog" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#capricorn" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-kozerog-active"></i>
@@ -449,7 +450,7 @@
                         <span>КОЗЕРОГ</span>
                     </div>
                 </a>
-                <a href="#vodoley" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#aquarius" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-vodoley-active"></i>
@@ -458,7 +459,7 @@
                         <span>ВОДОЛЕЙ</span>
                     </div>
                 </a>
-                <a href="{{ route('horoscope') }}#riba" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#pisces" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-riba-active"></i>

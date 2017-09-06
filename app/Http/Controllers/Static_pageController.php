@@ -3,17 +3,20 @@
 namespace Fresh\Estet\Http\Controllers;
 
 use Fresh\Estet\Repositories\ArticlesRepository;
+use Fresh\Estet\Repositories\SeoRepository;
 use Fresh\Estet\Repositories\Static_pageRepository;
 use Cache;
 
 class Static_pageController extends MainController
 {
     protected $repository;
+    protected $seo_rep;
 
-    public function __construct(ArticlesRepository $a_rep, Static_pageRepository $repository)
+    public function __construct(ArticlesRepository $a_rep, Static_pageRepository $repository, SeoRepository $seo_rep)
     {
         parent::__construct($a_rep);
         $this->repository = $repository;
+        $this->seo_rep = $seo_rep;
     }
 
     public function contacts()

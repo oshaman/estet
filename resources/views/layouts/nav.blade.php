@@ -25,15 +25,18 @@
                         </ul>
                     </li>
                     @if(session()->has('doc'))
-                        <li class="menu-elem"><a href="{{ route('events') }}">Мероприятия</a></li>
-                        <li class="menu-elem"><a href="{{ route('blogs') }}">Блог</a></li>
-                        <li class="menu-elem"><img src="{{ asset('estet') }}/img/menu/3.png"><a href="{{ route('docs_cat', 'video') }}">Видео</a></li>
+                        <li class="menu-elem"><a href="{{ route('events') }}"><span>Мероприятия</span></a></li>
+                        <li class="menu-elem"><a href="{{ route('blogs') }}"><span>Блог</span></a></li>
+                        <li class="menu-elem"><a href="{{ route('docs_cat', 'video') }}">
+                                <img src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>
                     @else
-                        <li class="menu-elem"><a href="{{ route('horoscope') }}">Гороскоп</a></li>
-                        <li class="menu-elem"><a href="{{ route('article_cat', 'video') }}"><img src="{{ asset('estet') }}/img/menu/3.png">Видео</a></li>
-                        <li class="menu-elem"><img src="{{ asset('estet') }}/img/menu/2.png"><a href="{{ route('article_cat', 'intervyu') }}">Интервью</a></li>
+                        <li class="menu-elem"><a href="{{ route('horoscope') }}"><span>Гороскоп</span></a></li>
+                        <li class="menu-elem"><a href="{{ route('article_cat', 'video') }}"><img
+                                        src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>
+                        <li class="menu-elem"><a href="{{ route('article_cat', 'intervyu') }}"><img
+                                        src="{{ asset('estet') }}/img/menu/2.png"><span>Интервью</span></a></li>
                     @endif
-                    <li class="with-sub menu-elem"><img src="{{ asset('estet') }}/img/menu/4.png"><a href="">Каталог</a>
+                    <li class="with-sub menu-elem"><a href=""><img src="{{ asset('estet') }}/img/menu/4.png"><span>Каталог</span></a>
                         <ul class="submenu">
                             <li class="col">
                                 <ul>

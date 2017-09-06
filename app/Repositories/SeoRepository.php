@@ -42,6 +42,7 @@ class SeoRepository extends Repository
             $error[] = ['SEO' => 'Ошибка записи тегов'];
             return $error;
         }
+        $this->clearCache();
         return ['status' => trans('admin.material_updated')];
     }
 
@@ -52,5 +53,11 @@ class SeoRepository extends Repository
     public function getSeo($uri)
     {
         return $this->model->select(['seo_title', 'seo_keywords', 'seo_description', 'seo_text', 'og_title', 'og_description', 'og_image'])->where('uri', $uri)->first();
+    }
+
+    public function clearCache()
+    {
+        Cache::forget('seo_horoscope');
+        Cache::forget('seo_main');
     }
 }

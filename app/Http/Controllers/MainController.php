@@ -18,6 +18,7 @@ class MainController extends Controller
     protected $a_rep;
     protected $title_img;
     protected $content = false;
+    protected $seo = false;
 
     /**
      * MainController constructor.
@@ -38,7 +39,21 @@ class MainController extends Controller
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
 
+        $this->vars = array_add($this->vars, 'seo', $this->seo);
+
         $status = session('doc');
+
+        $this->title_img = true;
+        $this->vars = array_add($this->vars, 'title_img', $this->title_img);
+
+        if (!empty($this->footer)) {
+            $footer = $this->footer;
+        } else {
+            $footer = Cache::remember('footer', 24 * 60, function () {
+                return view('layouts.footer')->render();
+            });
+        }
+        $this->vars = array_add($this->vars, 'footer', $footer);
 
 //        sidebar
         if ($status) {
@@ -64,22 +79,8 @@ class MainController extends Controller
                 return view('main.sidebar')->with(['lasts' => $last_articles, 'status' => false, 'articles' => $articles])->render();
             });
         }
-
-        $this->title_img = true;
-        $this->vars = array_add($this->vars, 'title_img', $this->title_img);
-
-        if (!empty($this->footer)) {
-            $footer = $this->footer;
-        } else {
-            $footer = Cache::remember('footer', 24*60, function () {
-                return view('layouts.footer')->render();
-            });
-        }
-        $this->vars = array_add($this->vars, 'footer', $footer);
-
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar
-
         if ($status) {
             $nav = Cache::remember('docsMenu', 600, function () use ($status) {
                 $menu = $this->getMenu($status);
@@ -91,7 +92,6 @@ class MainController extends Controller
                 return view('layouts.nav')->with('menu', $menu)->render();
             });
         }
-
         $this->vars = array_add($this->vars, 'nav', $nav);
 
         if (false !== $this->content) {

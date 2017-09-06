@@ -18,6 +18,9 @@ class HoroscopeController extends ArticlesController
         $this->content = view('patient.horoscope')->with(['signs' => $signs])->render();
 
         $this->getSidebar();
+        $this->seo = Cache::remember('seo_horoscope', 24 * 60, function () {
+            return $this->seo_rep->getSeo('goroscop');
+        });
 
         return $this->renderOutput();
     }
