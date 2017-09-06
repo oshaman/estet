@@ -27,10 +27,10 @@
                                 </div>
                                 <a href="{{ route('articles',$articles['lasts'][0]->alias) }}" rel="nofollow">
                                     <h3>{{ $articles['lasts'][0]->title }}</h3></a>
-                                {!! str_limit($articles['lasts'][0]->content, 1200) !!}
+                                {!! str_limit($articles['lasts'][0]->content, 768) !!}
                             </div>
-                            <div class="slide-right_bot"><a class="btn-blue"
-                                                            href="{{ route('articles',$articles['lasts'][0]->alias) }}">Подробнее</a>
+                            <div class="slide-right_bot">
+                                <a class="btn-blue" href="{{ route('articles',$articles['lasts'][0]->alias) }}">Подробнее</a>
                             </div>
                         </div>
                     </article>
@@ -321,18 +321,18 @@
         </div>
         <div class="content">
             <div class="articles-horizontal">
-                @foreach($articles['psychology'] as $psychology)
+                @foreach($articles['advice'] as $advice)
                     <article>
-                        <a class="link-img" href="{{ route('articles', $psychology->alias) }}" rel="nofollow">
-                            <img src="{{ asset('/images/article/small').'/'.$psychology->path }}"
-                                 alt="{{ $psychology->alt }}" title="{{ $psychology->img_title }}">
+                        <a class="link-img" href="{{ route('articles', $advice->alias) }}" rel="nofollow">
+                            <img src="{{ asset('/images/article/small').'/'.$advice->path }}"
+                                 alt="{{ $advice->alt }}" title="{{ $advice->img_title }}">
                         </a>
                         <div class="title-time">
-                            <time>{{ $psychology->created }}</time>
+                            <time>{{ $advice->created }}</time>
                             <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
-                            <h3>{{ $psychology->title }}</h3>
+                            <h3>{{ $advice->title }}</h3>
                         </a>
                     </article>
                     @if(!$loop->last)
@@ -342,7 +342,7 @@
             </div>
             <div class="button-block">
                 <div class="button-line"></div>
-                <a href="{{ route('article_cat', $articles['psychology'][0]->cat_alias) }}">Перейти к разделу</a>
+                <a href="{{ route('article_cat', $articles['advice'][0]->cat_alias) }}">Перейти к разделу</a>
             </div>
         </div>
     </section>
@@ -357,7 +357,7 @@
         </div>
         <div class="content">
             <div class="hrp ">
-                <a href="#oven" class="icons-img z-index-item-up">
+                <a href="{{ route('horoscope') }}#oven" class="icons-img z-index-item-up">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-oven-active"></i>
@@ -458,7 +458,7 @@
                         <span>ВОДОЛЕЙ</span>
                     </div>
                 </a>
-                <a href="#riba" class="icons-img z-index-item-down">
+                <a href="{{ route('horoscope') }}#riba" class="icons-img z-index-item-down">
                     <div class="horo">
                         <div class="icon-wrap">
                             <i class="horoscope-icons horoscope-icons-riba-active"></i>

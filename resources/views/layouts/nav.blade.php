@@ -17,12 +17,6 @@
         <div class="header-menu-left">
             <div class="nav_container active">
                 <ul id="main-menu" class="menu">
-                    @if(session()->has('doc'))
-                        <li class="menu-elem" href="{{ route('events') }}"> Мероприятия</li>
-                        <li class="menu-elem" href="{{ route('blogs') }}"> Блог</li>
-                    @else
-                        <li class="menu-elem"><a href="{{ route('horoscope') }}"> Гороскоп</a></li>
-                    @endif
                     <li class="with-sub menu-elem"><img src="{{ asset('estet') }}/img/menu/1.png"><a href="#">Статьи</a>
                         <ul class="submenu">
                             <li class="col">
@@ -30,8 +24,15 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-elem"><img src="{{ asset('estet') }}/img/menu/2.png"><a href="#">Интервью</a></li>
-                    <li class="menu-elem"><img src="{{ asset('estet') }}/img/menu/3.png"><a href="">Видео</a></li>
+                    @if(session()->has('doc'))
+                        <li class="menu-elem"><a href="{{ route('events') }}">Мероприятия</a></li>
+                        <li class="menu-elem"><a href="{{ route('blogs') }}">Блог</a></li>
+                        <li class="menu-elem"><img src="{{ asset('estet') }}/img/menu/3.png"><a href="{{ route('docs_cat', 'video') }}">Видео</a></li>
+                    @else
+                        <li class="menu-elem"><a href="{{ route('horoscope') }}">Гороскоп</a></li>
+                        <li class="menu-elem"><a href="{{ route('article_cat', 'video') }}"><img src="{{ asset('estet') }}/img/menu/3.png">Видео</a></li>
+                        <li class="menu-elem"><img src="{{ asset('estet') }}/img/menu/2.png"><a href="{{ route('article_cat', 'intervyu') }}">Интервью</a></li>
+                    @endif
                     <li class="with-sub menu-elem"><img src="{{ asset('estet') }}/img/menu/4.png"><a href="">Каталог</a>
                         <ul class="submenu">
                             <li class="col">

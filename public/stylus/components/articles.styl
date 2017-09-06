@@ -1,0 +1,130 @@
+article
+  position: relative
+  & img
+    display: block
+    width: 100%
+  & h3
+    font-family: 'Cormorant'
+    font-size: 19px
+    line-height: 21px;
+  & a
+    display: block
+    color: #000
+    position: relative
+  & > div
+    position: relative
+
+
+.content.articles-divisions
+  display: flex
+  flex-wrap: wrap
+  & > :nth-child(1)
+  & > :nth-child(2)
+    width: 50%
+
+//---------------------horizontal articles-----------------//
+
+.articles-horizontal
+  display: flex;
+  justify-content: space-between;
+  margin-top: 49px
+  position: relative
+  &::before
+    content: ''
+    position: absolute
+    width: 150%;
+    height: 78.5%;
+    top: 30.6%;
+    left: -25%
+    background: #f3f3f3
+  & article
+    width: 25.2%;
+  & .line-vertical
+    width: 11px
+    height: 300px;
+    top: 70px;
+    position: relative;
+    background: #fff
+  & .title-time
+    margin-top: 28px
+    & a::before
+      margin-right: 12px
+  & h3
+    margin-top: 11px
+
+//---------------------vertical articles-----------------//
+.articles-vertical
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  flex-direction: column;
+  padding-left: 6.1%;
+  & article
+    display: flex
+    flex-wrap: wrap
+    & .link-img
+      width: 36.1%;
+    & > div
+      width: (100 - 36.1)%
+      padding-left: 6.5%;
+      & .link-title
+        margin-top: 5%;
+
+
+//        media       //
+
+@media screen and (max-width: 991px)
+  .articles-horizontal
+    margin-top: 53px
+  .articles-horizontal article:last-of-type
+  .articles-horizontal .line-vertical:last-of-type
+    display: none
+  .articles-horizontal article
+    width: 40.1%
+    min-width: 270px;
+
+@media screen and (max-width: 767px)
+
+  article h3
+    font-size: 16px;
+    line-height: 17px;
+
+  .articles-horizontal article:nth-of-type(2n + 1)
+  .articles-vertical article:nth-of-type(2n + 1)
+    &::before
+      content: ''
+      position: absolute
+      width: 150%
+      height: 100%
+      left: -25%
+      background: #e3e3e3
+
+  .articles-horizontal
+    flex-wrap wrap
+    &::before
+      display: none
+
+  .line-vertical
+    display: none
+
+  .articles-horizontal article
+    width: 100%
+    display: flex
+    flex-wrap: wrap;
+    flex-direction: row;
+    &:last-of-type
+      display: flex
+    & .link-img
+      order: 2
+      width: 26%
+    & .title-time
+      width: 100%
+      order: 1
+    & .link-title
+      width: 74%
+      order: 3;
+
+  .articles-vertical
+    & hr
+      display: none
+

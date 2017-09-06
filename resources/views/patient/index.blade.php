@@ -16,3 +16,7 @@
         {!! $content ?? '' !!}
     @endif
 @endsection
+
+@section('footer')
+    {!! $footer !!}
+@endsection

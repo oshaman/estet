@@ -1,6 +1,9 @@
 *
 !.htaccess
 !css/
+!estet
+!stylus
+!fonts
 !vendor/
 !js/
 !robots.txt

@@ -14,7 +14,9 @@ class MainController extends Controller
     protected $vars;
     protected $sidebar = false;
     protected $title;
+    protected $footer;
     protected $a_rep;
+    protected $title_img;
     protected $content = false;
 
     /**
@@ -62,6 +64,18 @@ class MainController extends Controller
                 return view('main.sidebar')->with(['lasts' => $last_articles, 'status' => false, 'articles' => $articles])->render();
             });
         }
+
+        $this->title_img = true;
+        $this->vars = array_add($this->vars, 'title_img', $this->title_img);
+
+        if (!empty($this->footer)) {
+            $footer = $this->footer;
+        } else {
+            $footer = Cache::remember('footer', 24*60, function () {
+                return view('layouts.footer')->render();
+            });
+        }
+        $this->vars = array_add($this->vars, 'footer', $footer);
 
         $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
 //        sidebar

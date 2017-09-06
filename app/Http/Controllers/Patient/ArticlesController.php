@@ -16,6 +16,7 @@ class ArticlesController extends Controller
     protected $title;
     protected $vars;
     protected $sidebar = false;
+    protected $footer;
     protected $a_rep;
     protected $adv_rep;
     protected $title_img;
@@ -47,6 +48,7 @@ class ArticlesController extends Controller
             return view('patient.content')->with(['articles' => $articles, 'advertising' => $advertising])->render();
 
         });
+        $this->title = 'Главная';
         return $this->renderOutput();
     }
 
@@ -126,6 +128,16 @@ class ArticlesController extends Controller
         });
 
         $this->vars = array_add($this->vars, 'nav', $nav);
+
+
+        if (!empty($this->footer)) {
+            $footer = $this->footer;
+        } else {
+            $footer = Cache::remember('footer', 24*60, function () {
+                return view('layouts.footer')->render();
+            });
+        }
+        $this->vars = array_add($this->vars, 'footer', $footer);
 
         if (false !== $this->sidebar) {
             $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
