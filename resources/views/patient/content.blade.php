@@ -11,29 +11,37 @@
             <!--slider & ad-->
             <div class="slider-wrap">
                 <div class="slider">
-                    <article>
-                        <div class="slide-left"><a class="link-img"
-                                                   href="{{ route('articles',$articles['lasts'][0]->alias) }}"
-                                                   rel="nofollow">
-                                <img src="{{ asset('/images/article/middle').'/'.$articles['lasts'][0]->path }}"
-                                     alt="{{ $articles['lasts'][0]->alt }}"
-                                     title="{{ $articles['lasts'][0]->img_title }}"></a>
-                        </div>
-                        <div class="slide-right">
-                            <div class="slide-right_top">
-                                <div class="title-time">
-                                    <a href="{{ route('article_cat', $articles['lasts'][0]->cat_alias) }}">{{ $articles['lasts'][0]->name }}</a>
-                                    <time><i class="icons icon-clock"></i>{{ $articles['lasts'][0]->created }}</time>
+                    @foreach($articles['lasts'] as $article)
+                        @if($loop->iteration > 3)
+                            @continue
+                        @endif
+                        <article>
+                            <div class="slide-left">
+                                <a class="link-img" href="{{ route('articles', $article->alias) }}"
+                                   rel="nofollow">
+                                    <img src="{{ asset('/images/article/middle').'/'.$article->path }}"
+                                         alt="{{ $article->alt }}"
+                                         title="{{ $article->img_title }}"></a>
+                            </div>
+                            <div class="slide-right">
+                                <div class="slide-right_top">
+                                    <div class="title-time">
+                                        <a href="{{ route('article_cat', $article->cat_alias) }}">{{ $article->name }}</a>
+                                        <time>
+                                            @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                            {{ $article->created }}
+                                        </time>
+                                    </div>
+                                    <a href="{{ route('articles', $article->alias) }}" rel="nofollow">
+                                        <h3>{{ $article->title }}</h3></a>
+                                    {!! str_limit($article->content, 512) !!}
                                 </div>
-                                <a href="{{ route('articles',$articles['lasts'][0]->alias) }}" rel="nofollow">
-                                    <h3>{{ $articles['lasts'][0]->title }}</h3></a>
-                                {!! str_limit($articles['lasts'][0]->content, 768) !!}
+                                <div class="slide-right_bot">
+                                    <a class="btn-blue" href="{{ route('articles',$article->alias) }}">Подробнее</a>
+                                </div>
                             </div>
-                            <div class="slide-right_bot">
-                                <a class="btn-blue" href="{{ route('articles',$articles['lasts'][0]->alias) }}">Подробнее</a>
-                            </div>
-                        </div>
-                    </article>
+                        </article>
+                    @endforeach
                 </div>
                 <aside class="ad">
                     {!! $advertising['main_1'] ?? '<img src="'. asset('estet') .'/img/content/Group 4058.png" >' !!}
@@ -52,7 +60,10 @@
                         </a>
                         <div class="title-time">
                             <a href="{{ route('article_cat', $article->cat_alias) }}">{{ $article->name }}</a>
-                            <time><i class="icons icon-clock"></i>{{ $article->created }}</time>
+                            <time>
+                                @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                {{ $article->created }}
+                            </time>
                         </div>
                         <a class="link-title" href="{{ route('articles', $article->alias) }}">
                             <h3>{{ $article->title }}</h3>
@@ -78,11 +89,15 @@
             <div class="article-big">
                 <article>
                     <a class="link-img" href="{{ route('articles', $articles['popular'][0]->alias) }}" rel="nofollow">
-                        <img src="{{ asset('/images/article/main').'/'.$articles['popular'][0]->path }}"
+                        <img src="{{ asset('/images/article/middle').'/'.$articles['popular'][0]->path }}"
                              alt="{{ $articles['popular'][0]->alt }}" title="{{ $articles['popular'][0]->img_title }}">
+                        <div class="views">{{ $article->view }}</div>
                     </a>
                     <div class="title-time">
-                        <time>{{ $articles['popular'][0]->created }}</time>
+                        <time>
+                            @if(strlen($articles['popular'][0]->created) < 6) <i class="icons icon-clock"></i> @endif
+                            {{ $articles['popular'][0]->created }}
+                        </time>
                     </div>
                     <a class="link-title" href="{{ route('articles', $articles['popular'][0]->alias) }}">
                         <h3>{{ $articles['popular'][0]->title }}</h3>
@@ -99,10 +114,14 @@
                         <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
                             <img src="{{ asset('/images/article/small').'/'.$article->path }}" alt="{{ $article->alt }}"
                                  title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div>
                             <div class="title-time">
-                                <time>{{ $article->created }}</time>
+                                <time>
+                                    @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                    {{ $article->created }}
+                                </time>
                             </div>
                             <a class="link-title" href="{{ route('articles', $article->alias) }}">
                                 <h3>{{ $article->title }}</h3>
@@ -137,7 +156,10 @@
                             <div class="views">{{ $video->view }}</div>
                         </a>
                         <div class="title-time">
-                            <time>{{ $video->created }}</time>
+                            <time>
+                                @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                {{ $video->created }}
+                            </time>
                             <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
@@ -155,17 +177,61 @@
             </div>
         </div>
     </section>
-
-    <!--section 4-->
-    <!--<section id="section-4" class="interesting-facts">-->
-    <!--<div class="left-title">-->
-    <!--<div class="line-container">-->
-    <!--<div class="vertical-line"></div>-->
-    <!--<h2>Диета  и питание</h2>-->
-    <!--</div>-->
-    <!--</div>-->
-    <!--<div class="content"></div>-->
-    <!--</section>-->
+    <section id="section-4" class="interesting-facts">
+        <div class="left-title">
+            <div class="line-container">
+                <div class="vertical-line"></div>
+                <h2>Интересные факты</h2>
+            </div>
+        </div>
+        <div class="content">
+            <div class="articles-vertical">
+                @foreach($articles['facts'] as $article)
+                    <article>
+                        <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
+                            <img src="{{ asset('/images/article/small').'/'.$article->path }}" alt="{{ $article->alt }}"
+                                 title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
+                        </a>
+                        <div>
+                            <div class="title-time">
+                                <time>
+                                    @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                    {{ $article->created }}
+                                </time>
+                                <div class="horizontal-line"></div>
+                            </div>
+                            <a class="link-title" href="">
+                                <h3>{{ $article->title }}</h3>
+                            </a>
+                        </div>
+                    </article>
+                    @if(!$loop->last)
+                    @endif
+                @endforeach
+            </div>
+            <div class="aside-block">
+                <div class="line-container">
+                    <div class="vertical-line"></div>
+                    <h2>Подписка</h2>
+                </div>
+                <div class="form-wrap">
+                    <form>
+                        <h4 class="form-title">Будь в курсе последних новостей</h4>
+                        <strong>подпишись на рассылку</strong>
+                        <label><input type="email" placeholder="ваша почта"></label>
+                        <label>
+                            <select name="type">
+                                <option selected="selected" value="0">я пациент</option>
+                                <option value="1">я врач</option>
+                            </select>
+                        </label>
+                        <button class="pod-subs" type="button">Подписаться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!--section 5-->
     <section id="section-5" class="diet-food">
@@ -179,11 +245,15 @@
             <div class="article-big">
                 <article>
                     <a class="link-img" href="{{ route('articles', $articles['diet'][0]->alias) }}" rel="nofollow">
-                        <img src="{{ asset('/images/article/main').'/'.$articles['diet'][0]->path }}"
+                        <img src="{{ asset('/images/article/middle').'/'.$articles['diet'][0]->path }}"
                              alt="{{ $articles['diet'][0]->alt }}" title="{{ $articles['diet'][0]->img_title }}">
+                        <div class="views">{{ $article->view }}</div>
                     </a>
                     <div class="title-time">
-                        <time>{{ $articles['diet'][0]->created }}</time>
+                        <time>
+                            @if(strlen($articles['diet'][0]->created) < 6) <i class="icons icon-clock"></i> @endif
+                            {{ $articles['diet'][0]->created }}
+                        </time>
                     </div>
                     <a class="link-title" href="{{ route('articles', $articles['diet'][0]->alias) }}">
                         <h3>{{ $articles['diet'][0]->title }}</h3>
@@ -199,10 +269,14 @@
                         <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
                             <img src="{{ asset('/images/article/small').'/'.$article->path }}" alt="{{ $article->alt }}"
                                  title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div>
                             <div class="title-time">
-                                <time>{{ $article->created }}</time>
+                                <time>
+                                    @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                    {{ $article->created }}
+                                </time>
                             </div>
                             <a class="link-title" href="{{ route('articles', $article->alias) }}">
                                 <h3>{{ $article->title }}</h3>
@@ -231,18 +305,22 @@
         </div>
         <div class="content">
             <div class="articles-horizontal">
-                @foreach($articles['beauty'] as $beauty)
+                @foreach($articles['beauty'] as $article)
                     <article>
-                        <a class="link-img" href="{{ route('articles', $beauty->alias) }}" rel="nofollow">
-                            <img src="{{ asset('/images/article/small').'/'.$beauty->path }}" alt="{{ $beauty->alt }}"
-                                 title="{{ $beauty->img_title }}">
+                        <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
+                            <img src="{{ asset('/images/article/small').'/'.$article->path }}" alt="{{ $article->alt }}"
+                                 title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div class="title-time">
-                            <time>{{ $beauty->created }}</time>
+                            <time>
+                                @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                {{ $article->created }}
+                            </time>
                             <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
-                            <h3>{{ $beauty->title }}</h3>
+                            <h3>{{ $article->title }}</h3>
                         </a>
                     </article>
                     @if(!$loop->last)
@@ -269,12 +347,16 @@
             <div class="article-big">
                 <article>
                     <a class="link-img" href="{{ route('articles', $articles['medicine'][0]->alias) }}" rel="nofollow">
-                        <img src="{{ asset('/images/article/main').'/'.$articles['medicine'][0]->path }}"
+                        <img src="{{ asset('/images/article/middle').'/'.$articles['medicine'][0]->path }}"
                              alt="{{ $articles['medicine'][0]->alt }}"
                              title="{{ $articles['medicine'][0]->img_title }}">
+                        <div class="views">{{ $article->view }}</div>
                     </a>
                     <div class="title-time">
-                        <time>{{ $articles['medicine'][0]->created }}</time>
+                        <time>
+                            @if(strlen($articles['medicine'][0]->created) < 6) <i class="icons icon-clock"></i> @endif
+                            {{ $articles['medicine'][0]->created }}
+                        </time>
                     </div>
                     <a class="link-title" href="{{ route('articles', $articles['medicine'][0]->alias) }}">
                         <h3>{{ $articles['medicine'][0]->title }}</h3>
@@ -290,10 +372,14 @@
                         <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
                             <img src="{{ asset('/images/article/small').'/'.$article->path }}" alt="{{ $article->alt }}"
                                  title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div>
                             <div class="title-time">
-                                <time>{{ $article->created }}</time>
+                                <time>
+                                    @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                    {{ $article->created }}
+                                </time>
                             </div>
                             <a class="link-title" href="{{ route('articles', $article->alias) }}">
                                 <h3>{{ $article->title }}</h3>
@@ -322,18 +408,22 @@
         </div>
         <div class="content">
             <div class="articles-horizontal">
-                @foreach($articles['advice'] as $advice)
+                @foreach($articles['advice'] as $article)
                     <article>
-                        <a class="link-img" href="{{ route('articles', $advice->alias) }}" rel="nofollow">
-                            <img src="{{ asset('/images/article/small').'/'.$advice->path }}"
-                                 alt="{{ $advice->alt }}" title="{{ $advice->img_title }}">
+                        <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
+                            <img src="{{ asset('/images/article/small').'/'.$article->path }}"
+                                 alt="{{ $article->alt }}" title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div class="title-time">
-                            <time>{{ $advice->created }}</time>
+                            <time>
+                                @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                {{ $article->created }}
+                            </time>
                             <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
-                            <h3>{{ $advice->title }}</h3>
+                            <h3>{{ $article->title }}</h3>
                         </a>
                     </article>
                     @if(!$loop->last)
@@ -489,12 +579,17 @@
                 <article>
                     <a class="link-img" href="{{ route('articles', $articles['stomatology'][0]->alias) }}"
                        rel="nofollow">
-                        <img src="{{ asset('/images/article/main').'/'.$articles['stomatology'][0]->path }}"
+                        <img src="{{ asset('/images/article/middle').'/'.$articles['stomatology'][0]->path }}"
                              alt="{{ $articles['stomatology'][0]->alt }}"
                              title="{{ $articles['stomatology'][0]->img_title }}">
+                        <div class="views">{{ $article->view }}</div>
                     </a>
                     <div class="title-time">
-                        <time>{{ $articles['stomatology'][0]->created }}</time>
+                        <time>
+                            @if(strlen($articles['stomatology'][0]->created) < 6) <i
+                                    class="icons icon-clock"></i> @endif
+                            {{ $articles['stomatology'][0]->created }}
+                        </time>
                     </div>
                     <a class="link-title" href="{{ route('articles', $articles['stomatology'][0]->alias) }}">
                         <h3>{{ $articles['stomatology'][0]->title }}</h3>
@@ -510,10 +605,14 @@
                         <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
                             <img src="{{ asset('/images/article/small').'/'.$article->path }}" alt="{{ $article->alt }}"
                                  title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div>
                             <div class="title-time">
-                                <time>{{ $article->created }}</time>
+                                <time>
+                                    @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                    {{ $article->created }}
+                                </time>
                             </div>
                             <a class="link-title" href="{{ route('articles', $article->alias) }}">
                                 <h3>{{ $article->title }}</h3>
@@ -542,18 +641,22 @@
         </div>
         <div class="content ">
             <div class="articles-horizontal">
-                @foreach($articles['psychology'] as $psychology)
+                @foreach($articles['psychology'] as $article)
                     <article>
-                        <a class="link-img" href="{{ route('articles', $psychology->alias) }}" rel="nofollow">
-                            <img src="{{ asset('/images/article/small').'/'.$psychology->path }}"
-                                 alt="{{ $psychology->alt }}" title="{{ $psychology->img_title }}">
+                        <a class="link-img" href="{{ route('articles', $article->alias) }}" rel="nofollow">
+                            <img src="{{ asset('/images/article/small').'/'.$article->path }}"
+                                 alt="{{ $article->alt }}" title="{{ $article->img_title }}">
+                            <div class="views">{{ $article->view }}</div>
                         </a>
                         <div class="title-time">
-                            <time>{{ $psychology->created }}</time>
+                            <time>
+                                @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
+                                {{ $article->created }}
+                            </time>
                             <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
-                            <h3>{{ $psychology->title }}</h3>
+                            <h3>{{ $article->title }}</h3>
                         </a>
                     </article>
                     @if(!$loop->last)

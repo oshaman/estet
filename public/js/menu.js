@@ -4,7 +4,6 @@
 /*  menu line bottom */
 var menuElW, fullOffsetControl, menuElOff;
 planshet = window.matchMedia('(max-width: 1271px)').matches
-
 function lineBottomMenu() {
     w = $(document).width();
 
@@ -37,7 +36,6 @@ function lineBottomMenu() {
         .appendTo('.line-bottom-menu');
 
 }
-
 lineBottomMenu();
 
 window.onresize = function () {
@@ -80,7 +78,7 @@ $('.menu-elem').hover(function () {
 /* planshet menu */
 $('.with-sub.menu-elem').click(function (e) {
     if (window.matchMedia('(max-width: 1271px)').matches) {
-        // e.preventDefault(e);
+        e.preventDefault(e);
         $(this).toggleClass('active');
         $('.submenu').slideUp(500);
         $(this).hasClass('active') ? $(this).find('.submenu').slideDown(500) : '';
@@ -99,7 +97,6 @@ function searchW() {
         width: menuElW + 'px',
     });
 }
-
 /*hover search menu */
 $('.burger').click(function () {
     $(this).toggleClass('active');

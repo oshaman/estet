@@ -1,5 +1,5 @@
-<h1>Click the Link To Verify Your Email</h1>
-Click the following link to verify your email</br>
+<h1>Подтверждение учетной записи</h1>
+Перейдите по следующей ссылке для подтверждения</br>
 
 
 <a href="{{url('/verifyemail/'.$email_token)}}">Link</a>

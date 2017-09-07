@@ -23,6 +23,8 @@ class ArticlesController extends Controller
     protected $title_img;
     protected $seo_rep;
     protected $seo = false;
+    protected $css = false;
+    protected $js = false;
 
     public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv, SeoRepository $seo_rep)
     {
@@ -40,7 +42,7 @@ class ArticlesController extends Controller
                 'lasts' => $this->a_rep->getMain([['id', '<>', null]], 6, ['created_at', 'desc'], 'patient'),
                 'popular' => $this->a_rep->getMain([['id', '<>', null]],4, ['view', 'desc'], 'patient'),
                 'video' => $this->a_rep->getMain([['category_id', 20]],3, ['created_at', 'desc'], 'patient'),
-                'facts' => $this->a_rep->getMain([['category_id', 17]],3, ['created_at', 'desc'], 'patient'),
+                'facts' => $this->a_rep->getMain([['category_id', 17]], 20, ['created_at', 'desc'], 'patient'),
                 'diet' => $this->a_rep->getMain([['category_id', 19]],4, ['created_at', 'desc'], 'patient'),
                 'beauty' => $this->a_rep->getMain([['category_id', 14]],3, ['created_at', 'desc'], 'patient'),
                 'medicine' => $this->a_rep->getMain([['category_id', 15]],4, ['created_at', 'desc'], 'patient'),
@@ -56,6 +58,15 @@ class ArticlesController extends Controller
         $this->seo = Cache::remember('seo_main', 24 * 60, function () {
             return $this->seo_rep->getSeo('/');
         });
+        $this->css = '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/patient.css">
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/patient-media.css">
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/jquery.mCustomScrollbar.min.css">
+        ';
+        $this->js = '
+            <script src="' . asset('js') . '/libs/jquery.mCustomScrollbar.concat.min.js"></script>
+            <script src="' . asset('js') . '/patient.js"></script>
+        ';
         return $this->renderOutput();
     }
 
@@ -128,6 +139,8 @@ class ArticlesController extends Controller
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
         $this->vars = array_add($this->vars, 'seo', $this->seo);
+        $this->vars = array_add($this->vars, 'css', $this->css);
+        $this->vars = array_add($this->vars, 'js', $this->js);
 
         $this->title_img = true;
         $this->vars = array_add($this->vars, 'title_img', $this->title_img);
@@ -169,7 +182,7 @@ class ArticlesController extends Controller
         return Menu::make('menu', function($menu) use ($cats) {
             $menu->add('Последние', ['route'=>['articles_last']]);
             foreach ($cats as $cat) {
-                if ('Видео' == $cat->name) {
+                if (('Видео' == $cat->name) || ('Видео отзывы' == $cat->name)) {
                     continue;
                 }
                 $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
@@ -191,6 +204,9 @@ class ArticlesController extends Controller
         });
 
         $this->getSidebar();
+        $this->seo = Cache::remember('seo_lasts', 24 * 60, function () {
+            return $this->seo_rep->getSeo('poslednie-novosti');
+        });
         return $this->renderOutput();
     }
 

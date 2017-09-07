@@ -1,0 +1,170 @@
+.profile-blog {
+    justify-content: space-between;
+}
+
+.profile-blog .blog-profile {
+    width: 23%;
+}
+
+.profile-blog .blog-profile img {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.profile-blog .blog-profile .title-time {
+    margin-top: 9px;
+}
+
+.profile-blog .blog-profile .name {
+    margin-top: 18px;
+}
+
+.profile-blog .blog-profile .name p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #7e2b83;
+    font-size: 16px;
+}
+
+.profile-blog .blog-profile .specialty {
+    margin-top: 11px;
+}
+
+.profile-blog .blog-profile .specialty p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.profile-blog .blog-profile .achievements {
+    margin-top: 11px;
+}
+
+.profile-blog .blog-profile .achievements p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.profile-blog .blog-image {
+    max-width: 73%;
+}
+
+.profile-blog .blog-image img {
+    width: 100%;
+}
+
+.blog-text {
+    display: inherit;
+}
+
+.blog-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px;
+    margin-top: 44px;
+    line-height: 39px;
+}
+
+.blog-text .blog-post {
+    margin-top: 39px;
+}
+
+.blog-text .blog-post p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #5d5d5d;
+    line-height: 21.6px;
+}
+
+.blog-text .blog-post h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+}
+
+.blog-text .blog-post h4:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 7%;
+    height: 3px;
+    background: #202020;
+    border: solid #fff;
+    border-width: 0 16px 0 0;
+}
+
+.blog-text .blog-post img {
+    width: 100%;
+}
+
+.content-blog {
+    padding-right: 4.2%;
+}
+
+.content-blog .articles-horizontal {
+    margin-top: 0;
+}
+
+.content-blog .articles-horizontal article {
+    width: 31.2%;
+}
+
+.content-blog .articles-horizontal article .title-time {
+    margin-top: 31px;
+}
+
+.content-blog .articles-horizontal article .title-time p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #5d5d5d;
+    font-size: 14px;
+}
+
+.content-blog .articles-horizontal article .blog-read-more {
+    justify-content: space-between;
+    display: flex;
+    margin-top: 21px;
+}
+
+.content-blog .articles-horizontal article .blog-read-more .author {
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    color: #5d5d5d;
+    display: flex;
+    align-items: center;
+}
+
+.content-blog .articles-horizontal article .blog-read-more a {
+    background: #202020;
+    display: inline-block;
+    font-family: 'Roboto';
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    letter-spacing: 3.5px;
+    width: 144px;
+    height: 23px;
+    border-radius: 22px;
+    text-align: center;
+    line-height: 25px;
+}
+
+.content-blog .articles-horizontal h3 {
+    font-size: 24px;
+    margin-top: 21px;
+    line-height: 24px;
+}
+
+.blog-vnutrenyyaya .blog-categories {
+    margin-top: 68px;
+}
+
+.blog-vnutrenyyaya .comment-post {
+    margin-top: 83px;
+}
+
+.blog-similar-articles {
+    margin-top: 99px;
+}

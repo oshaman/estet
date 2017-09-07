@@ -3,18 +3,33 @@
 namespace Fresh\Estet\Http\Controllers\Doctors;
 
 use Fresh\Estet\Event;
+use Fresh\Estet\Repositories\AdvertisingRepository;
+use Fresh\Estet\Repositories\BlogCategoriesRepository;
 use Fresh\Estet\Repositories\BlogsRepository;
 use DB;
 use Cache;
 use Fresh\Estet\Repositories\EventsRepository;
+use Fresh\Estet\Repositories\TagsRepository;
 
 class BlogsController extends DocsController
 {
     protected $blog_rep;
+    protected $cat_rep;
+    protected $tag_rep;
+    protected $adv_rep;
 
-    public function __construct(BlogsRepository $rep)
+    public function __construct(BlogsRepository $rep, BlogCategoriesRepository $cat_rep, TagsRepository $tags, AdvertisingRepository $adv_rep)
     {
+
+        Cache::flush();
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/blog.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/blog-vnutrennyaya.css">
+            ';
         $this->blog_rep = $rep;
+        $this->tag_rep = $tags;
+        $this->cat_rep = $cat_rep;
+        $this->adv_rep = $adv_rep;
     }
 
     /**
@@ -23,14 +38,16 @@ class BlogsController extends DocsController
      */
     public function index($blog_alias=false)
     {
-        Cache::flush();
+        $this->sidebar = $this->getSidebar();
+
         if ($blog_alias) {
 
-            $blog = Cache::remember('blog-'.$blog_alias, '10', function() use ($blog_alias) {
+            $blog = Cache::remember('blog-' . $blog_alias, 24 * 60, function () use ($blog_alias) {
                 $blog = $this->blog_rep->one($blog_alias, true);
                 if ($blog) {
                     $blog->load('comments');
                 }
+
                 return $blog;
             });
 
@@ -85,18 +102,24 @@ class BlogsController extends DocsController
                 }
                 //  End Blogs preview
 
-                return view('doc.blog')->with(['blog' => $blog, 'blogs' => $blogs])->render();
+                return view('doc.blog')->with(['blog' => $blog, 'blogs' => $blogs, 'sidebar' => $this->sidebar])->render();
             });
             $this->getSidebar();
             return $this->renderOutput();
         }
 
-        $this->getSidebar();
-        $this->content = Cache::remember('blogs', 10, function () {
+        $this->content = Cache::remember('blogs', 60, function () {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
-            $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'], false, true, $where, ['created_at', 'desc'], ['blog_img', 'category', 'person'], true);
-
-            return view('doc.blogs')->with('blogs', $blogs)->render();
+            $blogs = $this->blog_rep->get(['title', 'alias', 'created_at'],
+                false,
+                true,
+                $where,
+                ['created_at', 'desc'],
+                ['blog_img', 'category', 'person'],
+                true);
+            $cats = $this->cat_rep->get(['name', 'alias']);
+            $tags = $this->tag_rep->get(['name', 'alias']);
+            return view('doc.blogs')->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tags' => $tags])->render();
         });
 
         return $this->renderOutput();
@@ -124,12 +147,15 @@ class BlogsController extends DocsController
      */
     public function category($cat = null)
     {
-        $this->content = Cache::remember('blog-cat'.$cat->id, 15, function() use ($cat) {
+        $this->content = Cache::remember('blog-cat' . $cat->id, 60, function () use ($cat) {
 
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $cat->id] );
-            $blogs = $this->blog_rep->get(['title', 'alias'], false, true, $where);
+            $blogs = $this->blog_rep->get(['title', 'alias'], false, true, $where, false, ['blog_img', 'category', 'person'], true);
 
-            return view('doc.blogcat')->with(['blogs' => $blogs])->render();
+            $cats = $this->cat_rep->get(['name', 'alias']);
+            $tags = $this->tag_rep->get(['name', 'alias']);
+            $this->sidebar = $this->getSidebar();
+            return view('doc.blogcat')->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tags' => $tags])->render();
         });
 
         return $this->renderOutput();
@@ -140,7 +166,7 @@ class BlogsController extends DocsController
      */
     public function getSidebar()
     {
-        $this->sidebar = Cache::remember('blogs_sidebar', 60, function () {
+        $sidebar = Cache::remember('blogs_sidebar', 60, function () {
             //            Last 2 events
             $events_rep = new EventsRepository(new Event());
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
@@ -148,8 +174,14 @@ class BlogsController extends DocsController
             //          most displayed
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
             $articles = $this->blog_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
-            return view('doc.blogs_sidebar')->with(['lasts' => $lasts, 'articles' => $articles])->render();
+
+            $horoscope = view('layouts.horoscope.sidebar')->render();
+            $advertising = $this->adv_rep->getSidebar('doc');
+
+            return view('doc.blogs_sidebar')
+                ->with(['lasts' => $lasts, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising])
+                ->render();
         });
-        return true;
+        return $sidebar;
     }
 }

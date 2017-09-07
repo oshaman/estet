@@ -52,12 +52,10 @@ class BlogsRepository extends Repository {
             $created = strtotime($blog->created_at);
 
             if ($created > $midnight) {
-                $blog->created = date('H:i:s', $created);
+                $blog->created = date('H:i', $created);
             } else {
-                $blog->created = date('d-m-Y H:i:s', $created);
+                $blog->created = date('Y.m.d', $created);
             }
-            // $blog->load('comments');
-            // $blog->comments->load('user');
         }
 
         return $blog;
@@ -182,7 +180,7 @@ class BlogsRepository extends Repository {
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
-            Cache::forget('doc');
+            $this->clearCache();
             return ['status' => trans('admin.material_added')];
         }
         return ['error' => $error];
@@ -229,7 +227,7 @@ class BlogsRepository extends Repository {
                     }
                 }
             }
-            Cache::forget('doc');
+            $this->clearCache();
             return ['status' => trans('admin.deleted')];
         }
 
@@ -391,10 +389,17 @@ class BlogsRepository extends Repository {
                     $error[] = ['tag' => 'Ошибка записи фотографий'];
                 }
             }
-            Cache::forget('doc');
+            $this->clearCache();
             return ['status' => trans('admin.material_added')];
         }
         return ['error' => $error];
+    }
+
+    public function clearCache()
+    {
+        Cache::forget('doc');
+        Cache::forget('blogs');
+        Cache::forget('blogs_sidebar');
     }
 
     /**
@@ -612,6 +617,7 @@ class BlogsRepository extends Repository {
         if ($check) {
             if($pagination) {
                 return $this->check($builder->paginate(Config::get('settings.paginate')));
+//                return $builder->paginate(4);
             }
             return $this->check($builder->get());
         } else {

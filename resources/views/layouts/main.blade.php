@@ -21,8 +21,9 @@
     @endif
     <title>{{ $seo->seo_title ??($title ? ($title.' - '. env('APP_NAME')) : env('APP_NAME')) }}</title>
     <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/base.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/patient.css">
-    <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/patient-media.css">
+    @if(!empty($css))
+        {!! $css !!}
+    @endif
     <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/fonts.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/slick.css">
     <link rel="stylesheet" type="text/css" href="{{ asset('css') }}/menu.css">
@@ -33,7 +34,11 @@
             rel="stylesheet">
 </head>
 <body>
-<div class="wrapper">
+@if(session()->has('doc'))
+    <div class="wrapper doctor-page">
+        @else
+            <div class="wrapper">
+                @endif
     <div class="w-block"></div>
     <!--menu mobal-->
     <header>
@@ -53,9 +58,24 @@
     </div>
         @yield('footer')
 </div>
+            <!--pop-->
+            <div class="wrap-pop">
+                <div class="pop-bg"></div>
+                <div class="pop-up to-page-doctor">
+                    <div class="pop-inner">
+                        <div class="close-pop">X</div>
+                        fsdafdsgfsdgf gsdgds fdsfdsfds fds
+                    </div>
+                </div>
+            </div>
+            <!--end pop-->
 <!-- end wraperr -->
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="{{ asset('js') }}/libs/slick.min.js"></script>
 <script src="{{ asset('js') }}/menu.js"></script>
+            @if(!empty($js))
+                {!! $js !!}
+            @endif
+            <script src="{{ asset('js') }}/animations.js"></script>
 </body>
 </html>

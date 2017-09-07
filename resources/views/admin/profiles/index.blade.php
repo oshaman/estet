@@ -24,13 +24,17 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Имя</th><th>Фамилия</th><th>Телефон</th>
+            <th>ID</th>
+            <th>Имя</th>
+            <th>Фамилия</th>
+            <th>Телефон</th>
         </tr>
         </thead>
         @if (!empty($profiles))
             <tbody>
             @foreach ($profiles as $profile)
                 <tr>
+                    <td>{{ $profile->user_id }}</td>
                     <td>{{ $profile->name }}</td>
                     <td>{{ $profile->lastname }}</td>
                     <td>{{ $profile->phone }}</td>

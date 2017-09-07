@@ -1,0 +1,228 @@
+.meropryyatyya. main-content {
+    position: relative;
+}
+
+.meropryyatyya h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+}
+
+.meropryyatyya .img-meropryyatyya img {
+    width: 100%;
+    margin-top: 55px;
+}
+
+.meropryyatyya .comment-post {
+    margin-top: 54px;
+}
+
+.button-subscribe {
+    display: flex;
+    justify-content: center;
+}
+
+.button-subscribe a {
+    text-transform: uppercase;
+    border: 1px solid;
+    border-radius: 15px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    color: #202020;
+    width: 270px;
+    text-align: center;
+    line-height: 20px;
+    font-weight: 700;
+    padding-top: 1px;
+}
+
+.button-subscribe {
+    margin-top: 53px;
+}
+
+.icon-subscribe {
+    background-image: url("../img/blog/9.png");
+    width: 13px;
+    height: 13px;
+    display: inline-block;
+    margin-right: 6px;
+}
+
+.text-meropryyatyya {
+    margin-top: 52px;
+}
+
+.text-meropryyatyya p {
+    font-family: 'Roboto';
+    text-decoration: 500;
+}
+
+.slide-meropryyatyya img {
+    margin-top: 81px;
+}
+
+.experts {
+    margin-top: 69px;
+}
+
+.experts p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.experts p:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 6.5%;
+    height: 8px;
+    background: #202020;
+    border: solid #fff;
+    border-width: 0 14px 2px 0;
+}
+
+.experts .experts-title {
+    padding-left: 6.5%;
+    overflow: hidden;
+    height: 56px;
+    margin-top: 31px;
+    line-height: 28px;
+    margin-bottom: 39px;
+}
+
+.experts .experts-title p {
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    font-size: 19px;
+}
+
+.experts .experts-title p:before {
+    display: none;
+}
+
+.experts .experts-title span {
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+}
+
+.topics {
+    margin-top: 75px;
+}
+
+.topics p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+    font-size: 36px;
+}
+
+.topics p:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 6.5%;
+    height: 8px;
+    background: #202020;
+    border: solid #fff;
+    border-width: 0 14px 2px 0;
+}
+
+.topics ul {
+    padding-left: 4%;
+    line-height: 21.6px;
+    margin-top: 30px;
+}
+
+.topics ul li {
+    color: #7e2b83;
+    padding-bottom: 27px;
+    -webkit-padding-start: 17px;
+}
+
+.topics ul li:last-of-type {
+    margin-bottom: 0;
+}
+
+.topics ul li span {
+    color: #202020;
+    font-family: 'Roboto';
+}
+
+.meropryyatyya-data {
+    margin-top: 23px;
+    line-height: 33px;
+}
+
+.meropryyatyya-data .data-title {
+    margin-top: 14px;
+}
+
+.meropryyatyya-data .data-title:nth-child(1) {
+    margin-top: 0;
+}
+
+.meropryyatyya-data .data-title p {
+    font-size: 24px;
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 700;
+}
+
+.meropryyatyya-data .data-title p:before {
+    content: '';
+    display: inline-block;
+    vertical-align: middle;
+    box-sizing: border-box;
+    width: 6.5%;
+    height: 3px;
+    background: #202020;
+    border: solid #fff;
+    border-width: 0 14px 0 0;
+}
+
+.meropryyatyya-data .data-title span {
+    font-size: 16px;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    padding-left: 6.5%;
+}
+
+.meropryyatyya-data .data-title span a {
+    color: #202020;
+}
+
+.about-heading {
+    margin-top: 72px;
+}
+
+.content-about {
+    font-family: 'Cormorant Garamond', serif;
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    text-align: center;
+    width: 100%;
+}
+
+.content-about .about-description h4 {
+    font-size: 24px;
+}
+
+.content-about .about-description p {
+    margin-top: 28px;
+    max-width: 770px;
+    display: inline-block;
+}
+
+.aside-block h3 {
+    font-size: 16px;
+    line-height: 21px;
+}
+
+.meropryyatyya-health {
+    margin-top: 95px;
+}
+
+.meropryyatyya-health .articles-horizontal {
+    margin-top: 0;
+}

@@ -101,8 +101,7 @@ class EventsRepository extends Repository
                     $error[] = ['slider' => 'Ошибка записи фотографий слайдера'];
                 }
             }
-            Cache::forget('eventSidebar');
-            Cache::forget('event_content');
+            $this->clearCache();
             return ['status' => trans('admin.material_added'), $error];
         }
         return ['error' => $error];
@@ -212,9 +211,8 @@ class EventsRepository extends Repository
                     $error[] = ['slider' => 'Ошибка записи фотографий слайдера'];
                 }
             }
-            Cache::forget('eventSidebar');
-            Cache::forget('event_content');
 
+            $this->clearCache();
             return ['status' => trans('admin.material_updated'), $error];
         }
         return ['error' => $error];
@@ -243,9 +241,17 @@ class EventsRepository extends Repository
         } catch (Exception $e) {
             \Log::info('Ошибка удаления мероприятия: ', $e->getMessage());
         }
+
+        $this->clearCache();
+        return ['status' => trans('admin.deleted')];
+    }
+
+    public function clearCache()
+    {
+        Cache::forget('blogs');
+        Cache::forget('blogs_sidebar');
         Cache::forget('eventSidebar');
         Cache::forget('event_content');
-        return ['status' => trans('admin.deleted')];
     }
     /**
      * @param File $image

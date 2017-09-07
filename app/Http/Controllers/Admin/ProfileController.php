@@ -36,7 +36,7 @@ class ProfileController extends AdminController
         }
         if ($request->isMethod('post')) {
             $data = $request->except('_token');
-//            dd($data);
+
             if (1 == $data['param']) {
                 if (!$profiles = $this->pers_rep->get(['name', 'lastname', 'phone', 'user_id'], false, true, ['lastname', $data['value']])) {
                     $profiles = null;
@@ -122,7 +122,6 @@ class ProfileController extends AdminController
         }
 
 //        View Form
-
         if (empty($user->id)) {
             abort(404);
         }

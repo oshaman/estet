@@ -43,6 +43,9 @@ class SitemapController extends MainController
         $this->title = 'Sitemap';
 
         $this->index();
+        $this->footer = Cache::remember('footer-sitemap', 24 * 60, function () {
+            return view('layouts.footer')->render();
+        });
 
         return $this->renderOutput();
     }

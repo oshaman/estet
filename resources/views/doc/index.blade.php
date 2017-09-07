@@ -1,4 +1,4 @@
-@extends('/../layouts/app')
+@extends('/../layouts/main')
 
 @section('navbar')
     {!! $nav !!}
@@ -15,4 +15,9 @@
     @else
         {!! $content ?? '' !!}
     @endif
+@endsection
+
+
+@section('footer')
+    {!! $footer !!}
 @endsection

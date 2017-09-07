@@ -56,4 +56,38 @@ class AdvertisingRepository extends Repository
         }
         return $result;
     }
+
+    public function getMainDocs()
+    {
+        $collection = $this->model->select('text', 'placement')->where('own', 'doc')->get();
+        $result = [];
+        foreach ($collection as $item) {
+            if ('main_1' == $item->placement) {
+                $result['main_1'] = $item->text;
+            } elseif ('main_2' == $item->placement) {
+                $result['main_2'] = $item->text;
+            } elseif ('main_3' == $item->placement) {
+                $result['main_3'] = $item->text;
+            } else {
+                continue;
+            }
+        }
+        return $result;
+    }
+
+    public function getSidebar($own)
+    {
+        $collection = $this->model->select('text', 'placement')->where('own', $own)->get();
+        $result = [];
+        foreach ($collection as $item) {
+            if ('sidebar' == $item->placement) {
+                $result['sidebar'] = $item->text;
+            } elseif ('sidebar_2' == $item->placement) {
+                $result['sidebar_2'] = $item->text;
+            } else {
+                continue;
+            }
+        }
+        return $result;
+    }
 }

@@ -7,7 +7,6 @@
         width: 100%;
     }
 }
-
 @media screen and (max-width: 991px) {
     .container::before {
         background: none;
@@ -95,7 +94,7 @@
     }
 
     .articles-vertical article > div .link-title {
-        margin-top: 3%;
+        margin-top: 11px;
     }
 
     .articles-vertical article .link-img {
@@ -115,6 +114,77 @@
         padding-right: 6.8%;
     }
 
+    /* section 4  */
+    .interesting-facts {
+        margin-top: 137px;
+    }
+
+    .interesting-facts .left-title .vertical-line {
+        height: 51%;
+    }
+
+    .interesting-facts .content {
+        height: auto;
+        flex-wrap: wrap;
+    }
+
+    .interesting-facts .content > * {
+        width: 100%;
+    }
+
+    .interesting-facts .articles-vertical {
+        order: 1;
+        height: 360px;
+        margin: 0;
+        left: -4%;
+    }
+
+    .interesting-facts .articles-vertical .mCSB_container {
+        padding-left: 4%;
+    }
+
+    .interesting-facts .articles-vertical article {
+        margin: 0;
+    }
+
+    .interesting-facts .articles-vertical article .link-img {
+        width: 30.8%;
+    }
+
+    .interesting-facts .articles-vertical article > div {
+        width: 60%;
+    }
+
+    .interesting-facts .articles-vertical article:nth-child(2n)::before {
+        width: 91%;
+        left: -5%;
+    }
+
+    .interesting-facts .aside-block {
+        order: 2;
+        margin-top: 60px;
+        padding: 0 13.6% 0 8.7%;
+    }
+
+    .interesting-facts .aside-block .line-container {
+        position: absolute;
+        background: #fff;
+        transform: rotate(-90deg);
+        left: -110.3%;
+        transform-origin: right;
+        justify-content: flex-end;
+    }
+
+    .interesting-facts .aside-block .line-container .vertical-line {
+        order: 1;
+        width: 25%;
+    }
+
+    .interesting-facts .aside-block .line-container h2 {
+        order: 2;
+    }
+
+    /* section 5  */
     .diet-food .button-block {
         margin-top: 78px;
         padding-right: 0;
@@ -198,7 +268,6 @@
         margin-top: 143px;
     }
 }
-
 @media screen and (max-width: 767px) {
     .slide-right_top .title-time a {
         font-size: 10px;

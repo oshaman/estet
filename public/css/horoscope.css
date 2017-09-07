@@ -5,33 +5,26 @@
     justify-content: space-between;
     margin: 16% 0 16% 0;
 }
-
 .horo {
     text-align: center;
 }
-
 .hrp::after {
     content: '';
     width: 100%;
 }
-
 .brooding-8 {
     margin-right: 65px;
 }
-
 .visible-mob {
     display: none;
 }
-
 .icons-img {
     display: flex;
     flex-direction: column;
 }
-
 .icons-img:nth-child(n + 7) {
     order: 1;
 }
-
 .description {
     display: block;
     float: left;
@@ -39,15 +32,12 @@
     overflow: hidden;
     transition: 1s;
 }
-
 .description.active {
     height: 100%;
 }
-
 .horoscope-description {
     margin-bottom: 57px;
 }
-
 .horoscope-description:before,
 .horoscope-description:after {
     content: '.';
@@ -55,37 +45,30 @@
     clear: both;
     display: block;
 }
-
 .horoscope-description .img-horoscope-description {
     width: 37%;
     float: left;
     margin-left: -3%;
     text-align: center;
 }
-
 .horoscope-description .description {
     width: 66%;
 }
-
 div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
     float: right;
 }
-
 .horoscope-description-main {
     width: 86%;
     margin-left: 11%;
 }
-
 .title-fon {
     border-left: 1px solid #000;
     width: 76.4% !important;
 }
-
 .icons-img div {
     position: relative;
     display: inline-block;
 }
-
 .icons-img span {
     display: block;
     font-family: "Roboto";
@@ -94,184 +77,153 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
     font-size: 12px;
     letter-spacing: 2px;
 }
-
 .icons-img i:last-child {
     position: absolute;
     top: 0;
     transition: 0.3s;
 }
-
 .icons-img:hover i:last-child {
     opacity: 0;
 }
-
 .hrp a:hover {
     color: #0f0f0f;
 }
-
 .horoscope-icons {
     background-image: url("../img/horoscope/horoscope-icons.png");
     background-repeat: no-repeat;
     display: block;
 }
-
 .horoscope-icons-bliznetsy {
     width: 70px;
     height: 70px;
     background-position: -5px -5px;
 }
-
 .horoscope-description-main {
     padding-right: 127px;
     margin-left: 69px;
     width: 100%;
     margin-top: 32px;
 }
-
 .horoscope-icons-bliznetsy-active {
     width: 70px;
     height: 70px;
     background-position: -85px -5px;
 }
-
 .horoscope-icons-deva {
     width: 70px;
     height: 70px;
     background-position: -165px -5px;
 }
-
 .horoscope-icons-deva-active {
     width: 70px;
     height: 70px;
     background-position: -245px -5px;
 }
-
 .horoscope-icons-kozerog {
     width: 70px;
     height: 70px;
     background-position: -325px -5px;
 }
-
 .horoscope-icons-kozerog-active {
     width: 70px;
     height: 70px;
     background-position: -5px -85px;
 }
-
 .horoscope-icons-lev {
     width: 70px;
     height: 70px;
     background-position: -85px -85px;
 }
-
 .horoscope-icons-lev-active {
     width: 70px;
     height: 70px;
     background-position: -165px -85px;
 }
-
 .horoscope-icons-oven {
     width: 70px;
     height: 70px;
     background-position: -245px -85px;
 }
-
 .horoscope-icons-oven-active {
     width: 70px;
     height: 70px;
     background-position: -325px -85px;
 }
-
 .horoscope-icons-rak {
     width: 70px;
     height: 70px;
     background-position: -5px -165px;
 }
-
 .horoscope-icons-rak-active {
     width: 70px;
     height: 70px;
     background-position: -85px -165px;
 }
-
 .horoscope-icons-riba {
     width: 70px;
     height: 70px;
     background-position: -165px -165px;
 }
-
 .horoscope-icons-riba-active {
     width: 70px;
     height: 70px;
     background-position: -245px -165px;
 }
-
 .horoscope-icons-skorpion {
     width: 70px;
     height: 70px;
     background-position: -325px -165px;
 }
-
 .horoscope-icons-skorpion-active {
     width: 70px;
     height: 70px;
     background-position: -5px -245px;
 }
-
 .horoscope-icons-strelets {
     width: 70px;
     height: 70px;
     background-position: -85px -245px;
 }
-
 .horoscope-icons-strelets-active {
     width: 70px;
     height: 70px;
     background-position: -165px -245px;
 }
-
 .horoscope-icons-telets {
     width: 70px;
     height: 70px;
     background-position: -245px -245px;
 }
-
 .horoscope-icons-telets-active {
     width: 70px;
     height: 70px;
     background-position: -325px -245px;
 }
-
 .horoscope-icons-vesy {
     width: 70px;
     height: 70px;
     background-position: -5px -325px;
 }
-
 .horoscope-icons-vesy-active {
     width: 70px;
     height: 70px;
     background-position: -85px -325px;
 }
-
 .horoscope-icons-vodoley {
     width: 70px;
     height: 70px;
     background-position: -165px -325px;
 }
-
 .horoscope-icons-vodoley {
     width: 70px;
     height: 70px;
     background-position: -245px -325px;
 }
-
 .horoscope-icons-vodoley-active {
     width: 70px;
     height: 70px;
     background-position: -325px -325px;
 }
-
 @media screen and (max-width: 767px) {
     .hrp {
         display: block;
@@ -292,7 +244,6 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
         text-align: right;
     }
 }
-
 /************************main-content start*************************/
 .span-spoiler {
     position: relative;
@@ -301,7 +252,6 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
     font-size: 12px;
     margin-left: 8%;
 }
-
 .span-spoiler::before {
     content: "";
     display: inline-block;
@@ -312,10 +262,8 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
     position: relative;
     left: -26px;
 }
-
 .span-spoiler::after {
     content: attr(data-open);
     text-transform: uppercase;
 }
-
 /************************main-content end*************************/

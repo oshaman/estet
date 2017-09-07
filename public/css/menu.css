@@ -5,7 +5,6 @@
     z-index: 1;
     position: relative;
 }
-
 header {
     position: fixed;
     z-index: 7;
@@ -22,14 +21,12 @@ header {
     -moz-transition: all .3s ease-out;
     -webkit-transition: all .3s ease-out;
 }
-
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: 73px;
 }
-
 .menu-left {
     display: flex;
     justify-content: space-around;
@@ -37,34 +34,28 @@ nav {
     align-items: center;
     margin-left: 20px;
 }
-
 .person {
     text-align: center;
     font-size: 25px;
     font-family: "CormorantGaramond";
 }
-
 .toggles {
     width: 52px;
     text-align: center;
 }
-
 .toggles input {
     display: none;
 }
-
 .header-menu-left {
     display: flex;
     width: 65%;
     justify-content: flex-end;
     position: relative;
 }
-
 .nav_container {
     position: relative;
     width: 87%;
 }
-
 .menu {
     margin: 0;
     white-space: nowrap;
@@ -73,24 +64,20 @@ nav {
     list-style: none;
     height: 100%;
 }
-
 .menu > li {
     vertical-align: top;
     width: 20%;
     text-align: center;
     position: relative;
 }
-
 .menu > li img {
     display: inline-block;
 }
-
 .menu li i {
     margin-right: 7px;
     color: #ced3d5;
     text-shadow: 0 1px 0 white;
 }
-
 .menu .menu-elem:before {
     content: ' ';
     border-right: 1px solid #d3d3d3;
@@ -151,16 +138,13 @@ nav {
     background-color: #fff;
     width: 200px;
 }
-
 .menu li .submenu li.col {
     padding: 0;
 }
-
 .menu li .submenu li.col ul {
     padding: 0;
     margin: 0;
 }
-
 header .container-fool {
     height: 73px;
 }
@@ -168,7 +152,6 @@ header .container-fool {
 .menu-elem {
     cursor: pointer;
 }
-
 header .line-bottom-menu {
     border-bottom: 1px solid #000000;
     box-sizing: border-box;
@@ -177,7 +160,6 @@ header .line-bottom-menu {
     bottom: 2px;
     z-index: -1;
 }
-
 .line-large-menu {
     position: absolute;
     bottom: -3px;
@@ -185,7 +167,6 @@ header .line-bottom-menu {
     height: 5px;
     transition: .5s ease-in-out;
 }
-
 /* Submenu 2nd level drop down */
 .submenu li li ul {
     visibility: hidden;
@@ -202,7 +183,6 @@ header .line-bottom-menu {
     -o-transform: translate(0px, 20px);
     transition: transform 0.6s ease 0s, opacity 0.6s ease 0s;
 }
-
 .submenu li li:hover ul {
     opacity: 1;
     visibility: visible;
@@ -242,7 +222,6 @@ header .line-bottom-menu {
 .memu-search img {
     cursor: pointer;
 }
-
 .search-mobb {
     position: absolute;
     right: 41px;
@@ -252,7 +231,6 @@ header .line-bottom-menu {
     z-index: 82;
     transition: .25s ease-in-out;
 }
-
 .search-mobb form {
     height: 50px;
     background: #fff;
@@ -264,7 +242,6 @@ header .line-bottom-menu {
 .memu-search:hover .search-mobb {
     width: 100%;
 }
-
 .search-mobb input {
     width: 95%;
     background-color: #fff;
@@ -272,19 +249,16 @@ header .line-bottom-menu {
     padding-left: 30px;
     border: 1px solid #000;
 }
-
 .memu-search-1:before {
     content: "";
     border-right: 1px solid #202020;
     padding-right: 11px;
     height: 34px;
 }
-
 .search {
     position: relative;
     padding: 15px 20px;
 }
-
 .search-mobb form:before,
 .search:after,
 .search:before {
@@ -295,13 +269,11 @@ header .line-bottom-menu {
     right: 0;
     height: 39px;
 }
-
 .search-mobb form:before,
 .search:before {
     left: 0;
     right: auto;
 }
-
 .burger {
     display: none;
 }
@@ -313,7 +285,6 @@ header .line-bottom-menu {
     border: none;
     outline: none;
 }
-
 .checkbox-label {
     display: block;
     position: relative;
@@ -323,7 +294,6 @@ header .line-bottom-menu {
     background: #202020;
     cursor: pointer;
 }
-
 .checkbox-label:before {
     content: '';
     display: block;
@@ -340,14 +310,12 @@ header .line-bottom-menu {
     background: white;
 }
 
-.ios-toggle:checked + .checkbox-label:before {
+.ios-toggle.active + .checkbox-label:before {
     left: calc(100% - 45px);
 }
-
 .nav_container div {
     float: left;
 }
-
 .menu li i {
     margin-right: 7px;
     color: #ced3d5;
@@ -380,7 +348,6 @@ header .line-bottom-menu {
     -webkit-transition: height 0.2s ease;
     transition: height 0.2s ease;
 }
-
 .menu > li > a {
     color: #202020;
     text-transform: uppercase;
@@ -414,7 +381,6 @@ header .line-bottom-menu {
 .menu li li {
     margin-bottom: 0;
 }
-
 .menu li .submenu li.col {
     padding: 0;
 }
@@ -423,18 +389,15 @@ header .line-bottom-menu {
     padding: 0;
     margin: 0;
 }
-
 .menu li .submenu li.col ul li {
     list-style: none;
     font-weight: normal;
     position: relative;
 }
-
 .menu .submenu li:hover > a {
     color: #fff !important;
     background: #000000;
 }
-
 .menu li .submenu a {
     color: #202020;
     padding: 9px 20px;
@@ -448,17 +411,57 @@ header .line-bottom-menu {
 .menu .submenu li:last-child {
     border-bottom: 0px solid #262829;
 }
-
 .submenu li.col ul li:hover {
     background: none;
 }
 
-/*.header-menu-left label.toggleMenu {*/
-/*display: none;*/
-/*padding: 15px 40px;*/
-/*text-transform: uppercase;*/
-/*font-size: 14px;*/
-/*cursor: pointer;*/
-/*position: relative;*/
-/*}*/
+.wrap-pop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+    display: none;
+}
 
+.wrap-pop.active {
+    display: block;
+}
+
+.pop-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    background: rgba(0, 0, 0, .5);
+    z-index: 2;
+}
+
+.pop-up {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pop-inner {
+    background: #fff;
+    color: #000;
+    display: block;
+    position: relative;
+    z-index: 100;
+}
+
+.close-pop {
+    position: absolute;
+    right: -15px;
+    top: -15px;
+    color: #fff;
+    cursor: pointer;
+}

@@ -14,7 +14,7 @@ class MainController extends Controller
     protected $vars;
     protected $sidebar = false;
     protected $title;
-    protected $footer;
+    protected $footer = false;
     protected $a_rep;
     protected $title_img;
     protected $content = false;

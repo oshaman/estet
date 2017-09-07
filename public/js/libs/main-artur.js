@@ -23,6 +23,7 @@ $(document).ready(function () {
     });
 
 
+
     $('a[href^="#"]').click(function (event) {
         //отмена стандартной обработки клика по ссылке
         event.preventDefault();

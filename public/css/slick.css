@@ -52,7 +52,6 @@
 
     display: block;
 }
-
 .slick-track:before,
 .slick-track:after {
     display: table;
@@ -107,7 +106,6 @@
 
     border: 1px solid transparent;
 }
-
 .slick-arrow.slick-hidden {
     display: none;
 }

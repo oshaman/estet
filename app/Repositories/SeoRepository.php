@@ -3,6 +3,7 @@ namespace Fresh\Estet\Repositories;
 
 use Fresh\Estet\Seo;
 use Validator;
+use Cache;
 
 class SeoRepository extends Repository
 {
@@ -59,5 +60,7 @@ class SeoRepository extends Repository
     {
         Cache::forget('seo_horoscope');
         Cache::forget('seo_main');
+        Cache::forget('seo_lasts');
+        Cache::forget('seo_horo');
     }
 }

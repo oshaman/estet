@@ -7,6 +7,7 @@
         </div>
         <div class="menu-left">
             <div class="person patient menu-elem active">Я пациент</div>
+
             <div id="toggles" class="toggles">
                 <input type="checkbox" name="checkbox1" id="checkbox1" class="ios-toggle" checked/>
                 <label for="checkbox1" class="checkbox-label"></label>
@@ -24,13 +25,29 @@
                             </li>
                         </ul>
                     </li>
+                    {{--temp--}}
+                    @if(!session()->has('doc'))
+                        {!! Form::open(['url' => route('switch'), 'method'=>'POST']) !!}
+                        {!! Form::hidden('doc', true) !!}
+                        {!! Form::button(trans('ru.doctor'), ['class' => 'btn btn-success','type'=>'submit']) !!}
+                        {!! Form::close() !!}
+                    @else
+                        {!! Form::open(['url' => route('switch'), 'method'=>'POST']) !!}
+                        {!! Form::hidden('patient', true) !!}
+                        {!! Form::button(trans('ru.patient'), ['class' => 'btn btn-info','type'=>'submit']) !!}
+                        {!! Form::close() !!}
+                    @endif
+                    {{--temp--}}
                     @if(session()->has('doc'))
                         <li class="menu-elem"><a href="{{ route('events') }}"><span>Мероприятия</span></a></li>
                         <li class="menu-elem"><a href="{{ route('blogs') }}"><span>Блог</span></a></li>
+                        <li class="menu-elem"><a href="{{ route('docs_cat', 'praktika') }}"><span>Практика</span></a>
+                        </li>
+                        <li class="menu-elem"><a href="{{ route('docs_cat', 'eksperty') }}"><span>Эксперты</span></a>
+                        </li>
                         <li class="menu-elem"><a href="{{ route('docs_cat', 'video') }}">
                                 <img src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>
                     @else
-                        <li class="menu-elem"><a href="{{ route('horoscope') }}"><span>Гороскоп</span></a></li>
                         <li class="menu-elem"><a href="{{ route('article_cat', 'video') }}"><img
                                         src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>
                         <li class="menu-elem"><a href="{{ route('article_cat', 'intervyu') }}"><img

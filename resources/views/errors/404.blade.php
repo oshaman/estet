@@ -1,4 +1,9 @@
-@extends('/../layouts/app')
+@extends('/../layouts/main')
+
+@section('navbar')
+    {!! $nav !!}
+@endsection
+
 @section('content')
     <div class="container">
         <div class="row">
@@ -53,4 +58,8 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('footer')
+    {!! $footer !!}
 @endsection

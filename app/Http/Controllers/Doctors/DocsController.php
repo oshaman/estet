@@ -2,10 +2,12 @@
 
 namespace Fresh\Estet\Http\Controllers\Doctors;
 
+use Fresh\Estet\Repositories\AdvertisingRepository;
 use Fresh\Estet\Repositories\ArticlesRepository;
 use Fresh\Estet\Http\Controllers\Controller;
 use Fresh\Estet\Repositories\EventsRepository;
 use Fresh\Estet\Event;
+use Fresh\Estet\Repositories\SeoRepository;
 use Menu;
 use DB;
 use Cache;
@@ -18,14 +20,23 @@ class DocsController extends Controller
     protected $vars;
     protected $sidebar = false;
     protected $a_rep;
+    protected $adv_rep;
+    protected $title_img;
+    protected $seo_rep;
+    protected $seo = false;
+    protected $css = false;
+    protected $js = false;
 
     /**
      * DocsController constructor.
      * @param ArticlesRepository $repository
      */
-    public function __construct(ArticlesRepository $repository)
+    public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv, SeoRepository $seo_rep)
     {
+        Cache::flush();
         $this->a_rep = $repository;
+        $this->adv_rep = $adv;
+        $this->seo_rep = $seo_rep;
     }
 
     /**
@@ -73,6 +84,10 @@ class DocsController extends Controller
             ];
             return view('doc.content')->with(['articles' => $articles])->render();
         });
+        $this->title = 'Профессионалам';
+        $this->seo = Cache::remember('seo_docs', 24 * 60, function () {
+            return $this->seo_rep->getSeo('doctor/statyi');
+        });
 
         return $this->renderOutput();
     }
@@ -102,17 +117,33 @@ class DocsController extends Controller
     public function renderOutput()
     {
         $this->vars = array_add($this->vars, 'title', $this->title);
+        $this->vars = array_add($this->vars, 'seo', $this->seo);
+        $this->vars = array_add($this->vars, 'css', $this->css);
+        $this->vars = array_add($this->vars, 'js', $this->js);
+
+        $this->title_img = true;
+        $this->vars = array_add($this->vars, 'title_img', $this->title_img);
 
         $nav = Cache::remember('docsMenu', 60, function () {
             $menu = $this->getMenu();
             return view('layouts.nav')->with('menu', $menu)->render();
         });
 
+        if (!empty($this->footer)) {
+            $footer = $this->footer;
+        } else {
+            $footer = Cache::remember('footer', 24 * 60, function () {
+                return view('layouts.footer')->render();
+            });
+        }
+        $this->vars = array_add($this->vars, 'footer', $footer);
+
+
         $this->vars = array_add($this->vars, 'nav', $nav);
 
-        if (false !== $this->sidebar) {
+        /*if (false !== $this->sidebar) {
             $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
-        }
+        }*/
 
         if ($this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
