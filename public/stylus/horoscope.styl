@@ -1,0 +1,29 @@
+@import "components/hrp"
+/************************main-content start*************************/
+
+.span-spoiler {
+  position: relative;
+  cursor: pointer;
+  letter-spacing: 2px;
+  font-size: 12px;
+  margin-left: 8%;
+}
+
+.span-spoiler::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 69%;
+  height: 1px;
+  background-color: #C7C7C7;
+  position: relative;
+  left: -26px;
+}
+
+.span-spoiler::after {
+  content: attr(data-open);
+  text-transform: uppercase;
+}
+/************************main-content end*************************/
+
+

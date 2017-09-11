@@ -1,0 +1,273 @@
+//common
+*
+  margin: 0
+  padding: 0
+  -webkit-backface-visibility: hidden
+  -moz-backface-visibility: hidden
+  -ms-backface-visibility: hidden
+  backface-visibility: hidden
+  -webkit-box-sizing: border-box
+  -moz-box-sizing: border-box
+  box-sizing: border-box
+
+a
+  text-decoration: none
+
+a.btn-blue:hover
+  color: #455ea7
+
+
+h1
+h2
+h3
+h4
+h5
+h6
+  font-family: 'Cormorant Garamond', serif;
+
+
+//
+body
+  background: #e4e4e4
+
+.wrapper
+  width: 100%
+  max-width 1270px
+  margin auto
+  background: #fff
+  overflow: hidden
+
+@import "components/header";
+
+.container
+  width: 100%
+  position: relative
+  &::before
+    content: ''
+    width: 1px
+    height: 100%
+    background: #000
+    position: absolute
+    display: block
+    z-index: 1
+
+h1
+  padding: 51px 0
+  text-align: center
+
+@media screen and (max-width: 767px)
+  h1
+    display: none
+
+section
+  display: flex
+  position: relative
+
+//white PODLOJKA!!!
+#section-1::before
+  content: ''
+  position: absolute
+  bottom: 0
+
+//left title with line
+.left-title
+  width: 11.8%
+  position: relative
+  text-align: center
+  z-index 1
+
+.line-container
+  position: relative
+  display: inline-block;
+  height: 100%;
+  margin-left: 3%;
+
+.left-title h2
+  font-family: 'Cormorant Garamond', serif;
+  transform: translate(-100%, -50%) rotate(-90deg);
+  position: absolute;
+  top: 0;
+  transform-origin: right center;
+  background: #fff;
+  padding-left: 14px;
+  white-space: nowrap;
+  font-size: 30px;
+  font-weight: 700
+  line-height: 1;
+
+.vertical-line
+  width: 7px;
+  display: block;
+  position: relative;
+  height: 100%;
+  background: #455ea7;
+
+
+//right side
+.content
+  width: (100 - 11.8)%
+  padding-right: 3.9%;
+  position: relative;
+
+
+@media screen and (max-width: 992px)
+  .left-title
+    width: 15.2%
+  .content
+    width: (100 - 15.2)%
+    padding-right: 5.8%;
+  .line-container
+    margin-left: -9%;
+
+@media screen and (max-width: 767px)
+  section
+    flex-wrap wrap
+  .left-title
+    width: 100%
+    padding: 0 0 0 20px
+  .content
+    width: 100%
+    padding 0 20px
+    margin-top: 17px;
+  .line-container
+    width: 100%;
+    margin: 0;
+    display: flex;
+    align-items: center;
+  .left-title .vertical-line
+    height: 7px;
+    width: 100%;
+    order: 2
+    margin-top: 3px;
+    margin-left: 14px;
+  .left-title h2
+    width: 100%;
+    transform: none;
+    background: none;
+    padding: 0;
+    position: relative;
+    order: 1
+    font-size: 25px
+
+//inner containers
+.main-content
+  width 74.8%
+  float left
+
+aside.aside
+  width: (100 - 74.8)%
+  float: right
+//for date
+.title-time
+  display: flex
+  justify-content: space-between
+  align-items: center;
+  & a
+    display: block
+    font-family: 'Roboto'
+    font-size: 12px
+    font-weight: 700
+    color: #000
+    letter-spacing: 1.2px
+    text-transform: uppercase
+    &::before
+      content ''
+      display: inline-block
+      width: 8px
+      height: 8px
+      margin-right: 18px
+      border-radius 50%
+      background: #455EA7
+  & time
+    position: relative
+    background: #202020
+    color: #fff
+    font-size: 10px
+    font-family: 'Roboto'
+    font-weight: 700
+    padding: 0 4px
+    letter-spacing: .05em
+    line-height: 1.2;
+    & i
+      position: absolute;
+      left: -14px;
+      top: 2px;
+      color: #000
+
+//button-section
+.button-block
+  margin-top: 26px;
+  position: absolute;
+  display: flex;
+  width: 100%;
+  padding-right: 4.3%;
+  align-items: center;
+  justify-content: flex-end;
+  align-self: flex-end;
+  & a
+    height: 23px;
+    background: #202020;
+    color: #FFFFFF;
+    font-family: 'Roboto';
+    font-size: 12px;
+    text-transform: uppercase;
+    font-weight: 700;
+    border-radius: 16px;
+    text-align: center;
+    letter-spacing: 3.58px;
+    max-width: 222px;
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    line-height: 24px;
+    padding: 0 0 0 5px;
+
+.button-line
+  width: 100%;
+  position: relative;
+  &::before
+    content: "";
+    position: absolute;
+    margin-right: 47px;
+    width: 200%;
+    height: 1px;
+    background: #202020;
+    right: 0;
+
+@media screen and (max-width: 767px)
+  .button-line
+    display: none
+  .button-block
+    padding-right: 0
+    justify-content: center;
+    align-self: center;
+
+
+
+@import "components/articles"
+@import "components/aside"
+@import "components/hrp"
+
+
+
+@import "components/footer";
+
+//icons
+
+.icons
+  font-family: 'icons-desctop'
+  font-style: normal;
+  font-weight: normal;
+  speak: none;
+  display: inline-block;
+  text-decoration: inherit;
+  text-align: center;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+.icon-sandwich:before { content: '\e800'; } /* sandwich */
+.icon-close:before { content: '\e801'; } /* close */
+.icon-clock:before { content: '\e802'; } /* clock */
