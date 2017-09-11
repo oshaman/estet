@@ -171,9 +171,9 @@ class SearchRepository
 
             if (!empty($item->created_at)) {
                 $created = strtotime($item->created_at);
-                $item->created = date('d', $created) . ' ' . trans('ru.' . date('m', $created)) . ' ' . date('Y', $created);
+                $item->created = date('d', $created) . ' ' . trans('ru.m' . date('m', $created)) . ' ' . date('Y', $created);
             } else {
-                $item->created = date('d') . ' ' . trans('ru.' . date('m')) . ' ' . date('Y');
+                $item->created = date('d') . ' ' . trans('ru.m' . date('m')) . ' ' . date('Y');
             }
 
             if (!empty($item->status)) {

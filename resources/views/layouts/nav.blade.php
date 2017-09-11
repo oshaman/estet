@@ -26,11 +26,29 @@
                         </ul>
                     </li>
                     @if(session()->has('doc'))
-                        <li class="menu-elem"><a href="{{ route('events') }}"><span>Мероприятия</span></a></li>
-                        <li class="menu-elem"><a href="{{ route('blogs') }}"><span>Блог</span></a></li>
-                        <li class="menu-elem"><a href="{{ route('docs_cat', 'praktika') }}"><span>Практика</span></a>
+                        <li class="menu-elem">
+                            <a href="{{ route('events') }}">
+                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <span>Мероприятия</span>
+                            </a>
                         </li>
-                        <li class="menu-elem"><a href="{{ route('docs_cat', 'eksperty') }}"><span>Эксперты</span></a>
+                        <li class="menu-elem">
+                            <a href="{{ route('blogs') }}">
+                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <span>Блог</span>
+                            </a>
+                        </li>
+                        <li class="menu-elem">
+                            <a href="{{ route('docs_cat', 'praktika') }}">
+                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <span>Практика</span>
+                            </a>
+                        </li>
+                        <li class="menu-elem">
+                            <a href="{{ route('docs_cat', 'eksperty') }}">
+                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <span>Эксперты</span>
+                            </a>
                         </li>
                         <li class="menu-elem"><a href="{{ route('docs_cat', 'video') }}">
                                 <img src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>

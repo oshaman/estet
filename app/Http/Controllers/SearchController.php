@@ -2,6 +2,7 @@
 
 namespace Fresh\Estet\Http\Controllers;
 
+use Fresh\Estet\Repositories\AdvertisingRepository;
 use Fresh\Estet\Repositories\ArticlesRepository;
 use Fresh\Estet\Repositories\CategoriesRepository;
 use Fresh\Estet\Repositories\SearchRepository;
@@ -24,10 +25,11 @@ class SearchController extends MainController
     public function __construct(
         SearchRepository $repository,
         CategoriesRepository $cat_rep,
-        ArticlesRepository $article
+        ArticlesRepository $article,
+        AdvertisingRepository $adv
     )
     {
-        parent::__construct($article);
+        parent::__construct($article, $adv);
         $this->repository = $repository;
         $this->cat_rep = $cat_rep;
     }
@@ -38,6 +40,12 @@ class SearchController extends MainController
      */
     public function show(Request $request)
     {
+        Cache::flush();
+        $this->css = '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/poisk.css">
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/poisk-media.css">
+        ';
+        $this->getSidebar(session()->has('doc'));
         $cats = Cache::remember('allCats', 600, function () {
             return $this->cat_rep->catSelect();
         });
@@ -51,11 +59,11 @@ class SearchController extends MainController
             if (is_object($result) && $result->isNotEmpty()) {
                 $result->appends($request->all())->links();
             }
-            $this->content = view('search.show')->with(['cats'=>$cats, 'titles'=>$result])->render();
+            $this->content = view('search.show')->with(['cats'=>$cats, 'titles'=>$result, 'sidebar' => $this->sidebar])->render();
             return $this->renderOutput();
         }
 
-        $this->content = view('search.show')->with(['cats'=>$cats])->render();
+        $this->content = view('search.show')->with(['cats'=>$cats, 'sidebar' => $this->sidebar])->render();
         return $this->renderOutput();
     }
 }

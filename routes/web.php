@@ -12,6 +12,8 @@
 */
 
 Route::get('/', ['uses' => 'Patient\ArticlesController@index', 'as' => 'main'])->middleware('patient');
+
+Route::match(['post', 'get'], '/captcha', 'CaptchaController@show')->name('captcha');
 /**
  * Articles
  */
@@ -100,7 +102,7 @@ Route::group(['prefix'=>'admin-blog', 'middleware'=>'admin_blog'], function () {
 /**
  * SEARCH
  */
-Route::group(['prefix' => 'search'], function () {
+Route::group(['prefix' => 'poisk'], function () {
     Route::get('/', 'SearchController@show')->name('search');
 });
 

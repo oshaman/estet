@@ -2,19 +2,19 @@
  * Created by Fedor on 28.08.2017.
  */
 /*  menu line bottom */
-var menuElW, fullOffsetControl, menuElOff;
+var menuElW,fullOffsetControl,menuElOff;
 planshet = window.matchMedia('(max-width: 1271px)').matches
 function lineBottomMenu() {
     w = $(document).width();
 
-    menuElW = $('.menu-elem').eq(0).width();
-    fullOffset = $('header .container-fool').offset().left;
-    fullOffsetControl = fullOffset;
+    menuElW =   $('.menu-elem').eq(0).width();
+    fullOffset =  $('header .container-fool').offset().left;
+    fullOffsetControl =  fullOffset;
 
     /* if planshet */
     if (window.matchMedia("(max-width: 1271px)").matches) {
         fullOffset = (w / 100) * 2.3;
-        fullOffsetControl = 0;
+        fullOffsetControl =  0;
     }
 
     menuElOff = $('.menu-elem').eq(0).offset().left - fullOffsetControl;
@@ -23,7 +23,7 @@ function lineBottomMenu() {
     $('<div/>')
         .addClass('line-bottom-menu')
         .css({
-            width: w - fullOffset + 'px',
+            width: w  - fullOffset + 'px',
         })
         .appendTo('header .container-fool');
 
@@ -38,7 +38,7 @@ function lineBottomMenu() {
 }
 lineBottomMenu();
 
-window.onresize = function () {
+window.onresize = function(){
     lineBottomMenu();
 }
 
@@ -47,13 +47,13 @@ $('.submenu').slideUp(0);
 open = false;
 
 $('.menu-elem').hover(function () {
-    if (!planshet) {
+    if(!planshet) {
         menuElOff = $(this).offset().left - fullOffsetControl;
         menuElW = $(this).width();
 
         !open ? $(this).hasClass('memu-search') ? setTimeout(function () {
-            searchW()
-        }, 500) : '' : ''
+                    searchW()
+                }, 500) : '' : ''
 
         $('.line-large-menu').css({
             left: menuElOff + 'px',
@@ -62,8 +62,8 @@ $('.menu-elem').hover(function () {
         $(this).find('.submenu').stop().slideDown(500);
     }
 
-}).mouseleave(function () {
-    if (!planshet) {
+}).mouseleave(function(){
+    if(!planshet) {
         menuElOff = $('.menu-elem.active').offset().left - fullOffset;
         menuElW = $('.menu-elem.active').width();
         $('.line-large-menu').css({
@@ -77,7 +77,7 @@ $('.menu-elem').hover(function () {
 
 /* planshet menu */
 $('.with-sub.menu-elem').click(function (e) {
-    if (window.matchMedia('(max-width: 1271px)').matches) {
+    if(window.matchMedia('(max-width: 1271px)').matches) {
         e.preventDefault(e);
         $(this).toggleClass('active');
         $('.submenu').slideUp(500);
@@ -86,15 +86,17 @@ $('.with-sub.menu-elem').click(function (e) {
 });
 
 
+
+
 function searchW() {
     open = true;
     menuElOff = $('.search-mobb ').offset().left - fullOffset;
-    menuElW0 = $('.memu-search ').width() - 15;
-    menuElW = $('.search-mobb ').width() + menuElW0;
+    menuElW0 =  $('.memu-search ').width() - 15;
+    menuElW =   $('.search-mobb ').width()+ menuElW0 ;
 
     $('.line-large-menu').css({
         left: menuElOff + 'px',
-        width: menuElW + 'px',
+        width: menuElW +'px',
     });
 }
 /*hover search menu */

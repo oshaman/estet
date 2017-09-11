@@ -18,6 +18,7 @@ class Kernel extends HttpKernel
         \Illuminate\Foundation\Http\Middleware\ValidatePostSize::class,
         \Fresh\Estet\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
+        \Illuminate\Session\Middleware\StartSession::class,
     ];
 
     /**
@@ -48,9 +49,11 @@ class Kernel extends HttpKernel
         ],
         'doctor' => [
             \Fresh\Estet\Http\Middleware\Doctor::class,
+            \Illuminate\Session\Middleware\StartSession::class,
         ],
         'patient' => [
             \Fresh\Estet\Http\Middleware\Patient::class,
+            \Illuminate\Session\Middleware\StartSession::class,
         ],
     ];
 

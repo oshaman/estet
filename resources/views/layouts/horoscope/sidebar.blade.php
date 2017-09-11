@@ -1,7 +1,7 @@
 <div class="aside-block horoscope-block  ">
     <div class="left-title">
         <div class="line-container">
-            <div class="vertical-line line-purple"></div>
+            <div class="vertical-line @if(session()->has('doc')) line-purple @endif"></div>
             <h2>Гороскоп красоты</h2>
         </div>
     </div>

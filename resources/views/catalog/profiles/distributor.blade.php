@@ -1,58 +1,153 @@
-<h2>{{ trans('ru.distributors') }}-----------------------------------------------</h2>
-<div class="row">
-    <div class="col-lg-4">
-        <div class="row">{{ Html::image(asset('/images/establishment/main') . '/' . $distributor->logo, $distributor->title, array('class' => 'img-thumbnail')) }}</div>
-        <div class="d-block bg-info">
-            <div><strong>Категория: </strong>{{ trans('ru.' .$distributor->category) }}</div>
-            <div><strong>Телефоны: </strong>{{ $distributor->phones }}</div>
-            <div><strong>Сайт: </strong>{{ $distributor->site }}</div>
-            <hr>
-            <div class="panel-heading">
-                <h4 class="panel-title">
-                    <a data-toggle="collapse" href="#children">Дочерние бренды: </a>
-                </h4>
+<section id="section-1" class="blog-page">
+    <div class="left-title">
+        <div class="line-container text-vertical">
+            <div class="vertical-line
+            @if(session()->has('doc')) line-purple @endif
+            ">
             </div>
-            @if(!empty($children))
-                <div id="children" class="panel-collapse collapse">
-                    @foreach($children as $child)
-                        <div class="panel-body"><a href="{{ route('brands', $child->alias) }}">{{ $child->title }}</a></div>
-                    @endforeach
-                </div>
-            @endif
-            <hr>
-            @if(!empty($distributor->services))
-                <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a data-toggle="collapse" href="#service">Категории товаров: </a>
-                    </h4>
-                </div>
-                <div id="service" class="panel-collapse collapse">
-                    @foreach($distributor->services as $service)
-                        <div class="panel-body">{{ $service }}</div>
-                    @endforeach
-                </div>
-            @endif
+            <h2>Каталог</h2>
         </div>
     </div>
-    <div class="col-lg-8">
-        <div class="row"><h2 class="text-center">{{ $distributor->title }}</h2></div>
-        <hr>
-        <div class="row">{{ $distributor->address }}</div>
-        <h3>О нас</h3>
-        <div class="row">{!! $distributor->content !!}</div>
+    <div class="content">
+        <!-- section 2 -->
+        <div class="bread-crumbs">
+            <div itemscope itemtype="#">
+                <a href="#" itemprop="url">
+                    <span itemprop="title">Дистрибуторы</span>
+                </a>
+            </div>/
+            <div itemscope itemtype="#">
+                <span itemprop="title">Alfa Spa Development</span>
+            </div>
+        </div>
+        <div class="katalog-page">
+
+            <div class="main-content page-content">
+                <!-- section-3 -->
+                {!! $nav !!}
+
+                        <!-- section-4 -->
+                <div class="blog-section-post">
+                    <div class="content content-blog">
+                        <div class="catalog-internal">
+                            <div class="block-info">
+                                <div class="details-page">
+                                    <img src="{{ asset('/images/establishment/main') . '/' . $distributor->logo }}"
+                                         alt="{{ $distributor->alt }}" title="{{ $distributor->title }}">
+                                    <div class="details-page-info">
+                                        <div class="rating">
+                                            <div class="top-rating">
+                                                <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
+                                            </div>
+                                            <p>{{ ($ratio->avg ?? 0) .' / 5 - (' . $ratio->count . ' голосов)'}}</p>
+
+                                        </div>
+                                        <div class="info-kompani">
+                                            <div class="kompani-contacts">
+                                                <p>Категория:</p>
+                                                <span>{{ trans('ru.' . $distributor->category) }}</span>
+                                            </div>
+                                            <div class="kompani-contacts">
+                                                <p>Дочерние бренды:</p>
+                                                @if(!empty($children))
+                                                    <div id="children" class="panel-collapse collapse">
+                                                        @foreach($children as $child)
+                                                            <a href="{{ route('brands', $child->alias) }}"><span>{{ $child->title }}</span></a>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <div class="kompani-contacts">
+                                                <div class="contacts-tel">
+                                                    <p>Телефон:</p>
+                                                    <p>Факс:</p>
+                                                </div>
+                                                <div class="contacts-tel">
+                                                    <a href="tel: +3800443312425">{{ $distributor->phones }}</a>
+                                                </div>
+                                            </div>
+                                            <div class="kompani-contacts">
+                                                <p>Web-сайт:</p>
+                                                <a href="{{ $distributor->site }}">{{ $distributor->site }}</a>
+                                            </div>
+                                        </div>
+                                        <div class="working-hours">
+                                            <p>Время работы:</p>
+                                            <span>c<time>10:00</time>до<time>21:00</time></span>
+                                        </div>
+                                        <div class="kervices-kompani">
+                                            @if(!empty($distributor->services))
+                                                <p>Категории товаров:</p>
+                                                <lu>
+                                                    @foreach($distributor->services as $service)
+                                                        <li>{{ $service }}</li>
+                                                    @endforeach
+                                                </lu>
+                                            @endif
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="details-page">
+                                    <h3>{{ $distributor->title }}</h3>
+                                    <p>Комплексная разработка и сопровождение предприятий индустрии красоты и
+                                        здоровья, включая как SPA & Wellness объекты, так и медицинские у
+                                        чреждения
+                                    </p>
+                                    <hr>
+                                    <span>{{ $distributor->address }}</span>
+                                    <div class="kompani-info">
+                                        <div class="brand-head">
+                                            <div class="katalog-line"></div>
+                                            <span>О нас</span>
+                                        </div>
+                                        {!! $distributor->content !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- section-5 -->
+                        <div class="brand-publications">
+                            <div class="brand-head">
+                                <div class="katalog-line"></div>
+                                <span>Публикации дистрибутора</span>
+                            </div>
+                            @if(!empty($distributor->articles))
+                                <div class="publications">
+                                    @foreach($distributor->articles as $article)
+                                        <article>
+                                            <a href="{{ route('articles', $article->alias) }}"><p>{{ $article->title }}</p></a>
+                                        </article>
+                                        @if(!$loop->last) <hr> @endif
+                                    @endforeach
+                                </div>
+                            @endif
+                        </div>
+                        <div class="comment-post">
+                            @include('layouts.social-networks')
+                            @include('layouts.comments_form', ['id' => $distributor->id, 'source' => 3])
+                            <div class="about-description">
+                                <h4>О рубрике Каталог</h4>
+                                <p>Раздел «Мероприятия» позволяет всем заинтересованным в сфере эстетической
+                                    медицины не пропустить медицинские мероприятия, которые помогут не только
+                                    постоянно следить за мировыми и местными событиями, интересными для
+                                    врачей-эстетистов и специалистов других отраслей медицины, но и позволят
+                                    расширить базу знаний и завести новые знакомства, получить бесценный опыт
+                                    и повысить свою квалификацию. Медицинские мероприятия для профессионалов
+                                    включают в себя тренинги, практикумы, обучающие курсы, конференции,
+                                    выставки и прочие события в мире медицины..</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        {!! $sidebar !!}
+
     </div>
-    <hr>
-</div>
-<hr>
-@if(!empty($distributor->articles))
-    <div class="row bg-warning">
-        <h4>Публикации дистрибьютора ========================================</h4>
-        @foreach($distributor->articles as $article)
-            <a href="{{ route('articles', $article->alias) }}">{{ $article->title }}</a>
-            <hr>
-        @endforeach
-    </div>
-@endif
+</section>
+
+{{--
 @if(count($distributor->comments) > 0)
     <hr>
     @foreach($distributor->comments as $comment)
@@ -85,4 +180,4 @@
         {!! Form::close() !!}
     </div>
 </div>
-<hr>
+<hr>--}}

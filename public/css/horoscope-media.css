@@ -1,0 +1,1000 @@
+/*********************************@media (min-width: 319px) and (max-width: 374px)*********************************/
+@media (min-width: 319px) and (max-width: 374px) {
+  .hrp {
+    margin: 17% 0 13% 0;
+    line-height: 0;
+    width: 100%;
+  }
+  .horoscope .hrp-main-media {
+    margin: -10% 0 -8% 0;
+    padding-left: 3.5%;
+    padding-right: 3.5%;
+  }
+  .hrp-main .hrp .icons-img {
+    margin-bottom: 7px;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .heading-title {
+    font-size: 21px;
+    margin: 13% 0 0 0;
+  }
+  .hrp {
+    line-height: 20px;
+  }
+  aside {
+    display: none;
+  }
+  .horoscope-path {
+    overflow: hidden;
+  }
+  .horoscope-description .img-horoscope-description {
+    width: 40%;
+  }
+  .horoscope-description .description {
+    width: 93%;
+    text-align: left;
+    margin: 0 7%;
+  }
+  .img-horoscope-description p {
+    font-size: 12px;
+  }
+  .description {
+    display: block;
+    float: none;
+    margin: 0 0 34px -17px;
+    overflow: unset;
+    -webkit-transition: 1s;
+    transition: 1s;
+  }
+  .description p {
+    font-size: 16px;
+    padding: 0;
+  }
+  .img-horoscope-description p {
+    font-size: 14px;
+  }
+  .container-imgs {
+    width: 36%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+/* margin-left: 10%; */
+    margin: 0 auto;
+  }
+  .horoscope-description-main {
+    padding-right: 0;
+    margin-left: 0%;
+    width: 100%;
+  }
+  .header-menu-left ul {
+    display: none;
+  }
+  .section-social {
+    margin-left: 4%;
+  }
+  .heading-title-media {
+    display: block;
+  }
+  .heading-title-media p {
+    letter-spacing: 1px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+    display: none;
+  }
+  .horoscope-description .img-horoscope-description {
+    float: left;
+    margin-left: 9%;
+    padding-right: 9%;
+  }
+  .description {
+    margin: 0 0 3% 5%;
+  }
+  .img-horoscope-description img {
+    max-width: 100%;
+  }
+  .articles-news hr {
+    background-color: #c7c7c7;
+    height: 1px;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .horoscope-description .description {
+/*width: 51%;*/
+    float: none;
+  }
+  .icons-img span {
+    letter-spacing: 1px;
+  }
+  .span-spoiler {
+    letter-spacing: 1px;
+    margin-left: 11%;
+  }
+  .span-spoiler::before {
+    content: "";
+    width: 42%;
+    left: -12px;
+  }
+  .horoscope-controller {
+    margin-top: 5%;
+  }
+  .heading-title-main h2 {
+    font-size: 26px;
+  }
+  .z-index-item-up {
+    margin: 0 0 0 0;
+  }
+}
+/*********************************@media (min-width: 319px) and (max-width: 374px)*********************************/
+/*********************************@media (min-width: 375px) and (max-width: 439px)*********************************/
+@media (min-width: 375px) and (max-width: 439px) {
+  .hrp {
+    margin: 28% 0 13% 11%;
+    line-height: 0;
+    width: 81%;
+  }
+  .horoscope .hrp-main-media {
+    margin: -10% 0 -8% 0;
+    padding-left: 3.5%;
+    padding-right: 3.5%;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .heading-title {
+    font-size: 21px;
+    margin: 13% 0 0 0;
+  }
+  .heading-title-main h2 {
+    font-size: 26px;
+  }
+  aside {
+    display: none;
+  }
+  .horoscope-path {
+    overflow: hidden;
+  }
+  .horoscope-description .img-horoscope-description {
+    width: 29%;
+  }
+  .horoscope-description .description {
+    width: 93%;
+    text-align: left;
+    margin: 0 7%;
+  }
+  .img-horoscope-description p {
+    font-size: 12px;
+  }
+  .description {
+    display: block;
+    float: none;
+    margin: 0 0 34px -17px;
+    overflow: unset;
+    -webkit-transition: 1s;
+    transition: 1s;
+  }
+  .description p {
+    font-size: 16px;
+    padding: 0;
+  }
+  .container-imgs {
+    width: 36%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+/* margin-left: 10%; */
+    margin: 0 auto;
+  }
+  .horoscope-description-main {
+    padding-right: 0;
+    margin-left: 0%;
+    width: 100%;
+  }
+  .header-menu-left ul {
+    display: none;
+  }
+  .section-social {
+    margin-left: 4%;
+  }
+  .heading-title-media {
+    display: block;
+  }
+  .heading-title-media p {
+    letter-spacing: 1px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+    display: none;
+  }
+  .horoscope-description .img-horoscope-description {
+    float: left;
+    margin-left: 2%;
+    padding-right: 6%;
+  }
+  .horoscope-description .img-horoscope-description {
+    margin: 0 0 0 18px;
+  }
+  div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
+    float: right;
+    margin-right: -2%;
+  }
+  .description {
+    margin: 0 0 3% 5%;
+  }
+  .img-horoscope-description p {
+    font-size: 14px;
+    margin: 0 0 15px 0;
+  }
+  .horoscope-description {
+    margin-bottom: 30px;
+  }
+  .z-index-item-up {
+    margin: 0 0 0 0;
+  }
+  .content {
+    width: 100%;
+    padding: 0 10px 0 0;
+  }
+  .img-horoscope-description img {
+    max-width: 100%;
+  }
+  .articles-news hr {
+    background-color: #c7c7c7;
+    height: 1px;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .horoscope-description .description {
+    float: none;
+  }
+  .span-spoiler {
+    letter-spacing: 1px;
+    margin-left: 11%;
+  }
+  .span-spoiler::before {
+    content: "";
+    width: 54%;
+    left: -12px;
+  }
+  .horoscope-controller {
+    margin-top: 3%;
+  }
+}
+/*********************************@media (min-width: 375px) and (max-width: 439px)*********************************/
+/*********************************@media (min-width: 420px) and (max-width: 519px))*********************************/
+@media (min-width: 420px) and (max-width: 519px) {
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .z-index-item-up {
+    margin: 0 0 0 0;
+  }
+  aside {
+    display: none;
+  }
+  .heading-title {
+    font-size: 21px;
+    margin: 13% 0 0 0;
+  }
+  .horoscope-path {
+    overflow: hidden;
+  }
+  .horoscope-description .img-horoscope-description {
+    width: 29%;
+  }
+  .horoscope-description .description {
+    width: 93%;
+    text-align: left;
+    margin: 0 7%;
+  }
+  .img-horoscope-description p {
+    font-size: 12px;
+  }
+  .description {
+    display: block;
+    float: none;
+    margin: 0 0 34px -17px;
+    overflow: unset;
+    -webkit-transition: 1s;
+    transition: 1s;
+  }
+  .description p {
+    font-size: 16px;
+    padding: 0;
+  }
+  .img-horoscope-description p {
+    font-size: 14px;
+  }
+  .container-imgs {
+    width: 36%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+/* margin-left: 10%; */
+    margin: 0 auto;
+  }
+  .horoscope-description-main {
+    padding-right: 0;
+    margin-left: 0%;
+    width: 100%;
+  }
+  .header-menu-left ul {
+    display: none;
+  }
+  .section-social {
+    margin-left: 4%;
+  }
+  .heading-title-media {
+    display: block;
+  }
+  .heading-title-media p {
+    letter-spacing: 1px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+    display: none;
+  }
+  .horoscope-description .img-horoscope-description {
+    float: left;
+    margin-left: 9%;
+    padding-right: 9%;
+  }
+  .description {
+    margin: 0 0 3% 5%;
+  }
+  .img-horoscope-description img {
+    max-width: 100%;
+  }
+  .articles-news hr {
+    background-color: #c7c7c7;
+    height: 1px;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .horoscope-description .description {
+/*width: 51%;*/
+    float: none;
+  }
+  .span-spoiler {
+    letter-spacing: 1px;
+    margin-left: 11%;
+  }
+  .span-spoiler::before {
+    content: "";
+    width: 54%;
+    left: -12px;
+  }
+  .horoscope-controller {
+    margin-top: 5%;
+  }
+}
+/*********************************@media (min-width: 420px) and (max-width: 519px))*********************************/
+/*********************************@media (min-width: 520px) and (max-width: 639px))*********************************/
+@media (min-width: 520px) and (max-width: 639px) {
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .z-index-item-up {
+    margin: 0 0 0 0;
+  }
+  .heading-title-main h2 {
+    font-size: 26px;
+  }
+  .heading-title {
+    font-size: 21px;
+    margin: 13% 0 0 0;
+  }
+  aside {
+    display: none;
+  }
+  .horoscope-path {
+    overflow: hidden;
+  }
+  .horoscope-description .img-horoscope-description {
+    width: 29%;
+  }
+  .horoscope-description .description {
+    width: 93%;
+    text-align: left;
+    margin: 0 7%;
+  }
+  .img-horoscope-description p {
+    font-size: 12px;
+  }
+  .description {
+    display: block;
+    float: none;
+    margin: 0 0 34px -17px;
+    overflow: unset;
+    -webkit-transition: 1s;
+    transition: 1s;
+  }
+  .description p {
+    font-size: 16px;
+    padding: 0;
+  }
+  .img-horoscope-description p {
+    font-size: 14px;
+  }
+  .container-imgs {
+    width: 36%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+/* margin-left: 10%; */
+    margin: 0 auto;
+  }
+  .horoscope-description-main {
+    padding-right: 0;
+    margin-left: 0;
+    width: 100%;
+  }
+  .header-menu-left ul {
+    display: none;
+  }
+  .section-social {
+    margin-left: 4%;
+  }
+  .heading-title-media {
+    display: block;
+  }
+  .heading-title-media p {
+    letter-spacing: 1px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+    display: none;
+  }
+  .horoscope-description .img-horoscope-description {
+    float: left;
+    margin-left: 9%;
+    padding-right: 9%;
+  }
+  .description {
+    margin: 0 0 3% 5%;
+  }
+  .img-horoscope-description img {
+    max-width: 100%;
+  }
+  .articles-news hr {
+    background-color: #c7c7c7;
+    height: 1px;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .horoscope-description .description {
+/*width: 51%;*/
+    float: none;
+  }
+  .span-spoiler {
+    letter-spacing: 1px;
+    margin-left: 10%;
+  }
+  .span-spoiler::before {
+    content: "";
+    width: 66%;
+    left: -12px;
+  }
+  .horoscope-controller {
+    margin-top: 5%;
+  }
+}
+/*********************************@media (min-width: 520px) and (max-width: 639px))*********************************/
+/*********************************@media (min-width: 640px) and (max-width: 767px))*********************************/
+@media (min-width: 640px) and (max-width: 767px) {
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .z-index-item-up {
+    margin: 0 0 0 0;
+  }
+  .heading-title {
+    font-size: 21px;
+    margin: 13% 0 0 0;
+  }
+  .heading-title-main h2 {
+    font-size: 26px;
+  }
+  aside {
+    display: none;
+  }
+  .horoscope-path {
+    overflow: hidden;
+  }
+  .horoscope-description .img-horoscope-description {
+    width: 29%;
+  }
+  .horoscope-description .description {
+    width: 93%;
+    text-align: left;
+    margin: 0 7%;
+  }
+  .img-horoscope-description p {
+    font-size: 12px;
+  }
+  .description {
+    display: block;
+    float: none;
+    margin: 0 0 34px -17px;
+    overflow: unset;
+    -webkit-transition: 1s;
+    transition: 1s;
+  }
+  .description p {
+    font-size: 16px;
+    padding: 0;
+  }
+  .img-horoscope-description p {
+    font-size: 14px;
+  }
+  .container-imgs {
+    width: 36%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+/* margin-left: 10%; */
+    margin: 0 auto;
+  }
+  .horoscope-description-main {
+    padding-right: 0;
+    margin-left: 0;
+    width: 100%;
+  }
+  .header-menu-left ul {
+    display: none;
+  }
+  .section-social {
+    margin-left: 4%;
+  }
+  .heading-title-media {
+    display: block;
+  }
+  .heading-title-media p {
+    letter-spacing: 1px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+    display: none;
+  }
+  .horoscope-description .img-horoscope-description {
+    float: left;
+    margin-left: 9%;
+    padding-right: 9%;
+  }
+  .description {
+    margin: 0 0 3% 5%;
+  }
+  .img-horoscope-description img {
+    max-width: 100%;
+  }
+  .articles-news hr {
+    background-color: #c7c7c7;
+    height: 1px;
+    width: 90%;
+    margin: 0;
+    padding: 0;
+    display: block;
+  }
+  .horoscope-description .description {
+/*width: 51%;*/
+    float: none;
+  }
+  .span-spoiler {
+    letter-spacing: 1px;
+    margin-left: 11%;
+  }
+  .span-spoiler::before {
+    content: "";
+    width: 71%;
+    left: -12px;
+  }
+  .horoscope-controller {
+    margin-top: 5%;
+  }
+}
+/*********************************@media (min-width: 640px) and (max-width: 767px))*********************************/
+/*********************************@media (min-width: 640px) and (max-width: 767px))*********************************/
+@media (min-width: 768px) and (max-width: 1024px) {
+  .hrp {
+    margin: 3.8% 0 10% 0;
+    width: 91%;
+  }
+  div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
+    float: right;
+    margin-right: 1%;
+  }
+  .horoscope-description {
+    margin-bottom: 54px;
+  }
+  .description {
+    display: block;
+    float: left;
+    margin: 0 0 18px 0;
+    overflow: hidden;
+    -webkit-transition: 1s;
+    transition: 1s;
+  }
+  .span-spoiler {
+    margin-left: 4%;
+  }
+  .horoscope-controller {
+    padding: 3% 0 0 0;
+  }
+  .horoscope-path p {
+    margin: 0 0 10px 0;
+  }
+  .content {
+    width: 100%;
+    padding: 0 0 0 74px;
+  }
+  .left-title {
+    display: block;
+  }
+  section {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+  }
+  .left-title-planshet {
+    width: 100%;
+    padding: 8.3% 0 0 0;
+  }
+  .line-container {
+    width: 100%;
+    margin: 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .left-title-planshet .vertical-line {
+    height: 7px;
+    width: 100%;
+    -webkit-box-ordinal-group: 3;
+    -webkit-order: 2;
+       -moz-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    margin-top: 3px;
+    margin-left: 14px;
+  }
+  .left-title-planshet h2 {
+    width: 100%;
+    -webkit-transform: none;
+        -ms-transform: none;
+            transform: none;
+    background: none;
+    padding: 0;
+    position: relative;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+       -moz-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    font-size: 25px;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  aside {
+    display: none;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+    margin: 0 0 0 -6%;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+}
+/*********************************@media (min-width: 640px) and (max-width: 767px))*********************************/

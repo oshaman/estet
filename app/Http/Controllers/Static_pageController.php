@@ -2,6 +2,7 @@
 
 namespace Fresh\Estet\Http\Controllers;
 
+use Fresh\Estet\Repositories\AdvertisingRepository;
 use Fresh\Estet\Repositories\ArticlesRepository;
 use Fresh\Estet\Repositories\SeoRepository;
 use Fresh\Estet\Repositories\Static_pageRepository;
@@ -12,9 +13,14 @@ class Static_pageController extends MainController
     protected $repository;
     protected $seo_rep;
 
-    public function __construct(ArticlesRepository $a_rep, Static_pageRepository $repository, SeoRepository $seo_rep)
+    public function __construct(
+        ArticlesRepository $a_rep,
+        Static_pageRepository $repository,
+        SeoRepository $seo_rep,
+        AdvertisingRepository $adv
+    )
     {
-        parent::__construct($a_rep);
+        parent::__construct($a_rep, $adv);
         $this->repository = $repository;
         $this->seo_rep = $seo_rep;
     }

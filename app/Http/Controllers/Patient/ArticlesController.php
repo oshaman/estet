@@ -66,12 +66,22 @@ class ArticlesController extends Controller
         $this->js = '
             <script src="' . asset('js') . '/libs/jquery.mCustomScrollbar.concat.min.js"></script>
             <script src="' . asset('js') . '/patient.js"></script>
+            <script>
+            $(\'#captcha\').click(function(e){
+                $(".captcha").attr(\'src\',\'http://39.j2landing.com/captcha\');
+            })
+
+        </script>
         ';
         return $this->renderOutput();
     }
 
     public function show($article=null)
     {
+        $this->js = '
+            <script src="' . asset('js') . '/libs/jquery.mCustomScrollbar.concat.min.js"></script>
+            <script src="' . asset('js') . '/patient.js"></script>
+        ';
         if ($article) {
             $this->a_rep->displayed($article);
 

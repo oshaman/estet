@@ -1,0 +1,374 @@
+.page-content {
+  padding-right: 3%;
+}
+.bread-crumbs {
+  display: flex;
+  align-items: center;
+}
+.bread-crumbs:before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 137px;
+  height: 7px;
+  background: #202020;
+  border: solid #fff;
+  border-width: 0 11px 0 0;
+}
+.bread-crumbs span {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+  color: #202020;
+}
+.katalog-page {
+  margin-top: 87px;
+}
+.katalog-page .blog-section {
+  font-size: 0;
+  position: relative;
+}
+.katalog-page .blog-section .categories-section {
+  width: 22%;
+  display: inline-block;
+  position: relative;
+  margin-right: 4%;
+}
+.katalog-page .blog-section .categories-section:before {
+  content: '';
+  background-color: #f3f3f3;
+  height: 33%;
+  position: absolute;
+  width: 100%;
+}
+.katalog-page .blog-section .categories-section:nth-child(4n) {
+  margin-right: 0;
+}
+.katalog-page .blog-section .categories-section a {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  color: #202020;
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.katalog-page .blog-section .categories-section img {
+  padding-left: 13%;
+  position: relative;
+}
+.katalog-page .blog-section .categories-section.active {
+  background-color: #f3f3f3;
+}
+.katalog-page .blog-section-post {
+  margin-top: 97px;
+}
+.catalog-internal {
+  position: relative;
+}
+.blog-section-post .content-blog {
+  width: 100%;
+}
+.content-blog {
+  padding-right: 4.2%;
+}
+.block-info {
+  display: flex;
+  justify-content: space-between;
+}
+.details-page:nth-child(1) {
+  width: 37%;
+}
+.details-page:nth-child(2) {
+  width: 54%;
+}
+.details-page img {
+  width: 100%;
+}
+.details-page h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 24px;
+  color: #000;
+}
+.details-page h3:before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  box-sizing: border-box;
+  width: 12%;
+  height: 8px;
+  background: #202020;
+  border: solid #fff;
+  border-width: 0 14px 2px 0;
+}
+.details-page p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+  color: #000;
+  margin-top: 19px;
+  line-height: 19.6px;
+}
+.details-page hr {
+  margin: 24px 0;
+  width: 93%;
+  border: 1px solid #b0b2b8;
+}
+.details-page span {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 16px;
+}
+.kompani-info {
+  margin-top: 26px;
+}
+.kompani-info .brand-head {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.kompani-info .brand-head .katalog-line {
+  order: 2;
+  margin-top: 3px;
+  width: 100%;
+  display: block;
+  height: 7px;
+  background: #202020;
+  position: absolute;
+}
+.kompani-info .brand-head span {
+  position: relative;
+  font-size: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  transform: none;
+  padding: 0;
+  order: 1;
+  background: #fff;
+  padding-right: 14px;
+}
+.kompani-info p {
+  margin-top: 23px;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+}
+.details-page-info {
+  margin-top: 27px;
+}
+.details-page-info:before {
+  content: '';
+  position: absolute;
+  width: 41.5%;
+  height: 72%;
+  top: 204px;
+  left: -2%;
+  background: #f3f3f3;
+}
+.rating {
+  display: flex;
+}
+.rating p {
+  position: relative;
+  margin-top: 8px;
+  font-size: 12px;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+}
+.top-rating > span:hover:before {
+  content: "\2605";
+  position: absolute;
+}
+.top-rating {
+  unicode-bidi: bidi-override;
+  direction: rtl;
+  margin-right: 5%;
+}
+.top-rating > span:hover:before,
+.top-rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+.top-rating> span {
+  display: inline-block;
+  position: relative;
+  width: 17.6px;
+  font-size: 17.3px;
+}
+.top-rating > span:hover:before,
+.top-rating > span:hover ~ span:before {
+  content: "\2605";
+  position: absolute;
+}
+.info-kompani {
+  position: relative;
+  margin-top: 25px;
+}
+.info-kompani .kompani-contacts {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 7px;
+}
+.info-kompani .kompani-contacts p {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 700;
+  font-size: 12px;
+  margin-top: 0;
+  margin-right: 3%;
+}
+.info-kompani .kompani-contacts span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+.info-kompani .kompani-contacts a {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  color: #202020;
+}
+.info-kompani .kompani-contacts .contacts-tel {
+  display: flex;
+  margin-bottom: -3px;
+  flex-direction: column;
+}
+.info-kompani .kompani-contacts .contacts-tel p {
+  padding-right: 8px;
+}
+.working-hours {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid;
+  border-top: 1px solid;
+  padding: 7.6px 0;
+  margin-top: 25px;
+}
+.working-hours p {
+  margin-top: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+.working-hours span {
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  display: flex;
+  width: 40%;
+  justify-content: space-between;
+}
+.kervices-kompani {
+  position: relative;
+  margin-top: 29px;
+}
+.kervices-kompani p {
+  margin-top: 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  margin-bottom: 19px;
+}
+.kervices-kompani li {
+  list-style-type: none;
+  padding-left: 7%;
+  padding-bottom: 12px;
+}
+.kervices-kompani li:before {
+  content: '';
+  display: inline-block;
+  width: 3.5%;
+  height: 3px;
+  background: #202020;
+  position: absolute;
+  left: 0;
+  margin-top: 9px;
+}
+.kervices-kompani li:last-child {
+  padding-bottom: 0;
+}
+.brand-publications {
+  position: relative;
+  margin-top: 58px;
+}
+.brand-publications:before {
+  content: '';
+  position: absolute;
+  width: 114.8%;
+  height: 111%;
+  top: -7.3%;
+  left: -10%;
+  background: #f3f3f3;
+}
+.brand-publications .brand-head {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.brand-publications .brand-head .katalog-line {
+  order: 2;
+  margin-top: 3px;
+  width: 100%;
+  display: block;
+  height: 7px;
+  background: #202020;
+  position: absolute;
+}
+.brand-publications .brand-head span {
+  position: relative;
+  font-size: 24px;
+  font-family: 'Cormorant Garamond', serif;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  transform: none;
+  padding: 0;
+  order: 1;
+  background: #f3f3f3;
+  padding-right: 20px;
+}
+.brand-publications .publications {
+  margin-top: 37px;
+}
+.brand-publications .publications article {
+  border-bottom: 1px solid;
+  padding-bottom: 13px;
+  padding-top: 30px;
+}
+.brand-publications .publications article p {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 19px;
+}
+.brand-publications .publications article:last-child {
+  border-bottom: none;
+  padding-bottom: 25px;
+}
+.brand-publications .publications article:nth-child(1) {
+  padding-top: 0;
+}
+.katalog-page .comment-post {
+  position: relative;
+  margin-top: 67px;
+}
+.katalog-page .about-description {
+  font-family: 'Cormorant Garamond', serif;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+  text-align: center;
+  width: 100%;
+  margin-top: 113px;
+}
+.katalog-page .about-description h4 {
+  font-size: 24px;
+}
+.katalog-page .about-description p {
+  margin-top: 28px;
+  display: inline-block;
+}

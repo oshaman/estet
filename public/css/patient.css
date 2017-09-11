@@ -232,12 +232,18 @@
     height: 7px;
     margin-left: 21px;
     margin-top: 5px;
+    position: relative;
 }
 
 .interesting-facts .aside-block h2 {
     order: 1;
     font-size: 30px;
     line-height: 24px;
+    opacity:1;
+    transform: none;
+    position: relative;
+    background-color: #fff;
+    padding-right: 14px;
 }
 
 .interesting-facts .aside-block .form-wrap {

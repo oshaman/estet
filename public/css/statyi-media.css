@@ -1,0 +1,1876 @@
+/*********************************@media (min-width: 319px) and (max-width: 374px)*********************************/
+@media (min-width: 319px) and (max-width: 374px) {
+  .left-title {
+    display: block;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 7%;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: block;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .content {
+    margin-top: 18.6%;
+    width: 94%;
+    padding: 0 0 0 6%;
+  }
+  .img-statyi img {
+    width: 100%;
+    position: relative;
+  }
+  .block-text span {
+    font-size: 10px;
+    font-family: 'Roboto';
+    background-color: #202020;
+    padding: 0.8% 3% 0.1% 3%;
+    color: #fff;
+  }
+  .block-text p {
+/* width: 91%; */
+    font-size: 19px;
+    margin-top: 3%;
+    font-family: 'Cormorant Garamond';
+  }
+  .statyi-block {
+    width: 100%;
+  }
+  .block-text {
+    margin: 6% 0 6% 0.5%;
+  }
+  aside {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+  .reklama {
+    width: 100%;
+  }
+  .img_articles_news-popul img {
+    width: 100%;
+  }
+}
+/*********************************@media (min-width: 319px) and (max-width: 374px)*********************************/
+/*********************************@media (min-width: 375px) and (max-width: 439px)*********************************/
+@media (min-width: 375px) and (max-width: 439px) {
+  .left-title {
+    display: block;
+    padding: 46px 0 0 0;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 7%;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: block;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .content {
+    margin-top: 11.6%;
+    width: 94%;
+    padding: 0 0 0 6%;
+  }
+  .img-statyi img {
+    width: 100%;
+    position: relative;
+  }
+  .block-text span {
+    font-size: 10px;
+    font-family: 'Roboto';
+    background-color: #202020;
+    padding: 0.8% 3% 0.1% 3%;
+    color: #fff;
+  }
+  .block-text p {
+/* width: 91%; */
+    font-size: 19px;
+    margin-top: 3%;
+    font-family: 'Cormorant Garamond';
+  }
+  .statyi-block {
+    width: 100%;
+  }
+  .block-text {
+    margin: 6% 0 14% 0;
+  }
+  aside {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+  .reklama {
+    width: 100%;
+  }
+  .img_articles_news-popul img {
+    width: 100%;
+  }
+}
+/*********************************@media (min-width: 375px) and (max-width: 439px)*********************************/
+/*********************************@media (min-width: 420px) and (max-width: 519px))*********************************/
+@media (min-width: 420px) and (max-width: 519px) {
+  .left-title {
+    display: block;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 7%;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: block;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .content {
+    margin-top: 18.6%;
+    width: 94%;
+    padding: 0 0 0 6%;
+  }
+  .img-statyi img {
+    width: 100%;
+    position: relative;
+  }
+  .block-text span {
+    font-size: 10px;
+    font-family: 'Roboto';
+    background-color: #202020;
+    padding: 0.8% 3% 0.1% 3%;
+    color: #fff;
+  }
+  .block-text p {
+/* width: 91%; */
+    font-size: 19px;
+    margin-top: 3%;
+    font-family: 'Cormorant Garamond';
+  }
+  .statyi-block {
+    width: 100%;
+  }
+  .block-text {
+    margin: 6% 0 6% 0.5%;
+  }
+  aside {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+  .reklama {
+    width: 100%;
+  }
+  .img_articles_news-popul img {
+    width: 100%;
+  }
+}
+/*********************************@media (min-width: 420px) and (max-width: 519px))*********************************/
+/*********************************@media (min-width: 520px) and (max-width: 639px))*********************************/
+@media (min-width: 520px) and (max-width: 639px) {
+  .left-title {
+    display: block;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 7%;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: block;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .content {
+    margin-top: 18.6%;
+    width: 94%;
+    padding: 0 0 0 6%;
+  }
+  .img-statyi img {
+    width: 100%;
+    position: relative;
+  }
+  .block-text span {
+    font-size: 10px;
+    font-family: 'Roboto';
+    background-color: #202020;
+    padding: 0.8% 3% 0.1% 3%;
+    color: #fff;
+  }
+  .block-text p {
+/* width: 91%; */
+    font-size: 19px;
+    margin-top: 3%;
+    font-family: 'Cormorant Garamond';
+  }
+  .statyi-block {
+    width: 100%;
+  }
+  .block-text {
+    margin: 6% 0 6% 0.5%;
+  }
+  aside {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+  .reklama {
+    width: 100%;
+  }
+  .img_articles_news-popul img {
+    width: 100%;
+  }
+}
+/*********************************@media (min-width: 520px) and (max-width: 639px))*********************************/
+/*********************************@media (min-width: 640px) and (max-width: 767px))*********************************/
+@media (min-width: 640px) and (max-width: 767px) {
+  .left-title {
+    display: block;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 7%;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: block;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .content {
+    margin-top: 18.6%;
+    width: 94%;
+    padding: 0 0 0 6%;
+  }
+  .img-statyi img {
+    width: 100%;
+    position: relative;
+  }
+  .block-text span {
+    font-size: 10px;
+    font-family: 'Roboto';
+    background-color: #202020;
+    padding: 0.8% 3% 0.1% 3%;
+    color: #fff;
+  }
+  .block-text p {
+/* width: 91%; */
+    font-size: 19px;
+    margin-top: 3%;
+    font-family: 'Cormorant Garamond';
+  }
+  .statyi-block {
+    width: 100%;
+  }
+  .block-text {
+    margin: 6% 0 6% 0.5%;
+  }
+  aside {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+  .reklama {
+    width: 100%;
+  }
+  .img_articles_news-popul img {
+    width: 100%;
+  }
+}
+/*********************************@media (min-width: 640px) and (max-width: 767px))*********************************/
+/*********************************@media (min-width: 768px) and (max-width: 1024px))*********************************/
+@media (min-width: 768px) and (max-width: 1024px) {
+  .left-title {
+    display: block;
+  }
+  section {
+    -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+  }
+  .left-title-planshet {
+    width: 100%;
+    padding: 5% 0 0 0;
+  }
+  .line-container {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+  }
+  .left-title-planshet .vertical-line {
+    height: 7px;
+    width: 100%;
+    -webkit-box-ordinal-group: 3;
+    -webkit-order: 2;
+       -moz-box-ordinal-group: 3;
+        -ms-flex-order: 2;
+            order: 2;
+    margin: 20px 0 0 14px;
+  }
+  .left-title-planshet h2 {
+    width: 100%;
+    -webkit-transform: none;
+        -ms-transform: none;
+            transform: none;
+    background: none;
+    padding: 0;
+    position: relative;
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+       -moz-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+    font-size: 39px;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin-bottom: 7%;
+  }
+  .statyi-content,
+  .statyi-content-1,
+  .statyi-content-2,
+  .statyi-content-3,
+  .statyi-content-4,
+  .statyi-content-5,
+  .statyi-content-6 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+  }
+  .content {
+    margin-top: 8.6%;
+    width: 94%;
+    padding: 0 0 0 6%;
+  }
+  .img-statyi img {
+    width: 100%;
+    position: relative;
+  }
+  .block-text span {
+    font-size: 10px;
+    font-family: 'Roboto';
+    background-color: #202020;
+    padding: 0.8% 3% 0.1% 3%;
+    color: #fff;
+  }
+  .block-text p {
+/* width: 91%; */
+    font-size: 24px;
+    margin-top: 3%;
+    font-family: 'Cormorant Garamond';
+  }
+  .statyi-block {
+    width: 46%;
+  }
+  .block-text {
+    margin: 13.8% 0 3% 1%;
+  }
+  aside {
+    display: none;
+  }
+  .main-content {
+    width: 100%;
+    padding-right: 0;
+  }
+  .news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+  }
+  .articles-right,
+  .articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+  }
+  .articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+  }
+  .articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+  }
+  .articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+  }
+  .articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+  }
+  .articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+  }
+  .articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+  }
+  .articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+  }
+  .articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+  }
+  .psychology a {
+    color: #202020;
+  }
+  .articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+  }
+  .podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+  }
+  .visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+  }
+  .img_articles_news-popular {
+    padding-left: 30px;
+  }
+  .img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+  }
+  .podpiska {
+    padding-left: 69px;
+  }
+  .layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+  }
+  .pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+  }
+  .pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+  }
+  .pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+  }
+  .pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228,228,228,0.2);
+  }
+  .pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+  }
+  .pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+  }
+  .reklama {
+    width: 100%;
+  }
+  .img_articles_news-popul img {
+    width: 100%;
+  }
+}

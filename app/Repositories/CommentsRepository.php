@@ -4,6 +4,7 @@ namespace Fresh\Estet\Repositories;
 use Fresh\Estet\Blogcomment;
 use Fresh\Estet\Establishmentcomment;
 use Fresh\Estet\Eventcomment;
+use Fresh\Estet\Horocomment;
 use Validator;
 use Fresh\Estet\Article;
 use Fresh\Estet\Establishment;
@@ -29,6 +30,9 @@ class CommentsRepository
                 return $comments;
             case 4:
                 $comments = Eventcomment::where('approved', 0)->select(['name', 'email', 'id', 'text'])->orderBy('created_at', 'desc')->paginate(Config::get('settings.paginate_comments'));
+                return $comments;
+            case 5:
+                $comments = Horocomment::where('approved', 0)->select(['name', 'email', 'id', 'text'])->orderBy('created_at', 'desc')->paginate(Config::get('settings.paginate_comments'));
                 return $comments;
             default:
                 return ['error'=>'Ошибка получения коментария'];
@@ -111,6 +115,9 @@ class CommentsRepository
                 $data['event_id'] = $data['comment_post_ID'];
                 $model = new Eventcomment();
                 break;
+            case 5:
+                $model = new Horocomment();
+                break;
             default:
                 return ['error'=>'Ошибка получения коментария'];
         }
@@ -185,6 +192,14 @@ class CommentsRepository
 
                 $data['event_id'] = $data['comment_post_ID'];
                 break;
+            case 5:
+                $model = Horocomment::where('id', '=', $id)->first();
+
+                if (!$model) {
+                    return ['error'=>'Ошибка получения коментария'];
+                }
+
+                break;
             default:
                 return ['error'=>'Ошибка получения коментария'];
         }
@@ -227,6 +242,13 @@ class CommentsRepository
                 break;
             case 4:
                 $model = Eventcomment::where('id', '=', $id)->first();
+
+                if (!$model) {
+                    return ['error'=>'Ошибка получения коментария'];
+                }
+                break;
+            case 5:
+                $model = Horocomment::where('id', '=', $id)->first();
 
                 if (!$model) {
                     return ['error'=>'Ошибка получения коментария'];

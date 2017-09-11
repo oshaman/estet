@@ -1,0 +1,133 @@
+.horoscope .main-content {
+  padding-right: 0;
+}
+#section-1 {
+  overflow: hidden;
+}
+.content-center h2 {
+  font-size: 32px;
+  font-family: "Cormorant Garamond";
+  margin: 4% 0 6% 0;
+}
+h3 {
+  font-size: 24px;
+}
+.block h3::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 1px;
+  width: 12px;
+  border: 1px solid #455ea7;
+  position: absolute;
+  margin: 7px 0 0 -15px;
+}
+.vertical-line {
+  background: #202020;
+}
+.block li {
+  list-style-type: none;
+  font-size: 16px;
+  font-family: "Cormorant Garamond";
+}
+.block li::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  -webkit-box-sizing: border-box;
+     -moz-box-sizing: border-box;
+          box-sizing: border-box;
+  height: 1px;
+  border: solid #202020;
+  border-width: 0 14px 0 9px;
+  margin: 0 14px 0 0;
+}
+.block {
+  margin: 0 0 0 -28px;
+}
+.block li {
+  margin: 13px 0 14px 0;
+}
+.block ul {
+  margin: 18px 0 33px 0;
+}
+.block li a {
+  color: #000;
+}
+.block li img {
+  padding: 0 2.3% 0.5% 0;
+}
+.block::before {
+  content: '';
+  position: absolute;
+  border: 1px solid #455ea7;
+  height: 100%;
+  margin: 9px 0 0 -15px;
+}
+.vertical-line-map {
+  background: #455ea7;
+}
+.aside-map {
+  margin: 32px 0 0 0;
+}
+.block:nth-child(1) {
+  padding-left: 0px;
+}
+.block:nth-child(2) {
+  padding-left: 28px;
+}
+.block:nth-child(3) {
+  padding-left: 56px;
+}
+.block:nth-child(4) {
+  padding-left: 84px;
+}
+.block:nth-child(5) {
+  padding-left: 112px;
+}
+.block:nth-child(6) {
+  padding-left: 140px;
+}
+.block:nth-child(7) {
+  padding-left: 168px;
+}
+.block:nth-child(8) {
+  padding-left: 196px;
+}
+.block:nth-child(9) {
+  padding-left: 224px;
+}
+.block:nth-child(10) {
+  padding-left: 252px;
+}
+@media (max-width: 767px) {
+  .content-center .block {
+    padding-left: 0;
+  }
+  .block {
+    margin: 0;
+    padding-left: 0;
+  }
+  .block li::before {
+    content: '';
+    position: absolute;
+    border-width: 0 10px 0 9px;
+    left: 12px;
+    margin-top: 7px;
+  }
+  .block ul li {
+    font-size: 13px;
+    margin: 13px 0 14px 30px;
+  }
+  .block::before {
+    content: '';
+    display: none;
+  }
+  .block h3::before {
+    content: '';
+    display: none;
+  }
+}

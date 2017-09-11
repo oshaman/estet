@@ -1,31 +1,49 @@
 /**
  * Created by Админ on 05.09.2017.
  */
+/* scroll elements */
+$(function(){
+    if(window.location.hash) {
+        scrollBody(1000);
+    };
+});
+$('.Top-link').click(function(e){
+    e.preventDefault(e);
+    scrollBody(1000);
+});
+function scrollBody(tim) {
+    $('body,html').animate({
+        scrollTop: $(window.location.hash).offset().top - 150 + 'px'
+    },tim);
+};
 
 /*init lines on scroll*/
 function linesOnScroll() {
-    $('.line-container').each(function () {
-        w_h = $(window).height();
-        winTop = $(window).scrollTop();
-        elOffTop = $(this).offset().top;
-        line = $(this).find('.vertical-line');
-        elOffTop < winTop + w_h - 300 ? ($(this).addClass('active'), line.css({height: line.attr('data-height') + 'px'})) : ($(this).removeClass('active'), line.css({height: 0 + 'px'}));
+    $('.line-container').each(function(){
+        if(!$(this).parents('aside').hasClass('aside') && !$(this).parent().hasClass('aside-block')){
+            w_h = $(window).height();
+            winTop = $(window).scrollTop();
+            elOffTop = $(this).offset().top;
+            line = $(this).find('.vertical-line');
+            elOffTop < winTop + w_h - 300 ? ($(this).addClass('active'),line.css({height: line.attr('data-height') + 'px'})) : ($(this).removeClass('active'),line.css({height: 0 + 'px'}));
+        }
     });
 };
-
 /* lines and words params */
-function wordLinePosition() {
-    $('.line-container').each(function () {
-        line = $(this).find('.vertical-line');
-        word = $(this).find('h2');
-        wordInner = word.html();
-        wordFuture = '';
-        tran = .1 * wordInner.length;
-        for (i = 0; i < wordInner.length; i++) {
-            wordFuture += '<span style="right:' + 100 + 'px;  ">' + wordInner[i] + '</span>';
+function wordLinePosition(){
+    $('.line-container').each(function(){
+        if(!$(this).parents('aside').hasClass('aside') && !$(this).parent().hasClass('aside-block')) {
+            line = $(this).find('.vertical-line');
+            word = $(this).find('h2');
+            wordInner = word.html();
+            wordFuture = '';
+            tran = .1 * wordInner.length;
+            for (i = 0; i < wordInner.length; i++) {
+                wordFuture += '<span style="right:' + 100 + 'px;  ">' + wordInner[i] + '</span>';
+            }
+            word.html(wordFuture);
+            line.attr('data-height', ($(this).height() - word.width() - 15));
         }
-        word.html(wordFuture);
-        line.attr('data-height', ($(this).height() - word.width() - 15));
     });
 };
 
@@ -131,6 +149,7 @@ function switchSites() {
     $('.doctor,.checkbox-label').click(function () {
         $('#checkbox1').removeClass('active');
         $('.wrap-pop').addClass('active');
+        $('#checkbox1').prop('checked', 'bff ');
     });
     $('.close-pop, .pop-bg').click(function () {
         $('#checkbox1').addClass('active');

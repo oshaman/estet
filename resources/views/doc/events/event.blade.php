@@ -29,59 +29,8 @@
                          alt="{{ $slider->alt }}" title="{{ $slider->title }}">
                 @endforeach
             </div>
-            <!--section 7-->
-            <div class="experts">
-                <p>Эксперты</p>
-                <div class="experts-title">
-                    <p>Светлана Ларкина</p>
-                    <span>к. м. н., челюстно-лицевой хирург, главный врач «Центра интенсивной
-                                косметологии и анти-эйдж-терапии Светланы Ларкиной» (Одесса, Украина)</span>
-                </div>
-                <div class="experts-title">
-                    <p>Светлана Ларкина</p>
-                    <span>к. м. н., челюстно-лицевой хирург, главный врач «Центра интенсивной
-                                косметологии и анти-эйдж-терапии Светланы Ларкиной» (Одесса, Украина)</span>
-                </div>
-                <div class="experts-title">
-                    <p>Светлана Ларкина</p>
-                    <span>к. м. н., челюстно-лицевой хирург, главный врач «Центра интенсивной
-                                косметологии и анти-эйдж-терапии Светланы Ларкиной» (Одесса, Украина)</span>
-                </div>
-            </div>
-            <!--section 7-1-->
-            <div class="topics">
-                <p>Темы</p>
-                <ul>
-                    <li><span>Пропорции и баланс в формировании идеального лица. Клинико-анатомический
-                                анализ ключевых зон для комплексной коррекции и восстановления мягких тканей.</span></li>
-                    <li><span>Пропорции и баланс в формировании идеального лица. Клинико-анатомический
-                                анализ ключевых зон для комплексной коррекции и восстановления мягких тканей.</span></li>
-                    <li><span>Пропорции и баланс в формировании идеального лица. Клинико-анатомический
-                                анализ ключевых зон для комплексной коррекции и восстановления мягких тканей.</span></li>
-                    <li><span>Пропорции и баланс в формировании идеального лица. Клинико-анатомический
-                                анализ ключевых зон для комплексной коррекции и восстановления мягких тканей.</span></li>
-                    <li><span>Пропорции и баланс в формировании идеального лица. Клинико-анатомический
-                                анализ ключевых зон для комплексной коррекции и восстановления мягких тканей.</span></li>
-                </ul>
-            </div>
-            <!--section 7-2-->
             <div class="meropryyatyya-data">
-                <div class="data-title">
-                    <p>Организатор:</p>
-                    <span>Эстетик сервис</span>
-                </div>
-                <div class="data-title">
-                    <p>Регистрация:</p>
-                    <span><a href="tel: +380673445469">(067) 344-54-69</a>, <a href="tel: +380675445464">(067) 544-54-64</a></span>
-                </div>
-                <div class="data-title">
-                    <p>Дата и место проведения:</p>
-                    <span><time>26 апреля 2017</time>, Одесса, Спа отель Лондонская</span>
-                </div>
-                <div class="data-title">
-                    <p>Целевая аудитория:</p>
-                    <span>Врачи косметологи</span>
-                </div>
+                {!! $event->content !!}
             </div>
 
 
@@ -90,37 +39,8 @@
             </div>
             <!--section 7-3-->
             <div class="comment-post">
-                <div class="social-networks">
-                    <p>Добавьте в закладки чтобы не потерять / поделитесь с друзьями:</p>
-                    <div class="social-post">
-                        <img src="../img/social/1.png" alt="">
-                        <img src="../img/social/2.png" alt="">
-                        <img src="../img/social/3.png" alt="">
-                        <img src="../img/social/3.png" alt="">
-                        <img src="../img/social/3.png" alt="">
-                        <img src="../img/social/6.png" alt="">
-                    </div>
-                </div>
-
-
-
-
-                <div class="section-form">
-                    <p class="add-comm">Добавить коментарий:</p>
-                    <fomr name="test" method="post" action="" class="section-form-up">
-                        <input type="email" name="email" class="section-input" placeholder="ваша почта">
-                        <input type="text" name="name" class="section-input" placeholder="имя">
-                        <textarea name="comment" cols="40" rows="3" class="section-form-text" placeholder="текст"></textarea>
-                        <div class="section-form-down">
-                            <div>
-                                <input readonly type="text" name="cod" class="section-form-test" placeholder="78535">
-                                <input type="text" name="prof" class="section-form-test">
-                            </div>
-                            <button class="but-section-form but-section-purpur" type="button">отправить</button>
-                        </div>
-                        <p> <img src="../img/content/refresh.png" alt="">обновить</p>
-                    </fomr>
-                </div>
+                @include('layouts.social-networks')
+                @include('layouts.comments_form', ['id' => $event->id, 'source' => 4])
             </div>
 
         </div>
@@ -263,20 +183,5 @@
             @include('comment', ['children' => $event->comments, 'id' => $comment->id])
         @endforeach
     @endif
-    <hr>
-    <div class="row">
-        <h4>Добавить коментарий</h4>
-        <div class="row">
-            {!! Form::open(['url' => route('comments'),'class'=>'form-horizontal','method'=>'post']) !!}
-            {!! Form::text('email', old('email') ? : '' , ['placeholder'=>'Ваша почта', 'id'=>'email', 'class'=>'form-control']) !!}
-            {!! Form::text('name', old('name') ? : '' , ['placeholder'=>'Имя', 'id'=>'name', 'class'=>'form-control']) !!}
-            {!! Form::textarea('text', old('text') ? : '' , ['placeholder'=>'Коментарий', 'id'=>'text', 'class'=>'form-control', 'rows'=>5, 'cols'=>50]) !!}
-            {!! Form::button(trans('admin.sent'), ['class' => 'btn btn-success','type'=>'submit']) !!}
-            {{ Form::hidden('comment_post_ID', $event->id) }}
-            {{ Form::hidden('comment_parent', 0) }}
-            {{ Form::hidden('comment_source', 4) }}
-            {!! Form::close() !!}
-        </div>
-    </div>
     <hr>
     --}}

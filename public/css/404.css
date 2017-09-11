@@ -1,0 +1,147 @@
+.content-404 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  background: #fff;
+  margin-top: 71px;
+}
+.content-block {
+  display: flex;
+  flex-direction: column;
+  width: 720px;
+  margin-top: 33px;
+  height: 866px;
+}
+.content-block p {
+  font-size: 88px;
+  color: #455ea7;
+  font-family: 'Vidaloka', serif;
+  text-align: center;
+}
+.doctor-page .content-block p {
+  color: #7e2b83;
+}
+.doctor-page .flex-item p {
+  color: #000;
+}
+.content-block span {
+  font-size: 40px;
+  font-family: 'Cormorant Garamond', serif;
+  text-align: center;
+  margin-top: -14px;
+  margin-bottom: 41px;
+  font-weight: 700;
+}
+.search-404 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.search-404 input {
+  width: 683px;
+  border-radius: 15px;
+  font-size: 14px;
+  padding-left: 18px;
+  height: 27px;
+  border: 1px solid #202020;
+}
+.search-404 .search {
+  position: initial;
+  padding: 0px 9px;
+}
+.search-404 .search:before,.search-404 .search:after {
+  display: none;
+}
+.fakt-404 {
+  width: 100%;
+  height: 22px;
+  border-bottom: 2px solid #455ea7;
+  text-align: center;
+  margin: 58px 0 69px 0;
+}
+.doctor-page .fakt-404 {
+  border-bottom: 2px solid #7e2b83;
+}
+.fakt-404 span {
+  font-size: 30px;
+  color: #202020;
+  background-color: #fff;
+  padding: 0 22px;
+  font-weight: 700;
+}
+.flex-item-container {
+  display: flex;
+}
+.flex-item:nth-child(1) {
+  flex-shrink: 1;
+  margin-right: 3.5rem;
+}
+.flex-item:nth-child(1) img {
+  width: 222px;
+  height: auto;
+}
+.flex-item:nth-child(2) {
+  flex-shrink: 10;
+}
+.flex-item p {
+  font-size: 24px;
+  color: #000;
+  text-align: inherit;
+  margin: -8px 0 14px 0px;
+  font-weight: 500;
+}
+.flex-item span {
+  font-size: 14px;
+  color: #000;
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+}
+.flex-bitum {
+  display: flex;
+  margin-top: 56px;
+}
+.flex-404 p {
+  color: #202020;
+  font-size: 19px;
+  font-family: 'Cormorant Garamond', serif;
+  margin-bottom: 21px;
+  font-weight: 700;
+}
+.doctor-page .flex-404 p {
+  color: #202020;}
+
+.flex-404:nth-child(1) {
+  flex-shrink: 1;
+  width: 36%;
+}
+.flex-404:nth-child(2) {
+  flex-shrink: 1;
+  width: 28%;
+  text-align: center;
+}
+.flex-404:nth-child(2) hr {
+  width: 136px;
+  position: relative;
+  display: inline-block;
+  border-top: 1px solid #202020;
+  top: 35px;
+}
+.flex-404:nth-child(3) {
+  flex-shrink: 1;
+  width: 36%;
+  text-align: center;
+}
+.flex-404 button {
+  background-color: #fff;
+  border: 1px solid #111;
+  width: 256px;
+  color: #202020;
+  border-radius: 20px;
+  height: 23px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+  font-family: "Roboto";
+  text-align: center;
+  letter-spacing: 3px;
+}

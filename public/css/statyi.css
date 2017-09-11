@@ -268,94 +268,6 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
     text-align: right;
   }
 }
-/************************main-content start*************************/
-.hrp-main {
-  margin: -10% 0 -8% 0;
-  padding-left: 3.5%;
-  padding-right: 6%;
-}
-.hrp-main .hrp .icons-img {
-  margin-bottom: 50px;
-}
-.heading-title {
-  text-align: center;
-  font-size: 36px;
-  font-family: "Cormorant Garamond";
-  margin: 3% 0 0 0;
-}
-.heading-title-main h2 {
-  font-size: 46px;
-}
-.span-spoiler {
-  position: relative;
-  cursor: pointer;
-  letter-spacing: 2px;
-  font-size: 12px;
-  margin-left: 4%;
-}
-.span-spoiler::before {
-  content: "";
-  display: inline-block;
-  vertical-align: middle;
-  width: 73%;
-  height: 1px;
-  background-color: #c7c7c7;
-  position: relative;
-  left: -26px;
-}
-.span-spoiler::after {
-  content: attr(data-open);
-  text-transform: uppercase;
-}
-/************************main-content end*************************/
-.horoscope .aside-block .content-aside-main {
-  margin-top: 36px;
-}
-.horoscope .aside-block .advertising {
-  margin: 69px 0 56px;
-}
-.horoscope .aside-block .form-wrap-aside-block {
-  margin: 24.6% 0;
-}
-.horoscope-path {
-  overflow: hidden;
-  transition: 0.5s;
-}
-.horoscope-description {
-  margin-bottom: 52px;
-}
-.horoscope-controller {
-  padding: 3% 0 0 0;
-}
-.horoscope-description .img-horoscope-description {
-  width: 35%;
-  float: left;
-  margin: 0 0 0 -7%;
-  text-align: center;
-}
-.horoscope-path p {
-  margin: 0 0 28px 0;
-}
-.description {
-  display: block;
-  float: left;
-  margin: 0 0 18px 0;
-  overflow: hidden;
-  -webkit-transition: 1s;
-  transition: 1s;
-}
-.description p {
-  font-size: 19px;
-  font-family: "Cormorant Garamond";
-  margin: 0 0 10px 0;
-}
-.horoscope-description .description {
-  width: 59%;
-}
-div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
-  float: right;
-  margin-right: 3%;
-}
 .statyi-content,
 .statyi-content-1,
 .statyi-content-2,
@@ -388,6 +300,28 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
       -ms-flex-pack: justify;
           justify-content: space-between;
 }
+.content {
+  margin-top: 3.6%;
+}
+.block-text span {
+  font-size: 10px;
+  font-family: 'Roboto';
+  background-color: #202020;
+  padding: 0.8% 3% 0.1% 3%;
+  color: #fff;
+}
+.block-text p {
+/* width: 91%; */
+  font-size: 24px;
+  margin-top: 3%;
+  font-family: 'Cormorant Garamond';
+}
+.statyi-block {
+  width: 46%;
+}
+.block-text {
+  margin: 7.5% 0 3% 0;
+}
 /***************************************news-articles***************************************/
 /*******************************articles-left*******************************/
 .news-articles {
@@ -412,17 +346,17 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
   border-right: 12px solid #fff;
   margin: -3% 0 0 46.5%;
 }
-/*.articles::before {*/
-  /*content: "";*/
-  /*display: inline-block;*/
-  /*vertical-align: middle;*/
-  /*width: 79px;*/
-  /*height: 7px;*/
-  /*background-color: #455ea7;*/
-  /*position: relative;*/
-  /*left: 70%;*/
-  /*top: -3px;*/
-/*}*/
+.articles::before {
+  content: "";
+  display: inline-block;
+  vertical-align: middle;
+  width: 79px;
+  height: 7px;
+  background-color: #455ea7;
+  position: relative;
+  left: 70%;
+  top: -3px;
+}
 .articles p {
   margin: -27px 0 33px 10px;
   font-size: 24px;
@@ -641,7 +575,7 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
 }
 .rubrics h3 {
   font-size: 24px;
-  padding: 79px 0 38px 0;
+  margin: 79px 0 38px 0;
   font-weight: bold;
   font-family: 'CormorantGaramond';
 }
@@ -825,233 +759,16 @@ footer .social a {
   content: '\e802';
 }
 /* clock */
-/*******************************************form*******************************************/
-.comment-post {
-  width: 95%;
-}
-.comment-post .social-networks {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-     -moz-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-     -moz-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-.comment-post .social-networks p {
-  font-family: 'Cormorant Garamond', serif;
-  font-weight: 600;
-  font-size: 19px;
-}
-.comment-post .social-networks .social-post {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-justify-content: space-around;
-      -ms-flex-pack: distribute;
-          justify-content: space-around;
-  width: 26%;
-}
-.comment-post .section-form {
-  margin-top: 32px;
-}
-.comment-post .section-form .add-comm {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 11px;
-}
-.comment-post .section-form .section-form-up {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-  -webkit-flex-direction: column;
-     -moz-box-orient: vertical;
-     -moz-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-}
-.comment-post .section-form .section-form-up .section-input {
-  width: 31.5%;
-  height: 32px;
-  padding: 0 0 0 15px;
-  font-size: 12px;
-  font-family: 'Roboto';
-  margin-bottom: 10px;
-}
-.comment-post .section-form .section-form-up .section-form-text {
-  height: 98px;
-  padding: 7px 0 0 15px;
-  font-size: 12px;
-  font-family: 'Roboto';
-}
-.comment-post .section-form .section-form-up .section-form-down {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-     -moz-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+/*************************************************aside*************************************************/
+.horoscope .content-aside-main article {
   margin-top: 30px;
 }
-.comment-post .section-form .section-form-up .section-form-down div {
-  letter-spacing: 26px;
+.horoscope .content-aside-main .articles-vertical {
+  margin: 0 0 65px 0;
 }
-.comment-post .section-form .section-form-up .section-form-down div .section-form-test {
-  width: 70px;
-  height: 35.11px;
-  font-family: 'Roboto', sans-serif;
-  font-size: 19px;
-  text-align: center;
+.horoscope .hrp {
+  margin: 15% 0 0 0;
 }
-.comment-post .section-form .section-form-up .but-section-form {
-  width: 23.5%;
-  border-radius: 40px;
-  background: #455ea7;
-  color: #fff;
-  height: 35px;
-  font-size: 14px;
-  font-family: "Roboto-Bold";
-  letter-spacing: 3px;
-  text-transform: uppercase;
-  border: 0;
-  cursor: pointer;
+.horoscope .hrp .icons-img {
+  margin: 0 0 35px 0;
 }
-.comment-post .section-form .section-form-up .but-section-purpur {
-  background: #7e2b83;
-}
-/*******************************************form*******************************************/
-/*************************************************aside*************************************************/
-.aside-block > * {
-  width: 100%;
-  padding: 0;
-}
-.aside-block .content {
-  margin-top: 17px;
-}
-.aside-block .line-container {
-  width: 100%;
-  margin: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -moz-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-     -moz-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-}
-.aside-block .left-title .vertical-line {
-  height: 7px;
-  width: 100%;
-  -webkit-box-ordinal-group: 3;
-  -webkit-order: 2;
-     -moz-box-ordinal-group: 3;
-      -ms-flex-order: 2;
-          order: 2;
-  margin-top: 5px;
-  margin-left: 12px;
-  position: relative;
-}
-.aside-block .left-title h2 {
-  width: 100%;
-  -webkit-transform: none;
-      -ms-transform: none;
-          transform: none;
-  background: none;
-  padding: 0;
-  position: relative;
-  -webkit-box-ordinal-group: 2;
-  -webkit-order: 1;
-     -moz-box-ordinal-group: 2;
-      -ms-flex-order: 1;
-          order: 1;
-  font-size: 24px;
-}
-.aside-block .articles-vertical {
-  padding: 0;
-}
-.aside-block .title-time {
-  padding: 0;
-  width: 100%;
-}
-.aside-block article {
-  margin: 18px 0 15px;
-}
-.aside-block .link-title {
-  margin: 12px 0 0;
-}
-.aside-block h3 {
-  font-size: 16px;
-  line-height: 21px;
-}
-.advertising {
-  margin: 48px 0 56px;
-}
-.advertising > * {
-  width: 100%;
-  display: block;
-}
-.aside-block .form-wrap {
-  background: #f3f3f3;
-  margin: 16.6% 0;
-  padding: 11% 9.6%;
-}
-.aside-block form * {
-  display: block;
-  width: 100%;
-  outline: none;
-}
-.aside-block form h4 {
-  font-weight: 600;
-  line-height: 18px;
-  font-size: 19px;
-  font-family: 'Cormorant';
-  text-align: center;
-}
-.aside-block form strong {
-  margin: 20px 0 11px;
-  text-align: center;
-  font-family: 'Cormorant';
-}
-.aside-block form label {
-  margin-bottom: 13px;
-}
-.aside-block form input,
-.aside-block form select {
-  height: 28px;
-  border: 0;
-}
-.aside-block form button {
-  height: 23px;
-  border-radius: 23px;
-  background: #455ea7;
-  color: #fff;
-  text-transform: uppercase;
-  border: none;
-  letter-spacing: 3.6px;
-  font-family: 'Roboto';
-  font-weight: 700;
-  font-size: 12px;
-}
-/*************************************************aside*************************************************/

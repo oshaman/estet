@@ -5,8 +5,11 @@ namespace Fresh\Estet\Http\Controllers;
 use DB;
 use Auth;
 use Cache;
-use Menu;
+use Fresh\Estet\Event;
+use Fresh\Estet\Repositories\AdvertisingRepository;
 use Fresh\Estet\Repositories\ArticlesRepository;
+use Fresh\Estet\Repositories\EventsRepository;
+use Menu;
 
 class MainController extends Controller
 {
@@ -16,17 +19,22 @@ class MainController extends Controller
     protected $title;
     protected $footer = false;
     protected $a_rep;
+    protected $adv_rep;
     protected $title_img;
     protected $content = false;
     protected $seo = false;
+    protected $css = false;
+    protected $js = false;
 
     /**
      * MainController constructor.
      * @param ArticlesRepository $a_rep
+     * @param AdvertisingRepository $adv
      */
-    public function __construct(ArticlesRepository $a_rep)
+    public function __construct(ArticlesRepository $a_rep, AdvertisingRepository $adv)
     {
         $this->a_rep = $a_rep;
+        $this->adv_rep = $adv;
     }
 
     /**
@@ -40,6 +48,8 @@ class MainController extends Controller
         $this->vars = array_add($this->vars, 'title', $this->title);
 
         $this->vars = array_add($this->vars, 'seo', $this->seo);
+        $this->vars = array_add($this->vars, 'css', $this->css);
+        $this->vars = array_add($this->vars, 'js', $this->js);
 
         $status = session('doc');
 
@@ -55,32 +65,6 @@ class MainController extends Controller
         }
         $this->vars = array_add($this->vars, 'footer', $footer);
 
-//        sidebar
-        if ($status) {
-            $this->sidebar = Cache::remember('docsSidebar', 60, function () {
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-                $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
-
-                //          most displayed
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
-                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
-
-                return view('main.sidebar')->with(['lasts' => $last_articles, 'status' => true, 'articles' => $articles])->render();
-            });
-        } else {
-            $this->sidebar = Cache::remember('patientSidebar', 60, function () {
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
-                $last_articles = $this->a_rep->getLast(['title', 'created_at', 'alias'], $where, 2, ['created_at', 'desc']);
-
-                //          most displayed
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
-                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
-
-                return view('main.sidebar')->with(['lasts' => $last_articles, 'status' => false, 'articles' => $articles])->render();
-            });
-        }
-        $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
-//        sidebar
         if ($status) {
             $nav = Cache::remember('docsMenu', 600, function () use ($status) {
                 $menu = $this->getMenu($status);
@@ -117,4 +101,48 @@ class MainController extends Controller
         });
     }
 
+
+    public function getSidebar($status)
+    {
+        //        sidebar
+        if ($status) {
+            $this->sidebar = Cache::remember('docsSidebar', 60, function () {
+                $events_rep = new EventsRepository(new Event());
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+                $lasts = $events_rep->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
+
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
+
+                $horoscope = view('layouts.horoscope.sidebar')->render();
+                $subscribe = view('layouts.subscribe')->render();
+                $advertising = $this->adv_rep->getSidebar('doc');
+
+                return view('main.sidebar')
+                    ->with(['lasts' => $lasts, 'status' => true, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising, 'subscribe' => $subscribe])
+                    ->render();
+            });
+        } else {
+            $this->sidebar = Cache::remember('patientSidebar', 60, function () {
+                $events_rep = new EventsRepository(new Event());
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
+                $lasts = $events_rep->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
+
+                //          most displayed
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
+
+                $horoscope = view('layouts.horoscope.sidebar')->render();
+                $subscribe = view('layouts.subscribe')->render();
+                $advertising = $this->adv_rep->getSidebar('doc');
+
+                return view('main.sidebar')
+                    ->with(['lasts' => $lasts, 'status' => false, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising, 'subscribe' => $subscribe])
+                    ->render();
+            });
+        }
+        $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
+//        sidebar
+    }
 }

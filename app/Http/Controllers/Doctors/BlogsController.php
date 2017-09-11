@@ -175,10 +175,11 @@ class BlogsController extends DocsController
             $articles = $this->blog_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
 
             $horoscope = view('layouts.horoscope.sidebar')->render();
+            $subscribe = view('layouts.subscribe')->render();
             $advertising = $this->adv_rep->getSidebar('doc');
 
             return view('doc.blogs_sidebar')
-                ->with(['lasts' => $lasts, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising])
+                ->with(['lasts' => $lasts, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising, 'subscribe' => $subscribe])
                 ->render();
         });
         return $sidebar;

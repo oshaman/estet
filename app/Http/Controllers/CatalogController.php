@@ -8,11 +8,40 @@ use Fresh\Estet\Repositories\PersonsRepository;
 use Fresh\Estet\Person;
 use Fresh\Estet\Repositories\BlogsRepository;
 use Fresh\Estet\Repositories\PremiumsRepository;
+use Fresh\Estet\Repositories\AdvertisingRepository;
+use Fresh\Estet\Repositories\ArticlesRepository;
 use Cache;
 use DB;
 
 class CatalogController extends MainController
 {
+    protected $nav;
+    protected $prem_rep;
+    protected $ratio_rep;
+    protected $repository;
+
+    public function __construct(
+        ArticlesRepository $a_rep,
+        AdvertisingRepository $adv,
+        PremiumsRepository $prem_rep,
+        EstablishmentratioRepository $ratio_rep,
+        EstablishmentsRepository $repository
+    )
+    {
+        parent::__construct($a_rep, $adv);
+        Cache::flush();
+        $this->css = '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/katalog-brendu.css">
+        ';
+
+        $this->nav = Cache::remember('catalog-nav', 24*60, function () {
+            return view('catalog.nav')->render();
+        });
+
+        $this->prem_rep = $prem_rep;
+        $this->ratio_rep = $ratio_rep;
+        $this->repository = $repository;
+    }
 
     public function index()
     {
@@ -61,35 +90,32 @@ class CatalogController extends MainController
      * @param alias $clinic
      * @return view
      */
-    public function clinics(PremiumsRepository $prem_rep, EstablishmentratioRepository $ratio_rep, EstablishmentsRepository $repository, $clinic = false)
+    public function clinics($clinic = false)
     {
+        $this->getSidebar(session()->has('doc'));
         if ($clinic) {
 
-            /*$ua = $_SERVER['HTTP_USER_AGENT'];
-            $ip = $_SERVER['REMOTE_ADDR'];
-
-            $val = md5($ua . $ip);*/
-
-            $clinic->load('articles');
+            $clinic = $this->repository->convertParams($clinic);
             $clinic->load('comments');
 
-            $ratio = $ratio_rep->getRatio($clinic->id);
-
-            $clinic = $repository->convertParams($clinic);
-
-            $this->content = view('catalog.profiles.clinic')->with(['clinic' => $clinic, 'ratio' => $ratio[0]])->render();
+            $ratio = $this->ratio_rep->getRatio($clinic->id);
+            $this->content = view('catalog.profiles.clinic')
+                ->with(['clinic' => $clinic, 'nav' => $this->nav, 'ratio' => $ratio[0],
+                    'sidebar' => $this->sidebar
+                    ])
+                ->render();
 
             return $this->renderOutput();
         }
 
         $this->title = 'Клиники';
 
-        $this->content = Cache::remember('catalog-clinic', 60, function() use ($prem_rep, $repository) {
-            $prems_ids = $prem_rep->getPremIds('clinic');
+        $this->content = Cache::remember('catalog-clinic', 60, function() {
+            $prems_ids = $this->prem_rep->getPremIds('clinic');
 
-            $prems = $repository->getPrems($prems_ids);
+            $prems = $this->repository->getPrems($prems_ids);
 
-            $clinics = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
+            $clinics = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
 
             return view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems])->render();
 
@@ -102,29 +128,32 @@ class CatalogController extends MainController
      * @param alias $salon
      * @return view
      */
-    public function distributors(PremiumsRepository $prem_rep, EstablishmentsRepository $repository, $distributor = false)
+    public function distributors($distributor = false)
     {
+        $this->getSidebar(session()->has('doc'));
         if ($distributor) {
 
-            $distributor->load('articles');
+            $distributor = $this->repository->convertParams($distributor);
             $distributor->load('comments');
 
-            $distributor = $repository->convertParams($distributor);
+            $children = $this->repository->getChildren($distributor->id);
+            $ratio = $this->ratio_rep->getRatio($distributor->id);
 
-            $children = $repository->getChildren($distributor->id);
-
-            $this->content = view('catalog.profiles.distributor')->with(['distributor' => $distributor, 'children' => $children])->render();
+            $this->content = view('catalog.profiles.distributor')
+                ->with(['distributor' => $distributor, 'sidebar' => $this->sidebar, 'children' => $children,
+                        'nav' => $this->nav, 'ratio' => $ratio[0]])
+                ->render();
 
             return $this->renderOutput();
         }
         $this->title = 'Дистрибьюторы';
 
-        $this->content = Cache::remember('catalog-distributor', 60, function () use ($prem_rep, $repository) {
-            $prems_ids = $prem_rep->getPremIds('distributor');
+        $this->content = Cache::remember('catalog-distributor', 60, function () {
+            $prems_ids = $this->prem_rep->getPremIds('distributor');
 
-            $prems = $repository->getPrems($prems_ids);
+            $prems = $this->repository->getPrems($prems_ids);
 
-            $distributors = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
+            $distributors = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
 
             return view('catalog.distributors')->with(['distributors' => $distributors, 'prems' => $prems])->render();
         });
@@ -136,29 +165,35 @@ class CatalogController extends MainController
      * @param alias $brand
      * @return $this
      */
-    public function brands(PremiumsRepository $prem_rep, EstablishmentsRepository $repository, $brand = false)
+    public function brands($brand = false)
     {
+        $this->getSidebar(session()->has('doc'));
         if ($brand) {
-            $brand = $repository->convertParams($brand);
+            $brand = $this->repository->convertParams($brand);
             $brand->load('comments');
 
-            $parent = $repository->findById($brand->parent);
+            $parent = $this->repository->findById($brand->parent);
 
-            $this->content = view('catalog.profiles.brand')->with(['brand' => $brand, 'parent' => $parent])->render();
+            $ratio = $this->ratio_rep->getRatio($brand->id);
+
+            $this->content = view('catalog.profiles.brand')
+                ->with(['brand' => $brand, 'parent' => $parent, 'sidebar' => $this->sidebar,
+                    'nav' => $this->nav, 'ratio' => $ratio[0]])
+                ->render();
 
             return $this->renderOutput();
         }
 
         $this->title = 'Бренды';
 
-        $this->content = Cache::remember('catalog-brand', 60, function () use ($prem_rep, $repository) {
-            $prems_ids = $prem_rep->getPremIds('brand');
+        $this->content = Cache::remember('catalog-brand', 60, function () {
+            $prems_ids = $this->prem_rep->getPremIds('brand');
 
-            $prems = $repository->getPrems($prems_ids);
+            $prems = $this->repository->getPrems($prems_ids);
 
-            $brands = $repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
+            $brands = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
 
-            return view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems])->render();
+            return view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems, 'sidebar' => $this->sidebar])->render();
         });
         return $this->renderOutput();
     }

@@ -5,55 +5,42 @@
 @endsection
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                @if (isset($errors) && count($errors) > 0)
-                    <div class="contact-form">
-                        <p class="error">
+    <div class="content-404">
+        <div class="content-block">
+            <p>4 0 4</p>
+            <span>Вы потерялись</span>
 
-                            {{ dump($errors)  }}
-                        </p>
-                    </div>
-                @endif
-                @if (session('status'))
-                    <div  class="alert alert-success">
-                        <p class="success">{{ session('status') }}</p>
-                    </div>
-                @endif
+            <div class="search-404">
 
-                    <img src="{{ asset('estet') . '/img/404.png' }}" class=".img-thumbnail">
-                <h2>Вы потерялись</h2>
-                <hr>
-                <h3>----------------- Интересный факт № {{ $article->id }} -----------------</h3>
-                <div class="row">
-                    <div class="col-lg-3">
-                        <img src="{{ asset('/images/article/middle').'/'.$article->path }}"
-                             class="img-thumbnail" alt="{{$article->alt}}" title="{{ $article->img_title }}">
-                    </div>
-                    <div class="col-lg-8 col-lg-offset-1">
-                        <h3>{{ $article->title }}</h3>
-                        <p>{!! $article->content !!}</p>
-                    </div>
+                <input type="search" name="q" placeholder="найти на сайте">
+                <div class="search" id="search">
+                    <img src="{{ asset('estet') }}/img/menu/search.png">
                 </div>
-                <hr>
-                <div class="row">
-                    <div class="col-lg-4">Рекомендуем почитать</div>
-                    <div class="col-lg-4"></div>
-                    <div class="col-lg-4">Или вернуться</div>
+            </div>
+            <div class="fakt-404" >
+                <span>Интересный факт №{{ $article->id }}</span>
+            </div>
+            <div class="flex-item-container">
+                <div class="flex-item">
+                    <img src="{{ asset('/images/article/middle').'/'.$article->path }}"
+                         alt="{{$article->alt}}" title="{{ $article->img_title }}">
                 </div>
-                <div class="row">
-                    <div class="col-lg-4"><a class="btn btn-info" href="{{ route('articles_last') }}">
-                            Последние статьи
-                        </a>
-                    </div>
-                    <div class="col-lg-4">----------------------------------</div>
-                    <div class="col-lg-4">
-                        <a class="btn btn-info" href="{{ route('main') }}">
-                            На главную страницу
-                        </a>
-                    </div>
+                <div class="flex-item">
+                    <p>{{ $article->title }}</p>
+                    <span>{!! str_limit(strip_tags($article->content), 512) !!}</span>
                 </div>
+
+            </div>
+            <div class="flex-bitum">
+                <div class="flex-404">
+                    <p>Рекомендуем почитать</p>
+                    <a href="{{ route('articles_last') }}"><button>Последние статьи</button></a>
+
+                </div>
+                <div class="flex-404"><hr></div>
+                <div class="flex-404">
+                    <p>Или вернуться</p>
+                    <a href="{{ route('main') }}"><button>На главною станицю</button></a>
                 </div>
             </div>
         </div>

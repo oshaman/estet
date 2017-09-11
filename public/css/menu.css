@@ -36,7 +36,8 @@ nav {
 }
 .person {
     text-align: center;
-    font-size: 25px;
+    font-size: 24px;
+    letter-spacing: 1px;
     font-family: "CormorantGaramond";
 }
 .toggles {
@@ -309,8 +310,7 @@ header .line-bottom-menu {
     right: auto;
     background: white;
 }
-
-.ios-toggle.active + .checkbox-label:before {
+.ios-toggle.active + .checkbox-label:before{
     left: calc(100% - 45px);
 }
 .nav_container div {
@@ -328,7 +328,10 @@ header .line-bottom-menu {
     text-decoration: none;
     transition: none;
 }
-
+.menu li a span {
+    display: block;
+    padding: 6px 35px;
+}
 .menu a.active {
     color: #fff;
     border-radius: 46px;
@@ -352,10 +355,9 @@ header .line-bottom-menu {
     color: #202020;
     text-transform: uppercase;
     font-size: 11px;
-    padding: 6px 35px;
     border-radius: 10px;
-    letter-spacing: 0.5px;
-    font-family: "Roboto-Medium";
+    letter-spacing: 1px;
+    font-family: "ProximaNova";
 }
 
 .menu .mega-menu-title {
@@ -406,6 +408,8 @@ header .line-bottom-menu {
     font-weight: 500;
     width: 100%;
     white-space: pre-wrap;
+    font-size: 17px;
+    font-family: "CormorantGaramond";
 }
 
 .menu .submenu li:last-child {
@@ -464,4 +468,167 @@ header .line-bottom-menu {
     top: -15px;
     color: #fff;
     cursor: pointer;
+}
+@media only screen and (max-width: 1271px) {
+
+    container {width: 768px }
+
+    /* menu */
+    header {
+        width: 97.7%;
+        border-right: 1px solid #000;
+    }
+    .header-menu-left {
+        width: auto;
+        position: initial;
+    }
+
+    .menu-left {
+        margin: 0 auto;
+        width: 50%;
+    }
+    .search:after {
+        display: none;
+    }
+    .burger {
+        display: block;
+        position: absolute;
+        left:30px;
+        top: 29px;
+        height: 20px;
+        width: 30px;
+        z-index:50;
+
+    }
+    .burger .line-burger {
+        width: 100%;
+        height: 2px;
+        background: #000;
+        position: absolute;
+        transition: .5s;
+        -webkit-transform-origin: 12px 50%;
+        -moz-transform-origin: 12px 50%;
+        -o-transform-origin: 12px 50%;
+        -ms-transform-origin: 12px 50%;
+        transform-origin: 12px 50%;
+    }
+    .burger .line-burger:nth-child(1) {
+        top:0;
+        animation: topmiddled .5s linear reverse;
+    }
+    .burger .line-burger:nth-child(2) {
+        top:7px;
+        animation: middled .5s linear reverse;
+    }
+    .burger .line-burger:nth-child(3) {
+        top:14px;
+        animation: bottommiddled .5s linear reverse;
+    }
+    .burger.active .line-burger {
+        background:#fff
+    }
+    @keyframes topmiddled {
+        0% {transform: rotate(0deg) translate(0, 0%)}
+        50% { transform: rotate(0deg) translate(0, 7px)}
+        100% {transform: rotate(45deg)translate(0, 7px)}
+    }
+    @keyframes middled {
+        0% {transform: rotate(0deg) translate(0, 0%)}
+        50% { transform: rotate(0deg) translate(0, 0px); opacity: 0}
+        100% {transform: rotate(45deg)translate(0, 0px);opacity: 0}
+    }
+    @keyframes bottommiddled {
+        0% {transform: rotate(0deg) translate(0, 0px)}
+        50% {transform: rotate(0deg) translate(0, -7px)}
+        100% {transform: rotate(-45deg) translate(0, -7px)}
+    }
+
+    .burger.active .line-burger:nth-child(1) {
+        animation: topmiddle .5s linear forwards;
+    }
+    .burger.active .line-burger:nth-child(2) {
+        animation: middle .5s linear forwards;
+    }
+    .burger.active .line-burger:nth-child(3) {
+        animation: bottommiddle .5s linear forwards;
+    }
+    @keyframes topmiddle {
+        0% {transform: rotate(0deg) translate(0, 0%)}
+        50% { transform: rotate(0deg) translate(0, 7px)}
+        100% {transform: rotate(45deg)translate(0, 7px)}
+    }
+    @keyframes middle {
+        0% {transform: rotate(0deg) translate(0, 0%)}
+        50% { transform: rotate(0deg) translate(0, 0px); opacity: 0}
+        100% {transform: rotate(45deg)translate(0, 0px);opacity: 0}
+    }
+    @keyframes bottommiddle {
+        0% {transform: rotate(0deg) translate(0, 0px)}
+        50% {transform: rotate(0deg) translate(0, -7px)}
+        100% {transform: rotate(-45deg) translate(0, -7px)}
+    }
+    .nav_container {
+        position: absolute;
+        left: 0;
+        top: 0px;
+        display: block;
+        width: auto;
+        background-color: rgba(0, 0, 0, .8);
+        width: 0vw;
+        height: 100vh;
+        overflow: hidden;
+    }
+    .nav_container.active {
+        width: 50vw;
+        height: 100vh;
+    }
+    .nav_container .menu {
+        display: block;
+        width: 50vw;
+        margin-top: 100px;
+    }
+    .menu > li > a {
+        color: #fff;
+    }
+    .menu .menu-elem:before {
+        display: none;
+    }
+    .menu .menu-elem {
+        border-bottom: 1px solid rgba(255,255,255,.5);
+        width:85%;
+        display: block;
+        margin-left: 10%;
+        text-align: left;
+    }
+    .menu li.with-sub:after {
+        color:#fff;
+    }
+    .menu li.active.with-sub:after {
+        color:#fff;
+        transform: rotate(180deg);
+    }
+    .menu li .submenu {
+        position: relative;
+        top: 0px;
+        left: 0px;
+    }
+    .menu li .submenu .col {
+        background: transparent;
+        margin: 0;
+        box-shadow: none;
+    }
+    .menu li li {
+        background: transparent;
+        width: auto;
+    }
+    .menu li .submenu a {
+        color:#fff;
+    }
+
+    /* end menu */
+    .bg-colors {
+        display: none;
+    }
+
+
 }

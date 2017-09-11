@@ -64,17 +64,8 @@
             </div>
             <!-- section-5 -->
             <div class="comment-post">
-                <div class="social-networks">
-                    <p>Добавьте в закладки чтобы не потерять / поделитесь с друзьями:</p>
-                    <div class="social-post">
-                        <img src="{{asset('estet')}}/img/social/1.png" alt="">
-                        <img src="{{asset('estet')}}/img/social/2.png" alt="">
-                        <img src="{{asset('estet')}}/img/social/3.png" alt="">
-                        <img src="{{asset('estet')}}/img/social/3.png" alt="">
-                        <img src="{{asset('estet')}}/img/social/3.png" alt="">
-                        <img src="{{asset('estet')}}/img/social/6.png" alt="">
-                    </div>
-                </div>
+                @include('layouts.social-networks')
+                @include('layouts.comments_form', ['id' => $blog->id, 'source' => 2])
                 {{--comments--}}
                 {{--@if(count($blog->comments) > 0)
                     <hr>
@@ -95,28 +86,6 @@
                 @endif
                 <hr>--}}
 
-                <div class="section-form">
-                    <p class="add-comm">Добавить коментарий:</p>
-                    {!! Form::open(['url' => route('comments'),'class'=>'section-form-up','method'=>'post']) !!}
-                    <input type="email" name="email" class="section-input" placeholder="ваша почта"
-                           value="{{ old('email') ? : '' }}">
-                    <input type="text" name="name" class="section-input" placeholder="имя"
-                           value="{{ old('name') ? : '' }}">
-                    <textarea name="text" cols="40" rows="3" class="section-form-text"
-                              placeholder="текст">{{ old('text') ? : '' }}</textarea>
-                    <div class="section-form-down">
-                        <div>
-                            <input readonly type="text" name="cod" class="section-form-test" placeholder="78535">
-                            <input type="text" name="prof" class="section-form-test">
-                        </div>
-                        <button class="but-section-form but-section-purpur" type="button">отправить</button>
-                    </div>
-                    <p><img src="{{asset('estet')}}/img/content/refresh.png" alt="">обновить</p>
-                    {{ Form::hidden('comment_post_ID', $blog->id) }}
-                    {{ Form::hidden('comment_parent', 0) }}
-                    {{ Form::hidden('comment_source', 2) }}
-                    {!! Form::close() !!}
-                </div>
             </div>
 
 

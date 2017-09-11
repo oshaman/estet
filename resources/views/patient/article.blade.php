@@ -36,6 +36,8 @@
     @endif
     <hr>
     <div class="row">
+        <div class="captcha"><img id="captcha" src="{{ route('captcha') }}"></div>
+        <input type=button class="reload" value="Reload">
         <h4>Добавить коментарий</h4>
         <div class="row">
             {!! Form::open(['url' => route('comments'),'class'=>'form-horizontal','method'=>'post']) !!}

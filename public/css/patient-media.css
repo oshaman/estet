@@ -61,7 +61,8 @@
     .most-popular .content > *,
     .diet-food .content > *,
     .medicine-treatment .content > *,
-    .stomatology .content > * {
+    .stomatology .content > *,
+    .content.articles-divisions > :nth-child(1), .content.articles-divisions > :nth-child(2){
         width: 100%;
     }
 
@@ -168,20 +169,19 @@
 
     .interesting-facts .aside-block .line-container {
         position: absolute;
-        background: #fff;
         transform: rotate(-90deg);
-        left: -110.3%;
+        left: -109.3%;
         transform-origin: right;
         justify-content: flex-end;
+        z-index:5;
     }
 
     .interesting-facts .aside-block .line-container .vertical-line {
-        order: 1;
-        width: 25%;
+        display: none;
     }
 
     .interesting-facts .aside-block .line-container h2 {
-        order: 2;
+        padding-right: 49px;
     }
 
     /* section 5  */
