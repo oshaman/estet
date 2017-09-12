@@ -16,6 +16,8 @@ class CreateEventsTable extends Migration
         Schema::create('events', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->index();
+            $table->string('short_title', 32)->nullable()->default(null);
+            $table->string('extlink')->nullable()->default(null)->index();
             $table->string('alias')->unique();
             $table->unsignedInteger('country_id')->index();
             $table->unsignedInteger('city_id')->index();

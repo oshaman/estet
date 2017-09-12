@@ -48,19 +48,8 @@
                                                 <span>{{ trans('ru.' . $distributor->category) }}</span>
                                             </div>
                                             <div class="kompani-contacts">
-                                                <p>Дочерние бренды:</p>
-                                                @if(!empty($children))
-                                                    <div id="children" class="panel-collapse collapse">
-                                                        @foreach($children as $child)
-                                                            <a href="{{ route('brands', $child->alias) }}"><span>{{ $child->title }}</span></a>
-                                                        @endforeach
-                                                    </div>
-                                                @endif
-                                            </div>
-                                            <div class="kompani-contacts">
                                                 <div class="contacts-tel">
                                                     <p>Телефон:</p>
-                                                    <p>Факс:</p>
                                                 </div>
                                                 <div class="contacts-tel">
                                                     <a href="tel: +3800443312425">{{ $distributor->phones }}</a>
@@ -70,10 +59,28 @@
                                                 <p>Web-сайт:</p>
                                                 <a href="{{ $distributor->site }}">{{ $distributor->site }}</a>
                                             </div>
-                                        </div>
-                                        <div class="working-hours">
-                                            <p>Время работы:</p>
-                                            <span>c<time>10:00</time>до<time>21:00</time></span>
+                                            <div class="kompani-contacts">
+                                                <p>Дочерние бренды:</p>
+                                                @if(!empty($children))
+                                                    <div id="children" class="panel-collapse collapse">
+                                                        @foreach($children as $child)
+                                                            <a href="{{ route('brands', $child->alias) }}"><span>{{ $child->title }}</span></a>
+                                                        @endforeach
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            @isset($distributor->extra[0])
+                                                <div class="kompani-contacts">
+                                                    <p>{{ $distributor->extra[0][0] }}</p>
+                                                    {{ $distributor->extra[0][1] }}
+                                                </div>
+                                            @endisset
+                                            @isset($distributor->extra[1])
+                                                <div class="kompani-contacts">
+                                                    <p>{{ $distributor->extra[1][0] }}</p>
+                                                    {{ $distributor->extra[1][1] }}
+                                                </div>
+                                            @endisset
                                         </div>
                                         <div class="kervices-kompani">
                                             @if(!empty($distributor->services))

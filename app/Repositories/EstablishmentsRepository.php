@@ -39,7 +39,8 @@ class EstablishmentsRepository extends Repository
         }
 
         if($pagination) {
-            return $builder->paginate(Config::get('settings.paginate'));
+//            return $builder->paginate(Config::get('settings.paginate'));
+            return $builder->paginate(1);
         }
 
         return $builder->get();
@@ -50,7 +51,7 @@ class EstablishmentsRepository extends Repository
      */
     public function getPrems($ids)
     {
-        $result = $this->model->select(['logo', 'title', 'content', 'alias', 'address'])
+        $result = $this->model->select(['logo', 'title', 'content', 'alias', 'address', 'description', 'alt', 'imgtitle'])
                     ->whereIn('id', $ids)
                     ->get();
         return $result;
@@ -128,6 +129,7 @@ class EstablishmentsRepository extends Repository
             }
 
         }
+
         // Main Image handle
         if ($request->hasFile('logo')) {
             $path = $this->addImg($request->file('logo'), $data['alias']);

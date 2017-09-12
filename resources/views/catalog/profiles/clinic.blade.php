@@ -48,13 +48,24 @@
                                                 <span>{{ trans('ru.' . $clinic->category) }}</span>
                                             </div>
                                             <div class="kompani-contacts">
-                                                <p>Спецификация:</p>
+                                                <p>Специализация:</p>
                                                 {{ $clinic->spec }}
                                             </div>
+                                            @isset($clinic->extra[0])
+                                                <div class="kompani-contacts">
+                                                    <p>{{ $clinic->extra[0][0] }}</p>
+                                                    {{ $clinic->extra[0][1] }}
+                                                </div>
+                                            @endisset
+                                            @isset($clinic->extra[1])
+                                                <div class="kompani-contacts">
+                                                    <p>{{ $clinic->extra[1][0] }}</p>
+                                                    {{ $clinic->extra[1][1] }}
+                                                </div>
+                                            @endisset
                                             <div class="kompani-contacts">
                                                 <div class="contacts-tel">
                                                     <p>Телефон:</p>
-                                                    <p>Факс:</p>
                                                 </div>
                                                 <div class="contacts-tel">
                                                     <a href="tel: +3800443312425">{{ $clinic->phones }}</a>
@@ -64,10 +75,6 @@
                                                 <p>Web-сайт:</p>
                                                 <a href="{{ $clinic->site }}">{{ $clinic->site }}</a>
                                             </div>
-                                        </div>
-                                        <div class="working-hours">
-                                            <p>Время работы:</p>
-                                            <span>c<time>10:00</time>до<time>21:00</time></span>
                                         </div>
                                         <div class="kervices-kompani">
                                             @if(!empty($clinic->services))

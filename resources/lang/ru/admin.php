@@ -37,6 +37,8 @@ return [
     'add_title_placeholder' => 'Введите название статьи',
     'own' => 'Принадлежность',
     'alias_in_use'=>'Данный псевдоним уже используется',
+    'view' => 'Кол-во просмотров',
+    'extlink' => 'Ссылка на внешний ресурс',
     //  profile
     'name' => 'Имя',
     'lastname' => 'Фамилия',
@@ -95,6 +97,9 @@ return [
     'phones' => 'Телефоны',
     'parent' => 'Родитель',
     'about' => 'Описание',
+    'description' => 'Краткое описание',
+    'alt' => 'Alt',
+    'imgtitle' => 'Title',
 //    comments
     'comment_added' => 'Коментарий отправлен на модерацию',
     'comment' => 'ID коментария',

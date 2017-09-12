@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
-    protected $fillable = ['title', 'alias', 'content', 'category_id', 'created_at', 'approved', 'seo', 'own'];
+    protected $fillable = ['title', 'alias', 'content', 'category_id', 'created_at', 'approved', 'seo', 'own', 'view'];
 
     /**
      *  Get the category associated with the blog.

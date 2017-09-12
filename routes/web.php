@@ -252,6 +252,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'admin'], function () {
             Route::match(['post', 'get'], '/show', 'Admin\Events\OrganizersController@show')->name('organizers_admin');
             Route::match(['get', 'post'], 'edit/{organizer}', ['uses' => 'Admin\Events\OrganizersController@edit', 'as' => 'organizer_edit'])->where('organizer', '[0-9]+');
         });
+        Route::group(['prefix' => 'advertising'], function () {
+            Route::get('/', 'Admin\Events\AdvertisingsController@show')->name('create_events_slider');
+            Route::match(['post', 'get'], 'edit/{eadvertising}', 'Admin\Events\AdvertisingsController@edit')->name('update_events_slider')->where('eadvertising', '[0-9]+');
+            Route::get('del/{eadvertising}', 'Admin\Events\AdvertisingsController@del')->name('del_events_slider')->where('eadvertising', '[0-9]+');
+        });
     });
     /**
      * Admin SEO

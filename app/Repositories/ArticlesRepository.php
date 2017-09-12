@@ -184,9 +184,14 @@ class ArticlesRepository extends Repository
         if ($data['title'] !== $article->title) {
             $new['title'] = $data['title'];
         }
-
         if ($data['alias'] !== $article->alias) {
             $new['alias'] = $this->transliterate($data['alias']);
+            if ($this->one($new['alias'], FALSE)) {
+                $request->merge(array('alias' => $new['alias']));
+                $request->flash();
+
+                return ['error' => trans('admin.alias_in_use')];
+            }
         } else {
             $new['alias'] = $article->alias;
         }
@@ -219,6 +224,9 @@ class ArticlesRepository extends Repository
 
         if (!empty($data['outputtime'])) {
             $new['created_at'] = date('Y-m-d H:i:s', strtotime($data['outputtime']));
+        }
+        if (!empty($data['view'])) {
+            $new['view'] = (int)$data['view'];
         }
 
         if (!empty($data['confirmed'])) {

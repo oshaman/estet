@@ -5,6 +5,11 @@
         {{ Form::label('title', 'Название') }}
         {!! Form::text('title', old('title') ? : '', ['placeholder' => 'Название учреждения', 'id'=>'title', 'class'=>'form-control']) !!}
     </div>
+    <div class="row">
+        {{ Form::label('description', 'Краткое описание') }}
+        {!! Form::text('description', old('description') ? : '',
+         ['placeholder' => 'Краткое описание', 'id'=>'description', 'class'=>'form-control']) !!}
+    </div>
     {{--Alias Phones--}}
     <div class="row">
         <div class="col-lg-6">
@@ -17,9 +22,20 @@
         </div>
     </div>
     {{--Logo--}}
-    {{ Form::label('logo', 'Логотип') }}
     <div class="row">
-        {!! Form::file('logo', ['accept'=>'image/*', 'id'=>'logo', 'class'=>'form-control']) !!}
+        {{ Form::label('img', 'Параметры логотипа') }}
+        <div class="row">
+            <div class="col-lg-6"><span>Alt</span>
+                {!! Form::text('alt', old('alt') ? : '' , ['placeholder'=>'Alt', 'id'=>'alt', 'class'=>'form-control']) !!}
+            </div>
+            <div class="col-lg-6"><span>Title</span>
+                {!! Form::text('imgtitle', old('imgtitle') ? : '' , ['placeholder'=>'Title', 'id'=>'imgtitle', 'class'=>'form-control']) !!}
+            </div>
+        </div>
+        {{ Form::label('logo', 'Логотип') }}
+        <div class="row">
+            {!! Form::file('logo', ['accept'=>'image/*', 'id'=>'logo', 'class'=>'form-control']) !!}
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -45,7 +61,7 @@
             {!! Form::text('site', old('site') ? : '', ['placeholder' => 'http://site.com...', 'id'=>'site', 'class'=>'form-control']) !!}
         </div>
         <div class="col-lg-6">
-            {{ Form::label('spec', 'Специализация') }}
+            {{ Form::label('spec', 'Специализация/Описание продкта(для бренда)') }}
             {!! Form::text('spec', old('spec') ? : '', ['placeholder' => 'специализация...', 'id'=>'spec', 'class'=>'form-control']) !!}
         </div>
     </div>

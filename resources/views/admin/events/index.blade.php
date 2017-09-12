@@ -43,6 +43,7 @@
                 <li><a href="{{ route('eventcats_admin') }}">Категории</a></li>
                 <li><a href="{{ route('organizers_admin') }}">Организаторы</a></li>
                 <li><a href="{{ route('create_event') }}">Создание мероприятия</a></li>
+                <li><a href="{{ route('create_events_slider') }}">Рекламный слайдер</a></li>
             </ul>
         </div>
     </nav>

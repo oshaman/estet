@@ -83,6 +83,17 @@ class ArticlesController extends Controller
             <script src="' . asset('js') . '/patient.js"></script>
         ';
         if ($article) {
+            $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya-media.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/fonts.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-bootstrap.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-bootstrap-theme.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-mail.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-artur.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-media-artur.css">
+            ';
+
             $this->a_rep->displayed($article);
 
             $article = Cache::remember('patients_article-'.$article->id, 60, function () use ($article) {

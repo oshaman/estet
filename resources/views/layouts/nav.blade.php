@@ -18,7 +18,8 @@
         <div class="header-menu-left">
             <div class="nav_container active">
                 <ul id="main-menu" class="menu">
-                    <li class="with-sub menu-elem"><img src="{{ asset('estet') }}/img/menu/1.png"><a href="#">Статьи</a>
+                    <li class="with-sub menu-elem">
+                        <a><img src="{{ asset('estet') }}/img/menu/1.png"><span>Статьи</span></a>
                         <ul class="submenu">
                             <li class="col">
                                 {!! Menu::get('menu')->asUl() !!}
@@ -42,12 +43,6 @@
                             <a href="{{ route('docs_cat', 'praktika') }}">
                                 <img src="{{ asset('estet') }}/img/menu/3.png">
                                 <span>Практика</span>
-                            </a>
-                        </li>
-                        <li class="menu-elem">
-                            <a href="{{ route('docs_cat', 'eksperty') }}">
-                                <img src="{{ asset('estet') }}/img/menu/3.png">
-                                <span>Эксперты</span>
                             </a>
                         </li>
                         <li class="menu-elem"><a href="{{ route('docs_cat', 'video') }}">

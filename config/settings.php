@@ -35,4 +35,8 @@ return [
         'middle' => ['width'=>335,'height'=>231],
         'small' => ['width'=>312,'height'=>215],
     ],
+    'events_ad' => [
+        'main' => ['width' => 200, 'height' => 400],
+        'small' => ['width' => 100, 'height' => 200],
+    ],
 ];

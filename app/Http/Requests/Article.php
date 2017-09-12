@@ -23,8 +23,9 @@ class Article extends FormRequest
     {
         $validator = parent::getValidatorInstance();
 
-        $validator->sometimes('alias', ['required', 'unique:articles,alias', 'max:255', 'regex:#^[\w-]#'], function ($input) {
+        $validator->sometimes('alias', ['required', 'max:255', 'regex:#^[\w-]#', 'unique:articles,alias'], function ($input) {
 //  bind article in RouteServiceProvider
+
             if ($this->route()->hasParameter('article') && $this->isMethod('post')) {
                 $model = $this->route()->parameter('article');
                 if (null === $model) return true;
@@ -42,7 +43,6 @@ class Article extends FormRequest
 
             return false;
         });
-
         return $validator;
     }
 
@@ -55,6 +55,7 @@ class Article extends FormRequest
     {
         if ($this->isMethod('post')) {
             $rules = [
+                'alias' => 'required',
                 'title' => ['required', 'string', 'between:4,255'],
                 'cats' => ['digits_between:1,4', 'nullable', 'required'],
                 'tags' => 'array',
@@ -72,6 +73,7 @@ class Article extends FormRequest
                 'confirmed' => 'boolean|nullable',
                 'own' => ['boolean', 'nullable', 'required'],
                 'outputtime' => 'date_format:"Y-m-d H:i"|nullable',
+                'view' => ['digits_between:1,10', 'nullable', 'max:4294967295'],
             ];
 
             if ($this->request->has('tags')) {

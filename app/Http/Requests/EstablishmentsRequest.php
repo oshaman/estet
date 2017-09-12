@@ -53,6 +53,9 @@ class EstablishmentsRequest extends FormRequest
         if ($this->isMethod('post')) {
             $rules = [
                 'title' => ['required', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№\-\s\,\:\!\.\"]+$#u'],
+                'description' => ['nullable', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№\-\s\,\:\!\.\"\&]+$#u'],
+                'alt' => ['nullable', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№\-\s\,\:\!\.\"]+$#u'],
+                'imgtitle' => ['nullable', 'string', 'between:4,255', 'regex:#^[a-zA-zа-яА-ЯёЁ0-9№\-\s\,\:\!\.\"]+$#u'],
                 'logo' => 'mimes:bmp,png,jpeg|max:5120|nullable',
                 'phones' => ['required', 'max:64', 'regex:#^[\d\-\s\,\(\)\+]+$#'],
                 'category' => 'digits_between:1,2|required',

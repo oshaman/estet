@@ -5,6 +5,11 @@
         {{ Form::label('title', 'Название') }}
         {!! Form::text('title', old('title') ? : $establishment->title, ['placeholder' => 'Название учреждения', 'id'=>'title', 'class'=>'form-control']) !!}
     </div>
+    <div class="row">
+        {{ Form::label('description', 'Краткое описание') }}
+        {!! Form::text('description', old('description') ? : ($establishment->description ?? ''),
+         ['placeholder' => 'Краткое описание', 'id'=>'description', 'class'=>'form-control']) !!}
+    </div>
     {{--Alias Phones--}}
     <div class="row">
         <div class="col-lg-6">
@@ -17,12 +22,23 @@
         </div>
     </div>
     {{--Logo--}}
-    <div>
-        {{ Html::image(asset('/images/establishment/main').'/'. $establishment->logo, 'a picture', array('class' => 'thumb')) }}
-    </div>
-    {{ Form::label('logo', 'Логотип') }}
     <div class="row">
-        {!! Form::file('logo', ['accept'=>'image/*', 'id'=>'logo', 'class'=>'form-control']) !!}
+        {{ Form::label('img', 'Параметры логотипа') }}
+        <div class="row">
+            <div class="col-lg-6"><span>Alt</span>
+                {!! Form::text('alt', old('alt') ? : ($establishment->alt ?? '') , ['placeholder'=>'Alt', 'id'=>'alt', 'class'=>'form-control']) !!}
+            </div>
+            <div class="col-lg-6"><span>Title</span>
+                {!! Form::text('imgtitle', old('imgtitle') ? : ($establishment->imgtitle ?? '') , ['placeholder'=>'Title', 'id'=>'imgtitle', 'class'=>'form-control']) !!}
+            </div>
+        </div>
+        <div>
+            {{ Html::image(asset('/images/establishment/main').'/'. $establishment->logo, 'a picture', array('class' => 'thumb')) }}
+        </div>
+        {{ Form::label('logo', 'Логотип') }}
+        <div class="row">
+            {!! Form::file('logo', ['accept'=>'image/*', 'id'=>'logo', 'class'=>'form-control']) !!}
+        </div>
     </div>
     <div class="row">
         <div class="col-lg-6">
@@ -48,7 +64,7 @@
             {!! Form::text('site', old('site') ? : $establishment->site, ['placeholder' => 'http://site.com...', 'id'=>'site', 'class'=>'form-control']) !!}
         </div>
         <div class="col-lg-6">
-            {{ Form::label('spec', 'Специализация') }}
+            {{ Form::label('spec', 'Специализация/Описание продукта(для бренда)') }}
             {!! Form::text('spec', old('spec') ? : ($establishment->spec ?? ''), ['placeholder' => 'специализация...', 'id'=>'spec', 'class'=>'form-control']) !!}
         </div>
     </div>

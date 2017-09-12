@@ -52,7 +52,6 @@
                                             <div class="kompani-contacts">
                                                 <div class="contacts-tel">
                                                     <p>Телефон:</p>
-                                                    <p>Факс:</p>
                                                 </div>
                                                 <div class="contacts-tel">
                                                     <a href="tel: +3800443312425">{{ $brand->phones }}</a>
@@ -63,19 +62,23 @@
                                                 <a href="{{ $brand->site }}">{{ $brand->site }}</a>
 
                                             </div>
-                                        </div>
-                                        <div class="working-hours">
-                                            <p>Время работы:</p>
-                                            <span>c<time>10:00</time>до<time>21:00</time></span>
+                                            @isset($brand->extra[0])
+                                                <div class="kompani-contacts">
+                                                    <p>{{ $brand->extra[0][0] }}</p>
+                                                    {{ $brand->extra[0][1] }}
+                                                </div>
+                                            @endisset
+                                            @isset($brand->extra[1])
+                                                <div class="kompani-contacts">
+                                                    <p>{{ $brand->extra[1][0] }}</p>
+                                                    {{ $brand->extra[1][1] }}
+                                                </div>
+                                            @endisset
                                         </div>
                                         <div class="kervices-kompani">
-                                            @if(!empty($brand->services))
-                                                <p>Услуги:</p>
-                                                <lu>
-                                                    @foreach($brand->services as $service)
-                                                        <li>{{ $service }}</li>
-                                                    @endforeach
-                                                </lu>
+                                            @if(!empty($brand->spec))
+                                                <p>Описание продкта:</p>
+                                                {{ $brand->spec }}
                                             @endif
                                         </div>
                                     </div>
@@ -116,7 +119,7 @@
                             </div>
                             @endif
                         </div>
-                        <div class="comment-post">@include('layouts.social-networks')
+                        <div class="comment-post">
                             @include('layouts.social-networks')
                             @include('layouts.comments_form', ['id' => $brand->id, 'source' => 3])
                             <div class="about-description">

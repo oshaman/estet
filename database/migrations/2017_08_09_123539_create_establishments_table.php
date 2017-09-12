@@ -16,8 +16,11 @@ class CreateEstablishmentsTable extends Migration
         Schema::create('establishments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('title')->unique();
+            $table->string('description')->nullable()->default(null);
             $table->string('alias')->unique();
             $table->string('logo');
+            $table->string('alt')->nullable()->default(null);
+            $table->string('imgtitle')->nullable()->default(null);
             $table->string('address');
             $table->string('phones');
             $table->string('site');

@@ -115,12 +115,10 @@ class MainController extends Controller
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
                 $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
 
-                $horoscope = view('layouts.horoscope.sidebar')->render();
-                $subscribe = view('layouts.subscribe')->render();
                 $advertising = $this->adv_rep->getSidebar('doc');
 
                 return view('main.sidebar')
-                    ->with(['lasts' => $lasts, 'status' => true, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising, 'subscribe' => $subscribe])
+                    ->with(['lasts' => $lasts, 'status' => true, 'articles' => $articles, 'advertising' => $advertising])
                     ->render();
             });
         } else {
@@ -133,12 +131,10 @@ class MainController extends Controller
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
                 $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);
 
-                $horoscope = view('layouts.horoscope.sidebar')->render();
-                $subscribe = view('layouts.subscribe')->render();
                 $advertising = $this->adv_rep->getSidebar('doc');
 
                 return view('main.sidebar')
-                    ->with(['lasts' => $lasts, 'status' => false, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising, 'subscribe' => $subscribe])
+                    ->with(['lasts' => $lasts, 'status' => false, 'articles' => $articles, 'advertising' => $advertising])
                     ->render();
             });
         }

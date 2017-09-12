@@ -101,6 +101,7 @@ class ArticlesController extends AdminController
         }
 
         if ($request->isMethod('post')) {
+
             $result = $this->a_rep->updateArticle($request, $article);
 
             if(is_array($result) && !empty($result['error'])) {

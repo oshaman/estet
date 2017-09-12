@@ -7,6 +7,7 @@ use Image;
 use Config;
 use File;
 use Cache;
+use Validator;
 
 class EventsRepository extends Repository
 {
@@ -34,6 +35,9 @@ class EventsRepository extends Repository
         }
 
         $event['title'] = $data['title'];
+        $event['short_title'] = $data['short_title'];
+        $event['extlink'] = $data['extlink'];
+
         $event['country_id'] = $data['country'];
         $event['city_id'] = $data['city'];
 
@@ -116,8 +120,21 @@ class EventsRepository extends Repository
         $data = $request->except('_token', 'logo', 'slider');
 
         $new['title'] = $data['title'];
+        $new['short_title'] = $data['short_title'];
+        $new['extlink'] = $data['extlink'];
 
-        $new['alias'] = $this->transliterate($data['alias']);
+        if (empty($data['alias'])) {
+            $new['alias'] = $this->transliterate($data['title']);
+        } else {
+            $new['alias'] = $this->transliterate($data['alias']);
+        }
+
+        if (($new['alias'] !== $event->alias) && $this->one($new['alias'])) {
+            $request->merge(array('alias' => $event['alias']));
+            $request->flash();
+            return ['error' => trans('admin.alias_in_use')];
+        }
+
         $new['country_id'] = $data['country'];
         $new['city_id'] = $data['city'];
 
@@ -481,4 +498,97 @@ class EventsRepository extends Repository
 
     }
 
+    /**
+     * @return \Illuminate\Support\Collection
+     */
+    public function getAd()
+    {
+        return $this->eadv->select('id', 'extlink', 'title', 'image')->get();
+    }
+
+    /**
+     * @param $request
+     * @param $ad Instance of Eadv
+     * @return array
+     */
+    public function updateAdvertising($request, $ad)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'nullable|string',
+            'extlink' => 'nullable|string|url',
+            'img' => 'mimes:jpg,bmp,png,jpeg|max:5120|nullable',
+        ]);
+
+        if ($validator->fails()) {
+            return ['error' => $validator];
+        }
+
+        $data['title'] = $request->get('title');
+        $data['extlink'] = $request->get('extlink');
+
+
+        if ($request->hasFile('img')) {
+            $image = $request->file('img');
+            if ($image->isValid()) {
+
+                $path = $data['title'] ? $this->transliterate($data['title']) : str_random(16);
+
+                $path = substr($path, 0, 64) . '-' . time() . '.jpeg';
+
+                $img = Image::make($image);
+
+                $img->fit(Config::get('settings.events_ad')['main']['width'], Config::get('settings.events_ad')['main']['height'],
+                    function ($constraint) {
+                        $constraint->upsize();
+                    },
+                    'center')->save(public_path() . '/images/event/ad/main/' . $path, 100);
+                $img->fit(Config::get('settings.events_ad')['small']['width'], Config::get('settings.events_ad')['small']['height'],
+                    function ($constraint) {
+                        $constraint->upsize();
+                    },
+                    'center')->save(public_path() . '/images/event/ad/small/' . $path, 100);
+
+                $data['image'] = $path;
+
+                if (File::exists(public_path('/images/event/ad/main/') . $ad->image)) {
+                    File::delete(public_path('/images/event/ad/main/') . $ad->image);
+                }
+                if (File::exists(public_path('/images/event/ad/small/') . $ad->image)) {
+                    File::delete(public_path('/images/event/ad/small/') . $ad->image);
+                }
+            }
+        }
+
+        try {
+            $ad->fill($data)->save();
+        } catch (Exception $e) {
+            \Log::info('Ошибка записи рекламы мероприятий ', $e->getMessage());
+            $error[] = ['advertising' => 'Ошибка записи рекламы'];
+            return $error;
+        }
+
+        if ($request->hasFile('img')) {
+
+        }
+
+        Cache::forget('eventSidebar');
+        return ['status' => trans('admin.material_updated')];
+    }
+
+    public function delAdvertising($ad)
+    {
+        $old_image = $ad->image;
+        $ad->title = null;
+        $ad->extlink = null;
+        $ad->image = null;
+        $ad->save();
+
+        if (File::exists(public_path('/images/event/ad/main/') . $old_image)) {
+            File::delete(public_path('/images/event/ad/main/') . $old_image);
+        }
+        if (File::exists(public_path('/images/event/ad/small/') . $old_image)) {
+            File::delete(public_path('/images/event/ad/small/') . $old_image);
+        }
+
+    }
 }

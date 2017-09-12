@@ -78,10 +78,16 @@ class CatalogController extends MainController
         }
         $this->title = 'Врачи';
 
+        $this->css .= '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/katalog.css">
+        ';
+
         $this->content = Cache::remember('catalog_doc', 60, function () use ($rep) {
             $profiles = $rep->get(['name', 'address', 'phone', 'site', 'alias', 'photo'], false, true, false, false, 'specialties');
 
-            return view('catalog.docs')->with(['title' => $this->title, 'profiles' => $profiles])->render();
+            return view('catalog.docs')
+                ->with(['title' => $this->title, 'profiles' => $profiles, 'sidebar' => $this->sidebar])
+                ->render();
         });
         return $this->renderOutput();
     }
@@ -109,6 +115,9 @@ class CatalogController extends MainController
         }
 
         $this->title = 'Клиники';
+        $this->css .= '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/katalog.css">
+        ';
 
         $this->content = Cache::remember('catalog-clinic', 60, function() {
             $prems_ids = $this->prem_rep->getPremIds('clinic');
@@ -117,7 +126,7 @@ class CatalogController extends MainController
 
             $clinics = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
 
-            return view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems])->render();
+            return view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems, 'sidebar' => $this->sidebar])->render();
 
         });
 
@@ -148,14 +157,21 @@ class CatalogController extends MainController
         }
         $this->title = 'Дистрибьюторы';
 
+        $this->css .= '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/katalog.css">
+        ';
+
         $this->content = Cache::remember('catalog-distributor', 60, function () {
             $prems_ids = $this->prem_rep->getPremIds('distributor');
 
             $prems = $this->repository->getPrems($prems_ids);
 
-            $distributors = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
+            $distributors = $this->repository
+                ->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'distributor'], $prems_ids);
 
-            return view('catalog.distributors')->with(['distributors' => $distributors, 'prems' => $prems])->render();
+            return view('catalog.distributors')
+                ->with(['distributors' => $distributors, 'prems' => $prems, 'sidebar' => $this->sidebar])
+                ->render();
         });
 
         return $this->renderOutput();
@@ -185,13 +201,16 @@ class CatalogController extends MainController
         }
 
         $this->title = 'Бренды';
-
+        $this->css .= '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/katalog.css">
+        ';
         $this->content = Cache::remember('catalog-brand', 60, function () {
             $prems_ids = $this->prem_rep->getPremIds('brand');
 
             $prems = $this->repository->getPrems($prems_ids);
 
-            $brands = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
+            $brands = $this->repository->getWithoutPrems(
+                ['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'brand'], $prems_ids);
 
             return view('catalog.brands')->with(['brands' => $brands, 'prems' => $prems, 'sidebar' => $this->sidebar])->render();
         });

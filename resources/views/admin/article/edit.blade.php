@@ -133,10 +133,17 @@
 <!-- SEO -->
 
 <div class="row">
-    <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
-    <div class="input-prepend"><span class="add-on"><i class="icon-time"></i></span>
+    <div class="input-prepend col-lg-6"><span class="add-on"><i class="icon-time"></i></span>
+        <h4>{!! Form::label('outputtime', trans('admin.add_outputtime')) !!}</h4>
         <input type="text" name="outputtime" id="outputtime"
                value="{{ old('outputtime') ? : (date('Y-m-d H:i', strtotime($article->created_at)) ?? date('Y-m-d H:i')) }}">
+    </div>
+    <div class="col-lg-6">
+        <h4>{!! Form::label('view', 'Кол-во просмотров') !!}</h4>
+        <div class="input-prepend col-lg-6">
+            <input type="text" name="view" id="view"
+                   value="{{ old('view') ? : $article->view }}">
+        </div>
     </div>
 </div>
 <div class="row">

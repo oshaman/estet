@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Establishment extends Model
 {
-    protected $fillable = ['title', 'alias', 'logo', 'address', 'phones', 'site',
+    protected $fillable = ['title', 'alias', 'logo', 'alt', 'imgtitle', 'description', 'address', 'phones', 'site',
                         'parent', 'extra', 'services', 'content', 'category', 'spec'];
 
     /**

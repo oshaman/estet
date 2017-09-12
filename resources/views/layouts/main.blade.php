@@ -59,6 +59,11 @@
 
         @yield('content')
 
+        <div class="wrap-top-top">
+            <div class="to-top">></div>
+            наверх
+        </div>
+
     </div>
         @yield('footer')
 </div>

@@ -7,9 +7,22 @@
     </div>
 </div>
 <div class="row">
+    {{ Form::label('short_title', 'Дополнительный заголовок страницы') }}
+    <div>
+        {!! Form::text('short_title', old('short_title') ? : ($event->short_title ?? '') , ['placeholder'=>'До 32 символов', 'id'=>'short_title', 'class'=>'form-control']) !!}
+    </div>
+</div>
+<div class="row">
     {{ Form::label('alias', 'Псевдоним страницы') }}
     <div>
         {!! Form::text('alias', old('alias') ? : ($event->alias ?? '') , ['placeholder'=>'psevdonim-meropriyatiya', 'id'=>'alias', 'class'=>'form-control']) !!}
+    </div>
+</div>
+<div class="row">
+    {{ Form::label('extlink', 'Ссылка на внешний ресурс') }}
+    <div>
+        {!! Form::text('extlink', old('extlink') ? : ($event->extlink ?? '') ,
+         ['placeholder'=>'http://site.com', 'id'=>'extlink', 'class'=>'form-control alert-danger']) !!}
     </div>
 </div>
 {{--Организатор Категория--}}
