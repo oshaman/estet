@@ -19,9 +19,7 @@ function removeEl(){
     var uri;
     if($(this).parent().hasClass('thumbnail')){
        uri =  'http://estet-portal.loc/admin/events/slider'
-    }/*else if() {
-        uri =  'http://estet-portal.loc/admin/events/slider'
-    }*/
+    }
     if($(this).parent().hasClass('thumbnail')){
         _this = $(this);
         ids = _this.parent().attr('data-id');

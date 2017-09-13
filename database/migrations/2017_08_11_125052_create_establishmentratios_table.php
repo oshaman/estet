@@ -15,10 +15,10 @@ class CreateEstablishmentratiosTable extends Migration
     {
         Schema::create('establishmentratios', function (Blueprint $table) {
             $table->unsignedInteger('establishment_id')->index();
-            $table->string('key', 32);
+            $table->string('data_key', 32);
             $table->unsignedTinyInteger('value')->index();
 
-            $table->unique(['key', 'establishment_id']);
+            $table->unique(['data_key', 'establishment_id']);
         });
     }
 

@@ -157,7 +157,6 @@
                         </a>
                         <div class="title-time">
                             <time>
-                                @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
                                 {{ $video->created }}
                             </time>
                             <div class="horizontal-line"></div>
@@ -177,6 +176,8 @@
             </div>
         </div>
     </section>
+    <!--section 3-->
+    <!--section 4-->
     <section id="section-4" class="interesting-facts">
         <div class="left-title">
             <div class="line-container">
@@ -201,13 +202,11 @@
                                 </time>
                                 <div class="horizontal-line"></div>
                             </div>
-                            <a class="link-title" href="">
+                            <a class="link-title" href="{{ route('articles', $article->alias) }}">
                                 <h3>{{ $article->title }}</h3>
                             </a>
                         </div>
                     </article>
-                    @if(!$loop->last)
-                    @endif
                 @endforeach
             </div>
             <div class="aside-block">
@@ -215,20 +214,7 @@
                     <div class="vertical-line"></div>
                     <h2>Подписка</h2>
                 </div>
-                <div class="form-wrap">
-                    <form>
-                        <h4 class="form-title">Будь в курсе последних новостей</h4>
-                        <strong>подпишись на рассылку</strong>
-                        <label><input type="email" placeholder="ваша почта"></label>
-                        <label>
-                            <select name="type">
-                                <option selected="selected" value="0">я пациент</option>
-                                <option value="1">я врач</option>
-                            </select>
-                        </label>
-                        <button class="pod-subs" type="button">Подписаться</button>
-                    </form>
-                </div>
+                @include('layouts.subscribe')
             </div>
         </div>
     </section>
@@ -420,7 +406,6 @@
                                 @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
                                 {{ $article->created }}
                             </time>
-                            <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
                             <h3>{{ $article->title }}</h3>
@@ -653,7 +638,6 @@
                                 @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
                                 {{ $article->created }}
                             </time>
-                            <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
                             <h3>{{ $article->title }}</h3>

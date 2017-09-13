@@ -37,7 +37,7 @@
                                              alt="{{ $prem->alt ?? '' }}" title="{{ $prem->imgtitle ?? '' }}">
                                         <div>
                                             <h4>
-                                                <span>{{ ($profile->name ?? '') . ' ' . ($profile->lastname ?? '')}}</span>
+                                                <span>{{ ($prem->name ?? '') . ' ' . ($prem->lastname ?? '')}}</span>
                                             </h4>
                                             <p>
                                                 @if(!empty($prem->description))
@@ -54,7 +54,7 @@
                                     <div class="button-block">
                                         <div class="button-line"></div>
                                         <a href="{{ route('profiles',['profile'=> $prem->alias]) }}">
-                                            Подробнее о бренде
+                                            Подробнее о враче
                                         </a>
                                     </div>
                                 </div>
@@ -68,10 +68,12 @@
                             <div class="article">
                                 <div class="article-content">
                                     <div class="article-content_top">
-                                        <img src="{{ asset('/images/establishment/main') . '/' . $profile->logo }}"
+                                        <img src="{{ asset(config('settings.theme'))  . '/img/profile/main/' . ($profile->photo ?? '../no_photo.jpg') }}"
                                              alt="{{ $profile->alt ?? '' }}" title="{{ $profile->imgtitle ?? '' }}">
                                         <div>
-                                            <h4><span>{{ $profile->title }}</span></h4>
+                                            <h4>
+                                                <span>{{ ($profile->name ?? '') . ' ' . ($profile->lastname ?? '')}}</span>
+                                            </h4>
                                             <p>
                                                 @if(!empty($profile->description))
                                                     {{ $profile->description }}
@@ -80,13 +82,19 @@
                                                 @endif
                                             </p>
                                             <hr>
-                                            <span>{{ $profile->address }}</span>
+                                            <span>
+                                                @if(!empty($profile->job))
+                                                    {{ $profile->job ?? ''}}
+                                                @endif
+                                                <br>
+                                                {{ $profile->address }}
+                                            </span>
                                         </div>
                                     </div>
                                     <div class="button-block">
                                         <div class="button-line"></div>
-                                        <a href="route('profiles',['profile'=> $profile->alias])">
-                                            Подробнее о бренде
+                                        <a href="{{ route('docs',['profile'=> $profile->alias]) }}">
+                                            Подробнее о враче
                                         </a>
                                     </div>
                                 </div>
@@ -163,7 +171,57 @@
     </div>
 </section>
 
-
+<hr>
+<div class="pagination content-blog">
+    <!--PAGINATION-->
+    <div class="pagination-blog">
+        @if($profiles->lastPage() > 1)
+            <ul>
+                @if($profiles->currentPage() !== 1)
+                    <li>
+                        <a rel="prev" href="{{ $profiles->url(($profiles->currentPage() - 1)) }}"
+                           class="prev">
+                            <
+                        </a>
+                    </li>
+                @endif
+                @if($profiles->currentPage() >= 3)
+                    <li><a href="{{ $profiles->url(1) }}">1</a></li>
+                @endif
+                @if($profiles->currentPage() >= 4)
+                    <li><a href="#">...</a></li>
+                @endif
+                @if($profiles->currentPage() !== 1)
+                    <li>
+                        <a href="{{ $profiles->url($profiles->currentPage()-1) }}">{{ $profiles->currentPage()-1 }}</a>
+                    </li>
+                @endif
+                <li><a class="active disabled">{{ $profiles->currentPage() }}</a></li>
+                @if($profiles->currentPage() !== $profiles->lastPage())
+                    <li>
+                        <a href="{{ $profiles->url($profiles->currentPage()+1) }}">{{ $profiles->currentPage()+1 }}</a>
+                    </li>
+                @endif
+                @if($profiles->currentPage() <= ($profiles->lastPage()-3))
+                    <li><a href="#">...</a></li>
+                @endif
+                @if($profiles->currentPage() <= ($profiles->lastPage()-2))
+                    <li>
+                        <a href="{{ $profiles->url($profiles->lastPage()) }}">{{ $profiles->lastPage() }}</a>
+                    </li>
+                @endif
+                @if($profiles->currentPage() !== $profiles->lastPage())
+                    <li>
+                        <a rel="next" href="{{ $profiles->url(($profiles->currentPage() + 1)) }}"
+                           class="next">
+                            >
+                        </a>
+                    </li>
+                @endif
+            </ul>
+        @endif
+    </div>
+</div>
 {{--
 @if (!empty($profiles))
     @foreach($profiles as $profile)

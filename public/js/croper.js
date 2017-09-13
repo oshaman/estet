@@ -2,7 +2,7 @@ $(function() {
 /////// Cropper Options set
     var cropper;
     var options = {
-        aspectRatio: 3 / 4,
+        aspectRatio: 1.45,
         minContainerWidth: 450,
         minContainerHeight: 450,
         minCropBoxWidth: 250,

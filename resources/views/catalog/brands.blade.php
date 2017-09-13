@@ -82,7 +82,7 @@
                                     </div>
                                     <div class="button-block">
                                         <div class="button-line"></div>
-                                        <a href="route('brands',['brand'=> $brand->alias])">
+                                        <a href="{{ route('brands',['brand'=> $brand->alias]) }}">
                                             Подробнее о бренде
                                         </a>
                                 </div>
@@ -106,7 +106,7 @@
                                         </li>
                                     @endif
                                     @if($brands->currentPage() >= 3)
-                                        <li><a href="{{ $brands->url($brands->lastPage()) }}">1</a></li>
+                                        <li><a href="{{ $brands->url(1) }}">1</a></li>
                                     @endif
                                     @if($brands->currentPage() >= 4)
                                         <li><a href="#">...</a></li>

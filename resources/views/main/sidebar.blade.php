@@ -72,6 +72,6 @@
         <div class="advertising">
             {!! $advertising['sidebar'] ?? '<img src="'. asset('estet') .'/img/advertising.jpg" >' !!}
         </div>
+        @include('layouts.subscribe')
     </div>
-    @include('layouts.subscribe')
 </aside>

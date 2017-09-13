@@ -57,11 +57,13 @@
             </div>
         </div>
     </div>
-    {!! $horoscope !!}
+    @include('layouts.horoscope')
     <div class="aside-block">
         <div class="advertising">
             {!! $advertising['sidebar'] ?? '<img src="'. asset('estet') .'/img/advertising.jpg" >' !!}
         </div>
     </div>
-    {!! $subscribe !!}
+    <div class="aside-block subscribe-block">
+        @include('layouts.subscribe')
+    </div>
 </aside>

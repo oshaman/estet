@@ -98,15 +98,25 @@ class TmpPersonRepository extends Repository {
 
             $path = $str . '.jpg';
 
-            $img->fit(Config::get('settings.profile_img')['width'], Config::get('settings.profile_img')['height'], function ($constraint) {
-                $constraint->upsize();
-            })->save(public_path() . '/' . config('settings.theme') . '/img/tmp_profile/' . $path, 100);
+            $img->fit(Config::get('settings.profile_img')['main']['width'], Config::get('settings.profile_img')['main']['height'],
+                function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path() . '/' . config('settings.theme') . '/img/tmp_profile/main/' . $path, 100);
+            $img->fit(Config::get('settings.profile_img')['small']['width'], Config::get('settings.profile_img')['small']['height'],
+                function ($constraint) {
+                    $constraint->upsize();
+                })
+                ->save(public_path() . '/' . config('settings.theme') . '/img/tmp_profile/small/' . $path, 100);
 
 
             if (!empty($data->photo)) {
                 $old_img = $data->photo;
-                if (File::exists(config('settings.theme') . '/img/tmp_profile/' . $old_img)) {
-                    File::delete(config('settings.theme') . '/img/tmp_profile/' . $old_img);
+                if (File::exists(config('settings.theme') . '/img/tmp_profile/main/' . $old_img)) {
+                    File::delete(config('settings.theme') . '/img/tmp_profile/main/' . $old_img);
+                }
+                if (File::exists(config('settings.theme') . '/img/tmp_profile/small/' . $old_img)) {
+                    File::delete(config('settings.theme') . '/img/tmp_profile/small/' . $old_img);
                 }
             }
 

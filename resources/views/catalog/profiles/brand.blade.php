@@ -23,7 +23,7 @@
 
             <div class="main-content page-content">
                 <!-- section-3 -->
-                {!! $nav !!}
+            @include('catalog.nav')
 
                 <!-- section-4 -->
                 <div class="blog-section-post">
@@ -34,11 +34,10 @@
                                     <img src="{{ asset('/images/establishment/main') . '/' . $brand->logo }}" alt="{{ $brand->alt }}" title="{{ $brand->title }}">
                                     <div class="details-page-info">
                                         <div class="rating">
-                                            <div class="top-rating">
+                                            <div class="top-rating" data-id="{{ $brand->id }}" data-source="1">
                                                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                                             </div>
-                                            <p>{{ ($ratio->avg ?? 0) .' / 5 - (' . $ratio->count . ' голосов)'}}</p>
-
+                                            <p>{{ ($ratio->avg ?? 0) .' / 5 - (голосов - ' . $ratio->count . ')'}}</p>
                                         </div>
                                         <div class="info-kompani">
                                             <div class="kompani-contacts">
@@ -133,6 +132,12 @@
                                     включают в себя тренинги, практикумы, обучающие курсы, конференции,
                                     выставки и прочие события в мире медицины..</p>
                             </div>
+                            {{--{!! Form::open(['url'=>route('ratio')]) !!}
+                            {!! Form::text('data_id') !!}
+                            {!! Form::text('source_id') !!}
+                            {!! Form::text('ratio') !!}
+                            {!! Form::button('Сохранить', ['class' => 'btn btn-large btn-primary','type'=>'submit']) !!}
+                            {!! Form::close() !!}--}}
                         </div>
                     </div>
                 </div>

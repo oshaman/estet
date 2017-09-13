@@ -36,7 +36,7 @@
                                          alt="{{ $distributor->alt }}" title="{{ $distributor->title }}">
                                     <div class="details-page-info">
                                         <div class="rating">
-                                            <div class="top-rating">
+                                            <div class="top-rating" data-id="{{ $distributor->id }}" data-source="1">
                                                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                                             </div>
                                             <p>{{ ($ratio->avg ?? 0) .' / 5 - (' . $ratio->count . ' голосов)'}}</p>

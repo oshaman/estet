@@ -12,7 +12,7 @@
             <section id="section-2" class="profile-blog">
 
                 <div class="blog-profile">
-                    <img src="{{asset('/estet/img/profile') . '/' . $blog->person->person->photo }}"
+                    <img src="{{asset('/estet/img/profile/small') . '/' . $blog->person->person->photo }}"
                          alt="{{ $blog->person->person->photo_alt ?? $blog->person->person->lastname . ' ' . $blog->person->person->name }} "
                          title="{{ $blog->person->person->photo_title ?? $blog->person->person->lastname . ' ' . $blog->person->person->name}} "
                     >

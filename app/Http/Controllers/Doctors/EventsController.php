@@ -156,13 +156,12 @@ class EventsController extends DocsController
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
             $lasts = $this->repository->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
 
-            $horoscope = view('layouts.horoscope.sidebar')->render();
             $advertising = $this->adv_rep->getSidebar('doc');
             //          most displayed
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs']);
             $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'asc']);
             return view('doc.events.sidebar')
-                ->with(['lasts' => $lasts, 'articles' => $articles, 'horoscope' => $horoscope, 'advertising' => $advertising])
+                ->with(['lasts' => $lasts, 'articles' => $articles, 'advertising' => $advertising])
                 ->render();
         });
         return true;

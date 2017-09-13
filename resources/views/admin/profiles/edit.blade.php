@@ -131,18 +131,20 @@
     <li class="list-group-item">
         {{ Form::label('content', 'О себе') }}
         <div>
-            {!! Form::textarea('content', old('content') ? : ($profile->content ?? '' ), ['id'=>'content','rows'=>8, 'cols'=>100]) !!}
+            {!! Form::textarea('content', old('content') ? : ($profile->content ?? '' ), ['id'=>'content', 'class'=>"form-control editor", 'rows'=>8, 'cols'=>100]) !!}
         </div>
     </li>
     <li class="list-group-item">
         {{ Form::label('img', 'Фото') }}
         @if(!empty(session('photo')))
-            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            <img class="img-thumbnail"
+                 src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/main/' . ($profile->photo ?? '../no_photo.jpg') }}">
             <div>
             <label><input type="checkbox" {{ (old('photo_status') || empty(session('photo'))) ? 'checked' : '' }} value="aply" name="photo_status"> Подтвердить фото</label>
         </div>
         @else
-            <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+            <img class="img-thumbnail"
+                 src="{{ asset(config('settings.theme'))  . '/img/profile/main/' . ($profile->photo ?? '../no_photo.jpg') }}">
         @endif
     </li>
     <li class="list-group-item">

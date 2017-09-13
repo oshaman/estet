@@ -16,10 +16,21 @@
         </div>
 
         <div class="header-menu-left">
-            <div class="nav_container active">
+            <div class="nav_container">
                 <ul id="main-menu" class="menu">
+                    <li class="menu-elem main-page">
+                        <a href="{{ route('main') }}">
+                            <img src="{{ asset('estet') }}/img/menu/6489.png">
+                            <img src="{{ asset('estet') }}/img/menu/6489.png">
+                            <span>Главная</span>
+                        </a>
+                    </li>
                     <li class="with-sub menu-elem">
-                        <a><img src="{{ asset('estet') }}/img/menu/1.png"><span>Статьи</span></a>
+                        <a>
+                            <img src="{{ asset('estet') }}/img/menu/1.png"><img
+                                    src="{{ asset('estet') }}/img/menu/2074.png">
+                            <span>Статьи</span>
+                        </a>
                         <ul class="submenu">
                             <li class="col">
                                 {!! Menu::get('menu')->asUl() !!}
@@ -29,31 +40,45 @@
                     @if(session()->has('doc'))
                         <li class="menu-elem">
                             <a href="{{ route('events') }}">
-                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <img src="{{ asset('estet') }}/img/menu/1_901464.png">
+                                <img src="{{ asset('estet') }}/img/menu/901464.png">
                                 <span>Мероприятия</span>
                             </a>
                         </li>
                         <li class="menu-elem">
                             <a href="{{ route('blogs') }}">
-                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <img src="{{ asset('estet') }}/img/menu/1_2089.png">
+                                <img src="{{ asset('estet') }}/img/menu/2089.png">
                                 <span>Блог</span>
                             </a>
                         </li>
                         <li class="menu-elem">
                             <a href="{{ route('docs_cat', 'praktika') }}">
-                                <img src="{{ asset('estet') }}/img/menu/3.png">
+                                <img src="{{ asset('estet') }}/img/menu/1_840.png">
+                                <img src="{{ asset('estet') }}/img/menu/840.png">
                                 <span>Практика</span>
                             </a>
                         </li>
                         <li class="menu-elem"><a href="{{ route('docs_cat', 'video') }}">
-                                <img src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>
+                                <img src="{{ asset('estet') }}/img/menu/3.png"><img
+                                        src="{{ asset('estet') }}/img/menu/2075.png">
+                                <span>Видео</span></a></li>
                     @else
-                        <li class="menu-elem"><a href="{{ route('article_cat', 'video') }}"><img
-                                        src="{{ asset('estet') }}/img/menu/3.png"><span>Видео</span></a></li>
-                        <li class="menu-elem"><a href="{{ route('article_cat', 'intervyu') }}"><img
-                                        src="{{ asset('estet') }}/img/menu/2.png"><span>Интервью</span></a></li>
+                        <li class="menu-elem"><a href="{{ route('article_cat', 'video') }}">
+                                <img src="{{ asset('estet') }}/img/menu/3.png"><img
+                                        src="{{ asset('estet') }}/img/menu/2075.png">
+                                <span>Видео</span></a></li>
+                        <li class="menu-elem">
+                            <a href="{{ route('article_cat', 'intervyu') }}">
+                                <img src="{{ asset('estet') }}/img/menu/2.png">
+                                <img src="{{ asset('estet') }}/img/menu/1_2.png">
+                                <span>Интервью</span>
+                            </a></li>
                     @endif
-                    <li class="with-sub menu-elem"><a href=""><img src="{{ asset('estet') }}/img/menu/4.png"><span>Каталог</span></a>
+                    <li class="with-sub menu-elem"><a href="">
+                            <img src="{{ asset('estet') }}/img/menu/4.png">
+                            <img src="{{ asset('estet') }}/img/menu/837.png">
+                            <span>Каталог</span></a>
                         <ul class="submenu">
                             <li class="col">
                                 <ul>
@@ -66,8 +91,11 @@
                         </ul>
                     </li>
                     <li class="with-sub menu-elem last-elem">
-                        <img src="{{ asset('estet') }}/img/menu/5.png">
-                        <a href="">Еще</a>
+                        <a>
+                            <img src="{{ asset('estet') }}/img/menu/5.png">
+                            <img src="{{ asset('estet') }}/img/menu/845.png">
+                            <span>Еще</span>
+                        </a>
                         <ul class="submenu">
                             <li class="col">
                                 <ul>

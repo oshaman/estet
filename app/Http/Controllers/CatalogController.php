@@ -15,7 +15,6 @@ use DB;
 
 class CatalogController extends MainController
 {
-    protected $nav;
     protected $prem_rep;
     protected $ratio_rep;
     protected $repository;
@@ -33,10 +32,6 @@ class CatalogController extends MainController
         $this->css = '
             <link rel="stylesheet" type="text/css" href="' . asset('css') . '/katalog-brendu.css">
         ';
-
-        $this->nav = Cache::remember('catalog-nav', 24*60, function () {
-            return view('catalog.nav')->render();
-        });
 
         $this->prem_rep = $prem_rep;
         $this->ratio_rep = $ratio_rep;
@@ -57,6 +52,7 @@ class CatalogController extends MainController
      */
     public function docs(PersonsRepository $rep, BlogsRepository $blog_rep, $doc = false)
     {
+        $this->getSidebar(session()->has('doc'));
         if ($doc) {
             $this->content = Cache::remember('doc', 24 * 60, function () use ($doc, $blog_rep) {
                 if (!empty($doc->services)) {
@@ -71,7 +67,9 @@ class CatalogController extends MainController
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['user_id', $doc->user_id]);
                 $blogs = $blog_rep->get(['alias', 'title', 'created_at'], 3, false, $where, ['created_at', 'desc'], ['blog_img', 'category'], true);
 
-                return view('catalog.profiles.doc_profile')->with(['profile' => $doc, 'blogs' => $blogs])->render();
+                return view('catalog.profiles.doc_profile')
+                    ->with(['profile' => $doc, 'blogs' => $blogs, 'sidebar' => $this->sidebar])
+                    ->render();
             });
             $this->title = $doc->name . ' ' . $doc->lastname;
             return $this->renderOutput();
@@ -106,7 +104,7 @@ class CatalogController extends MainController
 
             $ratio = $this->ratio_rep->getRatio($clinic->id);
             $this->content = view('catalog.profiles.clinic')
-                ->with(['clinic' => $clinic, 'nav' => $this->nav, 'ratio' => $ratio[0],
+                ->with(['clinic' => $clinic, 'ratio' => $ratio[0],
                     'sidebar' => $this->sidebar
                     ])
                 ->render();
@@ -124,7 +122,11 @@ class CatalogController extends MainController
 
             $prems = $this->repository->getPrems($prems_ids);
 
-            $clinics = $this->repository->getWithoutPrems(['logo', 'title', 'content', 'alias', 'address'], true, ['category', 'clinic'], $prems_ids);
+            $clinics = $this->repository->getWithoutPrems([
+                'logo', 'title', 'content', 'alias', 'address'],
+                true,
+                ['category', 'clinic'],
+                $prems_ids);
 
             return view('catalog.clinics')->with(['clinics' => $clinics, 'prems' => $prems, 'sidebar' => $this->sidebar])->render();
 
@@ -149,8 +151,8 @@ class CatalogController extends MainController
             $ratio = $this->ratio_rep->getRatio($distributor->id);
 
             $this->content = view('catalog.profiles.distributor')
-                ->with(['distributor' => $distributor, 'sidebar' => $this->sidebar, 'children' => $children,
-                        'nav' => $this->nav, 'ratio' => $ratio[0]])
+                ->with(['distributor' => $distributor, 'sidebar' => $this->sidebar,
+                    'children' => $children, 'ratio' => $ratio[0]])
                 ->render();
 
             return $this->renderOutput();
@@ -193,8 +195,8 @@ class CatalogController extends MainController
             $ratio = $this->ratio_rep->getRatio($brand->id);
 
             $this->content = view('catalog.profiles.brand')
-                ->with(['brand' => $brand, 'parent' => $parent, 'sidebar' => $this->sidebar,
-                    'nav' => $this->nav, 'ratio' => $ratio[0]])
+                ->with(['brand' => $brand, 'parent' => $parent,
+                    'sidebar' => $this->sidebar, 'ratio' => $ratio[0]])
                 ->render();
 
             return $this->renderOutput();

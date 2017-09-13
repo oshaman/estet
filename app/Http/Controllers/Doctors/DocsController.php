@@ -67,10 +67,10 @@ class DocsController extends Controller
         $this->content = Cache::remember('docsArticles', 60, function () {
             $events = new EventsRepository(new Event());
             $articles = [
-                'lasts' => $this->a_rep->getMain([['id', '<>', null]],4, ['created_at', 'desc'], 'docs'),
+                'lasts' => $this->a_rep->getMain([['id', '<>', null]], 6, ['created_at', 'desc'], 'docs'),
                 'popular' => $this->a_rep->getMain([['id', '<>', null]],4, ['view', 'desc'], 'docs'),
                 'video' => $this->a_rep->getMain([['category_id', 20]],3, ['created_at', 'desc'], 'docs'),
-                'experts' => $this->a_rep->getMain([['category_id', 2]],3, ['created_at', 'desc'], 'docs'),
+                'experts' => $this->a_rep->getMain([['category_id', 2]], 20, ['created_at', 'desc'], 'docs'),
                 'cosmetology' => $this->a_rep->getMain([['category_id', 5]],4, ['created_at', 'desc'], 'docs'),
                 'dermatology' => $this->a_rep->getMain([['category_id', 4]],4, ['created_at', 'desc'], 'docs'),
                 'practic' => $this->a_rep->getMain([['category_id', 1]],3, ['created_at', 'desc'], 'docs'),
@@ -88,6 +88,17 @@ class DocsController extends Controller
         $this->seo = Cache::remember('seo_docs', 24 * 60, function () {
             return $this->seo_rep->getSeo('doctor/statyi');
         });
+
+        $this->css = '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/patient.css">
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/patient-media.css">
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/jquery.mCustomScrollbar.min.css">
+        ';
+        $this->js = '
+            <script src="' . asset('js') . '/libs/jquery.mCustomScrollbar.concat.min.js"></script>
+            <script src="' . asset('js') . '/patient.js"></script>
+        ';
+
 
         return $this->renderOutput();
     }
@@ -128,6 +139,7 @@ class DocsController extends Controller
             $menu = $this->getMenu();
             return view('layouts.nav')->with('menu', $menu)->render();
         });
+        $this->vars = array_add($this->vars, 'nav', $nav);
 
         if (!empty($this->footer)) {
             $footer = $this->footer;
@@ -139,11 +151,6 @@ class DocsController extends Controller
         $this->vars = array_add($this->vars, 'footer', $footer);
 
 
-        $this->vars = array_add($this->vars, 'nav', $nav);
-
-        /*if (false !== $this->sidebar) {
-            $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
-        }*/
 
         if ($this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);

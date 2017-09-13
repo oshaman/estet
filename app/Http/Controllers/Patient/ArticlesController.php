@@ -182,10 +182,6 @@ class ArticlesController extends Controller
         }
         $this->vars = array_add($this->vars, 'footer', $footer);
 
-        if (false !== $this->sidebar) {
-            $this->vars = array_add($this->vars, 'sidebar', $this->sidebar);
-        }
-
         if(false !== $this->content) {
             $this->vars = array_add($this->vars, 'content', $this->content);
         }

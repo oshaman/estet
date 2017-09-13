@@ -52,7 +52,7 @@
                                     <div class="button-block">
                                         <div class="button-line"></div>
                                         <a href="{{ route('distributors',['distributor'=> $prem->alias]) }}">
-                                            Подробнее о бренде
+                                            Подробнее о дистрибуторе
                                         </a>
                                     </div>
                                 </div>
@@ -84,8 +84,8 @@
                                     </div>
                                     <div class="button-block">
                                         <div class="button-line"></div>
-                                        <a href="route('distributors',['distributor'=> $distributor->alias])">
-                                            Подробнее о бренде
+                                        <a href="{{ route('distributors',['distributor'=> $distributor->alias]) }}">
+                                            Подробнее о дистрибуторе
                                         </a>
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                         </li>
                                     @endif
                                     @if($distributors->currentPage() >= 3)
-                                        <li><a href="{{ $distributors->url($distributors->lastPage()) }}">1</a></li>
+                                        <li><a href="{{ $distributors->url(1) }}">1</a></li>
                                     @endif
                                     @if($distributors->currentPage() >= 4)
                                         <li><a href="#">...</a></li>

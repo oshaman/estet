@@ -24,7 +24,7 @@
 
             <div class="main-content page-content">
                 <!-- section-3 -->
-                {!! $nav !!}
+            @include('catalog.nav')
 
                         <!-- section-4 -->
                 <div class="blog-section-post">
@@ -36,7 +36,7 @@
                                          alt="{{ $clinic->alt }}" title="{{ $clinic->title }}">
                                     <div class="details-page-info">
                                         <div class="rating">
-                                            <div class="top-rating">
+                                            <div class="top-rating" data-id="{{ $clinic->id }}" data-source="1">
                                                 <span>☆</span><span>☆</span><span>☆</span><span>☆</span><span>☆</span>
                                             </div>
                                             <p>{{ ($ratio->avg ?? 0) .' / 5 - (' . $ratio->count . ' голосов)'}}</p>

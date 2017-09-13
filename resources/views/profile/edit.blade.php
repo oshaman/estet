@@ -119,9 +119,11 @@
         <li class="list-group-item">
             {{ Form::label('img', 'Фото') }}
             @if (empty($profile->approved))
-                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+                <img class="img-thumbnail"
+                     src="{{ asset(config('settings.theme'))  . '/img/tmp_profile/main/' . ($profile->photo ?? '../no_photo.jpg') }}">
             @else
-                <img class="img-thumbnail" src="{{ asset(config('settings.theme'))  . '/img/profile/' . ($profile->photo ?? '../no_photo.jpg') }}">
+                <img class="img-thumbnail"
+                     src="{{ asset(config('settings.theme'))  . '/img/profile/main/' . ($profile->photo ?? '../no_photo.jpg') }}">
             @endif
             <div>
                 <div id="myModal" class="modal fade" role="dialog">

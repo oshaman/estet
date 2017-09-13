@@ -52,7 +52,7 @@
                                     <div class="button-block">
                                         <div class="button-line"></div>
                                         <a href="{{ route('clinics',['clinic'=> $prem->alias]) }}">
-                                            Подробнее о бренде
+                                            Подробнее о клинике
                                         </a>
                                     </div>
                                 </div>
@@ -83,8 +83,8 @@
                                     </div>
                                     <div class="button-block">
                                         <div class="button-line"></div>
-                                        <a href="route('clinics',['clinic'=> $clinic->alias])">
-                                            Подробнее о бренде
+                                        <a href="{{ route('clinics',['clinic'=> $clinic->alias]) }}">
+                                            Подробнее о клинике
                                         </a>
                                     </div>
                                 </div>
@@ -107,7 +107,7 @@
                                         </li>
                                     @endif
                                     @if($clinics->currentPage() >= 3)
-                                        <li><a href="{{ $clinics->url($clinics->lastPage()) }}">1</a></li>
+                                        <li><a href="{{ $clinics->url(1) }}">1</a></li>
                                     @endif
                                     @if($clinics->currentPage() >= 4)
                                         <li><a href="#">...</a></li>

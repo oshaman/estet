@@ -86,9 +86,10 @@ class PersonsRepository extends Repository {
             $str = substr($data['alias'], 0, 32) . '-' . time();
 
             $path = $str.'.jpg';
-            
-            if (File::exists(config('settings.theme').'/img/tmp_profile/'.$data['photo'])) {
-                File::move(config('settings.theme').'/img/tmp_profile/'.$data['photo'], config('settings.theme').'/img/profile/'.$path);
+
+            if (File::exists(config('settings.theme') . '/img/tmp_profile/main/' . $data['photo'])) {
+                File::move(config('settings.theme') . '/img/tmp_profile/main/' . $data['photo'], config('settings.theme') . '/img/profile/main/' . $path);
+                File::move(config('settings.theme') . '/img/tmp_profile/small/' . $data['photo'], config('settings.theme') . '/img/profile/small/' . $path);
                 $data['photo'] = $path;
                 return $data;
             } else {

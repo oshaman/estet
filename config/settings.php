@@ -6,8 +6,8 @@ return [
     'paginate' => 5,
     'paginate_comments' => 5,
     'profile_img' => [
-        'width' => 300,
-        'height' => 400,
+        'main' => ['width' => 270, 'height' => 186,],
+        'small' => ['width' => 170, 'height' => 170,],
     ],
     'blogs_img' => [
         'main' => ['width' => 735, 'height' => 506],

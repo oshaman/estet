@@ -127,7 +127,7 @@ class ProfileController extends AdminController
         }
 
         $this->title = 'Редактирование профиля';
-
+        $this->template = 'admin.article.admin';
         $person = $this->pers_rep->findByUserId($user->id);
 
         $profile = $this->profile_rep->getProfile($user, true);

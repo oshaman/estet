@@ -15,10 +15,10 @@ class CreateBlogratiosTable extends Migration
     {
         Schema::create('blogratios', function (Blueprint $table) {
             $table->string('blog_id')->references('id')->on('blogs')->onDelete('cascade');
-            $table->string('key');
+            $table->string('data_key');
             $table->unsignedSmallInteger('value');
 
-            $table->unique(['blog_id', 'key']);
+            $table->unique(['blog_id', 'data_key']);
         });
     }
 
