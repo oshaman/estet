@@ -200,7 +200,6 @@
                                     @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
                                     {{ $article->created }}
                                 </time>
-                                <div class="horizontal-line"></div>
                             </div>
                             <a class="link-title" href="{{ route('articles', $article->alias) }}">
                                 <h3>{{ $article->title }}</h3>
@@ -303,7 +302,6 @@
                                 @if(strlen($article->created) < 6) <i class="icons icon-clock"></i> @endif
                                 {{ $article->created }}
                             </time>
-                            <div class="horizontal-line"></div>
                         </div>
                         <a class="link-title" href="">
                             <h3>{{ $article->title }}</h3>

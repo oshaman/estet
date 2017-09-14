@@ -20,8 +20,6 @@ class BlogsController extends DocsController
 
     public function __construct(BlogsRepository $rep, BlogCategoriesRepository $cat_rep, TagsRepository $tags, AdvertisingRepository $adv_rep)
     {
-
-        Cache::flush();
         $this->css = '
                 <link rel="stylesheet" type="text/css" href="' . asset('css') . '/blog.css">
                 <link rel="stylesheet" type="text/css" href="' . asset('css') . '/blog-vnutrennyaya.css">
@@ -134,7 +132,13 @@ class BlogsController extends DocsController
         $this->content = Cache::remember('blog-tag-'.$tag->id, 15, function () use ($tag) {
             $blogs = $this->blog_rep->getByTag($tag->id);
 
-            return view('blog.tags')->with(['blogs' => $blogs])->render();
+            $cats = $this->cat_rep->get(['name', 'alias']);
+            $tags = $this->tag_rep->get(['name', 'alias']);
+            $this->sidebar = $this->getSidebar();
+
+            return view('doc.tags')
+                ->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tags' => $tags])
+                ->render();
         });
         return $this->renderOutput();
     }
@@ -149,12 +153,22 @@ class BlogsController extends DocsController
         $this->content = Cache::remember('blog-cat' . $cat->id, 60, function () use ($cat) {
 
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['category_id', $cat->id] );
-            $blogs = $this->blog_rep->get(['title', 'alias'], false, true, $where, false, ['blog_img', 'category', 'person'], true);
+            $blogs = $this->blog_rep->get(
+                ['title', 'alias'],
+                false,
+                true,
+                $where,
+                false,
+                ['blog_img', 'category', 'person'],
+                true
+            );
 
             $cats = $this->cat_rep->get(['name', 'alias']);
             $tags = $this->tag_rep->get(['name', 'alias']);
             $this->sidebar = $this->getSidebar();
-            return view('doc.blogcat')->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tags' => $tags])->render();
+            return view('doc.blogcat')
+                ->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tags' => $tags])
+                ->render();
         });
 
         return $this->renderOutput();

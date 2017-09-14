@@ -31,9 +31,9 @@ return [
         'mini' => ['width'=>271,'height'=>186],
     ],
     'events_slider_img' => [
-        'main' => ['width'=>535,'height'=>369],
-        'middle' => ['width'=>335,'height'=>231],
-        'small' => ['width'=>312,'height'=>215],
+        'main' => ['width' => 735, 'height' => 506],
+        'middle' => ['width' => 535, 'height' => 370],
+        'small' => ['width' => 270, 'height' => 187],
     ],
     'events_ad' => [
         'main' => ['width' => 200, 'height' => 400],

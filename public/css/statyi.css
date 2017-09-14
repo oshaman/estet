@@ -311,13 +311,20 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
   color: #fff;
 }
 .block-text p {
+
 /* width: 91%; */
   font-size: 24px;
   margin-top: 3%;
   font-family: 'Cormorant Garamond';
+    color: #202020;
 }
 .statyi-block {
   width: 46%;
+}
+
+.statyi-block .img-statyi img {
+    width: 337px;
+    height: 234px;
 }
 .block-text {
   margin: 7.5% 0 3% 0;

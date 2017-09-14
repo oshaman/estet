@@ -67,8 +67,18 @@
     border-radius: 22px;
     text-align: center;
     line-height: 25px;
+    transition: .5s;
 }
 
+.slide-right_bot a:hover {
+    background: #455ea7;
+    color: #202020;
+}
+
+.doctor-page .slide-right_bot a:hover {
+    background: #7e2b83;
+    color: #fff;
+}
 .slider-nav {
     display: flex;
     position: absolute;
@@ -80,23 +90,35 @@
 }
 
 .arr-slider {
-    display: block;
-    background: red;
-    height: 20px;
-    width: 20px;
-
+    color: #fff;
+    padding: 4px 8px;
+    background: #000;
+    border-radius: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    cursor: pointer;
+    border: 1px solid #000;
 }
 
+.arr-slider:hover {
+    color: #000;
+    background: #fff;
+}
 .dots {
     display: flex;
+    padding: 0 5px;
 }
-
 .dot {
     display: block;
-    background: red;
-    height: 10px;
-    width: 10px;
+    background: #000;
+    border-radius: 50%;
+    height: 8px;
+    width: 8px;
     margin: 0 5px;
+}
+
+.dot.active {
+    background: #455ea7;
 }
 .ad {
     width: 22%;
@@ -248,7 +270,6 @@
 
 .interesting-facts .aside-block .form-wrap {
     margin: 0;
-    height: 295px;
     padding: 8% 15%;
 }
 
@@ -272,7 +293,7 @@
 }
 
 .interesting-facts .aside-block .form-wrap form button {
-    width: 250px;
+    width: 100%;
     height: 35px;
     margin: auto;
     margin-top: 36px;

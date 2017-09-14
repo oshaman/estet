@@ -307,6 +307,15 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
   content: attr(data-open);
   text-transform: uppercase;
 }
+
+.horoscope-controller.opened .span-spoiler::after {
+    content: attr(data-close);
+    text-transform: uppercase;
+}
+
+.horoscope-controller.opened img {
+    transform: rotate(180deg);
+}
 /************************main-content end*************************/
 .horoscope .aside-block .content-aside-main {
   margin-top: 36px;
@@ -412,17 +421,18 @@ div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
   border-right: 12px solid #fff;
   margin: -3% 0 0 46.5%;
 }
-/*.articles::before {*/
-  /*content: "";*/
-  /*display: inline-block;*/
-  /*vertical-align: middle;*/
-  /*width: 79px;*/
-  /*height: 7px;*/
-  /*background-color: #455ea7;*/
-  /*position: relative;*/
-  /*left: 70%;*/
-  /*top: -3px;*/
-/*}*/
+
+.articles::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 70%;
+    top: -3px;
+}
 .articles p {
   margin: -27px 0 33px 10px;
   font-size: 24px;

@@ -63,9 +63,7 @@
 
             </div>
             <!-- section-5 -->
-            <div class="comment-post">
-                @include('layouts.social-networks')
-                @include('layouts.comments_form', ['id' => $blog->id, 'source' => 2])
+            @include('layouts.comments_form', ['id' => $blog->id, 'source' => 2])
                 {{--comments--}}
                 {{--@if(count($blog->comments) > 0)
                     <hr>
@@ -85,10 +83,6 @@
                     @endforeach
                 @endif
                 <hr>--}}
-
-            </div>
-
-
         </div>
         {!! $sidebar !!}
     </div>

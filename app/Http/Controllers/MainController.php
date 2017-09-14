@@ -96,6 +96,9 @@ class MainController extends Controller
         return Menu::make('menu', function ($menu) use ($cats, $status) {
             $route = $status ? 'docs_cat' : 'article_cat';
             foreach ($cats as $cat) {
+                if (('Видео' == $cat->name) || ('Видео отзывы' == $cat->name) || ('Интервью' == $cat->name)) {
+                    continue;
+                }
                 $menu->add($cat->name, ['route' => [$route, $cat->alias]]);
             }
         });

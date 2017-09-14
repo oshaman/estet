@@ -22,23 +22,24 @@ class EstablishmentratioRepository
     {
         $data['data_key'] = md5($request->ip() . $request->header('User-Agent') . substr(session()->getId(), 0, 5));
         if (session()->has($data['data_key'])) {
-            return false;
+            return ['val' => $data['data_key']];
         }
 
         $data['establishment_id'] = $request->get('data_id');
         $data['value'] = $request->get('ratio');
 
-        if ($this->model->where(['establishment_id' => $data['establishment_id'], 'data_key' => $data['data_key']])->first()) {
-            return false;
+        if ($val = $this->model->where(['establishment_id' => $data['establishment_id'], 'data_key' => $data['data_key']])->first()) {
+            session()->put($data['data_key'], $val->value);
+            return ['val' => $val->value];
         }
 
         try {
             $this->model->fill($data)->save();
         } catch (Exception $e) {
-            return false;
+            return ['val' => $data['data_key']];
         }
         session()->put($data['data_key'], $data['value']);
-        return $data['establishment_id'];
+        return ['val' => $data['value'], 'establishment_id' => $data['establishment_id']];
     }
 
 }

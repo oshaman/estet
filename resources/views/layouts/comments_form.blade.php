@@ -1,6 +1,18 @@
-<div class="section-form">
-    <p class="add-comm">Добавить коментарий:</p>
-    {!! Form::open(['url' => route('comments'),'class'=>'section-form-up','method'=>'post']) !!}
+<div class="comment-post">
+    <div class="social-networks">
+        <p>Добавьте в закладки чтобы не потерять / поделитесь с друзьями:</p>
+        <div class="social-post">
+            <img src="{{ asset('estet') }}/img/social/1.png" alt="">
+            <img src="{{ asset('estet') }}/img/social/2.png" alt="">
+            <img src="{{ asset('estet') }}/img/social/3.png" alt="">
+            <img src="{{ asset('estet') }}/img/social/3.png" alt="">
+            <img src="{{ asset('estet') }}/img/social/3.png" alt="">
+            <img src="{{ asset('estet') }}/img/social/6.png" alt="">
+        </div>
+    </div>
+    <div class="section-form">
+        <p class="add-comm">Добавить коментарий:</p>
+        {!! Form::open(['url' => route('comments'),'class'=>'section-form-up','method'=>'post']) !!}
         <input type="email" name="email" class="section-input" placeholder="ваша почта">
         <input type="text" name="name" class="section-input" placeholder="имя">
         <textarea name="comment" cols="40" rows="3" class="section-form-text" placeholder="текст"></textarea>
@@ -9,11 +21,14 @@
                 <input readonly="" type="text" name="cod" class="section-form-test" placeholder="78535">
                 <input type="text" name="prof" class="section-form-test">
             </div>
-            <button class="but-section-form @if(session()->has('doc')) but-section-purpur @endif" type="button">отправить</button>
+            <button class="but-section-form @if(session()->has('doc')) but-section-purpur @endif" type="button">
+                отправить
+            </button>
         </div>
-        <p> <img src="../img/content/refresh.png" alt="">Обновить</p>
-    {{ Form::hidden('comment_post_ID', $id) }}
-    {{ Form::hidden('comment_parent', 0) }}
-    {{ Form::hidden('comment_source', $source) }}
-    {!! Form::close() !!}
+        <p><img src="../img/content/refresh.png" alt="">Обновить</p>
+        {{ Form::hidden('comment_post_ID', $id) }}
+        {{ Form::hidden('comment_parent', 0) }}
+        {{ Form::hidden('comment_source', $source) }}
+        {!! Form::close() !!}
+    </div>
 </div>

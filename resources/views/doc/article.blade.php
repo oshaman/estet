@@ -1,58 +1,79 @@
-<div class="col-lg-9">
-    <h2>{{ $article->title }}</h2>
-    <div class="row">
-        {{ Html::image(asset('/images/article/main') . '/' . $article->image->path, $article->image->alt, ['title' => $article->image->title]) }}
-    </div>
-    <div class="row">
-        <div class="row">
-            <a href="{{ route('docs_cat', $article->category->alias) }}"><span>{{ $article->category->name }}</span></a> <span class="label label-default">{{ $article->created }}</span>
+<div class="title-main ">
+    <p class="heading-title">
+        {{ $article->title }}
+    </p>
+</div>
+<!--section 1-->
+<section id="section-1" class="horoscope">
+    <div class="left-title left-title-planshet">
+        <div class="line-container text-vertical">
+            <div class="vertical-line"></div>
+            <h2>{{ $article->category->name }}</h2>
         </div>
-        <div class="row">{!! $article->content !!}</div>
     </div>
-    <hr>
-    <div class="row btn-group">
-        @foreach($article->tags as $tag)
-            {!! Form::open(['url' => route('docs_tag',['article'=> $tag->alias]),'class'=>'form-horizontal','method'=>'GET']) !!}
-            {!! Form::button($tag->name, ['class' => 'btn btn-info btn-xs','type'=>'submit']) !!}
-            {!! Form::close() !!}
-        @endforeach
-    </div>
-    @if(count($article->comments) > 0)
-        <hr>
-        @foreach($article->comments as $comment)
-            @if(0 !== $comment->parent_id)
-                @continue
-            @endif
-            <div class="row">
-                <table class="table">
-                    <tr><th>#</th><th>{{ $comment->id }}</th></tr>
-                    <tr><td>E-mail</td><td>{{ $comment->email }}</td></tr>
-                    <tr><td>Имя</td><td>{{ $comment->name }}</td></tr>
-                    <tr><td>Коментарий</td><td>{{ $comment->text }}</td></tr>
-                </table>
+    <div class="content content-vnutrennaya">
+        <div class="main-content">
+            <div class="content-centr">
+
+                <div class="main-img">
+                    <img src="{{ asset('/images/article/main') . '/' . $article->image->path }}"
+                         alt="{{ $article->image->alt }}" title="{{ $article->image->title }}">
+                </div>
+                <div class="main-img-info">
+                    <div class="images">
+                        <div class="images-block">
+                            <img src="{{ asset('estet') }}/img/stati-vnutrennaya/2565.png" alt="">
+                            <img src="{{ asset('estet') }}/img/stati-vnutrennaya/2567.png" class="img-2567" alt="">
+                        </div>
+                        {!! $article->content !!}
+                    </div>
+                </div>
+                <!----------------------------------blog-categories---------------------------------->
+                <div class="blog-categories">
+                    <div class="select select-blue">
+                        @foreach($article->tags as $tag)
+                            <a href="{{ route('docs_tag',['tag_alias'=> $tag->alias]) }}">{{ $tag->name }}</a>
+                        @endforeach
+                    </div>
+                </div>
+                <!----------------------------------blog-categories---------------------------------->
             </div>
-                @include('comment', ['children' => $article->comments, 'id' => $comment->id])
-        @endforeach
-    @endif
-        <hr>
-    <div class="row">
-        <h4>Добавить коментарий</h4>
-        <div class="row">
-            {!! Form::open(['url' => route('comments'),'class'=>'form-horizontal','method'=>'post']) !!}
-            {!! Form::text('email', old('email') ? : '' , ['placeholder'=>'Ваша почта', 'id'=>'email', 'class'=>'form-control']) !!}
-            {!! Form::text('name', old('name') ? : '' , ['placeholder'=>'Имя', 'id'=>'name', 'class'=>'form-control']) !!}
-            {!! Form::textarea('text', old('text') ? : '' , ['placeholder'=>'Коментарий', 'id'=>'text', 'class'=>'form-control', 'rows'=>5, 'cols'=>50]) !!}
-            {!! Form::button(trans('admin.sent'), ['class' => 'btn btn-success','type'=>'submit']) !!}
-            {{ Form::hidden('comment_post_ID', $article->id) }}
-            {{ Form::hidden('comment_parent', 0) }}
-            {{ Form::hidden('comment_source', 1) }}
-            {!! Form::close() !!}
+            @include('layouts.comments_form', ['id' => $article->id, 'source' => 1])
+        </div>
+        {!! $sidebar !!}
+    </div>
+</section>
+<!--  section 2-->
+<section id="section-2" class="articles">
+    <div class="left-title">
+        <div class="line-container">
+            <div class="vertical-line"></div>
+            <h2>Похожие статьи</h2>
         </div>
     </div>
-    <hr>
-</div>
-<div class="col-lg-2 col-lg-offset-1">
-@if(!empty($sidebar))
-    {!! $sidebar !!}
-@endif
-</div>
+    <div class="content">
+        <!--articles-gray-->
+        <div class="articles-horizontal">
+            @foreach($same as $preview)
+                <article>
+                    <a class="link-img" href="{{ route('doctors', $preview->alias) }}" rel="nofollow">
+                        <img src="{{ asset('/images/article/small') . '/' . $preview->image->path }}"
+                             alt="{{ $preview->image->alt }}" title="{{ $preview->image->title }}">
+                    </a>
+                    <div class="title-time">
+                        <time>
+                            @if(strlen($preview->created) < 6) <i class="icons icon-clock"></i> @endif
+                            {{ $preview->created }}
+                        </time>
+                    </div>
+                    <a class="link-title" href="{{ route('doctors', $preview->alias) }}">
+                        <h3>{{ $preview->title }}</h3>
+                    </a>
+                </article>
+                @if(!$loop->last)
+                    <div class="line-vertical"></div>
+                @endif
+            @endforeach
+        </div>
+    </div>
+</section>

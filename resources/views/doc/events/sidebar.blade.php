@@ -57,7 +57,7 @@
             </div>
         </div>
     </div>
-    @include('layouts.horoscope')
+    @include('layouts.horoscope.sidebar')
     <div class="aside-block">
         <div class="advertising">
             {!! $advertising['sidebar'] ?? '<img src="'. asset('estet') .'/img/advertising.jpg" >' !!}

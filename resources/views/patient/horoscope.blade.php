@@ -151,11 +151,7 @@
                 </div>
             @endforeach
         @endif
-
-            <div class="comment-post">
-                @include('layouts.social-networks')
                 @include('layouts.comments_form', ['id' => 1, 'source' => 5])
-            </div>
         </div>
 
        {!! $sidebar !!}

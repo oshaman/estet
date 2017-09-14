@@ -38,11 +38,7 @@
                 <a href="#"><i class="icon-subscribe"></i> Записаться на мероприятие</a>
             </div>
             <!--section 7-3-->
-            <div class="comment-post">
-                @include('layouts.social-networks')
-                @include('layouts.comments_form', ['id' => $event->id, 'source' => 4])
-            </div>
-
+            @include('layouts.comments_form', ['id' => $event->id, 'source' => 4])
         </div>
         <!--section 8-->
         {!! $sidebar !!}

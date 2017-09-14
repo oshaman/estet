@@ -33,7 +33,6 @@ class DocsController extends Controller
      */
     public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv, SeoRepository $seo_rep)
     {
-        Cache::flush();
         $this->a_rep = $repository;
         $this->adv_rep = $adv;
         $this->seo_rep = $seo_rep;
@@ -46,6 +45,12 @@ class DocsController extends Controller
     public function index($article = null)
     {
         if ($article) {
+            $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya-media.css">
+            ';
+
+            $this->a_rep->displayed($article);
 
             $article = Cache::remember('docs_article-' . $article->id, 60, function () use ($article) {
                 if (!empty($article->seo)) {
@@ -58,12 +63,19 @@ class DocsController extends Controller
                 return $article;
             });
 
-            $this->a_rep->displayed($article);
+            $same = $this->a_rep->get(
+                ['title', 'alias', 'created_at'], 3, false,
+                [['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['id', '<>', $article->id], ['own', 'docs'], ['category_id', $article->category_id]],
+                false, ['image']
+            );
 
-            $this->content = view('doc.article')->with(['article' => $article])->render();
             $this->getSidebar();
+            $this->content = view('doc.article')
+                ->with(['article' => $article, 'sidebar' => $this->sidebar, 'same' => $same])
+                ->render();
             return $this->renderOutput();
         }
+
         $this->content = Cache::remember('docsArticles', 60, function () {
             $events = new EventsRepository(new Event());
             $articles = [
@@ -109,14 +121,24 @@ class DocsController extends Controller
      */
     public function category($cat = null)
     {
+        Cache::flush();
+
         if (!$cat) {
             abort(404);
         }
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi-media.css">
+            ';
         $this->content = Cache::remember('docs_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'docs'], ['category_id', $cat->id]);
             $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
 
-            return view('doc.cat')->with(['articles' => $articles])->render();
+            $this->getSidebar();
+
+            return view('doc.cat')
+                ->with(['articles' => $articles, 'sidebar' => $this->sidebar, 'cat' => $cat])
+                ->render();
         });
         $this->getSidebar();
         return $this->renderOutput();
@@ -184,15 +206,26 @@ class DocsController extends Controller
      */
     public function tag($tag = null)
     {
+
+
+        Cache::flush();
+
         if (!$tag) {
             abort(404);
         }
-        $this->content = Cache::remember('docs_tags' . $tag->alias, 60, function () use ($tag) {
-            $articles = $this->a_rep->getByTag($tag->id, 'docs');
-            return view('doc.tags')->with(['articles' => $articles])->render();
-        });
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi-media.css">
+            ';
 
         $this->getSidebar();
+        $this->content = Cache::remember('docs_tags' . $tag->alias, 60, function () use ($tag) {
+            $articles = $this->a_rep->getByTag($tag->id, 'docs');
+            return view('doc.tags')
+                ->with(['articles' => $articles, 'tag' => $tag, 'sidebar' => $this->sidebar])
+                ->render();
+        });
+
         return $this->renderOutput();
     }
 

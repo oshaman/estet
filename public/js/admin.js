@@ -18,7 +18,7 @@ $('.remove-slider').bind('click',removeEl);
 function removeEl(){
     var uri;
     if($(this).parent().hasClass('thumbnail')){
-       uri =  'http://estet-portal.loc/admin/events/slider'
+        uri = '/admin/events/slider'
     }
     if($(this).parent().hasClass('thumbnail')){
         _this = $(this);

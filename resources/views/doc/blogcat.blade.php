@@ -11,7 +11,6 @@
             <!-- section-2 -->
             <div class="blog-section">
                 @foreach($cats as $cat)
-
                     @if(Request::segment(4) == $cat->alias)
                         <div class="categories-section active">
                             @else
@@ -24,7 +23,6 @@
                                 </div>
                                 @endforeach
                         </div>
-
                         <!-- section-3 -->
                         <div class="blog-categories">
                             <div class="content">
@@ -127,16 +125,7 @@
                                     @endif
                                 </div>
                             @endif
-                            <div class="social-networks">
-                                <p>Подписывайтесь на нас в соц. сетях</p>
-                                <img src="{{ asset('estet') }}/img/blog/8.png" alt="">
-                                <img src="{{ asset('estet') }}/img/blog/8.png" alt="">
-                                <img src="{{ asset('estet') }}/img/blog/8.png" alt="">
-                                <img src="{{ asset('estet') }}/img/blog/8.png" alt="">
-                                <img src="{{ asset('estet') }}/img/blog/8.png" alt="">
-                                <img src="{{ asset('estet') }}/img/blog/8.png" alt="">
-                            </div>
-
+                            @include('layouts.social-networks')
                         </div>
             </div>
 

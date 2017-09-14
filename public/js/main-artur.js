@@ -13,12 +13,13 @@ $(document).ready(function () {
 
         $('.horoscope-path').css({'height': 161 + 'px'});
         var h = $(this).parents('.horoscope-description').find('.horoscope-path').attr('data-h');
-        var opa = $(this).hasClass('opened');
-        $('.span-spoiler.opened').removeClass('opened');
+        var opa = $(this).parent().hasClass('opened');
+        $('.horoscope-controller.opened').removeClass('opened');
 
         if (!opa) {
-            $(this).addClass('opened');
+            $(this).parent().addClass('opened');
             $(this).parents('.horoscope-description').find('.horoscope-path').css({'height': h + 'px'});
+
         }
     });
 

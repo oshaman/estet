@@ -50,6 +50,7 @@ function wordLinePosition(){
 setTimeout(function () {
     $(window).scroll(function () {
         linesOnScroll();
+        btnToTop();
     });
     wordLinePosition();
     linesOnScroll();
@@ -71,40 +72,55 @@ $('.content .button-block a').hover(function () {
     $(this).parent().removeClass('active');
     $(this).parents('.content').removeClass('active');
 });
-
+if ($('.slider').length) {
+    k = new SliderMain($('.slider'), $('.slider article'));
+}
+if ($('.slide-meropryyatyya').length) {
+    k = new SliderMain($('.slide-meropryyatyya'), $('.slide-meropryyatyya img'));
+}
 /* s;ider main page */
-function sliderMain() {
-    slider = $('.slider');
-    slides = $('.slider article');
+function SliderMain(slider, slides) {
+    el = slider
+    el.slider = slider;
+    el.slides = slides;
+    el.sliderRemote = sliderRemote
+    el.sliderEvents = sliderEvents
+    el.autoslide = autoslide
+    el.sliderGo = sliderGo
+
+
     curr = 0;
     canGo = true;
 
     function sliderRemote() {
         dots = '';
-        for (i = 0; i < slides.length; i++) {
+        for (i = 0; i < el.slides.length; i++) {
             dots += i == 0 ? '<div class="dot active" data-id="' + i + '"></div>' : '<div class="dot" data-id="' + i + '"></div>';
         }
 
         $('<div />')
             .addClass('slider-nav')
-            .appendTo(slider);
-        $('.slider-nav').html('<div class="arr-slider prev-slide"></div><div class="dots">' + dots + '</div><div class="arr-slider next-slide"></div>')
+            .appendTo(this.slider);
+        $('.slider-nav').html('<div class="arr-slider prev-slide"><</div><div class="dots">' + dots + '</div><div class="arr-slider next-slide">></<div>')
         sliderEvents();
         autoslide(0);
 
-    };sliderRemote();
+    }
+
+    el.sliderRemote();
 
 
     function sliderEvents() {
         var stopAuto;
         $('.arr-slider').click(function () {
-            $(this).hasClass('prev-slide') ? (curr -= 1, curr < 0 ? curr = slides.length - 1 : '') : (curr += 1, curr == slides.length ? curr = 0 : '');
+            $(this).hasClass('prev-slide') ? (curr -= 1, curr < 0 ? curr = el.slides.length - 1 : '') : (curr += 1, curr == el.slides.length ? curr = 0 : '');
             canGo = false;
             clearTimeout(stopAuto);
             stopAuto = setTimeout(function () {
                 canGo = true;
                 autoslide(1);
             }, 4000);
+
             sliderGo();
         });
         $('.dot').click(function () {
@@ -126,14 +142,13 @@ function sliderMain() {
         }
         ;
         int ? curr += 1 : '';
-        curr >= slides.length ? curr = 0 : '';
+        curr >= el.slides.length ? curr = 0 : '';
 
         setTimeout(function () {
             window.requestAnimationFrame(autoslide)
         }, 4000);
         sliderGo();
     }
-
     function sliderGo() {
         slides.removeClass('active');
         slides.eq(curr).addClass('active');
@@ -141,7 +156,7 @@ function sliderMain() {
         $('.dot').eq(curr).addClass('active');
     };
 
-};sliderMain();
+};
 
 /* switch patient */
 
@@ -157,3 +172,55 @@ function switchSites() {
     });
 };switchSites();
 
+/* Capture */
+$('.reload').click(function () {
+    $.ajax({
+        url: 'http://39.j2landing.com/captcha',
+        success: function (data) {
+            img = document.getElementById("captcha");
+            img.src = "http://39.j2landing.com/captcha";
+        }
+    });
+
+});
+
+/* to top */
+function btnToTop() {
+    if ($('body').scrollTop() > window.innerHeight) {
+        $('.wrap-top-top').css({'opacity': 1, 'height': 'auto', 'width': 'auto'})
+    } else {
+        $('.wrap-top-top').css({'opacity': 0, 'height': '0', 'width': '0'});
+    }
+};btnToTop();
+$('.wrap-top-top').click(function () {
+    $('body,html').animate({scrollTop: 0 + 'px'}, 500);
+});
+
+/* raiting */
+$('.top-rating span').click(function () {
+    ind = ($(this).index() - 5) * (-1);
+    dataId = $(this).parent().attr('data-id');
+    dataSource = $(this).parent().attr('data-source');
+    token = $(this).parent().attr('data-token');
+    $.ajax({
+        url: '/ratio',
+        type: 'POST',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+        },
+        data: ({
+            data_id: dataId,
+            source_id: dataSource,
+            ratio: ind
+        }),
+        success: function (data) {
+
+            if (data['success']) {
+                avg = data['success'][0]['avg'];
+                count = data['success'][0]['count'];
+                str = avg + '/' + count + '- (голосов - ' + count + ')';
+                $('.rating p').html(str)
+            }
+        }
+    });
+});

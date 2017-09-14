@@ -523,21 +523,12 @@ class ArticlesRepository extends Repository
 
             $img = Image::make($image);
 
-            $img->fit(Config::get('settings.articles_img')['main']['width'], Config::get('settings.articles_img')['main']['height'],
-                function ($constraint) {
-                    $constraint->upsize();
-                },
-                $position)->save(public_path() . '/images/article/main/' . $path, 100);
-            $img->fit(Config::get('settings.articles_img')['middle']['width'], Config::get('settings.articles_img')['middle']['height'],
-                function ($constraint) {
-                    $constraint->upsize();
-                },
-                $position)->save(public_path() . '/images/article/middle/' . $path, 100);
-            $img->fit(Config::get('settings.articles_img')['small']['width'], Config::get('settings.articles_img')['small']['height'],
-                function ($constraint) {
-                    $constraint->upsize();
-                },
-                $position)->save(public_path() . '/images/article/small/' . $path, 100);
+            $img->fit(Config::get('settings.articles_img')['main']['width'], Config::get('settings.articles_img')['main']['height'])
+                ->save(public_path() . '/images/article/main/' . $path, 100);
+            $img->fit(Config::get('settings.articles_img')['middle']['width'], Config::get('settings.articles_img')['middle']['height'])
+                ->save(public_path() . '/images/article/middle/' . $path, 100);
+            $img->fit(Config::get('settings.articles_img')['small']['width'], Config::get('settings.articles_img')['small']['height'])
+                ->save(public_path() . '/images/article/small/' . $path, 100);
             return $path;
         } else {
             return false;
@@ -551,10 +542,13 @@ class ArticlesRepository extends Repository
     public function getByTag($tag, $own)
     {
         $articles = $this->model->whereHas('tags', function ($q) use ($tag) {
-            $q->where('tag_id', $tag);
-        })->select('title', 'alias')->where('own', $own)->paginate(5);
+            $q->where('tag_id', $tag)->select('title', 'alias');
+        });
 
-        return $articles;
+        $articles->with(['image', 'category'])->where('own', $own);
+
+        return $this->check($articles->paginate(Config::get('settings.paginate')));
+
     }
 
     /**

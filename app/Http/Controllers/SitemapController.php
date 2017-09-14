@@ -16,7 +16,11 @@ class SitemapController extends MainController
     {
         $this->repository = new SitemapRepository();
 
-        $this->content = Cache::store('file')->remember('sitemap_view', 1430, function () {
+        $status = session()->has('doc') ? 'doc' : 'patient';
+
+        $this->getSidebar(session()->has('doc'));
+
+        $sitemap = Cache::store('file')->remember('sitemap_view-' . $status, 1430, function () {
             $vars = [
                 'cats' => $this->repository->getCategories(),
                 'p_articles' => $this->repository->getPatientArticles(),
@@ -30,8 +34,9 @@ class SitemapController extends MainController
                 'event_cats' => $this->repository->getEventCats(),
             ];
             \Log::info('Карта сайта обновлена: ' . date("d-m-Y H:i"));
-            return view('sitemap.content')->with('vars', $vars)->render();
+            return $vars;
         });
+        $this->content = view('sitemap.content')->with(['vars' => $sitemap, 'sidebar' => $this->sidebar])->render();
         return true;
     }
 
@@ -40,9 +45,16 @@ class SitemapController extends MainController
      */
     public function show()
     {
+        Cache::flush();
+        Cache::store('file')->flush();
         $this->title = 'Sitemap';
 
         $this->index();
+        $this->css = '
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/map-site.css">
+            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/map-site-media.css">
+        ';
+
         $this->footer = Cache::remember('footer-sitemap', 24 * 60, function () {
             return view('layouts.footer')->render();
         });

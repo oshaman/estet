@@ -1,3 +1,74 @@
+<section id="section-1" class="horoscope">
+    <div class="left-title left-title-planshet">
+        <div class="line-container text-vertical">
+            <div class="vertical-line"></div>
+            <h2>Карта сайта</h2>
+        </div>
+    </div>
+    <div class="content">
+        <div class="main-content">
+            <div class="content-center">
+                <div class="block">
+                    <h3><a href="{{ route('main') }}">Главная</a></h3>
+                    <ul>
+                        <li><a href="{{ route('horoscope') }}">Гороскоп</a></li>
+                        <li><a href="{{ route('search') }}">Поиск</a></li>
+                        <li><a href="{{ route('about') }}">О нас</a></li>
+                        <li><a href="{{ route('conditions') }}">Пользовательское соглашение</a></li>
+                        <li><a href="{{ route('contacts') }}">Контакты</a></li>
+                        <li><a href="{{ route('partnership') }}">Партнерство</a></li>
+                        <li><a href="{{ route('advertising') }}">Реклама</a></li>
+                    </ul>
+                </div>
+                <h2>Пациентам</h2>
+                @if(!empty($vars['cats']))
+                    @foreach($vars['cats'] as $cat)
+                        @if('patient' === $cat->own)
+                            <div class="block">
+                                <h3><a href="{{ route('article_cat', $cat->alias) }}">{{ $cat->name }}</a></h3>
+                                @if(!empty($vars['p_articles']))
+                                    <ul>
+                                        @foreach($vars['p_articles'] as $article)
+                                            @if ($cat->id != $article->category_id)
+                                                @continue
+                                            @endif
+                                            <li>
+                                                <a href="{{ route('articles', $article->alias) }}">{{ $article->title }}</a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </div>
+                        @endif
+                    @endforeach
+                @endif
+                {{--<h2>Врачам</h2>--}}
+                {{--<div class="block">
+                    <h3><a href="{{ route('main') }}">Главная</a></h3>
+                </div>--}}
+            </div>
+        </div>
+        {!! $sidebar !!}
+    </div>
+</section>
+
+
+{{--<div class="block">
+    <h3><a href="{{ route('docs_cat', $cat->alias) }}">{{ $cat->name }}</a></h3>
+    @if(!empty($vars['d_articles']))
+        <ul>
+            @foreach($vars['d_articles'] as $article)
+                @if ($cat->id != $article->category_id)
+                    @continue
+                @endif
+                <li><a href="{{ route('doctors', $article->alias) }}">{{ $article->title }}</a></li>
+            @endforeach
+        </ul>
+    @endif
+</div>--}}
+
+
+{{--
 <div class="row bg-success">
     <div class="row"><h2><a href="{{ route('main') }}">Главная</a></h2></div>
     <div class="row"><h3><a href="{{ route('horoscope') }}">Гороскоп</a></h3>
@@ -42,7 +113,9 @@
         @endif
     </div>
     <hr>
-    {{--Blog--}}
+    --}}
+{{--Blog--}}{{--
+
     <div class="row bg-warning">
         <div class="row"><h2><a href="{{ route('blogs') }}">Блог</a></h2></div>
         @if(!empty($vars['blog_cats']))
@@ -64,9 +137,13 @@
             @endforeach
         @endif
     </div>
-    {{--Blog--}}
+    --}}
+{{--Blog--}}{{--
+
     <hr>
-    {{--Catalog--}}
+    --}}
+{{--Catalog--}}{{--
+
     <div class="row bg-warning">
         <div class="row"><h2>Каталог</h2></div>
         <div class="row"><h3><a href="{{ route('docs') }}">Врачи</a></h3></div>
@@ -96,9 +173,13 @@
             @endforeach
         @endif
     </div>
-    {{--Catalog--}}
+    --}}
+{{--Catalog--}}{{--
+
     <hr>
-    {{--Events--}}
+    --}}
+{{--Events--}}{{--
+
     <div class="row bg-warning">
         <div class="row"><h2><a href="{{ route('events') }}">Мероприятия</a></h2></div>
         @if(!empty($vars['event_cats']))
@@ -120,5 +201,7 @@
             @endforeach
         @endif
     </div>
-    {{--Events--}}
-</div>
+    --}}
+{{--Events--}}{{--
+
+</div>--}}

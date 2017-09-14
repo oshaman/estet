@@ -3,7 +3,9 @@ namespace Fresh\Estet\Http\Controllers\Patient;
 
 use Fresh\Estet\Http\Controllers\Controller;
 use Fresh\Estet\Repositories\AdvertisingRepository;
+use Fresh\Estet\Repositories\CategoriesRepository;
 use Fresh\Estet\Repositories\SeoRepository;
+use Fresh\Estet\Repositories\TagsRepository;
 use Menu;
 use DB;
 use Cache;
@@ -20,18 +22,28 @@ class ArticlesController extends Controller
     protected $footer;
     protected $a_rep;
     protected $adv_rep;
+    protected $cat_rep;
+    protected $tag_rep;
     protected $title_img;
     protected $seo_rep;
     protected $seo = false;
     protected $css = false;
     protected $js = false;
 
-    public function __construct(ArticlesRepository $repository, AdvertisingRepository $adv, SeoRepository $seo_rep)
+    public function __construct(
+        ArticlesRepository $repository,
+        AdvertisingRepository $adv,
+        SeoRepository $seo_rep,
+        TagsRepository $tags,
+        CategoriesRepository $cat_rep
+    )
     {
         Cache::flush();
         $this->a_rep = $repository;
         $this->adv_rep = $adv;
         $this->seo_rep = $seo_rep;
+        $this->tag_rep = $tags;
+        $this->cat_rep = $cat_rep;
     }
 
     public function index()
@@ -86,12 +98,6 @@ class ArticlesController extends Controller
             $this->css = '
                 <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya.css">
                 <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya-media.css">
-                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/fonts.css">
-                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-bootstrap.css">
-                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-bootstrap-theme.css">
-                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-mail.css">
-                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-artur.css">
-                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/horoscope-media-artur.css">
             ';
 
             $this->a_rep->displayed($article);
@@ -103,10 +109,19 @@ class ArticlesController extends Controller
                 $article->created = $this->a_rep->convertDate($article->created_at);
                 $article->load('category');
                 $article->load('tags');
+                $article->load('comments');
                 return $article;
             });
 
-            $this->content = view('patient.article')->with(['article' => $article])->render();
+            $same = $this->a_rep->get(
+                ['title', 'alias', 'created_at'], 3, false,
+                [['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['id', '<>', $article->id], ['own', 'patient'], ['category_id', $article->category_id]],
+                false, ['image']
+            );
+            $this->getSidebar();
+            $this->content = view('patient.article')
+                ->with(['article' => $article, 'sidebar' => $this->sidebar, 'same' => $same])
+                ->render();
             return $this->renderOutput();
         }
         return redirect()->route('main');
@@ -122,12 +137,18 @@ class ArticlesController extends Controller
         if (!$tag) {
             abort(404);
         }
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi-media.css">
+            ';
+        $this->getSidebar();
         $this->content = Cache::remember('articles_tags' . $tag->alias, 60, function () use ($tag) {
             $articles = $this->a_rep->getByTag($tag->id, 'patient');
-            return view('patient.tags')->with(['articles' => $articles])->render();
-        });
 
-        $this->getSidebar();
+            return view('patient.tags')
+                ->with(['articles' => $articles, 'tag' => $tag, 'sidebar' => $this->sidebar])
+                ->render();
+        });
 
         return $this->renderOutput();
     }
@@ -141,14 +162,20 @@ class ArticlesController extends Controller
         if (!$cat) {
             abort(404);
         }
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi-media.css">
+            ';
+
         $this->content = Cache::remember('articles_cats'.$cat->alias, 60, function () use ($cat) {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient'], ['category_id', $cat->id] );
             $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
+            $this->getSidebar();
 
-            return view('patient.cat')->with(['articles' => $articles])->render();
+            return view('patient.cat')
+                ->with(['articles' => $articles, 'sidebar' => $this->sidebar, 'cat' => $cat])
+                ->render();
         });
-
-        $this->getSidebar();
 
         return $this->renderOutput();
     }
@@ -199,7 +226,7 @@ class ArticlesController extends Controller
         return Menu::make('menu', function($menu) use ($cats) {
             $menu->add('Последние', ['route'=>['articles_last']]);
             foreach ($cats as $cat) {
-                if (('Видео' == $cat->name) || ('Видео отзывы' == $cat->name)) {
+                if (('Видео' == $cat->name) || ('Видео отзывы' == $cat->name) || ('Интервью' == $cat->name)) {
                     continue;
                 }
                 $menu->add($cat->name, ['route'=>['article_cat', $cat->alias]]);
@@ -213,14 +240,24 @@ class ArticlesController extends Controller
      */
     public function lastArticles()
     {
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi-media.css">
+            ';
         $this->content = Cache::remember('articles_last', 60, function () {
             $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
-            $articles = $this->a_rep->get('*', 14, true, $where, ['created_at', 'desc'], ['image']);
+            $articles = $this->a_rep->get(
+                '*', 14, true, $where, ['created_at', 'desc'], ['image']);
 
-            return view('patient.cat')->with(['articles' => $articles])->render();
+            $cat = new \stdClass();
+            $cat->name = 'Последние новости';
+            $this->getSidebar();
+            return view('patient.cat')
+                ->with(['articles' => $articles, 'cat' => $cat, 'sidebar' => $this->sidebar])
+                ->render();
         });
 
-        $this->getSidebar();
+
         $this->seo = Cache::remember('seo_lasts', 24 * 60, function () {
             return $this->seo_rep->getSeo('poslednie-novosti');
         });

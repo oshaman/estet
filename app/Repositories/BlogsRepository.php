@@ -610,9 +610,6 @@ class BlogsRepository extends Repository {
         if ($order) {
             $builder->orderBy($order[0], $order[1]);
         }
-       /* if($pagination) {
-            return $builder->paginate(Config::get('settings.paginate'));
-        }*/
 
         if ($check) {
             if($pagination) {
@@ -630,16 +627,18 @@ class BlogsRepository extends Repository {
 
     /**
      * @param $tag
-     * @return articles collection
+     * @return blogs collection
      */
     public function getByTag($tag)
     {
         $blogs = $this->model->whereHas('tags', function($q) use ( $tag )
         {
-            $q->where('tag_id', $tag);
-        })->select('title', 'alias')->get();
+            $q->where('tag_id', $tag)->select('title', 'alias');
+        });
 
-        return $blogs;
+        $blogs->with(['blog_img', 'category', 'person']);
+
+        return $this->check($blogs->paginate(Config::get('settings.paginate')));
     }
 
     /**
@@ -658,8 +657,4 @@ class BlogsRepository extends Repository {
             ->get());
     }
 
-    public function getThreeOwn()
-    {
-
-    }
 }
