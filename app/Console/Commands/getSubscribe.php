@@ -4,6 +4,7 @@ namespace Fresh\Estet\Console\Commands;
 
 use Illuminate\Console\Command;
 use Fresh\Estet\Repositories\SubscribersRepository;
+use Cache;
 
 class getSubscribe extends Command
 {

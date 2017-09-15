@@ -107,7 +107,7 @@ class MainController extends Controller
 
     public function getSidebar($status)
     {
-        //        sidebar
+//        sidebar
         if ($status) {
             $this->sidebar = Cache::remember('docsSidebar', 60, function () {
                 $events_rep = new EventsRepository(new Event());
@@ -126,10 +126,8 @@ class MainController extends Controller
             });
         } else {
             $this->sidebar = Cache::remember('patientSidebar', 60, function () {
-                $events_rep = new EventsRepository(new Event());
-                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')]);
-                $lasts = $events_rep->get(['title', 'alias', 'created_at'], 2, false, $where, ['created_at', 'desc']);
-
+                $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
+                $lasts = $this->a_rep->getLast(['title', 'alias', 'created_at'], $where, 2, ['created_at', 'desc']);
                 //          most displayed
                 $where = array(['approved', true], ['created_at', '<=', DB::raw('NOW()')], ['own', 'patient']);
                 $articles = $this->a_rep->mostDisplayed(['title', 'alias', 'created_at'], $where, 2, ['view', 'desc']);

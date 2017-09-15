@@ -1,6 +1,10 @@
 .content-vnutrennaya {
   margin: 3.2% 0 0 0;
 }
+
+input.checkbox {
+  border: 20px;
+}
 .contents {
   padding: 2.6% 0 0 0 !important;
 }
@@ -462,6 +466,10 @@ footer .social a {
   display: -moz-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -moz-box-pack: justify;
+  -ms-flex-pack: justify;
   justify-content: space-between;
 }
 .blog-categories .select .form-select {
@@ -541,6 +549,107 @@ footer .social a {
   padding: 13% 9.6%;
 }
 .select-kategorii {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.blog-categories .select input [type=checkbox] {
+  vertical-align: top;
+  width: 12px;
+  height: 12px;
+  margin: 0 3px 0 0;
+}
+
+.blog-categories .select input [type=checkbox] + label {
+  cursor: pointer;
+}
+
+.blog-categories .select input[type=checkbox]:not(checked) {
+  position: absolute;
+  opacity: 0;
+}
+
+.blog-categories .select input[type=checkbox]:not(checked) + label {
+  position: relative;
+  padding: 0 24px 0 29px;
+}
+
+.blog-categories .select input[type=checkbox]:not(checked) + label:before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: 5px;
+  width: 12px;
+  height: 12px;
+  border: 1px solid #cdd1da;
+  border-radius: 50%;
+  background: #fff;
+}
+
+.blog-categories .select input[type=checkbox]:not(checked) + label:after {
+  content: '';
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #7e2b83;
+  opacity: 0;
+  -webkit-transition: all 0.2s;
+  transition: all 0.2s;
+}
+
+.blog-categories .select-blue input[type=checkbox]:not(checked) + label:after {
+  background: #455ea7;
+}
+
+.blog-categories .select-black input[type=checkbox]:not(checked) + label:after {
+  background: #202020;
+}
+
+.blog-categories .select input[type=checkbox]:checked + label:after {
+  opacity: 1;
+}
+
+.horoscope .content-aside-main .content {
+  margin-top: 43px;
+}
+
+.horoscope .content-aside-main .articles-vertical {
+  margin: 0 0 65px 0;
+}
+
+.horoscope .hrp .icons-img {
+  margin: 5px 0 29px 0;
+}
+
+.horoscope .aside-block .form-wrap {
+  margin: 27.6% 0;
+  padding: 13% 9.6%;
+}
+
+.select-kategorii {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -moz-box-orient: vertical;
+  -moz-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }

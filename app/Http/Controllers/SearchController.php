@@ -43,7 +43,6 @@ class SearchController extends MainController
         Cache::flush();
         $this->css = '
             <link rel="stylesheet" type="text/css" href="' . asset('css') . '/poisk.css">
-            <link rel="stylesheet" type="text/css" href="' . asset('css') . '/poisk-media.css">
         ';
         $this->getSidebar(session()->has('doc'));
         $cats = Cache::remember('allCats', 600, function () {

@@ -44,6 +44,7 @@ class DocsController extends Controller
      */
     public function index($article = null)
     {
+        Cache::flush();
         if ($article) {
             $this->css = '
                 <link rel="stylesheet" type="text/css" href="' . asset('css') . '/stati-vnutrennaya.css">
@@ -206,10 +207,6 @@ class DocsController extends Controller
      */
     public function tag($tag = null)
     {
-
-
-        Cache::flush();
-
         if (!$tag) {
             abort(404);
         }

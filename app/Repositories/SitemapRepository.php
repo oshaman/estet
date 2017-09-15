@@ -18,12 +18,15 @@ class SitemapRepository
 {
     public function index()
     {
+        Cache::flush();
+
         // create new sitemap object
         $sitemap_article_docs = App::make("sitemap");
         $sitemap_article_patients = App::make("sitemap");
 
 //    Articles
-        $posts = Article::where('approved', 1)->with('image')->orderBy('updated_at', 'desc')->get();
+        $posts = Article::where('approved', 1)
+            ->with('image')->orderBy('updated_at', 'desc')->get();
         foreach ($posts as $post) {
             // get all images for the current post
             $images = array();
@@ -40,9 +43,12 @@ class SitemapRepository
                 $sitemap_article_docs->add(URL::to('doctor/statyi/' . $post->alias), $post->updated_at, '1.0', 'weekly', $images);
             }
         }
+//        $sitemap_article_docs->add(URL::to('main'));
+
         $sitemap_article_patients->store('xml','sitemap-articles-patient');
         $sitemap_article_docs->store('xml','sitemap-articles-docs');
 //    Articles
+
 //    Blogs
         $sitemap_blog = App::make("sitemap");
         $blogs = Blog::with('blog_img')->orderBy('created_at', 'desc')->get();

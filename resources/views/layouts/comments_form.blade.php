@@ -11,19 +11,34 @@
         </div>
     </div>
     <div class="section-form">
+        {{--@if (count($errors) > 0)
+            <div class="alert alert-danger">
+                <p class="error">
+                    @foreach ($errors->toArray() as $key=>$error)
+                    {!! str_replace($key, '<strong>' . trans('admin.' . $key) . '</strong>', $error[0]) !!}</br>
+                    @endforeach
+                </p>
+            </div>
+        @endif
+        @if (session('status'))
+            <div class="alert alert-success">
+                {{ session('status') }}
+            </div>
+        @endif--}}
         <p class="add-comm">Добавить коментарий:</p>
         {!! Form::open(['url' => route('comments'),'class'=>'section-form-up','method'=>'post']) !!}
-        <input type="email" name="email" class="section-input" placeholder="ваша почта">
-        <input type="text" name="name" class="section-input" placeholder="имя">
-        <textarea name="comment" cols="40" rows="3" class="section-form-text" placeholder="текст"></textarea>
+        {!! Form::text('email', old('email') ? : '' , ['placeholder'=>'Ваша почта', 'id'=>'email', 'class'=>'section-input']) !!}
+        {!! Form::text('name', old('name') ? : '' , ['placeholder'=>'Имя', 'id'=>'name', 'class'=>'section-input']) !!}
+        {!! Form::textarea('text', old('text') ? : '' ,
+         ['placeholder'=>'Коментарий', 'id'=>'text', 'class'=>'form-control', 'rows'=>3, 'cols'=>40]) !!}
         <div class="section-form-down">
-            <div>
+            {{--<div>
                 <input readonly="" type="text" name="cod" class="section-form-test" placeholder="78535">
                 <input type="text" name="prof" class="section-form-test">
-            </div>
-            <button class="but-section-form @if(session()->has('doc')) but-section-purpur @endif" type="button">
+            </div>--}}
+            <input class="but-section-form @if(session()->has('doc')) but-section-purpur @endif" type="submit">
                 отправить
-            </button>
+            </input>
         </div>
         <p><img src="../img/content/refresh.png" alt="">Обновить</p>
         {{ Form::hidden('comment_post_ID', $id) }}

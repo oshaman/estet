@@ -54,6 +54,7 @@
     </div>
     <div class="content">
         <!--articles-gray-->
+        @if(!empty($same))
         <div class="articles-horizontal">
             @foreach($same as $preview)
                 <article>
@@ -76,5 +77,6 @@
             @endif
             @endforeach
         </div>
+        @endif
     </div>
 </section>

@@ -1,0 +1,1152 @@
+.hrp {
+    width: 100%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 16% 0 16% 0;
+}
+
+.horo {
+    text-align: center;
+}
+
+.main-img-info {
+    margin: 0 0 8% 0;
+}
+
+.hrp::after {
+    content: '';
+    width: 100%;
+}
+
+.brooding-8 {
+    margin-right: 65px;
+}
+
+.visible-mob {
+    display: none;
+}
+
+.icons-img {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.icons-img:nth-child(n + 7) {
+    -webkit-box-ordinal-group: 2;
+    -webkit-order: 1;
+    -moz-box-ordinal-group: 2;
+    -ms-flex-order: 1;
+    order: 1;
+}
+
+.description {
+    display: block;
+    float: left;
+    margin: 0 0 34px -17px;
+    overflow: hidden;
+    -webkit-transition: 1s;
+    transition: 1s;
+}
+
+.description.active {
+    height: 100%;
+}
+
+.horoscope-description {
+    margin-bottom: 57px;
+}
+
+.horoscope-description:before,
+.horoscope-description:after {
+    content: '.';
+    font-size: 0;
+    clear: both;
+    display: block;
+}
+
+.horoscope-description .img-horoscope-description {
+    width: 37%;
+    float: left;
+    margin-left: -3%;
+    text-align: center;
+}
+
+.horoscope-description .description {
+    width: 66%;
+}
+
+div.horoscope-description:nth-of-type(2n) .img-horoscope-description {
+    float: right;
+}
+
+.horoscope-description-main {
+    width: 86%;
+    margin-left: 11%;
+}
+
+.title-fon {
+    border-left: 1px solid #000;
+    width: 76.4% !important;
+}
+
+.icons-img div {
+    position: relative;
+    display: inline-block;
+}
+
+.icons-img span {
+    display: block;
+    font-family: "Roboto";
+    text-align: center;
+    margin-top: 8px;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: #202020;
+}
+
+.icons-img i:last-child {
+    position: absolute;
+    top: 0;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+
+.icons-img:hover i:last-child {
+    opacity: 0;
+}
+
+.hrp a:hover {
+    color: #0f0f0f;
+}
+
+.horoscope-icons {
+    background-image: url("../estet/img/horoscope/horoscope-icons.png");
+    background-repeat: no-repeat;
+    display: block;
+}
+
+.horoscope-icons-bliznetsy {
+    width: 70px;
+    height: 70px;
+    background-position: -5px -5px;
+}
+
+.horoscope-description-main {
+    padding-right: 127px;
+    margin-left: 69px;
+    width: 100%;
+    margin-top: 32px;
+}
+
+.horoscope-icons-bliznetsy-active {
+    width: 70px;
+    height: 70px;
+    background-position: -85px -5px;
+}
+
+.horoscope-icons-deva {
+    width: 70px;
+    height: 70px;
+    background-position: -165px -5px;
+}
+
+.horoscope-icons-deva-active {
+    width: 70px;
+    height: 70px;
+    background-position: -245px -5px;
+}
+
+.horoscope-icons-kozerog {
+    width: 70px;
+    height: 70px;
+    background-position: -325px -5px;
+}
+
+.horoscope-icons-kozerog-active {
+    width: 70px;
+    height: 70px;
+    background-position: -5px -85px;
+}
+
+.horoscope-icons-lev {
+    width: 70px;
+    height: 70px;
+    background-position: -85px -85px;
+}
+
+.horoscope-icons-lev-active {
+    width: 70px;
+    height: 70px;
+    background-position: -165px -85px;
+}
+
+.horoscope-icons-oven {
+    width: 70px;
+    height: 70px;
+    background-position: -245px -85px;
+}
+
+.horoscope-icons-oven-active {
+    width: 70px;
+    height: 70px;
+    background-position: -325px -85px;
+}
+
+.horoscope-icons-rak {
+    width: 70px;
+    height: 70px;
+    background-position: -5px -165px;
+}
+
+.horoscope-icons-rak-active {
+    width: 70px;
+    height: 70px;
+    background-position: -85px -165px;
+}
+
+.horoscope-icons-riba {
+    width: 70px;
+    height: 70px;
+    background-position: -165px -165px;
+}
+
+.horoscope-icons-riba-active {
+    width: 70px;
+    height: 70px;
+    background-position: -245px -165px;
+}
+
+.horoscope-icons-skorpion {
+    width: 70px;
+    height: 70px;
+    background-position: -325px -165px;
+}
+
+.horoscope-icons-skorpion-active {
+    width: 70px;
+    height: 70px;
+    background-position: -5px -245px;
+}
+
+.horoscope-icons-strelets {
+    width: 70px;
+    height: 70px;
+    background-position: -85px -245px;
+}
+
+.horoscope-icons-strelets-active {
+    width: 70px;
+    height: 70px;
+    background-position: -165px -245px;
+}
+
+.horoscope-icons-telets {
+    width: 70px;
+    height: 70px;
+    background-position: -245px -245px;
+}
+
+.horoscope-icons-telets-active {
+    width: 70px;
+    height: 70px;
+    background-position: -325px -245px;
+}
+
+.horoscope-icons-vesy {
+    width: 70px;
+    height: 70px;
+    background-position: -5px -325px;
+}
+
+.horoscope-icons-vesy-active {
+    width: 70px;
+    height: 70px;
+    background-position: -85px -325px;
+}
+
+.horoscope-icons-vodoley {
+    width: 70px;
+    height: 70px;
+    background-position: -165px -325px;
+}
+
+.horoscope-icons-vodoley {
+    width: 70px;
+    height: 70px;
+    background-position: -245px -325px;
+}
+
+.horoscope-icons-vodoley-active {
+    width: 70px;
+    height: 70px;
+    background-position: -325px -325px;
+}
+
+@media screen and (max-width: 767px) {
+    .hrp {
+        display: block;
+        font-size: 0;
+    }
+
+    .icons-img {
+        text-align: center;
+        display: inline-block;
+        width: 33.333333333333336%;
+    }
+
+    .icons-img:nth-child(3n+1) {
+        text-align: left;
+    }
+
+    .icons-img:nth-child(3n) {
+        text-align: right;
+    }
+}
+
+.title-main {
+    text-align: center;
+}
+
+.heading-title {
+    font-size: 36px;
+    font-family: "Cormorant Garamond";
+    margin: 3% 0 5% 0;
+}
+
+.main-img {
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+    margin: 0 0 8% 0;
+}
+
+.main-img img {
+    margin: 0 0 6% 0;
+    width: 100%;
+}
+
+.main-img p {
+    margin: 2% 0 0 0;
+}
+
+.images-block {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin: 0 0 9% 0;
+}
+
+.images p {
+    margin: 0 0 2% 0;
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+}
+
+h3 {
+    font-size: 28px;
+    font-family: "Cormorant Garamond";
+}
+
+.information-list-1 {
+    margin: 8% 0 10% 0;
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+}
+
+.information-list-1 p {
+    margin: 0 0 2% 0;
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+}
+
+.list-li {
+    margin: 0 0 2% 0;
+}
+
+.list-li li {
+    list-style-type: none;
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+}
+
+.list-li li img {
+    padding: 0 2.3% 0 0;
+}
+
+.information-list p {
+    margin: 0 0 3% 0;
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+}
+
+.select {
+    border-top: 1px solid #f3f3f3;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.form-select {
+    margin: 7% 0 7% 0;
+    font-size: 19px;
+    font-family: "Cormorant Garamond";
+    line-height: 50px;
+}
+
+.form-select span {
+    padding: 0 5% 0 0;
+}
+
+/***************************************news-articles***************************************/
+/*******************************articles-left*******************************/
+.news-articles {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    margin: 3% 0 14% 0;
+    background-color: #f3f3f3;
+}
+
+.articles-right,
+.articles-left {
+    padding: 15px 15px 15px 34px;
+    background-color: #f3f3f3;
+    margin: 5px;
+}
+
+.articles-left:nth-child(1):before {
+    content: "";
+    position: absolute;
+    height: 318px;
+    border-right: 12px solid #fff;
+    margin: -3% 0 0 46.5%;
+}
+
+/*.articles::before {*/
+/*content: "";*/
+/*display: inline-block;*/
+/*vertical-align: middle;*/
+/*width: 79px;*/
+/*height: 7px;*/
+/*background-color: #455ea7;*/
+/*position: relative;*/
+/*left: 70%;*/
+/*top: -3px;*/
+/*}*/
+.articles p {
+    margin: -27px 0 33px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+}
+
+.articles-news-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+}
+
+.articles-news-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+}
+
+.psychology a {
+    color: #202020;
+}
+
+.articles-news-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.articles-news-item-2 {
+    margin: 0 0 -10px 15px;
+}
+
+.articles-news-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+}
+
+.psychology a {
+    color: #202020;
+}
+
+.articles-news-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+/*******************************articles-left*******************************/
+/*******************************articles-right*******************************/
+.articles-popular::before {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    width: 79px;
+    height: 7px;
+    background-color: #455ea7;
+    position: relative;
+    left: 72%;
+    top: -2px;
+}
+
+.articles-popular p {
+    margin: -25px 0 30px 10px;
+    font-size: 24px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+}
+
+.articles-news-popular-item-1 {
+    border-bottom: 1px solid #c7c7c7;
+    margin: 0 0 13px 12px;
+}
+
+.articles-news-popular-item-1 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+}
+
+.psychology a {
+    color: #202020;
+}
+
+.articles-news-popular-item-1 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+.articles-news-popular-item-2 {
+    margin: 0 0 -21px 13px;
+}
+
+.articles-news-popular-item-2 p {
+    background-color: #202020;
+    width: 62px;
+    color: #fff;
+    font-family: "Roboto-Bold";
+    font-size: 10px;
+    margin-bottom: 18px;
+    padding: 1px 0 1px 7px;
+    letter-spacing: 0.5px;
+}
+
+.psychology a {
+    color: #202020;
+}
+
+.articles-news-popular-item-2 h4 {
+    color: #000;
+    font-family: "CormorantGaramond";
+    margin-bottom: 18px;
+    letter-spacing: 0.5px;
+    font-size: 17px;
+    font-weight: normal;
+}
+
+/*******************************articles-left*******************************/
+/***************************************news-articles***************************************/
+/**************************************podpiska-media**************************************/
+.podpiska-media {
+    display: -webkit-inline-box;
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    width: 100%;
+}
+
+.visible-mobil-block {
+    margin: 3% auto;
+    display: -webkit-box;
+    padding-bottom: 10%;
+}
+
+.img_articles_news-popular {
+    padding-left: 30px;
+}
+
+.img_articles_news-popular img {
+    min-width: 100%;
+    margin: 0 0 0 0;
+}
+
+.podpiska {
+    padding-left: 69px;
+}
+
+.layer-pod {
+    background: #f3f3f3;
+    width: 270px;
+    height: 286px;
+}
+
+.pod-1 {
+    text-align: center;
+    font-family: "CormorantGaramond-Bold";
+}
+
+.pod-1 h4 {
+    font-size: 19px;
+    font-weight: bold;
+    padding-top: 23px;
+    margin-bottom: 35px;
+}
+
+.pod-1 p {
+    font-size: 16px;
+    font-weight: bold;
+    font-family: "CormorantGaramond";
+    margin: 0 0 0 0 !important;
+}
+
+.pod-email {
+    width: 78%;
+    height: 30px;
+    margin-top: 11px;
+    font-size: 12px;
+    padding-left: 20px;
+    font-family: "Roboto-Regular";
+    border-color: rgba(228, 228, 228, 0.2);
+}
+
+.pod-type {
+    width: 78%;
+    height: 31px;
+    margin-top: 8px;
+    font-size: 12px;
+    padding-left: 17px;
+    font-family: "Roboto-Regular";
+    border-color: #e4e4e4;
+}
+
+.pod-subs {
+    width: 82.2%;
+    height: 22px;
+    margin-top: 16%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    border: 0;
+}
+
+/**************************************podpiska-media**************************************/
+.reklama {
+    width: 100%;
+}
+
+.img_articles_news-popul img {
+    width: 100%;
+}
+
+.container-rubrics {
+    text-align: -webkit-center;
+}
+
+.rubrics {
+    font-family: "CormorantGaramond-Regular";
+    width: 100%;
+    margin-bottom: 35px;
+}
+
+.rubrics h3 {
+    font-size: 24px;
+    margin: 79px 0 38px 0;
+    font-weight: bold;
+    font-family: 'CormorantGaramond';
+}
+
+.rubrics p {
+    font-size: 16px;
+    font-weight: bold;
+    width: 60%;
+    font-family: "Cormorant Garamond";
+    letter-spacing: 1px;
+    line-height: 15px;
+}
+
+footer {
+    margin-top: 50px;
+    padding: 4.3% 6.7% 2.5%;
+    background: #202020;
+    color: #fff;
+    font-size: 0;
+}
+
+footer .footer-top,
+footer .footer-bot {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+footer img {
+    width: 100%;
+}
+
+footer a {
+    color: #fff;
+}
+
+footer .left {
+    width: 17%;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+footer .right {
+    width: 24%;
+}
+
+footer .center {
+    width: 50%;
+}
+
+footer p {
+    font-family: "Roboto";
+    color: #a8a7a7;
+    font-size: 12px;
+    line-height: 15px;
+}
+
+footer p:first-child {
+    margin-bottom: 6%;
+}
+
+.footer-top {
+    padding-bottom: 3.1%;
+    border-bottom: 1px solid rgba(168, 167, 167, 0.21);
+}
+
+.footer-head img {
+    margin-top: 4px;
+}
+
+footer .social-wrap h5 {
+    margin-bottom: 10px;
+    font-family: "SegoeUIRegular";
+    font-size: 16px;
+    text-align: center;
+}
+
+footer .social {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+footer .social a {
+    width: 19px;
+    display: block;
+}
+
+.footer-bot {
+    padding-top: 2%;
+}
+
+.footer-bot .app-store {
+    width: 125px;
+}
+
+.footer-menu div {
+    padding: 5px 0;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+.footer-menu a {
+    font-family: 'Roboto';
+    color: #d1d1d1;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.footer-bot .right {
+    text-align: center;
+    font-family: 'Roboto';
+}
+
+.footer-bot .right > * {
+    width: 50%;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.footer-bot .right span:first-child {
+    display: block;
+    font-size: 12px;
+    line-height: 20px;
+}
+
+.footer-bot .right span:last-child {
+    font-size: 20px;
+    line-height: 28px;
+}
+
+.partner {
+    border-right: 1px solid rgba(168, 167, 167, 0.21);
+}
+
+.partner span:last-child {
+    letter-spacing: 2px;
+    color: #9b9b9b;
+}
+
+.developing span:last-child {
+    font-family: 'Vidaloka', serif;
+    color: #d27360;
+    letter-spacing: 6px;
+}
+
+.icons {
+    font-family: 'icons-desctop';
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    display: inline-block;
+    text-decoration: inherit;
+    text-align: center;
+    font-variant: normal;
+    text-transform: none;
+    line-height: 1em;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-sandwich:before {
+    content: '\e800';
+}
+
+/* sandwich */
+.icon-close:before {
+    content: '\e801';
+}
+
+/* close */
+.icon-clock:before {
+    content: '\e802';
+}
+
+/* clock */
+.blog-categories .select {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: #000;
+    margin-top: 35px;
+}
+
+.blog-categories .select .form-select {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    line-height: 42px;
+}
+
+.blog-categories .select .form-select > div {
+    margin-right: 3%;
+}
+
+.blog-categories .select input [type=radio] {
+    vertical-align: top;
+    width: 12px;
+    height: 12px;
+    margin: 0 3px 0 0;
+}
+
+.blog-categories .select input [type=radio] + label {
+    cursor: pointer;
+}
+
+.blog-categories .select input[type=radio]:not(checked) {
+    position: absolute;
+    opacity: 0;
+}
+
+.blog-categories .select input[type=radio]:not(checked) + label {
+    position: relative;
+    padding: 0 0 0 24px;
+}
+
+.blog-categories .select input[type=radio]:not(checked) + label:before {
+    content: '';
+    position: absolute;
+    top: 4px;
+    left: 5px;
+    width: 12px;
+    height: 12px;
+    border: 1px solid #cdd1da;
+    border-radius: 50%;
+    background: #fff;
+}
+
+.blog-categories .select input[type=radio]:not(checked) + label:after {
+    content: '';
+    position: absolute;
+    top: 5px;
+    left: 6px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #7e2b83;
+    opacity: 0;
+    -webkit-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.blog-categories .select-blue input[type=radio]:not(checked) + label:after {
+    background: #455ea7;
+}
+
+.blog-categories .select input[type=radio]:checked + label:after {
+    opacity: 1;
+}
+
+/*******************************************form*******************************************/
+.comment-post {
+    width: 95%;
+}
+
+.comment-post .social-networks {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+.comment-post .social-networks p {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 600;
+    font-size: 19px;
+}
+
+.comment-post .social-networks .social-post {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-justify-content: space-around;
+    -ms-flex-pack: distribute;
+    justify-content: space-around;
+    width: 26%;
+}
+
+.comment-post .section-form {
+    margin-top: 32px;
+}
+
+.comment-post .section-form .add-comm {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 11px;
+}
+
+.comment-post .section-form .section-form-up {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -moz-box-orient: vertical;
+    -moz-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+.comment-post .section-form .section-form-up .section-input {
+    width: 31.5%;
+    height: 32px;
+    padding: 0 0 0 15px;
+    font-size: 12px;
+    font-family: 'Roboto';
+    margin-bottom: 10px;
+}
+
+.comment-post .section-form .section-form-up .section-form-text {
+    height: 98px;
+    padding: 7px 0 0 15px;
+    font-size: 12px;
+    font-family: 'Roboto';
+}
+
+.comment-post .section-form .section-form-up .section-form-down {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+    -moz-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    margin-top: 30px;
+}
+
+.comment-post .section-form .section-form-up .section-form-down div {
+    letter-spacing: 26px;
+}
+
+.comment-post .section-form .section-form-up .section-form-down div .section-form-test {
+    width: 70px;
+    height: 35.11px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 19px;
+    text-align: center;
+}
+
+.comment-post .section-form .section-form-up .but-section-form {
+    width: 23.5%;
+    border-radius: 40px;
+    background: #455ea7;
+    color: #fff;
+    height: 35px;
+    font-size: 14px;
+    font-family: "Roboto-Bold";
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    border: 0;
+    cursor: pointer;
+}
+
+.comment-post .section-form .section-form-up .but-section-purpur {
+    background: #7e2b83;
+}
+
+/*******************************************form*******************************************/
+.horoscope .content-aside-main .content {
+    margin-top: 36px;
+}
+
+.horoscope .content-aside-main .articles-vertical {
+    margin: 0 0 65px 0;
+}
+
+.horoscope .hrp .icons-img {
+    margin: 13px 0 23px 0;
+}
+
+.horoscope .aside-block .form-wrap {
+    margin: 27.6% 0;
+    padding: 13% 9.6%;
+}

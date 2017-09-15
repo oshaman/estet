@@ -66,4 +66,9 @@
     <div class="aside-block subscribe-block">
         @include('layouts.subscribe')
     </div>
+    <div class="aside-block">
+        <div class="advertising">
+            {!! $advertising['sidebar'] ?? '<img src="'. asset('estet') .'/img/advertising.jpg" >' !!}
+        </div>
+    </div>
 </aside>

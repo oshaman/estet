@@ -76,7 +76,6 @@ header {
     background: transparent;
     color: #000;
 }
-
 .to-top:after {
     content: ' ';
     background-image: url(../estet/img/str-top.png);
@@ -86,7 +85,6 @@ header {
     height: 10px;
 
 }
-
 .wrap-top-top:hover .to-top:after {
     content: ' ';
     background-image: url(../estet/img/str-top.png);
@@ -218,7 +216,6 @@ article:hover .horizontal-line:before {
   transition:1s;
   bottom: 0;
 }
-
 .doctor-page .vertical-line {
   background: #7e2b83;
 }
@@ -376,6 +373,11 @@ aside.aside {
   right: 0;
 }
 
+.pagination .social-networks {
+    margin-top: 96px;
+    display: flex;
+    justify-content: space-around;
+}
 .comment-post {
   width: 95%;
 }

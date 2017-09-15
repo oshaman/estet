@@ -141,7 +141,7 @@
                                         </li>
                                     @endif
                                     @if($titles->currentPage() >= 3)
-                                        <li><a href="{{ $titles->url($titles->lastPage()) }}">1</a></li>
+                                        <li><a href="{{ $titles->url($titles->url(1)) }}">1</a></li>
                                     @endif
                                     @if($titles->currentPage() >= 4)
                                         <li><a href="#">...</a></li>

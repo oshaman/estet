@@ -3,7 +3,11 @@
         <div class="left-title">
             <div class="line-container">
                 <div class="vertical-line @if(session()->has('doc')) line-purple @endif"></div>
-                <h2>Последние мероприятия</h2>
+                @if(session()->has('doc'))
+                    <h2>Последние мероприятия</h2>
+                @else
+                    <h2>Последние статьи</h2>
+                @endif
             </div>
         </div>
         <div class="content">
@@ -17,7 +21,12 @@
                                     {{ $last->created }}
                                 </time>
                             </div>
-                            <a class="link-title" href="{{ route('events', $last->alias) }}">
+                            <a class="link-title" href="
+                                @if(session()->has('doc'))
+                            {{ route('events', $last->alias) }}">
+                                @else
+                                    {{ route('articles', $last->alias) }}">
+                                @endif
                                 <h3>{{ $last->title }}</h3>
                             </a>
                         </article>

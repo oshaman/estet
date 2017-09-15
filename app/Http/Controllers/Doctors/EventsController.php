@@ -111,20 +111,32 @@ class EventsController extends DocsController
             }
         }
 
-        /*$now = Carbon::now();
-        $month = $now->format('m');
-        dd($month);*/
+        if ($request->has('year')) {
+            $year = $request->get('year');
+        } else {
+            $year = date('Y');
+        }
+
+        if ($request->has('month')) {
+            $month = $request->get('month');
+        } else {
+            $month = date('m');
+        }
+
+        $firs_day = date('D', mktime(0, 0, 0, $month, 1, $year));
+        $last_number = date('t', mktime(0, 0, 0, $month, 1, $year));
+
+//        $day_number = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
         $where1 = [
-            ['stop', '<=', date('Y-m-t')],
+            ['stop', '>=', date('Y-m-01', mktime(0, 0, 0, $month, 1, $year))],
+            ['start', '<=', date('Y-m-t', mktime(0, 0, 0, $month, 1, $year))],
         ];
-//        dd($where1);
+        dd($where1);
 
         $calendar = $this->repository->get(['title', 'stop', 'start'], false, false, $where1, false, ['logo']);
         $events = $this->repository->getWithoutPrems(true, $where, $prems_ids, false, $where_in);
         $calendar = $this->repository->convertStop($calendar);
-//        dd($calendar);
-//        dd(date('Y'));
 
         $vars = [
             'events' => $events,

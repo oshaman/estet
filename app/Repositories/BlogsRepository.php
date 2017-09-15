@@ -490,11 +490,11 @@ class BlogsRepository extends Repository {
             $picture = array_map(function ($v) {
                 return
                     '<picture>
-                            <source srcset="http://estet-portal.loc/images/blog/photos/small/' .$v. '" media="(max-width: 320px)">
-                            <source srcset="http://estet-portal.loc/images/blog/photos/middle/' .$v. '" media="(max-width: 768px)">
-                            <source srcset="http://estet-portal.loc/images/blog/photos/main/' .$v. '" media="(max-width: 1024px)">
-                            <source srcset="http://estet-portal.loc/images/blog/photos/main/' .$v. '">
-                            <img srcset="http://estet-portal.loc/images/blog/photos/small/' .$v. '" alt="My default image">
+                            <source srcset="' . asset('images') . '/blog/photos/small/' . $v . '" media="(max-width: 320px)">
+                            <source srcset="' . asset('images') . '/blog/photos/middle/' . $v . '" media="(max-width: 768px)">
+                            <source srcset="' . asset('images') . '/blog/photos/main/' . $v . '" media="(max-width: 1024px)">
+                            <source srcset="' . asset('images') . '/blog/photos/main/' . $v . '">
+                            <img srcset="' . asset('images') . '/blog/photos/small/' . $v . '" alt="My default image">
                         </picture>';
             }, $new_path);
 //          convert content text

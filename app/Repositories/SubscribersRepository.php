@@ -22,6 +22,7 @@ class SubscribersRepository extends Repository
 
         $where = array(['own', 'patient'], ['approved', 1], ['created_at', '>', Carbon::yesterday()->toDateString()], ['created_at', '<', Carbon::now()->toDateString()] );
         $articles = $article->select('title')->where($where)->get();
+
         if ($articles->isNotEmpty()) {
             $patient = view('subscribers.patient')->with('articles', $articles)->render();
             Cache::forever('sub_patient', $patient);
@@ -57,10 +58,15 @@ class SubscribersRepository extends Repository
 
     public function addSubscriber($request)
     {
+        Cache::flush();
+
+        $messages = [
+            'status.required' => 'Вы пациент или врач? Дайте нам больше информации!',
+        ];
         $validator = Validator::make($request->all(), [
             'email' => 'required|email|max:255',
             'status' => 'required|max:7|numeric',
-        ]);
+        ], $messages);
 
         if ($validator->fails()) {
             return ['error'=>$validator];

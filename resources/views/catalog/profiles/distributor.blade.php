@@ -24,9 +24,9 @@
 
             <div class="main-content page-content">
                 <!-- section-3 -->
-                {!! $nav !!}
+            @include('catalog.nav')
 
-                        <!-- section-4 -->
+            <!-- section-4 -->
                 <div class="blog-section-post">
                     <div class="content content-blog">
                         <div class="catalog-internal">

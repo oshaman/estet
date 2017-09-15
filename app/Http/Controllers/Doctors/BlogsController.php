@@ -129,15 +129,19 @@ class BlogsController extends DocsController
      */
     public function tag($tag = null)
     {
+        $this->css = '
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi.css">
+                <link rel="stylesheet" type="text/css" href="' . asset('css') . '/statyi-media.css">
+            ';
+        $this->sidebar = $this->getSidebar();
+
         $this->content = Cache::remember('blog-tag-'.$tag->id, 15, function () use ($tag) {
             $blogs = $this->blog_rep->getByTag($tag->id);
 
             $cats = $this->cat_rep->get(['name', 'alias']);
-            $tags = $this->tag_rep->get(['name', 'alias']);
-            $this->sidebar = $this->getSidebar();
 
-            return view('doc.tags')
-                ->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tags' => $tags])
+            return view('doc.blog_tags')
+                ->with(['blogs' => $blogs, 'sidebar' => $this->sidebar, 'cats' => $cats, 'tag' => $tag])
                 ->render();
         });
         return $this->renderOutput();

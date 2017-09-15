@@ -38,7 +38,6 @@ class ArticlesController extends Controller
         CategoriesRepository $cat_rep
     )
     {
-        Cache::flush();
         $this->a_rep = $repository;
         $this->adv_rep = $adv;
         $this->seo_rep = $seo_rep;
@@ -90,6 +89,7 @@ class ArticlesController extends Controller
 
     public function show($article=null)
     {
+        Cache::flush();
         $this->js = '
             <script src="' . asset('js') . '/libs/jquery.mCustomScrollbar.concat.min.js"></script>
             <script src="' . asset('js') . '/patient.js"></script>

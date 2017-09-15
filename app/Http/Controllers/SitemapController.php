@@ -36,6 +36,7 @@ class SitemapController extends MainController
             \Log::info('Карта сайта обновлена: ' . date("d-m-Y H:i"));
             return $vars;
         });
+
         $this->content = view('sitemap.content')->with(['vars' => $sitemap, 'sidebar' => $this->sidebar])->render();
         return true;
     }
@@ -45,8 +46,6 @@ class SitemapController extends MainController
      */
     public function show()
     {
-        Cache::flush();
-        Cache::store('file')->flush();
         $this->title = 'Sitemap';
 
         $this->index();

@@ -1,4 +1,4 @@
-@if($articles)
+@if(!empty($articles))
     @foreach($articles as $article)
         <div class="row">
             <h2>{{ $article->title }}</h2>

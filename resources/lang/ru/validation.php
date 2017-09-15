@@ -65,7 +65,7 @@ return [
         'array'   => 'The :attribute must have at least :min items.',
     ],
     'not_in'               => 'Выбранное поле :attribute не является корректным.',
-    'numeric'              => 'The :attribute must be a number.',
+    'numeric' => 'Значение поля :attribute должно быть числом.',
     'present'              => 'The :attribute field must be present.',
     'regex'                => 'Недопустимые символы в поле :attribute.',
     'required'             => 'Поле :attribute обязательно к заполнению.',

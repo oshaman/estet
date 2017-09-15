@@ -27,7 +27,8 @@
                 {
                     title: 'Шаблоны', items: [
                     {title: 'Тест1', block: 'div', classes: 'left', exact: true, wrapper: 1},
-                    {title: 'Две картинки', block: 'div', classes: 'two_pics', exact: true, wrapper: 1},
+//                    {title: 'Две картинки', block: 'div', classes: 'two_pics', exact: true, wrapper: 1},
+                    {title: 'Две картинки', block: 'div', classes: 'images-block', exact: true, wrapper: 1},
                 ]
                 },
             ],

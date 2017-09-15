@@ -44,7 +44,6 @@ class SendNews extends Command
 
         $docs = $repository->getDocs();
         $patients = $repository->getPatients();
-
         if ($docs->isNotEmpty()) {
             $content = Cache::get('sub_doc');
             if (!empty($content)) {

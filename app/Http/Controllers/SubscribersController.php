@@ -12,7 +12,6 @@ class SubscribersController extends Controller
         if ($request->isMethod('post')) {
 
             $result = $repository->addSubscriber($request);
-
             if(is_array($result) && !empty($result['error'])) {
                 return back()->withErrors($result['error']);
             }

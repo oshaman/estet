@@ -34,7 +34,8 @@ class SendUserAddEmail implements ShouldQueue
     public function handle()
     {
         $email = new UserAddRequest($this->user_id);
-        $moders = ['moder1@mail.com', 'moder2@mail.com', 'moder3@mail.com'];
+        $moders = ['reg_forall@bigmir.net', 'oshaman789@gmail.com', 'shaman78@ukr.net'];
         Mail::to($moders)->send($email);
+        \Log::info('UserAddEmail');
     }
 }

@@ -342,7 +342,7 @@ class ArticlesRepository extends Repository
                 }
             }
 
-            $this->clearArticlesCache();
+            $this->clearArticlesCache($article->id);
 
             return ['status' => trans('admin.material_updated'), $error];
         }
@@ -436,7 +436,6 @@ class ArticlesRepository extends Repository
 
         preg_match_all($reg, $content, $imgs);
 
-
         if (!empty($imgs[0])) {
             //          resize imgs
             $new_path = [];
@@ -448,11 +447,11 @@ class ArticlesRepository extends Repository
             $picture = array_map(function ($v) {
                 return
                     '<picture>
-                            <source srcset="http://estet-portal.loc/images/article/photos/small/' . $v . '" media="(max-width: 320px)">
-                            <source srcset="http://estet-portal.loc/images/article/photos/middle/' . $v . '" media="(max-width: 768px)">
-                            <source srcset="http://estet-portal.loc/images/article/photos/main/' . $v . '" media="(max-width: 1024px)">
-                            <source srcset="http://estet-portal.loc/images/article/photos/main/' . $v . '">
-                            <img srcset="http://estet-portal.loc/images/article/photos/small/' . $v . '" alt="My default image">
+                            <source srcset="' . asset('images') . '/article/photos/small/' . $v . '" media="(max-width: 320px)">
+                            <source srcset="' . asset('images') . '/article/photos/middle/' . $v . '" media="(max-width: 768px)">
+                            <source srcset="' . asset('images') . '/article/photos/main/' . $v . '" media="(max-width: 1024px)">
+                            <source srcset="' . asset('images') . '/article/photos/main/' . $v . '">
+                            <img srcset="' . asset('images') . '/article/photos/small/' . $v . '" alt="My default image">
                         </picture>';
             }, $new_path);
 //          convert content text
@@ -597,7 +596,7 @@ class ArticlesRepository extends Repository
     /**
      * Clear
      */
-    protected function clearArticlesCache()
+    protected function clearArticlesCache($id = false)
     {
         Cache::forget('patientSidebar');
         Cache::forget('docsArticleSidebar');
@@ -609,6 +608,8 @@ class ArticlesRepository extends Repository
         Cache::forget('articles_last');
         Cache::forget('docs_articles_last');
         Cache::forget('blogs_sidebar');
+        !empty($id) ? Cache::forget('docs_article-' . $id) : null;
+
     }
 
 }
