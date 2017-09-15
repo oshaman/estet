@@ -91,7 +91,7 @@
                     <a class="link-img" href="{{ route('doctors', $articles['popular'][0]->alias) }}" rel="nofollow">
                         <img src="{{ asset('/images/article/middle').'/'.$articles['popular'][0]->path }}"
                              alt="{{ $articles['popular'][0]->alt }}" title="{{ $articles['popular'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['popular'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>
@@ -234,7 +234,7 @@
                         <img src="{{ asset('/images/article/middle').'/'.$articles['cosmetology'][0]->path }}"
                              alt="{{ $articles['cosmetology'][0]->alt }}"
                              title="{{ $articles['cosmetology'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['cosmetology'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>
@@ -339,7 +339,7 @@
                         <img src="{{ asset('/images/article/middle').'/'.$articles['dermatology'][0]->path }}"
                              alt="{{ $articles['dermatology'][0]->alt }}"
                              title="{{ $articles['dermatology'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['dermatology'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>
@@ -443,7 +443,7 @@
                         <img src="{{ asset('/images/article/middle').'/'.$articles['plastic'][0]->path }}"
                              alt="{{ $articles['plastic'][0]->alt }}"
                              title="{{ $articles['plastic'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['plastic'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>
@@ -547,7 +547,7 @@
                         <img src="{{ asset('/images/article/middle').'/'.$articles['stomatology'][0]->path }}"
                              alt="{{ $articles['stomatology'][0]->alt }}"
                              title="{{ $articles['stomatology'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['stomatology'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>

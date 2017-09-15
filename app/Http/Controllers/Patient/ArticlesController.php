@@ -47,6 +47,7 @@ class ArticlesController extends Controller
 
     public function index()
     {
+        Cache::flush();
         $this->content = Cache::remember('main', 60, function() {
 
             $articles = [
@@ -89,7 +90,6 @@ class ArticlesController extends Controller
 
     public function show($article=null)
     {
-        Cache::flush();
         $this->js = '
             <script src="' . asset('js') . '/libs/jquery.mCustomScrollbar.concat.min.js"></script>
             <script src="' . asset('js') . '/patient.js"></script>

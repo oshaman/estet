@@ -132,7 +132,7 @@ class EventsController extends DocsController
             ['stop', '>=', date('Y-m-01', mktime(0, 0, 0, $month, 1, $year))],
             ['start', '<=', date('Y-m-t', mktime(0, 0, 0, $month, 1, $year))],
         ];
-        dd($where1);
+//        dd($where1);
 
         $calendar = $this->repository->get(['title', 'stop', 'start'], false, false, $where1, false, ['logo']);
         $events = $this->repository->getWithoutPrems(true, $where, $prems_ids, false, $where_in);

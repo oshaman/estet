@@ -91,7 +91,7 @@
                     <a class="link-img" href="{{ route('articles', $articles['popular'][0]->alias) }}" rel="nofollow">
                         <img src="{{ asset('/images/article/middle').'/'.$articles['popular'][0]->path }}"
                              alt="{{ $articles['popular'][0]->alt }}" title="{{ $articles['popular'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['popular'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>
@@ -334,7 +334,7 @@
                         <img src="{{ asset('/images/article/middle').'/'.$articles['medicine'][0]->path }}"
                              alt="{{ $articles['medicine'][0]->alt }}"
                              title="{{ $articles['medicine'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['medicine'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>
@@ -565,7 +565,7 @@
                         <img src="{{ asset('/images/article/middle').'/'.$articles['stomatology'][0]->path }}"
                              alt="{{ $articles['stomatology'][0]->alt }}"
                              title="{{ $articles['stomatology'][0]->img_title }}">
-                        <div class="views">{{ $article->view }}</div>
+                        <div class="views">{{ $articles['stomatology'][0]->view }}</div>
                     </a>
                     <div class="title-time">
                         <time>

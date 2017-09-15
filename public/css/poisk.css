@@ -1,7 +1,6 @@
 .content-vnutrennaya {
   margin: 3.2% 0 0 0;
 }
-
 input.checkbox {
   border: 20px;
 }
@@ -39,7 +38,6 @@ input.checkbox {
   display: inline-block;
   line-height: 23px;
 }
-
 .concurrences-line-1 p {
   margin: 0 0 2% 0;
   font-size: 36px;
@@ -562,7 +560,6 @@ footer .social a {
   -ms-flex-direction: column;
   flex-direction: column;
 }
-
 .blog-categories .select input [type=checkbox] {
   vertical-align: top;
   width: 12px;
@@ -573,17 +570,14 @@ footer .social a {
 .blog-categories .select input [type=checkbox] + label {
   cursor: pointer;
 }
-
 .blog-categories .select input[type=checkbox]:not(checked) {
   position: absolute;
   opacity: 0;
 }
-
 .blog-categories .select input[type=checkbox]:not(checked) + label {
   position: relative;
   padding: 0 24px 0 29px;
 }
-
 .blog-categories .select input[type=checkbox]:not(checked) + label:before {
   content: '';
   position: absolute;
@@ -595,7 +589,6 @@ footer .social a {
   border-radius: 50%;
   background: #fff;
 }
-
 .blog-categories .select input[type=checkbox]:not(checked) + label:after {
   content: '';
   position: absolute;
@@ -609,36 +602,28 @@ footer .social a {
   -webkit-transition: all 0.2s;
   transition: all 0.2s;
 }
-
 .blog-categories .select-blue input[type=checkbox]:not(checked) + label:after {
   background: #455ea7;
 }
-
 .blog-categories .select-black input[type=checkbox]:not(checked) + label:after {
   background: #202020;
 }
-
 .blog-categories .select input[type=checkbox]:checked + label:after {
   opacity: 1;
 }
-
 .horoscope .content-aside-main .content {
   margin-top: 43px;
 }
-
 .horoscope .content-aside-main .articles-vertical {
   margin: 0 0 65px 0;
 }
-
 .horoscope .hrp .icons-img {
   margin: 5px 0 29px 0;
 }
-
 .horoscope .aside-block .form-wrap {
   margin: 27.6% 0;
   padding: 13% 9.6%;
 }
-
 .select-kategorii {
   display: -webkit-box;
   display: -webkit-flex;
